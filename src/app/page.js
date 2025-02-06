@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 
 import Link from "next/link";
 import Image from "next/image";
-import { HomeCarousel } from "@/components/carousel";
+import { HomeCarousel } from "@/components/HomeCarousel";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
               objectFit="cover"
               objectPosition="center"
               priority
-              
+
               /* Belangrijk: voeg onderstaande classes toe */
               className="transition-transform duration-[50000ms] ease-out group-hover:scale-110"
             />
