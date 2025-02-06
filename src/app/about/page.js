@@ -27,8 +27,9 @@ export default function CVWebsite() {
         <Header />
         
         <main className="px-6 pb-24 text-center">
-          <div className="relative w-full mx-auto py-10 bg-black bg-opacity-30 text-white shadow-lg">
-            <h2 className="text-2xl font-bold">Over mij</h2>
+        {/* <div className="relative w-full mx-auto py-10 bg-gradient-to-r from-blue-500 via-purple-600 to-black text-white shadow-lg"> */}
+        <div className="relative w-full mx-auto py-10 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+        <h2 className="text-2xl font-bold">Over mij</h2>
 
             <div className="relative w-full min-h-[200px] overflow-hidden">
               <div
@@ -94,23 +95,16 @@ export default function CVWebsite() {
             <h3 className="font-semibold text-gray-800 mb-1">Folder Bezorger</h3>
             <p className="italic text-gray-700 mb-1">Zuna | 2017- 2021</p>
             <p className="text-gray-600 mb-5">
-              Als folderbezorger van mijn elfde tot mijn vijftiende leerde ik
-              verantwoordelijkheid en communicatieve vaardigheden, wat een
-              solide basis vormde voor mijn latere werkervaring.
+              Als folderbezorger van mijn elfde tot vijftiende leerde ik omgaan met verantwoordelijkheid en beter communiceren.
             </p>
             <h3 className="font-semibold text-gray-800 mb-1">SuperMarkt Medewerker</h3>
             <p className="italic text-gray-700 mb-1">NettoRama Rijssen | 2021 - 2024</p>
             <p className="text-gray-600 mb-5">
-              Gestart als vakkenvuller bij NettoRama, evalueerde mijn rol naar
-              hoofd schoonmaker en vakkenvuller. Deze ervaring in de
-              supermarkt heeft mijn teamwork, multitasken en
-              aanpassingsvermogen versterkt, waardoor ik in een dynamische
-              werkomgeving goed kan functioneren.
+            Begonnen als vakkenvuller en later werd ik hoofd schoonmaker. Ik heb hier veel geleerd over samenwerken, multitasken en werken in een drukke omgeving.
             </p>
             <p className="italic text-gray-700 mb-1">Lidl Nijverdal | 2024 - heden</p>
             <p className="text-gray-600 mb-5">
-              Met mijn eerdere ervaring bij NettoRama Rijssen, was ik goed en snel ingewerkt bij Lidl Nijverdal. 
-              Hierdoor kon ik nieuwe uitdagingen aangaan zoals kassa, groente, etc.
+            Door mijn ervaring bij NettoRama kon ik hier snel wennen. Ik doe nu verschillende taken zoals kassa, groenten etc.
             </p>
             <h2 className="text-2xl font-bold text-gray-800 mb-5 pt-6">vaardigheden</h2>
             <h3 className="font-semibold text-gray-800 mb-1">Creativiteit</h3>
