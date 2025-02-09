@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -18,4 +23,22 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: scroll-left 20s linear infinite;
+  /* 15s is je snelheid; pas gerust aan */
+}
+
+.marquee-track:hover {
+  animation-play-state: paused; /* optioneel pauzeren bij hover */
 }
