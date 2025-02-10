@@ -434,33 +434,33 @@ export default function Home() {
               Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
             </p>
           </div>
-          <form className="bg-gray-900 border border-purple-500 rounded p-6 flex-1">
+          <form className="bg-gray-900 border border-purple-500 rounded p-6 flex-1 w-full">
             <div className="flex flex-col gap-4 mb-4">
-              <label className="text-sm font-medium text-gray-400">
+              <label className="text-sm font-medium text-gray-400 w-full">
                 Naam
                 <input
                   type="text"
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2"
+                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
                 />
               </label>
-              <label className="text-sm font-medium text-gray-400">
+              <label className="text-sm font-medium text-gray-400 w-full">
                 Email
                 <input
                   type="email"
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2"
+                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
                 />
               </label>
-              <label className="text-sm font-medium text-gray-400">
+              <label className="text-sm font-medium text-gray-400 w-full">
                 Bericht
                 <textarea
                   rows={4}
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2"
+                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
                 ></textarea>
               </label>
             </div>
             <button
               type="submit"
-              className="bg-purple-600 text-white px-6 py-2 rounded font-medium hover:bg-purple-500 transition"
+              className="bg-purple-600 text-white px-6 py-2 rounded font-medium hover:bg-purple-500 transition w-full md:w-auto"
             >
               Verzend
             </button>
