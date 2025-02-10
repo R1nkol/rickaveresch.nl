@@ -428,7 +428,7 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row items-start gap-8">
           <div className="flex-1">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              Get <span className="text-purple-400">In Touch</span>
+              Kom <span className="text-purple-400">In Contact</span>
             </h2>
             <p className="text-gray-300 mb-6 max-w-lg">
               Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!

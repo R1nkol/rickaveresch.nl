@@ -2,7 +2,7 @@ import { Youtube, Instagram, Github } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="mt-8 py-6 text-sm text-gray-600 border-t border-gray-800 flex justify-between items-center px-4 rounded mx-auto max-w-7xl">
+    <footer className="mt-8 py-6 text-sm text-gray-500 border-t border-gray-700 flex justify-between items-center px-4 rounded mx-auto max-w-7xl">
     {/* <footer className="py-6 text-center text-gray-500 text-sm border-t border-gray-800"> */}
 
       <p>© {new Date().getFullYear()} door Rick Averesch.</p>
