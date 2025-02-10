@@ -35,10 +35,19 @@ body {
 }
 
 .marquee-track {
-  animation: scroll-left 20s linear infinite;
-  /* 15s is je snelheid; pas gerust aan */
+  animation: scroll-left 25s linear infinite;
 }
 
 .marquee-track:hover {
   animation-play-state: paused; /* optioneel pauzeren bij hover */
+}
+
+@keyframes scroll {
+  0% { opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0; }
+}
+
+.animate-scroll {
+  animation: scroll 2.2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
 }

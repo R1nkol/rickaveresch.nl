@@ -1,7 +1,7 @@
 "use client";
 
-import AnimatedBackground from "@/components/AnimatedBackground";
-
+import RainBackground from "@/components/RainBackground";
+import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -11,12 +11,12 @@ import Link from "next/link";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Selecteer alle secties die een id hebben
+    // Selecteer alle secties met een id
     const sections = document.querySelectorAll("section[id]");
 
-    // Maak een nieuwe observer aan
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -31,27 +31,40 @@ export default function Home() {
 
     sections.forEach((section) => observer.observe(section));
 
-    // Cleanup: unobserve alle secties bij unmount
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, []);
 
-  // De items voor de skills sectie (zoals in jouw originele code)
+  // Detecteer of de gebruiker op een mobiel scherm zit (bijv. smaller dan 768px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Directe check bij mount
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // De items voor de skills sectie
   const items = [
     { src: "/icons/html.webp", label: "HTML5" },
     { src: "/icons/css.webp", label: "CSS3" },
     { src: "/icons/javascript.svg", label: "JavaScript" },
-    { src: "/icons/react.svg", label: "React" },
+    { src: "/icons/laravel.webp", label: "Laravel" },
+    { src: "/icons/c_sharp.webp", label: "C#" },
     { src: "/icons/nextdotjs.svg", label: "Next.js" },
+    { src: "/icons/react.svg", label: "React" },
     { src: "/icons/tailwind.webp", label: "Tailwind CSS" },
     { src: "/icons/bootstrap.svg", label: "Bootstrap" },
     { src: "/icons/php.webp", label: "PHP" },
-    { src: "/icons/laravel.webp", label: "Laravel" },
     { src: "/icons/mongodb.webp", label: "MongoDB" },
-    { src: "/icons/wordpress.svg", label: "WordPress" },
     { src: "/icons/MySQL.webp", label: "MySQL" },
     { src: "/icons/godot.webp", label: "Godot" },
+    { src: "/icons/wordpress.svg", label: "WordPress" },
   ];
 
   return (
@@ -64,16 +77,9 @@ export default function Home() {
         id="home"
         className="relative flex flex-col bg-gray-950 items-center justify-center h-screen text-center px-4"
       >
+        {/* <RainBackground /> */}
+        <AnimatedBallsBackground />
 
-        <AnimatedBackground />
-        
-        <Image
-          src="/MyPicture.jpg"
-          alt="Hero Background"
-          fill
-          className="object-cover object-center -z-10 opacity-60"
-        />
-        {/* <div className="absolute inset-0 bg-black/50 -z-10"></div> */}
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
             Rick <span className="text-purple-400">Averesch</span>
@@ -96,9 +102,25 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
+        {/* Scroll-indicator */}
+        <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10"
+          onClick={() =>
+            document
+              .getElementById("about")
+              .scrollIntoView({ behavior: "smooth" })
+          }
+        >
+          <div className="relative w-7 h-12">
+            <div className="w-[2px] px-3 py-2 h-8 border-2 border-white rounded-full opacity-75 box-content">
+              <div className="w-[2px] h-2 bg-white rounded-md animate-scroll"></div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* ABOUT SECTION */}
+      {/* OVER MIJ SECTION */}
       <section
         id="about"
         className="min-h-[60vh] py-20 px-4 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8"
@@ -108,13 +130,15 @@ export default function Home() {
             About <span className="text-purple-400">Me</span>
           </h2>
           <p className="text-gray-300">
-          Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan ROC van Twente, Almelo de Sumpel. 
-          Tijdens mijn opleiding leer ik HTML, CSS, JavaScript, PHP, MySQL en C#, en werk ik met Laravel, Next.js, 
-          Tailwind CSS en Bootstrap om webapplicaties te ontwikkelen.
+            Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan
+            ROC van Twente, Almelo de Sumpel. Tijdens mijn opleiding leer ik HTML, CSS,
+            JavaScript, PHP, MySQL en C#, en werk ik met Laravel, Next.js, Tailwind CSS en
+            Bootstrap om webapplicaties te ontwikkelen.
           </p>
           <p className="text-gray-300">
-          Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript. 
-          Ik vind het leuk om nieuwe dingen te leren en mezelf continu uit te dagen door eigen projecten te maken en te experimenteren met verschillende technologieën.
+            Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript.
+            Ik vind het leuk om nieuwe dingen te leren en mezelf continu uit te dagen door
+            eigen projecten te maken en te experimenteren met verschillende technologieën.
           </p>
           <Link
             href="#contact"
@@ -134,8 +158,6 @@ export default function Home() {
             />
           </div>
         </div>
-
-
       </section>
 
       {/* SERVICES / SPECIALITEITEN SECTION */}
@@ -162,7 +184,8 @@ export default function Home() {
             </svg>
             <h3 className="text-xl font-semibold mb-2">Backend Development</h3>
             <p className="text-gray-300">
-              Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel, MySQL en C#.
+              Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel,
+              MySQL en C#.
             </p>
           </div>
           {/* Game Development */}
@@ -184,7 +207,8 @@ export default function Home() {
             </svg>
             <h3 className="text-xl font-semibold mb-2">Game Development</h3>
             <p className="text-gray-300">
-              Als hobby naast mijn studie ben ik bezig met het maken van games in Godot met GDScript.
+              Als hobby naast mijn studie ben ik bezig met het maken van games in Godot
+              met GDScript.
             </p>
           </div>
         </div>
@@ -200,34 +224,49 @@ export default function Home() {
         </p>
 
         <div className="relative overflow-hidden w-full h-32 flex items-center">
-          <div className="marquee-track flex" style={{ width: "300%" }}>
-            <div className="flex w-1/2 justify-between">
+          {/* Op desktop gebruiken we twee sets (voor een vloeiende marquee), op mobiel maar één */}
+          <div
+            className={`marquee-track flex ${
+              isMobile ? "w-full" : "w-[300%]"
+            }`}
+          >
+            <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between`}>
               {items.map((item, idx) => (
                 <div
                   key={`set1-${idx}`}
                   className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
                 >
-                  <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
+                  <img
+                    src={item.src}
+                    alt={item.label}
+                    className="h-8 w-8 object-contain"
+                  />
                   <p className="mt-2 text-sm cursor-default">{item.label}</p>
                 </div>
               ))}
             </div>
-            <div className="flex w-1/2 justify-between">
-              {items.map((item, idx) => (
-                <div
-                  key={`set2-${idx}`}
-                  className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
-                >
-                  <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
-                  <p className="mt-2 text-sm cursor-default">{item.label}</p>
-                </div>
-              ))}
-            </div>
+            {!isMobile && (
+              <div className="flex w-1/2 justify-between">
+                {items.map((item, idx) => (
+                  <div
+                    key={`set2-${idx}`}
+                    className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
+                  >
+                    <img
+                      src={item.src}
+                      alt={item.label}
+                      className="h-8 w-8 object-contain"
+                    />
+                    <p className="mt-2 text-sm cursor-default">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* RECENT PROJECTS SECTION */}
+      {/* RECENTE PROJECTS SECTION */}
       <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-center text-4xl font-bold mb-4">
           Recente <span className="text-purple-400">Projecten</span>
@@ -236,80 +275,83 @@ export default function Home() {
           Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
         </p>
 
-        {/* Altijd 2 kolommen, ook op mobiele schermen */}
         <div className="grid grid-cols-2 gap-8">
           {/* Project card 1 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-          <Image
+            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
+              <Image
                 src="/Images/CyberBox.png"
                 alt="Project 1"
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                className="object-cover object-center transition-transform duration-500 hover:scale-110"
               />
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold text-white">CyberBox</h3>
               <p className="text-gray-300 mt-2">
-                Mijn eerste grote project met Godot. 
+                Mijn eerste grote project met Godot.
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href=""
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+              <div className="mt-4 flex justify-between items-center">
+                <div className="flex flex-wrap gap-2">
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    Godot
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    GDScript
+                  </div>
+                </div>
+                <a
+                  href="/projects/cyberbox"
+                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
                 >
-                  Godot
-                </Link>
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
-                >
-                  GDScript
-                </Link>
+                  Meer info →
+                </a>
               </div>
             </div>
           </div>
 
           {/* Project card 2 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-          <Image
+            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
+              <Image
                 src="/Images/CaveGame.png"
-                alt="Project 2"
+                alt="Project 1"
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
-                />
+                className="object-cover object-center transition-transform duration-500 hover:scale-110"
+              />
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold text-white">Cave Game</h3>
               <p className="text-gray-300 mt-2">
                 Mijn meest recente project met Godot.
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+              <div className="mt-4 flex justify-between items-center">
+                <div className="flex flex-wrap gap-2">
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    Godot
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    GDScript
+                  </div>
+                </div>
+                <a
+                  href="/projects/cavegame"
+                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
                 >
-                  Godot
-                </Link>
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
-                >
-                  GDScript
-                </Link>
+                  Meer info →
+                </a>
               </div>
             </div>
           </div>
 
           {/* Project card 3 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
+            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
               <Image
                 src="/Images/EventPlay.png"
-                alt="Project 3"
+                alt="Project 1"
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                className="object-cover object-center transition-transform duration-500 hover:scale-110"
               />
             </div>
             <div className="p-4">
@@ -317,58 +359,66 @@ export default function Home() {
               <p className="text-gray-300 mt-2">
                 Mijn eerste solo project met Laravel.
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+              <div className="mt-4 flex justify-between items-center">
+                <div className="flex flex-wrap gap-2">
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    Laravel
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    Tailwind
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    MySQL
+                  </div>
+                </div>
+                <a
+                  href="/projects/eventplay"
+                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
                 >
-                  Laravel
-                </Link>
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
-                >
-                  MySQL
-                </Link>
+                  Meer info →
+                </a>
               </div>
             </div>
           </div>
 
           {/* Project card 4 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
+            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
               <Image
                 src="/Images/ZuivelStad.png"
-                alt="Project 4"
+                alt="Project 1"
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                className="object-cover object-center transition-transform duration-500 hover:scale-110"
               />
             </div>
             <div className="p-4">
               <h3 className="text-xl font-semibold text-white">ZuivelStad</h3>
               <p className="text-gray-300 mt-2">
-                Mijn eerste website gemaakt in een groepje.
+                Mijn eerste website gemaakt in een groep.
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+              <div className="mt-4 flex justify-between items-center">
+                <div className="flex flex-wrap gap-2">
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    HTML
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    CSS
+                  </div>
+                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
+                    JavaScript
+                  </div>
+                </div>
+                <a
+                  href="/projects/zuivelstad"
+                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
                 >
-                  HTML
-                </Link>
-                <Link
-                  href="#"
-                  className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
-                >
-                  CSS
-                </Link>
+                  Meer info →
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-
 
       {/* CONTACT SECTION */}
       <section
@@ -381,8 +431,7 @@ export default function Home() {
               Get <span className="text-purple-400">In Touch</span>
             </h2>
             <p className="text-gray-300 mb-6 max-w-lg">
-              Have a project in mind, or just want to say hi? Fill in the form and
-              I&apos;ll get back to you as soon as possible.
+              Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
             </p>
           </div>
           <form className="bg-gray-900 border border-purple-500 rounded p-6 flex-1">
@@ -418,7 +467,6 @@ export default function Home() {
           </form>
         </div>
       </section>
-
 
       {/* FOOTER */}
       <Footer />
