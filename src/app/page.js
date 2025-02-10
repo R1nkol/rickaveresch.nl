@@ -275,7 +275,7 @@ export default function Home() {
           Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
         </p>
 
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Project card 1 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
             <div className="relative w-full aspect-video overflow-hidden rounded-lg">

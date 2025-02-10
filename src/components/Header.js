@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
 
   useEffect(() => {
     // Selecteer alle secties die een id hebben
@@ -33,68 +35,70 @@ export default function Header() {
 
   return (
     <header className="w-full fixed top-0 left-0 bg-black bg-opacity-80 z-50">
-    <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      {/* Logo of naam */}
-      <Link href="/" className="text-2xl font-bold uppercase hover:opacity-80">
-        RickAveresch
-      </Link>
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo of naam */}
+        <Link href="/" className="text-2xl font-bold uppercase hover:opacity-80">
+          RickAveresch
+        </Link>
 
-      {/* Menu-items (desktop) */}
-            <nav className="hidden md:flex gap-6 text-sm">
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "home" ? "font-bold text-purple-400" : ""}`}
-              href="#home"
+        {/* Menu-items alleen weergeven op de hoofdpagina */}
+        {pathname === "/" && (
+          <nav className="hidden md:flex gap-6 text-sm">
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "home" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
             >
               Home
-            </Link>
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "about" ? "font-bold text-purple-400" : ""}`}
-              href="#about"
+            </div>
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "about" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
             >
               About
-            </Link>
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "services" ? "font-bold text-purple-400" : ""}`}
-              href="#services"
+            </div>
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "services" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
             >
               Services
-            </Link>
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "skills" ? "font-bold text-purple-400" : ""}`}
-              href="#skills"
+            </div>
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "skills" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" })}
             >
               Skills
-            </Link>
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "projects" ? "font-bold text-purple-400" : ""}`}
-              href="#projects"
+            </div>
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "projects" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             >
               Projects
-            </Link>
-            <Link
-              className={`hover:text-purple-400 ${activeSection === "contact" ? "font-bold text-purple-400" : ""}`}
-              href="#contact"
+            </div>
+            <div
+              className={`cursor-pointer hover:text-purple-400 ${activeSection === "contact" ? "font-bold text-purple-400" : ""}`}
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             >
               Contact
-            </Link>
-            </nav>
+            </div>
+          </nav>
+        )}
 
-            {/* Button voor mobile-menu (niet uitgewerkt) */}
-      <button className="md:hidden px-3 py-2 rounded hover:bg-white/10">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          stroke="white"
-          fill="none"
-          strokeWidth="2"
-        >
-          <line x1="4" y1="6" x2="20" y2="6" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="18" x2="20" y2="18" />
-        </svg>
-      </button>
-    </div>
-  </header>
+        {/* Button voor mobile-menu (niet uitgewerkt) */}
+        <button className="md:hidden px-3 py-2 rounded hover:bg-white/10">
+          {/* <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            stroke="white"
+            fill="none"
+            strokeWidth="2"
+          >
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="18" x2="20" y2="18" />
+          </svg> */}
+        </button>
+      </div>
+    </header>
   );
 }
