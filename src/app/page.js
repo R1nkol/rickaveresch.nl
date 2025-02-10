@@ -126,7 +126,7 @@ export default function Home() {
         <div className="flex-1 flex justify-center group">
           <div className="rounded-xl shadow-md overflow-hidden">
             <Image
-              src="/MyPicture.jpg"
+              src="/Images/MyPicture.jpg"
               alt="Profile"
               width={400}
               height={400}
@@ -242,7 +242,7 @@ export default function Home() {
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
           <div className="relative w-full aspect-video overflow-hidden rounded-lg">
           <Image
-                src="/images/cyberbox.png"
+                src="/Images/CyberBox.png"
                 alt="Project 1"
                 fill
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
@@ -274,7 +274,7 @@ export default function Home() {
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
           <div className="relative w-full aspect-video overflow-hidden rounded-lg">
           <Image
-                src="/images/cavegame.png"
+                src="/Images/CaveGame.png"
                 alt="Project 2"
                 fill
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
@@ -304,9 +304,9 @@ export default function Home() {
 
           {/* Project card 3 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full h-48">
+          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
               <Image
-                src="/images/project3.jpg"
+                src="/Images/EventPlay.png"
                 alt="Project 3"
                 fill
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
@@ -336,9 +336,9 @@ export default function Home() {
 
           {/* Project card 4 */}
           <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full h-48">
+          <div className="relative w-full aspect-video overflow-hidden rounded-lg">
               <Image
-                src="/images/project4.jpg"
+                src="/Images/ZuivelStad.png"
                 alt="Project 4"
                 fill
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
