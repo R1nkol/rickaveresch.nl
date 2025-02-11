@@ -1,0 +1,194 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://ChiKareGo2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/Options.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Options" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -44.0
+margin_bottom = 44.0
+custom_constants/separation = 25
+
+[node name="VignetteContainter" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 0, 19 )
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/VignetteContainter"]
+margin_left = 433.0
+margin_top = 2.0
+margin_right = 493.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 1 )
+text = "Vignette:"
+
+[node name="VignetteSlider" type="HSlider" parent="VBoxContainer/VignetteContainter"]
+margin_left = 497.0
+margin_right = 797.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 300, 0 )
+step = 0.001
+
+[node name="ResetVignetteBtn" type="Button" parent="VBoxContainer/VignetteContainter"]
+margin_left = 801.0
+margin_right = 846.0
+margin_bottom = 19.0
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0.490196, 0.490196, 0.490196, 1 )
+custom_colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+text = "Reset"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 44.0
+margin_right = 1280.0
+margin_bottom = 88.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 15.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 596.0
+margin_right = 673.0
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 7 )
+text = "Physics FPS"
+align = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 677.0
+margin_right = 684.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 8 )
+text = "*"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 19.0
+margin_right = 1280.0
+margin_bottom = 44.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Sixth" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 577.0
+margin_right = 612.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 35, 25 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 3 )
+text = "60"
+
+[node name="Ninth" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 622.0
+margin_right = 657.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 35, 25 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 3 )
+disabled = true
+text = "90"
+
+[node name="Third" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 667.0
+margin_right = 702.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 35, 25 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 3 )
+text = "120"
+
+[connection signal="value_changed" from="VBoxContainer/VignetteContainter/VignetteSlider" to="." method="_on_VignetteSlider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/VignetteContainter/ResetVignetteBtn" to="." method="_on_ResetVignetteBtn_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/Sixth" to="." method="_on_Sixth_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/Ninth" to="." method="_on_Ninth_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/HBoxContainer/Third" to="." method="_on_Third_pressed"]

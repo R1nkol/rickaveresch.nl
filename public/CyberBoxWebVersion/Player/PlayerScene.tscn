@@ -17,6 +17,7 @@ mass = 6.25
 physics_material_override = SubResource( 3 )
 continuous_cd = 2
 script = ExtResource( 2 )
+maxspeed = 275
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0.188235, 0.54902, 1, 1 )
