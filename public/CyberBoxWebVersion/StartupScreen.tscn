@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://StartupScreen.gd" type="Script" id=1]
 [ext_resource path="res://Textures/Square.png" type="Texture" id=2]
@@ -42,6 +42,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 64
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
 font_data = ExtResource( 3 )
 
 [node name="StartupScreen" type="Control"]
@@ -113,6 +117,50 @@ margin_right = 758.0
 margin_bottom = 430.0
 custom_fonts/font = SubResource( 4 )
 text = "GameDev"
+
+[node name="WarningLbl" type="Label" parent="CanvasLayer/Intro"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -120.0
+margin_top = 32.0
+margin_right = 120.0
+margin_bottom = 92.0
+custom_fonts/font = SubResource( 4 )
+text = "Warning:"
+align = 1
+
+[node name="InfoLbl" type="Label" parent="CanvasLayer/Intro"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -676.0
+margin_top = -164.0
+margin_right = 676.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 5 )
+text = "Dit is de webversie van mijn game CyberBox. Omdat het een webversie is, 
+zijn de graphics verlaagd om de prestaties te verbeteren.
+
+Houd er rekening mee dat er nog enkele bugs in de game kunnen zitten.
+Mocht je last hebben van framedrops, 
+probeer dan de Physics FPS in de instellingen aan te passen."
+align = 1
+
+[node name="PressLbl" type="Label" parent="CanvasLayer/Intro"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -676.0
+margin_top = -162.0
+margin_right = 676.0
+custom_fonts/font = SubResource( 5 )
+text = "Druk op key om verder te gaan"
+align = 1
 
 [node name="LogoTimer" type="Timer" parent="."]
 wait_time = 2.5

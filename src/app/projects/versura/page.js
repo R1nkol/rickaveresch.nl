@@ -7,26 +7,26 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ProjectDetail() {
-  const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
-  useEffect(() => {
-    if (selectedImage) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [selectedImage]);
+    useEffect(() => {
+      if (selectedImage) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+      }
+    }, [selectedImage]);
 
   const project = {
-    title: "CyberBox",
+    title: "Versura",
     description:
-      "Cyberbox was mijn eerste grote project met Godot, het was een puzzle platformer waarmee ik begon dit project in 2021. Het was een project waar ik veel van heb geleerd, helemaal omdat ik toen ik dit startte nog niet op school zat voor enige vorm van development. Helaas is dit project nooit afgekomen omdat ik gewoon te grote plannen had voor dit project, maar ik ben er nog steeds trots op.",
-    technologies: ["Godot", "GDScript"],
-    heroImage: "/Images/CyberBox.png",
+      "Versura is een project dat ik samen met een vriend, Teun Wolbert, aan het ontwikkelen ben. De taakverdeling is simpel: ik focus me op de game engine en de game mechanics, terwijl Teun verantwoordelijk is voor de backend, zoals de Steam API en de database. Het project is nog in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op vijanden moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van aanvallen. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten. Ons doel is om het project uiteindelijk op Steam uit te brengen.",
+      technologies: ["Godot", "GDScript", "Laravel", "MySQL"],
+    heroImage: "/Images/Versura.png",
     gallery: [
-      "/Images/CyberBox_1.png",
-      "/Images/CyberBox_2.png",
-      "/Images/CyberBox_3.png",
+      "/Images/Versura.png",
+      "/Images/Versura_2.png",
+      "/Images/Versura_3.png",
     ],
   };
 
@@ -79,7 +79,7 @@ export default function ProjectDetail() {
         </div>
 
         {/* Galerij */}
-        <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4">
         {project.gallery.map((imgSrc, index) => (
           <div
             key={index}
@@ -99,16 +99,6 @@ export default function ProjectDetail() {
 
 
         {/* Actieknoppen */}
-        <div className="flex flex-wrap gap-4 mb-6">
-        <a
-            href="/projects/cyberbox/game"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
-            >
-            Speel CyberBox!
-            </a>
-        </div>
         <div className="flex flex-wrap gap-4">
             <Link
                 href="/"
@@ -145,6 +135,7 @@ export default function ProjectDetail() {
           </div>
         </div>
       )}
+
       {/* FOOTER */}
       <Footer />
     </main>

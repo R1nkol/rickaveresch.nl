@@ -4,6 +4,7 @@ import RainBackground from "@/components/RainBackground";
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ProjectCard from "@/components/ProjectCard";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -20,13 +21,13 @@ export default function Home() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Als een sectie voor minstens 60% zichtbaar is, stel die in als actief
+          // Als een sectie voor minstens 25% zichtbaar is, stel die in als actief
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
           }
         });
       },
-      { threshold: 0.6 }
+      { threshold: 0.25 }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -50,7 +51,7 @@ export default function Home() {
   }, []);
 
   // De items voor de skills sectie
-  const items = [
+  const SkillsItems = [
     { src: "/icons/html.webp", label: "HTML5" },
     { src: "/icons/css.webp", label: "CSS3" },
     { src: "/icons/javascript.svg", label: "JavaScript" },
@@ -65,6 +66,61 @@ export default function Home() {
     { src: "/icons/MySQL.webp", label: "MySQL" },
     { src: "/icons/godot.webp", label: "Godot" },
     { src: "/icons/wordpress.svg", label: "WordPress" },
+  ];
+
+  const projects = [
+    {
+      title: "Versura",
+      description: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
+      imageSrc: "/Images/Versura.png",
+      link: "/projects/versura",
+      tags: ["Godot", "GDScript, Laravel, MySQL"],
+      badge: "Nu in ontwikkeling!",
+    },
+    {
+      title: "CyberBox",
+      description: "Mijn eerste uitgebreide project met Godot.",
+      imageSrc: "/Images/CyberBox.png",
+      link: "/projects/cyberbox",
+      tags: ["Godot", "GDScript"],
+      badge: "Speelbare demo!",
+    },
+    {
+      title: "Cave Game",
+      description: "Een 2D-platformer waarin je levels aanpast om grondstoffen te verzamelen.",
+      imageSrc: "/Images/CaveGame.png",
+      link: "/projects/cavegame",
+      tags: ["Godot", "GDScript"],
+    },
+    {
+      title: "Song swipe",
+      description: "Mijn eerste project waarbij ik heb gewerkt met een externe API.",
+      imageSrc: "/Images/EventPlay.png",
+      link: "/projects/eventplay",
+      tags: ["Laravel", "Tailwind", "MySQL"],
+    },
+    {
+      title: "Chat app",
+      description: "Een chatapplicatie ontwikkeld in C# met behulp van ASP.NET.",
+      imageSrc: "/Images/PapenChat.png",
+      link: "/projects/eventplay",
+      tags: ["C#", "ASP.NET", "DotNet"],
+    },
+    {
+      title: "MBO EventPlay",
+      description: "Mijn eerste solo-project waarbij ik gebruik heb gemaakt van Laravel.",
+      imageSrc: "/Images/EventPlay.png",
+      link: "/projects/eventplay",
+      tags: ["Laravel", "Tailwind", "MySQL"],
+    },
+    // {
+    //   title: "ZuivelStad",
+    //   description: "Mijn eerste website gemaakt in een groep.",
+    //   imageSrc: "/Images/ZuivelStad.png",
+    //   link: "/projects/zuivelstad",
+    //   tags: ["HTML", "CSS", "JavaScript"],
+    // },
+    
   ];
 
   return (
@@ -217,7 +273,7 @@ export default function Home() {
       {/* SKILLS & TOOLS SECTION */}
       <section id="skills" className="py-16 px-4 max-w-7xl mx-auto min-h-[35vh]">
         <h2 className="text-center text-4xl font-bold mb-4">
-          Mijn <span className="text-purple-400">Development skills</span>
+        Development <span className="text-purple-400"> skills</span>
         </h2>
         <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
           Alle talen en programma's waar ik ervaring mee heb.
@@ -231,7 +287,7 @@ export default function Home() {
             }`}
           >
             <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between`}>
-              {items.map((item, idx) => (
+              {SkillsItems.map((item, idx) => (
                 <div
                   key={`set1-${idx}`}
                   className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
@@ -247,7 +303,7 @@ export default function Home() {
             </div>
             {!isMobile && (
               <div className="flex w-1/2 justify-between">
-                {items.map((item, idx) => (
+                {SkillsItems.map((item, idx) => (
                   <div
                     key={`set2-${idx}`}
                     className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
@@ -267,156 +323,18 @@ export default function Home() {
       </section>
 
       {/* RECENTE PROJECTS SECTION */}
-      <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
+        <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-center text-4xl font-bold mb-4">
-          Recente <span className="text-purple-400">Projecten</span>
+          Mijn <span className="text-purple-400">Projecten</span>
         </h2>
         <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
           Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Project card 1 */}
-          <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-              <Image
-                src="/Images/CyberBox.png"
-                alt="Project 1"
-                fill
-                className="object-cover object-center transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-white">CyberBox</h3>
-              <p className="text-gray-300 mt-2">
-                Mijn eerste grote project met Godot.
-              </p>
-              <div className="mt-4 flex justify-between items-center">
-                <div className="flex flex-wrap gap-2">
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    Godot
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    GDScript
-                  </div>
-                </div>
-                <a
-                  href="/projects/cyberbox"
-                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
-                >
-                  Meer info →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Project card 2 */}
-          <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-              <Image
-                src="/Images/CaveGame.png"
-                alt="Project 1"
-                fill
-                className="object-cover object-center transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-white">Cave Game</h3>
-              <p className="text-gray-300 mt-2">
-                Mijn meest recente project met Godot.
-              </p>
-              <div className="mt-4 flex justify-between items-center">
-                <div className="flex flex-wrap gap-2">
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    Godot
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    GDScript
-                  </div>
-                </div>
-                <a
-                  href="/projects/cavegame"
-                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
-                >
-                  Meer info →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Project card 3 */}
-          <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-              <Image
-                src="/Images/EventPlay.png"
-                alt="Project 1"
-                fill
-                className="object-cover object-center transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-white">MBO EventPlay</h3>
-              <p className="text-gray-300 mt-2">
-                Mijn eerste solo project met Laravel.
-              </p>
-              <div className="mt-4 flex justify-between items-center">
-                <div className="flex flex-wrap gap-2">
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    Laravel
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    Tailwind
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    MySQL
-                  </div>
-                </div>
-                <a
-                  href="/projects/eventplay"
-                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
-                >
-                  Meer info →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Project card 4 */}
-          <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group">
-            <div className="relative w-full aspect-video overflow-hidden rounded-lg">
-              <Image
-                src="/Images/ZuivelStad.png"
-                alt="Project 1"
-                fill
-                className="object-cover object-center transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-xl font-semibold text-white">ZuivelStad</h3>
-              <p className="text-gray-300 mt-2">
-                Mijn eerste website gemaakt in een groep.
-              </p>
-              <div className="mt-4 flex justify-between items-center">
-                <div className="flex flex-wrap gap-2">
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    HTML
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    CSS
-                  </div>
-                  <div className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white">
-                    JavaScript
-                  </div>
-                </div>
-                <a
-                  href="/projects/zuivelstad"
-                  className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
-                >
-                  Meer info →
-                </a>
-              </div>
-            </div>
-          </div>
+          {projects.map((project) => (
+            <ProjectCard key={project.title} {...project} />
+          ))}
         </div>
       </section>
 
