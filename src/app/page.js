@@ -95,8 +95,8 @@ export default function Home() {
     {
       title: "Song swipe",
       description: "Mijn eerste project waarbij ik heb gewerkt met een externe API.",
-      imageSrc: "/Images/EventPlay.png",
-      link: "/projects/eventplay",
+      imageSrc: "/Images/SongSwipe.png",
+      link: "/projects/songswipe",
       tags: ["Laravel", "Tailwind", "MySQL"],
     },
     {
