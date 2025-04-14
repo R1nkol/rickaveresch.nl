@@ -74,7 +74,7 @@ export default function Home() {
       description: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
       imageSrc: "/Images/Versura.png",
       link: "/projects/versura",
-      tags: ["Godot", "GDScript, Laravel, MySQL"],
+      tags: ["Godot", "GDScript", "Laravel", "MySQL"],
       badge: "Nu in ontwikkeling!",
     },
     {
