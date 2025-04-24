@@ -19,9 +19,12 @@ export default function ProjectDetail() {
 
   const project = {
     title: "Versura",
-    description:
-      "Versura is een project dat ik samen met een vriend, Teun Wolbert, aan het ontwikkelen ben. De taakverdeling is simpel: ik focus me op de game engine en de game mechanics, terwijl Teun verantwoordelijk is voor de backend, zoals de Steam API en de database. Het project is nog in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op vijanden moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van aanvallen. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten. Ons doel is om het project uiteindelijk op Steam uit te brengen.",
-      technologies: ["Godot", "GDScript", "Laravel", "MySQL"],
+    description: [
+      "Versura is een project dat ik samen met een vriend, Teun Wolbert, aan het ontwikkelen ben. De taakverdeling is simpel: ik focus me op de game engine en de game mechanics, terwijl Teun verantwoordelijk is voor de backend, zoals de Steam API en de database.",
+      "Het project is nog in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op enemies moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van de enemies. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten.",
+      "Ons doel is om het project uiteindelijk op Steam uit te brengen."
+    ],
+          technologies: ["Godot", "GDScript", "Laravel", "MySQL"],
     heroImage: "/Images/Versura.png",
     gallery: [
       "/Images/Versura.png",
@@ -58,7 +61,12 @@ export default function ProjectDetail() {
           <h2 className="text-3xl font-bold mb-4 text-center md:text-left">
             Over <span className="text-purple-400">het project</span>
           </h2>
-          <p className="text-gray-300 leading-relaxed">{project.description}</p>
+          {project.description.map((paragraph, index) => (
+            <p key={index} className="text-gray-300 leading-relaxed mb-4">
+              {paragraph}
+            </p>
+          ))}
+
         </div>
 
         {/* Technologieën */}

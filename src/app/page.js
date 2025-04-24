@@ -97,13 +97,13 @@ export default function Home() {
       description: "Mijn eerste project waarbij ik heb gewerkt met een externe API.",
       imageSrc: "/Images/SongSwipe.png",
       link: "/projects/songswipe",
-      tags: ["Laravel", "Tailwind", "MySQL"],
+      tags: ["Laravel", "MySQL", "Spotify API"],
     },
     {
       title: "Chat app",
       description: "Een chatapplicatie ontwikkeld in C# met behulp van ASP.NET.",
       imageSrc: "/Images/PapenChat.png",
-      link: "/projects/eventplay",
+      link: "/projects/chatapp",
       tags: ["C#", "ASP.NET", "DotNet"],
     },
     {

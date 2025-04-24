@@ -18,19 +18,19 @@ export default function ProjectDetail() {
   }, [selectedImage]);
 
   const project = {
-    title: "CyberBox",
+    title: "EventPlay",
     description: [
-      "Cyberbox was mijn eerste grote project met Godot. Het was een puzzle platformer waarmee ik begon in 2021. Het was een physics based puzzle platformer, waarbij je een beetje out of the box moest denken om levels op te lossen om verder te komen in het spel.",
-      "Op dit moment ben ik bezig om de game te recreëren zodat je het in de browser kan spelen. Zo heel ver ben ik daar nog niet mee, maar je kan het eerste level al wel spelen. Zodat je een beetje een idee hebt hoe de game eruit ziet, wat de artstyle is en hoe de mechanics werken.",
-      "Het was een project waar ik veel van heb geleerd, helemaal omdat ik toen ik dit startte nog niet op school zat voor enige vorm van development. Helaas is dit project nooit afgekomen omdat ik gewoon te grote plannen had, maar ik ben er nog steeds trots op."
-    ],
-        technologies: ["Godot", "GDScript"],
-    heroImage: "/Images/CyberBox.png",
-    gallery: [
-      "/Images/CyberBox_1.png",
-      "/Images/CyberBox_2.png",
-      "/Images/CyberBox_3.png",
-    ],
+        "EventPlay was een solo schoolproject en mijn eerste ervaring met het zelfstandig ontwikkelen van een volledige webapplicatie. Het idee achter het project was om een platform te bouwen waarmee scholen sportevenementen konden organiseren, waarbij leerlingen zich konden inschrijven voor verschillende activiteiten.",
+        "Het hoofddoel was om een functionerend systeem te maken met een automatisch gegenereerd bracket-systeem. Leerlingen konden eenvoudig via een bestand worden toegevoegd, in plaats van handmatig invoeren. Naast het standaard bracket-algoritme heb ik ook een extra wedstrijdvorm toegevoegd: een knock-outronde waarbij iedere deelnemer één keer tegen alle anderen speelde. Degene met de meeste overwinningen werd de uiteindelijke winnaar.",
+        "Dit project was voor mij erg leerzaam, vooral omdat ik het volledig zelfstandig moest ontwerpen, bouwen en afronden. Het gaf me een goed beeld van hoe het is om een project van begin tot eind uit te voeren, zonder dat taken onder meerdere mensen verdeeld zijn."
+      ],
+    technologies: ["Laravel", "Tailwind", "MySQL"],
+    heroImage: "/Images/EventPlay.png",
+    // gallery: [
+    //   "/Images/CyberBox_1.png",
+    //   "/Images/CyberBox_2.png",
+    //   "/Images/CyberBox_3.png",
+    // ],
   };
 
   return (
@@ -44,7 +44,7 @@ export default function ProjectDetail() {
             src={project.heroImage}
             alt={project.title}
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-60 object-top"
             />
             <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg mt-16">
@@ -63,9 +63,9 @@ export default function ProjectDetail() {
           </h2>
           {project.description.map((paragraph, index) => (
             <p key={index} className="text-gray-300 leading-relaxed mb-4">
-              {paragraph}
+                {paragraph}
             </p>
-          ))}
+            ))}
 
         </div>
 
@@ -87,7 +87,7 @@ export default function ProjectDetail() {
         </div>
 
         {/* Galerij */}
-        <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 mb-4">
+        {/* <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 mb-4">
         {project.gallery.map((imgSrc, index) => (
           <div
             key={index}
@@ -103,20 +103,10 @@ export default function ProjectDetail() {
             />
           </div>
         ))}
-      </div>
+      </div> */}
 
 
         {/* Actieknoppen */}
-        <div className="flex flex-wrap gap-4 mb-6">
-        <a
-            href="/projects/cyberbox/game"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:block border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
-            >
-            Speel CyberBox!
-            </a>
-        </div>
         <div className="flex flex-wrap gap-4">
             <Link
                 href="/"

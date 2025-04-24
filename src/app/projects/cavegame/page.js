@@ -22,8 +22,10 @@ export default function ProjectDetail() {
     title: "Cave Game",
     // Test om de description op te splitsen door het in een array te zetten
     description: [
-     "Dit is een project waar ik een tijd aan heb gewerkt. Het idee was om een platformer te maken waarin je je een weg door de levels hakt om verder te komen en onderweg resources verzamelt. Ik ben uiteindelijk gestopt met dit project, vooral omdat ik het moeilijk vond om een passende artstyle te vinden waar ik tevreden over was. Rond die tijd begon ik ook aan mijn andere project, Versura, waardoor de focus verschoof. Dit project heeft me wel veel geleerd over de Godot engine, bijvoorbeeld hoe je een inventory systeem kan maken, hoe de speler een level kan hakken (aanpassen) en hoe ik dan die aangepaste levels kan opslaan."
-    ],
+        "Dit is een project waar ik een tijd aan heb gewerkt. Het idee was om een platformer te maken waarin je je een weg door de levels hakt om verder te komen en onderweg resources verzamelt. Ik ben uiteindelijk gestopt met dit project, vooral omdat ik het moeilijk vond om een passende artstyle te vinden waar ik tevreden over was. Rond die tijd begon ik ook aan mijn andere project, Versura, waardoor de focus verschoof.",
+        "Dit project heeft me wel veel geleerd over de Godot engine, bijvoorbeeld hoe je een inventory systeem kan maken, hoe de speler een level kan hakken (een level kan aanpassen in game) en hoe ik dan die aangepaste levels kan opslaan."
+      ],
+      
      technologies: ["Godot", "GDScript"],
     heroImage: "/Images/CaveGame.png",
     gallery: [
@@ -62,10 +64,11 @@ return (
                     Over <span className="text-purple-400">het project</span>
                 </h2>
                 {project.description.map((paragraph, index) => (
-  <p key={index} className="text-gray-300 leading-relaxed mb-4">
-    {paragraph}
-  </p>
-))}            </div>
+                <p key={index} className="text-gray-300 leading-relaxed mb-4">
+                    {paragraph}
+                </p>
+                ))}            
+            </div>
 
             {/* Technologieën */}
             <div className="mb-8 text-center md:text-left">
