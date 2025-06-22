@@ -1,9 +1,12 @@
+// src/components/ProjectCard.js
 import Image from "next/image";
+import PropTypes from "prop-types";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
-    <div className="bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group relative">
-      <div className="relative w-full aspect-video overflow-hidden rounded-lg">
+    <div className="flex flex-col md:flex-row bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group relative">
+      {/* Image Section */}
+      <div className="relative w-full md:w-1/3 aspect-video md:aspect-auto overflow-hidden">
         <Image
           src={imageSrc}
           alt={title}
@@ -11,24 +14,27 @@ export default function ProjectCard({ title, description, imageSrc, link, tags, 
           className="object-cover object-center transition-transform duration-500 hover:scale-110"
         />
         {badge && (
-          <div className="cursor-default pointer-events-none absolute top-3 left-3 backdrop-blur-sm bg-purple-600/80 text-white text-xs font-medium px-3 py-1 rounded-md shadow-md z-10 border border-white/10">
+          <div className="absolute top-3 left-3 backdrop-blur-sm bg-purple-600/80 text-white text-xs font-medium px-3 py-1 rounded-md shadow-md z-10 border border-white/10 pointer-events-none">
             {badge}
           </div>
         )}
-
       </div>
-      <div className="p-4">
-        <h3 className="text-xl font-semibold text-white">{title}</h3>
-        <p className="text-gray-300 mt-2">{description}</p>
+
+      {/* Content Section */}
+      <div className="p-4 w-full md:w-2/3 flex flex-col justify-between">
+        <div>
+          <h3 className="text-xl font-semibold text-white">{title}</h3>
+          <p className="text-gray-300 mt-2">{description}</p>
+        </div>
         <div className="mt-4 flex justify-between items-center">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <div
+              <span
                 key={tag}
-                className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+                className="border border-purple-500 text-purple-400 px-2 py-1 rounded text-sm transition hover:bg-purple-500 hover:text-white cursor-default"
               >
                 {tag}
-              </div>
+              </span>
             ))}
           </div>
           <a
@@ -42,3 +48,16 @@ export default function ProjectCard({ title, description, imageSrc, link, tags, 
     </div>
   );
 }
+
+ProjectCard.propTypes = {
+  title:        PropTypes.string.isRequired,
+  description:  PropTypes.string.isRequired,
+  imageSrc:     PropTypes.string.isRequired,
+  link:         PropTypes.string.isRequired,
+  tags:         PropTypes.arrayOf(PropTypes.string).isRequired,
+  badge:        PropTypes.string,
+};
+
+ProjectCard.defaultProps = {
+  badge: null,
+};

@@ -1,10 +1,11 @@
 "use client";
 
-import RainBackground from "@/components/RainBackground";
+// Make it so you can have the option that you can set the background to rain or animated balls
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCard from "@/components/FeaturedProjectCard";
+import { projects } from "@/data/projects";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -68,60 +69,6 @@ export default function Home() {
     { src: "/icons/wordpress.svg", label: "WordPress" },
   ];
 
-  const projects = [
-    {
-      title: "Versura",
-      description: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
-      imageSrc: "/Images/Versura.png",
-      link: "/projects/versura",
-      tags: ["Godot", "GDScript", "Laravel", "MySQL"],
-      badge: "Nu in ontwikkeling!",
-    },
-    {
-      title: "CyberBox",
-      description: "Mijn eerste uitgebreide project met Godot.",
-      imageSrc: "/Images/CyberBox.png",
-      link: "/projects/cyberbox",
-      tags: ["Godot", "GDScript"],
-      badge: "Speelbare demo!",
-    },
-    {
-      title: "Cave Game",
-      description: "Een 2D-platformer waarin je levels aanpast om grondstoffen te verzamelen.",
-      imageSrc: "/Images/CaveGame.png",
-      link: "/projects/cavegame",
-      tags: ["Godot", "GDScript"],
-    },
-    {
-      title: "Song swipe",
-      description: "Mijn eerste project waarbij ik heb gewerkt met een externe API.",
-      imageSrc: "/Images/SongSwipe.png",
-      link: "/projects/songswipe",
-      tags: ["Laravel", "MySQL", "Spotify API"],
-    },
-    {
-      title: "Chat app",
-      description: "Een chatapplicatie ontwikkeld in C# met behulp van ASP.NET.",
-      imageSrc: "/Images/PapenChat.png",
-      link: "/projects/chatapp",
-      tags: ["C#", "ASP.NET", "DotNet"],
-    },
-    {
-      title: "MBO EventPlay",
-      description: "Mijn eerste solo-project waarbij ik gebruik heb gemaakt van Laravel.",
-      imageSrc: "/Images/EventPlay.png",
-      link: "/projects/eventplay",
-      tags: ["Laravel", "Tailwind", "MySQL"],
-    },
-    // {
-    //   title: "ZuivelStad",
-    //   description: "Mijn eerste website gemaakt in een groep.",
-    //   imageSrc: "/Images/ZuivelStad.png",
-    //   link: "/projects/zuivelstad",
-    //   tags: ["HTML", "CSS", "JavaScript"],
-    // },
-    
-  ];
 
   return (
     <main className="bg-black text-white font-sans scroll-smooth">
@@ -133,7 +80,6 @@ export default function Home() {
         id="home"
         className="relative flex flex-col bg-gray-950 items-center justify-center h-screen text-center px-4"
       >
-        {/* <RainBackground /> */}
         <AnimatedBallsBackground />
 
         <div className="relative z-10 mt-16 md:mt-0">
@@ -332,9 +278,17 @@ export default function Home() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
+          {projects.slice(0, 4).map((project) => (
             <ProjectCard key={project.title} {...project} />
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link
+            href="/projects"
+            className="border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
+          >
+            Bekijk al mijn projecten
+          </Link>
         </div>
       </section>
 
