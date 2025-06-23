@@ -5,8 +5,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import { projects } from "@/data/projects";
 
 export default function ProjectDetail() {
+  const { slug } = useParams();
+  const project = projects.find((p) => p.slug === slug);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -16,104 +20,103 @@ export default function ProjectDetail() {
       document.body.style.overflow = "";
     }
   }, [selectedImage]);
-
-  const project = {
-    title: "SongSwipe",
-    description: [
-        "SongSwipe was een schoolproject dat we in groepen van drie hebben uitgevoerd. De klas mocht zelf een projectidee kiezen dat we interessant vonden om te maken.",
-        "Uiteindelijk kozen we voor ‘SongSwipe’, een soort Tinder voor muziek, waarbij je nummers kunt swipen op basis van wat je leuk vind. Hiervoor maakten we gebruik van de Spotify API.",
-        "Het was voor mij de eerste keer dat ik met een externe API werkte, wat het project extra uitdagend en leerzaam maakte. We hebben veel tijd gestoken in het begrijpen en toepassen van de API, en ik vond het een erg leuke ervaring."
-      ],    technologies: ["Laravel", "MySQL", "Spotify API"],
-    heroImage: "/Images/SongSwipe.png",
-    // gallery: [
-    //   "/Images/CyberBox_1.png",
-    //   "/Images/CyberBox_2.png",
-    //   "/Images/CyberBox_3.png",
-    // ],
-  };
+  if (!project) {
+    return (
+      <main className="bg-black text-white font-sans min-h-screen">
+        <Header activeSection="" />
+        <div className="px-4 py-20 text-center">
+          <h1 className="text-3xl font-bold">Project niet gevonden</h1>
+          <Link href="/projects" className="underline text-purple-400 mt-4 inline-block">
+            Terug naar projecten
+          </Link>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
 
   return (
     <main className="bg-black text-white font-sans min-h-screen">
-        <Header activeSection="" />
-
-        {/* HERO SECTIE */}
-        <section className="relative">
-          <div className="w-full h-[60vh] relative">
-            <Image
+      <Header activeSection="" />
+      <section className="relative">
+        <div className="w-full h-[60vh] relative">
+          <Image
             src={project.heroImage}
             alt={project.title}
             fill
-            className="object-cover opacity-60"
-            />
-            <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
+            className="object-cover object-top opacity-60"
+          />
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-center mt-4">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg mt-16">
               {project.title}
             </h1>
-            </div>
           </div>
-        </section>
-
-        {/* PROJECT DETAILS */}
-      <section className="max-w-7xl mx-auto px-4 py-12 ">
-        {/* Over het project */}
+        </div>
+      </section>
+      <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-4 text-center md:text-left">
             Over <span className="text-purple-400">het project</span>
           </h2>
-          {project.description.map((paragraph, index) => (
+          {project.details.map((paragraph, index) => (
             <p key={index} className="text-gray-300 leading-relaxed mb-4">
-                {paragraph}
+              {paragraph}
             </p>
-            ))}
-
+          ))}
         </div>
-
-        {/* Technologieën */}
         <div className="mb-8 text-center md:text-left">
           <h2 className="text-2xl font-bold mb-4">
             Gebruikte <span className="text-purple-400">technologieën</span>
           </h2>
           <div className="flex flex-wrap gap-4 items-center justify-center md:justify-start">
             {project.technologies.map((tech, index) => (
-              <Link
-                href={`/projects?tag=${encodeURIComponent(tech)}`}
+              <div
                 key={index}
                 className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
               >
                 {tech}
-              </Link>
+              </div>
             ))}
           </div>
         </div>
-
-        {/* Galerij */}
-        {/* <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 mb-4">
-        {project.gallery.map((imgSrc, index) => (
-          <div
-            key={index}
-            className="overflow-hidden rounded-lg group sm:flex sm:justify-center cursor-pointer"
-            onClick={() => setSelectedImage(imgSrc)}
-          >
-            <Image
-              src={imgSrc}
-              alt={`${project.title} screenshot ${index + 1}`}
-              width={500}
-              height={300}
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+        {project.gallery && project.gallery.length > 0 && (
+          <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 mb-4">
+            {project.gallery.map((imgSrc, index) => (
+              <div
+                key={index}
+                className="overflow-hidden rounded-lg group sm:flex sm:justify-center cursor-pointer"
+                onClick={() => setSelectedImage(imgSrc)}
+              >
+                <Image
+                  src={imgSrc}
+                  alt={`${project.title} screenshot ${index + 1}`}
+                  width={500}
+                  height={300}
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div> */}
-
-
-        {/* Actieknoppen */}
+        )}
+        {project.extraLinks && project.extraLinks.length > 0 && (
+          <div className="flex flex-wrap gap-4 mb-6">
+            {project.extraLinks.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:block border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        )}
         <div className="flex flex-wrap gap-4">
-            <Link
-                href="/"
-                className="text-gray-300 underline hover:text-white transition"
-            >
+          <Link href="/" className="text-gray-300 underline hover:text-white transition">
             Terug naar Home
-            </Link>
+          </Link>
         </div>
       </section>
 
