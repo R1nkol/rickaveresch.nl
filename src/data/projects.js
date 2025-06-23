@@ -1,23 +1,24 @@
 export const projects = [
   {
-    slug: "versura",
-    title: "Versura",
+    slug: "shft",
+    title: "SHFT",
     description: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
-    imageSrc: "/Images/Versura.png",
-    link: "/projects/versura",
+    imageSrc: "/Images/SHFT.png",
+    link: "/projects/shft",
     tags: ["Godot", "Laravel", "MySQL"],
     badge: "Nu in ontwikkeling!",
     details: [
-      "Versura is een project dat ik samen met een vriend, Teun Wolbert, aan het ontwikkelen ben. De taakverdeling is simpel: ik focus me op de game engine en de game mechanics, terwijl Teun verantwoordelijk is voor de backend, zoals de Steam API en de database.",
+      "SHFT is een project dat ik samen met een vriend, Teun Wolbert, aan het ontwikkelen ben. De taakverdeling is simpel: ik focus me op de game engine en de game mechanics, terwijl Teun verantwoordelijk is voor de backend, zoals de Steam API en de database.",
       "Het project is nog in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op enemies moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van de enemies. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten.",
-      "Ons doel is om het project uiteindelijk op Steam uit te brengen."
+      "Op dit moment ben ik druk bezig om de game veel meer persoonlijkheid te geven. Omdat het vorige project een rommeltje was geworden, ben ik helemaal opnieuw begonnen om alles vanaf het begin goed op te bouwen. Ook de naam is gewijzigd van Versura naar SHFT, al weten we nog niet zeker of dat de definitieve naam blijft. Door deze herstart duurt het ontwikkelen iets langer dan oorspronkelijk gepland, maar het uiteindelijke doel is nog steeds om de game op Steam uit te brengen.",
+      "De afbeelding van de gameplay is nog van het oude project en niet helemaal accuraat meer, maar geeft wel een idee van hoe de gameplay eruit kan zien.",
     ],
-    technologies: ["Godot", "GDScript", "Laravel", "MySQL"],
-    heroImage: "/Images/Versura.png",
+    technologies: ["Godot", "Laravel", "MySQL"],
+    heroImage: "/Images/SHFT.png",
     gallery: [
+      "/Images/SHFT.png",
+      "/Images/SHFT_1.png",
       "/Images/Versura.png",
-      "/Images/Versura_2.png",
-      "/Images/Versura_3.png",
     ],
   },
   {
@@ -33,7 +34,7 @@ export const projects = [
       "Op dit moment ben ik bezig om de game te recreëren zodat je het in de browser kan spelen. Zo heel ver ben ik daar nog niet mee, maar je kan het eerste level al wel spelen. Zodat je een beetje een idee hebt hoe de game eruit ziet, wat de artstyle is en hoe de mechanics werken.",
       "Het was een project waar ik veel van heb geleerd, helemaal omdat ik toen ik dit startte nog niet op school zat voor enige vorm van development. Helaas is dit project nooit afgekomen omdat ik gewoon te grote plannen had, maar ik ben er nog steeds trots op."
     ],
-    technologies: ["Godot", "GDScript"],
+    technologies: ["Godot"],
     heroImage: "/Images/CyberBox.png",
     gallery: [
       "/Images/CyberBox_1.png",
@@ -91,7 +92,7 @@ export const projects = [
       "Dit is een project waar ik een tijd aan heb gewerkt. Het idee was om een platformer te maken waarin je je een weg door de levels hakt om verder te komen en onderweg resources verzamelt. Ik ben uiteindelijk gestopt met dit project, vooral omdat ik het moeilijk vond om een passende artstyle te vinden waar ik tevreden over was. Rond die tijd begon ik ook aan mijn andere project, Versura, waardoor de focus verschoof.",
       "Dit project heeft me wel veel geleerd over de Godot engine, bijvoorbeeld hoe je een inventory systeem kan maken, hoe de speler een level kan hakken (een level kan aanpassen in game) en hoe ik dan die aangepaste levels kan opslaan."
     ],
-    technologies: ["Godot", "GDScript"],
+    technologies: ["Godot"],
     heroImage: "/Images/CaveGame.png",
     gallery: [
       "/Images/CaveGame_1.png",
