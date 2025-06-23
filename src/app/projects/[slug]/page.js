@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
@@ -11,22 +12,52 @@ import { projects } from "@/data/projects";
 export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const prevImage = () =>
+    setSelectedIndex((prev) =>
+      prev !== null
+        ? (prev - 1 + project.gallery.length) % project.gallery.length
+        : prev,
+    );
+
+  const nextImage = () =>
+    setSelectedIndex((prev) =>
+      prev !== null ? (prev + 1) % project.gallery.length : prev,
+    );
 
   useEffect(() => {
-    if (selectedImage) {
+    if (selectedIndex !== null) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-  }, [selectedImage]);
+  }, [selectedIndex]);
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (selectedIndex === null) return;
+      if (e.key === "ArrowRight") {
+        nextImage();
+      } else if (e.key === "ArrowLeft") {
+        prevImage();
+      } else if (e.key === "Escape") {
+        setSelectedIndex(null);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIndex]);
   if (!project) {
     return (
       <main className="bg-black text-white font-sans min-h-screen">
         <Header activeSection="" />
         <div className="px-4 py-20 text-center">
           <h1 className="text-3xl font-bold">Project niet gevonden</h1>
-          <Link href="/projects" className="underline text-purple-400 mt-4 inline-block">
+          <Link
+            href="/projects"
+            className="underline text-purple-400 mt-4 inline-block"
+          >
             Terug naar projecten
           </Link>
         </div>
@@ -85,7 +116,7 @@ export default function ProjectDetail() {
               <div
                 key={index}
                 className="overflow-hidden rounded-lg group sm:flex sm:justify-center cursor-pointer"
-                onClick={() => setSelectedImage(imgSrc)}
+                onClick={() => setSelectedIndex(index)}
               >
                 <Image
                   src={imgSrc}
@@ -114,16 +145,19 @@ export default function ProjectDetail() {
           </div>
         )}
         <div className="flex flex-wrap gap-4">
-          <Link href="/" className="text-gray-300 underline hover:text-white transition">
+          <Link
+            href="/"
+            className="text-gray-300 underline hover:text-white transition"
+          >
             Terug naar Home
           </Link>
         </div>
       </section>
 
-      {selectedImage && (
+      {selectedIndex !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-          onClick={() => setSelectedImage(null)}
+          onClick={() => setSelectedIndex(null)}
         >
           <div
             className="relative max-w-6xl w-full mx-4 bg-[#1a1a1a] rounded-xl p-1 shadow-2xl border-4 border-purple-700"
@@ -131,13 +165,27 @@ export default function ProjectDetail() {
           >
             <button
               className="absolute top-4 right-4 text-white bg-purple-600 hover:bg-purple-700 w-10 h-10 rounded-full flex items-center justify-center text-xl transition"
-              onClick={() => setSelectedImage(null)}
+              onClick={() => setSelectedIndex(null)}
               aria-label="Sluit afbeelding"
             >
               ✕
             </button>
+                        <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white w-10 h-10 rounded-full flex items-center justify-center"
+              onClick={prevImage}
+              aria-label="Vorige afbeelding"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-purple-600 hover:bg-purple-700 text-white w-10 h-10 rounded-full flex items-center justify-center"
+              onClick={nextImage}
+              aria-label="Volgende afbeelding"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
             <Image
-              src={selectedImage}
+              src={project.gallery[selectedIndex]}
               alt="Vergrote afbeelding"
               width={1400}
               height={900}
