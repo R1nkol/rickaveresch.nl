@@ -78,12 +78,13 @@ export default function ProjectDetail() {
           </h2>
           <div className="flex flex-wrap gap-4 items-center justify-center md:justify-start">
             {project.technologies.map((tech, index) => (
-              <div
+              <Link
+                href={`/projects?tag=${encodeURIComponent(tech)}`}
                 key={index}
                 className="border border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
               >
                 {tech}
-              </div>
+              </Link>
             ))}
           </div>
         </div>
