@@ -1,6 +1,6 @@
-// src/components/ProjectCard.js
 import Image from "next/image";
 import PropTypes from "prop-types";
+import Link from "next/link";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
@@ -29,12 +29,13 @@ export default function ProjectCard({ title, description, imageSrc, link, tags, 
         <div className="mt-4 flex justify-between items-center">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <span
+              <Link
+                href={`/projects?tag=${encodeURIComponent(tag)}`}
                 key={tag}
-                className="border border-purple-500 text-purple-400 px-2 py-1 rounded text-sm transition hover:bg-purple-500 hover:text-white cursor-default"
+                className="border border-purple-500 text-purple-400 px-2 py-1 rounded text-sm transition hover:bg-purple-500 hover:text-white cursor-pointer"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
           <a

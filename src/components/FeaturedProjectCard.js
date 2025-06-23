@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
@@ -23,12 +24,13 @@ export default function ProjectCard({ title, description, imageSrc, link, tags, 
         <div className="mt-4 flex justify-between items-center">
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <div
+              <Link
+                href={`/projects?tag=${encodeURIComponent(tag)}`}
                 key={tag}
-                className="border cursor-default border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
+                className="border cursor-pointer border-purple-500 text-purple-400 px-4 py-2 rounded text-sm transition hover:bg-purple-500 hover:text-white"
               >
                 {tag}
-              </div>
+              </Link>
             ))}
           </div>
           <a

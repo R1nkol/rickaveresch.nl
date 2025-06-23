@@ -134,7 +134,7 @@ export default function Home() {
           <p className="text-gray-300">
             Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan
             ROC van Twente, Almelo de Sumpel. Tijdens mijn opleiding leer ik HTML, CSS,
-            JavaScript, PHP, MySQL en C#, en werk ik met Laravel, Next.js, Tailwind CSS en
+            JavaScript, TypeScript, PHP, MySQL en C#, en werk ik met Laravel, Next.js, Tailwind CSS en
             Bootstrap om webapplicaties te ontwikkelen.
           </p>
           <p className="text-gray-300">
@@ -285,7 +285,7 @@ export default function Home() {
         <div className="mt-10 text-center">
           <Link
             href="/projects"
-            className="border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
+            className="jun-gradient text-white px-6 py-2 rounded font-medium hover:brightness-90 transition"
           >
             Bekijk al mijn projecten
           </Link>
