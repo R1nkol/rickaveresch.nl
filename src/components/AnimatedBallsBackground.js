@@ -8,12 +8,22 @@ export default function AnimatedBallsBackground() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    // Zorg dat de canvas de grootte van de ouder (bijv. een sectie) heeft
     const parent = canvas.parentElement;
-    let width = parent.offsetWidth;
-    let height = parent.offsetHeight;
-    canvas.width = width;
-    canvas.height = height;
+
+    let width = 0;
+    let height = 0;
+
+    const resize = () => {
+      width = parent.offsetWidth;
+      height = parent.offsetHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    resize();
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(parent);
 
     const numBalls = 35; // Aantal ballen
     const balls = [];
@@ -58,16 +68,13 @@ export default function AnimatedBallsBackground() {
     }
     animate();
 
-    // Zorg dat de canvas mee schaalt bij venster-resize
-    const handleResize = () => {
-      width = parent.offsetWidth;
-      height = parent.offsetHeight;
-      canvas.width = width;
-      canvas.height = height;
-    };
+    const handleWindowResize = () => resize();
+    window.addEventListener("resize", handleWindowResize);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+      resizeObserver.disconnect();
+    };
   }, []);
 
   return (

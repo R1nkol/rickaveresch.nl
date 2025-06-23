@@ -1,5 +1,7 @@
 "use client";
 
+// Make so the footer is always at the bottom of the page
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
@@ -16,7 +18,7 @@ export default function Projects() {
     : projects;
 
   return (
-    <main className="relative bg-black text-white font-sans min-h-screen">
+    <main className="relative bg-black text-white font-sans min-h-screen flex flex-col">
       <AnimatedBallsBackground />
       <div className="relative z-10">
         <Header activeSection="" />
@@ -50,7 +52,9 @@ export default function Projects() {
           </Link>
         </div>
       </section>
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
       </div>
     </main>
   );
