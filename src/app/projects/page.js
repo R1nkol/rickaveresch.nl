@@ -1,5 +1,3 @@
-"use client";
-
 // Make so the footer is always at the bottom of the page
 
 import Header from "@/components/Header";
@@ -7,12 +5,10 @@ import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 
-export default function Projects() {
-  const searchParams = useSearchParams();
-  const tag = searchParams.get("tag");
+export default function Projects({ searchParams }) {
+  const tag = searchParams?.tag;
   const filteredProjects = tag
     ? projects.filter((project) => project.tags.includes(tag))
     : projects;
