@@ -2,6 +2,7 @@
 
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 import RainBackground from "@/components/RainBackground";
+import StarsBackground from "@/components/StarsBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/FeaturedProjectCard";
@@ -17,8 +18,37 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
   const [ballCount, setBallCount] = useState(35);
   const [rainCount, setRainCount] = useState(100);
+  const [starCount, setStarCount] = useState(150);
   const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(() => {
+    const storedEffect = localStorage.getItem("homepageEffect");
+    const storedBalls = localStorage.getItem("ballCount");
+    const storedRain = localStorage.getItem("rainCount");
+    const storedStars = localStorage.getItem("starCount");
+    if (storedEffect) setEffect(storedEffect);
+    if (storedBalls) setBallCount(parseInt(storedBalls, 10));
+    if (storedRain) setRainCount(parseInt(storedRain, 10));
+    if (storedStars) setStarCount(parseInt(storedStars, 10));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("homepageEffect", effect);
+  }, [effect]);
+
+  useEffect(() => {
+    localStorage.setItem("ballCount", ballCount.toString());
+  }, [ballCount]);
+
+  useEffect(() => {
+    localStorage.setItem("rainCount", rainCount.toString());
+  }, [rainCount]);
+
+  useEffect(() => {
+    localStorage.setItem("starCount", starCount.toString());
+  }, [starCount]);
+
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -72,8 +102,10 @@ export default function Home() {
       >
         {effect === "balls" ? (
           <AnimatedBallsBackground numBalls={ballCount} />
-        ) : (
+        ) : effect === "rain" ? (
           <RainBackground numDrops={rainCount} />
+        ) : (
+          <StarsBackground numStars={starCount} />
         )}
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
@@ -284,7 +316,11 @@ export default function Home() {
     <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
       <div className="flex justify-between items-center mb-2">
         <span className="font-medium">
-          {effect === "balls" ? `Ballen: ${ballCount}` : `Regen: ${rainCount}`}
+          {effect === "balls"
+            ? `Ballen: ${ballCount}`
+            : effect === "rain"
+            ? `Regen: ${rainCount}`
+            : `Sterren: ${starCount}`}
         </span>
         <button
           onClick={() => setShowSettings(false)}
@@ -300,19 +336,27 @@ export default function Home() {
       >
         <option value="balls">Ballen</option>
         <option value="rain">Regen</option>
+        <option value="stars">Sterren</option>
       </select>
       <input
         type="range"
         min="0"
-        max={effect === "balls" ? "250" : "1000"}
-        value={effect === "balls" ? ballCount : rainCount}
+        max={
+          effect === "balls" ? "100" : effect === "rain" ? "1000" : "500"
+        }
+        value={
+          effect === "balls" ? ballCount : effect === "rain" ? rainCount : starCount
+        }
         onChange={(e) => {
           const value = parseInt(e.target.value, 10);
           if (effect === "balls") {
             setBallCount(value);
-          } else {
+          } else if (effect === "rain") {
             setRainCount(value);
+          } else {
+            setStarCount(value);
           }
+          
         }}
         className="w-full accent-purple-500"
       />
