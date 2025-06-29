@@ -1,6 +1,5 @@
 "use client";
 
-// Make it so you can have the option that you can set the background to rain or animated balls
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,19 +9,19 @@ import { projects } from "@/data/projects";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FiSettings, FiX } from "react-icons/fi";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
+  const [ballCount, setBallCount] = useState(35);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
-    // Selecteer alle secties met een id
     const sections = document.querySelectorAll("section[id]");
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Als een sectie voor minstens 25% zichtbaar is, stel die in als actief
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
           }
@@ -30,28 +29,19 @@ export default function Home() {
       },
       { threshold: 0.25 }
     );
-
     sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
+    return () => sections.forEach((section) => observer.unobserve(section));
   }, []);
 
-  // Detecteer of de gebruiker op een mobiel scherm zit (bijv. smaller dan 768px)
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
-    // Directe check bij mount
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // De items voor de skills sectie
   const SkillsItems = [
     { src: "/icons/html.webp", label: "HTML5" },
     { src: "/icons/css.webp", label: "CSS3" },
@@ -69,19 +59,15 @@ export default function Home() {
     { src: "/icons/wordpress.svg", label: "WordPress" },
   ];
 
-
   return (
     <main className="bg-black text-white font-sans scroll-smooth">
-      {/* HEADER / NAVBAR */}
       <Header activeSection={activeSection} />
 
-      {/* HERO SECTION */}
       <section
         id="home"
         className="relative flex flex-col bg-gray-950 items-center justify-center h-screen text-center px-4"
       >
-        <AnimatedBallsBackground />
-
+        <AnimatedBallsBackground numBalls={ballCount} />
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
             Rick <span className="text-purple-400">Averesch</span>
@@ -105,7 +91,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll-indicator */}
         <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10"
           onClick={() =>
@@ -122,7 +107,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OVER MIJ SECTION */}
       <section
         id="about"
         className="min-h-[60vh] py-20 px-4 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8"
@@ -133,14 +117,11 @@ export default function Home() {
           </h2>
           <p className="text-gray-300">
             Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan
-            ROC van Twente, Almelo de Sumpel. Tijdens mijn opleiding leer ik HTML, CSS,
-            JavaScript, TypeScript, PHP, MySQL en C#, en werk ik met Laravel, Next.js, Tailwind CSS en
-            Bootstrap om webapplicaties te ontwikkelen.
+            ROC van Twente, Almelo de Sumpel...
           </p>
           <p className="text-gray-300">
             Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript.
-            Ik vind het leuk om nieuwe dingen te leren en mezelf continu uit te dagen door
-            eigen projecten te maken en te experimenteren met verschillende technologieën.
+            Ik vind het leuk om nieuwe dingen te leren...
           </p>
           <Link
             href="#contact"
@@ -162,51 +143,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES / SPECIALITEITEN SECTION */}
       <section id="services" className="py-16 px-4 max-w-7xl mx-auto min-h-[40vh]">
         <h2 className="text-center text-4xl font-bold mb-8">
           Mijn <span className="text-purple-400">Specialiteiten</span>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Backend Development */}
           <div className="bg-black border border-purple-500 rounded p-6 text-center hover:shadow-md transition-shadow">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              className="mx-auto mb-4"
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <rect x="3" y="4" width="18" height="6" rx="1" ry="1" />
-              <rect x="3" y="14" width="18" height="6" rx="1" ry="1" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
             <h3 className="text-xl font-semibold mb-2">Backend Development</h3>
             <p className="text-gray-300">
               Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel,
               MySQL en C#.
             </p>
           </div>
-          {/* Game Development */}
           <div className="bg-black border border-purple-500 rounded p-6 text-center hover:shadow-md transition-shadow">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              className="mx-auto mb-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4 10c0-2.21 1.79-4 4-4h8c2.21 0 4 1.79 4 4v4c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4v-4z" />
-              <circle cx="9" cy="12" r="1" />
-              <circle cx="15" cy="12" r="1" />
-              <path d="M12 15v1" />
-            </svg>
             <h3 className="text-xl font-semibold mb-2">Game Development</h3>
             <p className="text-gray-300">
               Als hobby naast mijn studie ben ik bezig met het maken van games in Godot
@@ -216,33 +165,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SKILLS & TOOLS SECTION */}
       <section id="skills" className="py-16 px-4 max-w-7xl mx-auto min-h-[35vh]">
         <h2 className="text-center text-4xl font-bold mb-4">
-        Development <span className="text-purple-400"> skills</span>
+          Development <span className="text-purple-400">skills</span>
         </h2>
         <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
           Alle talen en programma's waar ik ervaring mee heb.
         </p>
-
         <div className="relative overflow-hidden w-full h-32 flex items-center">
-          {/* Op desktop gebruiken we twee sets (voor een vloeiende marquee), op mobiel maar één */}
-          <div
-            className={`marquee-track flex ${
-              isMobile ? "w-full" : "w-[300%]"
-            }`}
-          >
+          <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"}`}>
             <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between`}>
               {SkillsItems.map((item, idx) => (
                 <div
                   key={`set1-${idx}`}
                   className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
                 >
-                  <img
-                    src={item.src}
-                    alt={item.label}
-                    className="h-8 w-8 object-contain"
-                  />
+                  <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
                   <p className="mt-2 text-sm cursor-default">{item.label}</p>
                 </div>
               ))}
@@ -254,11 +192,7 @@ export default function Home() {
                     key={`set2-${idx}`}
                     className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
                   >
-                    <img
-                      src={item.src}
-                      alt={item.label}
-                      className="h-8 w-8 object-contain"
-                    />
+                    <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
                     <p className="mt-2 text-sm cursor-default">{item.label}</p>
                   </div>
                 ))}
@@ -268,15 +202,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RECENTE PROJECTS SECTION */}
-        <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
+      <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-center text-4xl font-bold mb-4">
           Mijn <span className="text-purple-400">Projecten</span>
         </h2>
         <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
           Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
         </p>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.slice(0, 4).map((project) => (
             <ProjectCard key={project.title} {...project} />
@@ -292,7 +224,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTACT SECTION */}
       <section
         id="contact"
         className="bg-black border border-purple-500 py-10 px-4 rounded mx-auto max-w-7xl mb-20"
@@ -340,7 +271,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
+{/* Instellingenpaneel linksonder in de hero (niet fixed) */}
+<div className="absolute bottom-4 left-4 z-10">
+  {showSettings ? (
+    <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
+      <div className="flex justify-between items-center mb-2">
+        <span className="font-medium">Ballen: {ballCount}</span>
+        <button
+          onClick={() => setShowSettings(false)}
+          className="text-white hover:text-red-400 transition"
+        >
+          <FiX size={18} />
+        </button>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={ballCount}
+        onChange={(e) => setBallCount(parseInt(e.target.value, 10))}
+        className="w-full accent-purple-500"
+      />
+    </div>
+  ) : (
+    <button
+      onClick={() => setShowSettings(true)}
+      className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
+      aria-label="Open instellingen"
+    >
+      <FiSettings size={20} />
+    </button>
+  )}
+</div>
+
+
       <Footer />
     </main>
   );

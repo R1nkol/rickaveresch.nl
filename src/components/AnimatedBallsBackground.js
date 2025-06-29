@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function AnimatedBallsBackground() {
+export default function AnimatedBallsBackground({ numBalls = 35 }) {
   const canvasRef = useRef(null);
+    const animationRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,7 +26,6 @@ export default function AnimatedBallsBackground() {
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(parent);
 
-    const numBalls = 35; // Aantal ballen
     const balls = [];
 
     // Maak een array met ballen
@@ -64,7 +64,7 @@ export default function AnimatedBallsBackground() {
         ctx.fill();
       });
 
-      requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     }
     animate();
 
@@ -74,8 +74,9 @@ export default function AnimatedBallsBackground() {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
       resizeObserver.disconnect();
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [numBalls]);
 
   return (
     <canvas
