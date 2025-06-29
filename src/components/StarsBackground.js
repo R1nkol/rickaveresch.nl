@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function StarsBackground({ numStars = 150 }) {
+export default function StarsBackground({ numStars = 250 }) {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const starsRef = useRef([]);

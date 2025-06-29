@@ -43,8 +43,10 @@ export default function Home() {
   const [rainCount, setRainCount] = useState(100);
   const [starCount, setStarCount] = useState(150);
   const [orbitCount, setOrbitCount] = useState(50);
+    const [orbitRadius, setOrbitRadius] = useState(300);
   const [firefliesCount, setFirefliesCount] = useState(50);
   const [attractRepelCount, setAttractRepelCount] = useState(50);
+    const [attractRepelRange, setAttractRepelRange] = useState(150);
   const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
 
@@ -54,15 +56,19 @@ export default function Home() {
     const storedRain = localStorage.getItem("rainCount");
     const storedStars = localStorage.getItem("starCount");
     const storedOrbit = localStorage.getItem("orbitCount");
+        const storedOrbitRadius = localStorage.getItem("orbitRadius");
     const storedFireflies = localStorage.getItem("firefliesCount");
     const storedAttractRepel = localStorage.getItem("attractRepelCount");
+        const storedAttractRepelRange = localStorage.getItem("attractRepelRange");
     if (storedEffect) setEffect(storedEffect);
     if (storedBalls) setBallCount(parseInt(storedBalls, 10));
     if (storedRain) setRainCount(parseInt(storedRain, 10));
     if (storedStars) setStarCount(parseInt(storedStars, 10));
     if (storedOrbit) setOrbitCount(parseInt(storedOrbit, 10));
+    if (storedOrbitRadius) setOrbitRadius(parseInt(storedOrbitRadius, 10));
     if (storedFireflies) setFirefliesCount(parseInt(storedFireflies, 10));
     if (storedAttractRepel) setAttractRepelCount(parseInt(storedAttractRepel, 10));
+    if (storedAttractRepelRange) setAttractRepelRange(parseInt(storedAttractRepelRange, 10));
   }, []);
 
   useEffect(() => {
@@ -86,12 +92,20 @@ export default function Home() {
   }, [orbitCount]);
 
   useEffect(() => {
+    localStorage.setItem("orbitRadius", orbitRadius.toString());
+  }, [orbitRadius]);
+
+  useEffect(() => {
     localStorage.setItem("firefliesCount", firefliesCount.toString());
   }, [firefliesCount]);
 
   useEffect(() => {
     localStorage.setItem("attractRepelCount", attractRepelCount.toString());
   }, [attractRepelCount]);
+
+  useEffect(() => {
+    localStorage.setItem("attractRepelRange", attractRepelRange.toString());
+  }, [attractRepelRange]);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -150,11 +164,11 @@ export default function Home() {
         ) : effect === "stars" ? (
           <StarsBackground numStars={starCount} />
         ) : effect === "orbit" ? (
-          <OrbitBackground numOrbits={orbitCount} />
+          <OrbitBackground numOrbits={orbitCount} maxRadius={orbitRadius} />
         ) : effect === "fireflies" ? (
           <FirefliesBackground numFireflies={firefliesCount} />
         ) : effect === "attract-repel" ? (
-          <AttractRepelBackground numParticles={attractRepelCount} />
+          <AttractRepelBackground numParticles={attractRepelCount} interactionRadius={attractRepelRange} />
         ) : null}
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
@@ -476,6 +490,26 @@ export default function Home() {
               }}
               className="w-full accent-purple-500"
             />
+
+            {(effect === 'orbit' || effect === 'attract-repel') && (
+              <div className="mt-2">
+                <label className="block text-sm mb-1">
+                  {effect === 'orbit' ? 'Maximale radius' : 'Muisbereik'}: {effect === 'orbit' ? orbitRadius : attractRepelRange}
+                </label>
+                <input
+                  type="range"
+                  min="20"
+                  max={effect === 'orbit' ? 500 : 300}
+                  value={effect === 'orbit' ? orbitRadius : attractRepelRange}
+                  onChange={(e) => {
+                    const v = parseInt(e.target.value, 10) || 0;
+                    if (effect === 'orbit') setOrbitRadius(v);
+                    else setAttractRepelRange(v);
+                  }}
+                  className="w-full accent-purple-500"
+                />
+              </div>
+            )}
           </div>
         ) : (
           <button

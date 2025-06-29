@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function RainBackground({ numDrops = 100 }) {
+export default function RainBackground({ numDrops = 250 }) {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const dropsRef = useRef([]);

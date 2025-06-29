@@ -2,19 +2,25 @@
 import { useEffect, useRef } from "react";
 
 export default function AttractRepelBackground({
-  numParticles = 50,
+  numParticles = 200,
   interactionRadius = 150, // nieuw: bereik van de muis
 }) {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const particlesRef = useRef([]);
   const targetCountRef = useRef(numParticles);
+    const interactionRadiusRef = useRef(interactionRadius);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const attractRef = useRef(true);
 
   useEffect(() => {
     targetCountRef.current = numParticles;
   }, [numParticles]);
+
+    useEffect(() => {
+    interactionRadiusRef.current = interactionRadius;
+  }, [interactionRadius]);
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -114,7 +120,7 @@ export default function AttractRepelBackground({
           const dx = mouseRef.current.x - p.x;
           const dy = mouseRef.current.y - p.y;
           const dist = Math.hypot(dx, dy) || 1;
-          if (dist <= interactionRadius) {
+          if (dist <= interactionRadiusRef.current) {
             // binnen bereik: attract/repel
             const force = Math.min(100 / dist, 5);
             const fx = (dx / dist) * force;
