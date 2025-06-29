@@ -373,154 +373,185 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Instellingenpaneel linksonder in de hero (niet fixed) */}
-      <div className="absolute bottom-4 left-4 z-10">
-        {showSettings ? (
-          <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium flex items-center gap-1">
-                {(() => {
-                  switch (effect) {
-                    case 'balls': return `Ballen:`;
-                    case 'rain': return `Regen:`;
-                    case 'stars': return `Vlokken:`;
-                    case 'orbit': return `Orbit:`;
-                    case 'fireflies': return `Vuurvliegjes:`;
-                    case 'attract-repel': return `Ballen:`;
-                    default: return '';
-                  }
-                })()}
-                <input
-                  type="number"
-                  min="0"
-                  max={(() => {
-                    switch (effect) {
-                      case 'balls': return 100;
-                      case 'rain': return 1000;
-                      case 'stars': return 500;
-                      case 'orbit': return 100;
-                      case 'fireflies': return 200;
-                      case 'attract-repel': return 150;
-                      default: return 100;
-                    }
-                  })()}
-                  value={(() => {
-                    switch (effect) {
-                      case 'balls': return ballCount.toString();
-                      case 'rain': return rainCount.toString();
-                      case 'stars': return starCount.toString();
-                      case 'orbit': return orbitCount.toString();
-                      case 'fireflies': return firefliesCount.toString();
-                      case 'attract-repel': return attractRepelCount.toString();
-                      default: return '0';
-                    }
-                  })()}
-                  onChange={(e) => {
-                    let v = parseInt(e.target.value, 10) || 0;
-                    const max = parseInt(e.target.max, 10);
-                    v = Math.min(v, max);
-                    switch (effect) {
-                      case 'balls': setBallCount(v); break;
-                      case 'rain': setRainCount(v); break;
-                      case 'stars': setStarCount(v); break;
-                      case 'orbit': setOrbitCount(v); break;
-                      case 'fireflies': setFirefliesCount(v); break;
-                      case 'attract-repel': setAttractRepelCount(v); break;
-                    }
-                  }}
-                  className="bg-transparent w-12 text-white text-left outline-none border-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
-                />
-              </span>
-              <button
-                onClick={() => setShowSettings(false)}
-                className="text-white hover:text-red-400 transition"
-              >
-                <FiX size={18} />
-              </button>
-            </div>
-            <select
-              value={effect}
-              onChange={(e) => setEffect(e.target.value)}
-              className="mb-3 w-full text-black rounded p-1"
-            >
-              <option value="balls">Ballen</option>
-              <option value="rain">Regen</option>
-              <option value="stars">Sneeuw</option>
-              <option value="fireflies">Vuurvliegjes</option>
-              <option value="attract-repel">Aantrekkingseffect</option>
-              <option value="orbit">Orbit</option>
-            </select>
-
-            {/* Slider voor effect-snelheid/aantallen */}
-            <input
-              type="range"
-              min="0"
-              max={(() => {
-                switch (effect) {
-                  case 'balls': return 100;
-                  case 'rain': return 1000;
-                  case 'stars': return 500;
-                  case 'orbit': return 100;
-                  case 'fireflies': return 500;
-                  case 'attract-repel': return 500;
-                  default: return 100;
-                }
-              })()}
-              value={(() => {
-                switch (effect) {
-                  case 'balls': return ballCount;
-                  case 'rain': return rainCount;
-                  case 'stars': return starCount;
-                  case 'orbit': return orbitCount;
-                  case 'fireflies': return firefliesCount;
-                  case 'attract-repel': return attractRepelCount;
-                  default: return 0;
-                }
-              })()}
-              onChange={(e) => {
-                const v = parseInt(e.target.value, 10) || 0;
-                switch (effect) {
-                  case 'balls': setBallCount(v); break;
-                  case 'rain': setRainCount(v); break;
-                  case 'stars': setStarCount(v); break;
-                  case 'orbit': setOrbitCount(v); break;
-                  case 'fireflies': setFirefliesCount(v); break;
-                  case 'attract-repel': setAttractRepelCount(v); break;
-                }
-              }}
-              className="w-full accent-purple-500"
-            />
-
-            {(effect === 'orbit' || effect === 'attract-repel') && (
-              <div className="mt-2">
-                <label className="block text-sm mb-1">
-                  {effect === 'orbit' ? 'Maximale radius' : 'Muisbereik'}: {effect === 'orbit' ? orbitRadius : attractRepelRange}
-                </label>
-                <input
-                  type="range"
-                  min="20"
-                  max={effect === 'orbit' ? 500 : 300}
-                  value={effect === 'orbit' ? orbitRadius : attractRepelRange}
-                  onChange={(e) => {
-                    const v = parseInt(e.target.value, 10) || 0;
-                    if (effect === 'orbit') setOrbitRadius(v);
-                    else setAttractRepelRange(v);
-                  }}
-                  className="w-full accent-purple-500"
-                />
-              </div>
-            )}
-          </div>
-        ) : (
-          <button
-            onClick={() => setShowSettings(true)}
-            className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
-            aria-label="Open instellingen"
-          >
-            <FiSettings size={20} />
-          </button>
-        )}
+{/* Instellingenpaneel linksonder in de hero (niet fixed) */}
+<div className="absolute bottom-4 left-4 z-10">
+  {showSettings ? (
+    <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64 space-y-4">
+      <div className="flex justify-between items-center">
+        <h3 className="font-medium">Instellingen</h3>
+        <button
+          onClick={() => setShowSettings(false)}
+          className="text-white hover:text-red-400 transition"
+        >
+          <FiX size={18} />
+        </button>
       </div>
+
+      {/* 1) Select bovenaan */}
+      <select
+        value={effect}
+        onChange={(e) => setEffect(e.target.value)}
+        className="w-full bg-gray-900 border border-purple-600 text-white text-sm rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+      >
+        <option value="balls">Ballen</option>
+        <option value="rain">Regen</option>
+        <option value="stars">Sneeuw</option>
+        <option value="fireflies">Vuurvliegjes</option>
+        <option value="attract-repel">Aantrekkingseffect</option>
+        <option value="orbit">Orbit</option>
+      </select>
+
+      {/* 2) Label + nummer-input */}
+      <div className="flex justify-between items-center">
+        <span className="font-medium flex items-center gap-1">
+          {(() => {
+            switch (effect) {
+              case 'balls': return `Ballen:`;
+              case 'rain': return `Regen:`;
+              case 'stars': return `Vlokken:`;
+              case 'orbit': return `Orbit:`;
+              case 'fireflies': return `Vuurvliegjes:`;
+              case 'attract-repel': return `Ballen:`;
+              default: return '';
+            }
+          })()}
+          <input
+            type="number"
+            min="0"
+            max={(() => {
+              switch (effect) {
+                case 'balls': return 100;
+                case 'rain': return 1000;
+                case 'stars': return 500;
+                case 'orbit': return 100;
+                case 'fireflies': return 500;
+                case 'attract-repel': return 500;
+                default: return 100;
+              }
+            })()}
+            value={(() => {
+              switch (effect) {
+                case 'balls': return ballCount.toString();
+                case 'rain': return rainCount.toString();
+                case 'stars': return starCount.toString();
+                case 'orbit': return orbitCount.toString();
+                case 'fireflies': return firefliesCount.toString();
+                case 'attract-repel': return attractRepelCount.toString();
+                default: return 0;
+              }
+            })()}
+            onChange={(e) => {
+              let v = parseInt(e.target.value, 10) || 0;
+              const max = parseInt(e.target.max, 10);
+              v = Math.min(v, max);
+              switch (effect) {
+                case 'balls': setBallCount(v); break;
+                case 'rain': setRainCount(v); break;
+                case 'stars': setStarCount(v); break;
+                case 'orbit': setOrbitCount(v); break;
+                case 'fireflies': setFirefliesCount(v); break;
+                case 'attract-repel': setAttractRepelCount(v); break;
+              }
+            }}
+            className="bg-transparent w-12 text-white text-left outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+          />
+        </span>
+      </div>
+
+      {/* 3) Hoofd-slider */}
+      <input
+        type="range"
+        min="0"
+        max={(() => {
+          switch (effect) {
+            case 'balls': return 100;
+            case 'rain': return 1000;
+            case 'stars': return 500;
+            case 'orbit': return 100;
+            case 'fireflies': return 500;
+            case 'attract-repel': return 500;
+            default: return 100;
+          }
+        })()}
+        value={(() => {
+          switch (effect) {
+            case 'balls': return ballCount;
+            case 'rain': return rainCount;
+            case 'stars': return starCount;
+            case 'orbit': return orbitCount;
+            case 'fireflies': return firefliesCount;
+            case 'attract-repel': return attractRepelCount;
+            default: return 0;
+          }
+        })()}
+        onChange={(e) => {
+          const v = parseInt(e.target.value, 10) || 0;
+          switch (effect) {
+            case 'balls': setBallCount(v); break;
+            case 'rain': setRainCount(v); break;
+            case 'stars': setStarCount(v); break;
+            case 'orbit': setOrbitCount(v); break;
+            case 'fireflies': setFirefliesCount(v); break;
+            case 'attract-repel': setAttractRepelCount(v); break;
+          }
+        }}
+        className="w-full accent-purple-500"
+      />
+
+      {/* 4) Extra slider voor radius/muisbereik */}
+{(effect === 'orbit' || effect === 'attract-repel') && (
+  <div className="space-y-2">
+    {/* Label + input direct naast elkaar */}
+    <div className="inline-flex items-center gap-2">
+      <span className="text-sm">
+        {effect === 'orbit' ? 'Maximale radius:' : 'Muisbereik:'}
+      </span>
+      <input
+        type="number"
+        min="20"
+        max={effect === 'orbit' ? 500 : 300}
+        value={effect === 'orbit' ? orbitRadius : attractRepelRange}
+        onChange={(e) => {
+          let v = parseInt(e.target.value, 10) || 0;
+          const max = parseInt(e.target.max, 10);
+          const min = parseInt(e.target.min, 10);
+          v = Math.min(Math.max(v, min), max);
+          if (effect === 'orbit') setOrbitRadius(v);
+          else setAttractRepelRange(v);
+        }}
+        className="w-16 bg-transparent text-white outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+      />
+    </div>
+
+    {/* Slider eronder */}
+    <input
+      type="range"
+      min="20"
+      max={effect === 'orbit' ? 500 : 300}
+      value={effect === 'orbit' ? orbitRadius : attractRepelRange}
+      onChange={(e) => {
+        const v = parseInt(e.target.value, 10) || 0;
+        if (effect === 'orbit') setOrbitRadius(v);
+        else setAttractRepelRange(v);
+      }}
+      className="w-full accent-purple-500"
+    />
+  </div>
+)}
+
+
+    </div>
+  ) : (
+    <button
+      onClick={() => setShowSettings(true)}
+      className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
+      aria-label="Open instellingen"
+    >
+      <FiSettings size={20} />
+    </button>
+  )}
+</div>
+
       <Footer />
     </main>
   );

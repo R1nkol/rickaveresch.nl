@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function OrbitBackground({ numOrbits = 15, maxRadius = 300 }) {
+export default function OrbitBackground({ numOrbits = 15, maxRadius = 500 }) {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const orbitsRef = useRef([]);
