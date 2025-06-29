@@ -1,6 +1,7 @@
 "use client";
 
 import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
+import RainBackground from "@/components/RainBackground";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/FeaturedProjectCard";
@@ -15,6 +16,8 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
   const [ballCount, setBallCount] = useState(35);
+  const [rainCount, setRainCount] = useState(100);
+  const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
@@ -67,7 +70,11 @@ export default function Home() {
         id="home"
         className="relative flex flex-col bg-gray-950 items-center justify-center h-screen text-center px-4"
       >
-        <AnimatedBallsBackground numBalls={ballCount} />
+        {effect === "balls" ? (
+          <AnimatedBallsBackground numBalls={ballCount} />
+        ) : (
+          <RainBackground numDrops={rainCount} />
+        )}
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
             Rick <span className="text-purple-400">Averesch</span>
@@ -276,7 +283,9 @@ export default function Home() {
   {showSettings ? (
     <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
       <div className="flex justify-between items-center mb-2">
-        <span className="font-medium">Ballen: {ballCount}</span>
+        <span className="font-medium">
+          {effect === "balls" ? `Ballen: ${ballCount}` : `Regen: ${rainCount}`}
+        </span>
         <button
           onClick={() => setShowSettings(false)}
           className="text-white hover:text-red-400 transition"
@@ -284,12 +293,27 @@ export default function Home() {
           <FiX size={18} />
         </button>
       </div>
+      <select
+        value={effect}
+        onChange={(e) => setEffect(e.target.value)}
+        className="mb-2 w-full text-black rounded p-1"
+      >
+        <option value="balls">Ballen</option>
+        <option value="rain">Regen</option>
+      </select>
       <input
         type="range"
         min="0"
-        max="100"
-        value={ballCount}
-        onChange={(e) => setBallCount(parseInt(e.target.value, 10))}
+        max={effect === "balls" ? "250" : "1000"}
+        value={effect === "balls" ? ballCount : rainCount}
+        onChange={(e) => {
+          const value = parseInt(e.target.value, 10);
+          if (effect === "balls") {
+            setBallCount(value);
+          } else {
+            setRainCount(value);
+          }
+        }}
         className="w-full accent-purple-500"
       />
     </div>

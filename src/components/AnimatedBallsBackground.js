@@ -3,12 +3,18 @@ import { useEffect, useRef } from "react";
 
 export default function AnimatedBallsBackground({ numBalls = 35 }) {
   const canvasRef = useRef(null);
-    const animationRef = useRef(null);
+  const animationRef = useRef(null);
+  const ballsRef = useRef([]);
+  const targetCountRef = useRef(numBalls);
+  const fadeSpeed = 1 / 30; // ≈ 0.5s bij 60fps
+
+  useEffect(() => {
+    targetCountRef.current = numBalls;
+  }, [numBalls]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-
     const parent = canvas.parentElement;
 
     let width = 0;
@@ -22,61 +28,83 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
     };
 
     resize();
-
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(parent);
 
-    const balls = [];
-
-    // Maak een array met ballen
-    for (let i = 0; i < numBalls; i++) {
-      balls.push({
+    const addBall = () => {
+      ballsRef.current.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 20 + 10, // radius tussen 10 en 30
-        dx: (Math.random() - 0.5) * 1, // snelheid tussen -0.5 en 0.5 (pixels per frame)
+        radius: Math.random() * 20 + 10,
+        dx: (Math.random() - 0.5) * 1,
         dy: (Math.random() - 0.5) * 1,
-        color: `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})` // willekeurige opacity tussen 0.1 en 0.4
+        baseAlpha: Math.random() * 0.3 + 0.1,
+        fade: { value: 0, target: 1 }, // Begin met fade-in
       });
-    }
+    };
 
     function animate() {
+      const current = ballsRef.current;
+
+      const diff = targetCountRef.current - current.filter(b => b.fade.target === 1).length;
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) addBall();
+      } else if (diff < 0) {
+        let toFade = -diff;
+        for (let i = 0; i < current.length && toFade > 0; i++) {
+          const ball = current[i];
+          if (ball.fade.target === 1) {
+            ball.fade.target = 0; // Start fade-out
+            toFade--;
+          }
+        }
+      }
+
       ctx.clearRect(0, 0, width, height);
 
-      // Update en teken elke bal
-      balls.forEach(ball => {
+      for (let i = current.length - 1; i >= 0; i--) {
+        const ball = current[i];
+
+        // Update fade richting target
+        if (ball.fade.target > ball.fade.value) {
+          ball.fade.value = Math.min(ball.fade.value + fadeSpeed, ball.fade.target);
+        } else if (ball.fade.target < ball.fade.value) {
+          ball.fade.value = Math.max(ball.fade.value - fadeSpeed, ball.fade.target);
+        }
+
+        // Verwijder ballen die volledig uitgefaded zijn
+        if (ball.fade.value === 0 && ball.fade.target === 0) {
+          current.splice(i, 1);
+          continue;
+        }
+
         // Update positie
         ball.x += ball.dx;
         ball.y += ball.dy;
 
-        // Laat ballen stuiteren als ze de randen bereiken
-        if (ball.x + ball.radius > width || ball.x - ball.radius < 0) {
-          ball.dx = -ball.dx;
-        }
-        if (ball.y + ball.radius > height || ball.y - ball.radius < 0) {
-          ball.dy = -ball.dy;
-        }
+        if (ball.x + ball.radius > width || ball.x - ball.radius < 0) ball.dx = -ball.dx;
+        if (ball.y + ball.radius > height || ball.y - ball.radius < 0) ball.dy = -ball.dy;
 
-        // Teken de bal
+        // Teken met geanimeerde opacity
         ctx.beginPath();
-        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, false);
-        ctx.fillStyle = ball.color;
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${ball.baseAlpha * ball.fade.value})`;
         ctx.fill();
-      });
+      }
 
       animationRef.current = requestAnimationFrame(animate);
     }
+
     animate();
 
-    const handleWindowResize = () => resize();
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener("resize", resize);
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
+      window.removeEventListener("resize", resize);
       resizeObserver.disconnect();
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [numBalls]);
+  }, []);
 
   return (
     <canvas
@@ -87,7 +115,7 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
         left: 0,
         width: "100%",
         height: "100%",
-        zIndex: 1 // Zorgt ervoor dat de ballen achter je content worden weergegeven
+        zIndex: 1
       }}
     />
   );
