@@ -1,8 +1,6 @@
 "use client";
 
-import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
-import RainBackground from "@/components/RainBackground";
-import StarsBackground from "@/components/StarsBackground";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/FeaturedProjectCard";
@@ -13,12 +11,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiSettings, FiX } from "react-icons/fi";
 
+const AnimatedBallsBackground = dynamic(
+  () => import("@/components/AnimatedBallsBackground"),
+  { ssr: false }
+);
+const RainBackground = dynamic(
+  () => import("@/components/RainBackground"),
+  { ssr: false }
+);
+const StarsBackground = dynamic(
+  () => import("@/components/StarsBackground"),
+  { ssr: false }
+);
+const OrbitBackground = dynamic(
+  () => import("@/components/OrbitBackground"),
+  { ssr: false }
+);
+const FirefliesBackground = dynamic(
+  () => import("@/components/FirefliesBackground"),
+  { ssr: false }
+);
+const AttractRepelBackground = dynamic(
+  () => import("@/components/AttractRepelBackground"),
+  { ssr: false }
+);
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
   const [ballCount, setBallCount] = useState(35);
   const [rainCount, setRainCount] = useState(100);
   const [starCount, setStarCount] = useState(150);
+  const [orbitCount, setOrbitCount] = useState(50);
+  const [firefliesCount, setFirefliesCount] = useState(50);
+  const [attractRepelCount, setAttractRepelCount] = useState(50);
   const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
 
@@ -27,10 +53,16 @@ export default function Home() {
     const storedBalls = localStorage.getItem("ballCount");
     const storedRain = localStorage.getItem("rainCount");
     const storedStars = localStorage.getItem("starCount");
+    const storedOrbit = localStorage.getItem("orbitCount");
+    const storedFireflies = localStorage.getItem("firefliesCount");
+    const storedAttractRepel = localStorage.getItem("attractRepelCount");
     if (storedEffect) setEffect(storedEffect);
     if (storedBalls) setBallCount(parseInt(storedBalls, 10));
     if (storedRain) setRainCount(parseInt(storedRain, 10));
     if (storedStars) setStarCount(parseInt(storedStars, 10));
+    if (storedOrbit) setOrbitCount(parseInt(storedOrbit, 10));
+    if (storedFireflies) setFirefliesCount(parseInt(storedFireflies, 10));
+    if (storedAttractRepel) setAttractRepelCount(parseInt(storedAttractRepel, 10));
   }, []);
 
   useEffect(() => {
@@ -49,6 +81,17 @@ export default function Home() {
     localStorage.setItem("starCount", starCount.toString());
   }, [starCount]);
 
+  useEffect(() => {
+    localStorage.setItem("orbitCount", orbitCount.toString());
+  }, [orbitCount]);
+
+  useEffect(() => {
+    localStorage.setItem("firefliesCount", firefliesCount.toString());
+  }, [firefliesCount]);
+
+  useEffect(() => {
+    localStorage.setItem("attractRepelCount", attractRepelCount.toString());
+  }, [attractRepelCount]);
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -104,9 +147,15 @@ export default function Home() {
           <AnimatedBallsBackground numBalls={ballCount} />
         ) : effect === "rain" ? (
           <RainBackground numDrops={rainCount} />
-        ) : (
+        ) : effect === "stars" ? (
           <StarsBackground numStars={starCount} />
-        )}
+        ) : effect === "orbit" ? (
+          <OrbitBackground numOrbits={orbitCount} />
+        ) : effect === "fireflies" ? (
+          <FirefliesBackground numFireflies={firefliesCount} />
+        ) : effect === "attract-repel" ? (
+          <AttractRepelBackground numParticles={attractRepelCount} />
+        ) : null}
         <div className="relative z-10 mt-16 md:mt-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
             Rick <span className="text-purple-400">Averesch</span>
@@ -310,69 +359,134 @@ export default function Home() {
         </div>
       </section>
 
-{/* Instellingenpaneel linksonder in de hero (niet fixed) */}
-<div className="absolute bottom-4 left-4 z-10">
-  {showSettings ? (
-    <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
-      <div className="flex justify-between items-center mb-2">
-        <span className="font-medium">
-          {effect === "balls"
-            ? `Ballen: ${ballCount}`
-            : effect === "rain"
-            ? `Regen: ${rainCount}`
-            : `Sterren: ${starCount}`}
-        </span>
-        <button
-          onClick={() => setShowSettings(false)}
-          className="text-white hover:text-red-400 transition"
-        >
-          <FiX size={18} />
-        </button>
+      {/* Instellingenpaneel linksonder in de hero (niet fixed) */}
+      <div className="absolute bottom-4 left-4 z-10">
+        {showSettings ? (
+          <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64">
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-medium flex items-center gap-1">
+                {(() => {
+                  switch (effect) {
+                    case 'balls': return `Ballen:`;
+                    case 'rain': return `Regen:`;
+                    case 'stars': return `Vlokken:`;
+                    case 'orbit': return `Orbit:`;
+                    case 'fireflies': return `Vuurvliegjes:`;
+                    case 'attract-repel': return `Ballen:`;
+                    default: return '';
+                  }
+                })()}
+                <input
+                  type="number"
+                  min="0"
+                  max={(() => {
+                    switch (effect) {
+                      case 'balls': return 100;
+                      case 'rain': return 1000;
+                      case 'stars': return 500;
+                      case 'orbit': return 100;
+                      case 'fireflies': return 200;
+                      case 'attract-repel': return 150;
+                      default: return 100;
+                    }
+                  })()}
+                  value={(() => {
+                    switch (effect) {
+                      case 'balls': return ballCount.toString();
+                      case 'rain': return rainCount.toString();
+                      case 'stars': return starCount.toString();
+                      case 'orbit': return orbitCount.toString();
+                      case 'fireflies': return firefliesCount.toString();
+                      case 'attract-repel': return attractRepelCount.toString();
+                      default: return '0';
+                    }
+                  })()}
+                  onChange={(e) => {
+                    let v = parseInt(e.target.value, 10) || 0;
+                    const max = parseInt(e.target.max, 10);
+                    v = Math.min(v, max);
+                    switch (effect) {
+                      case 'balls': setBallCount(v); break;
+                      case 'rain': setRainCount(v); break;
+                      case 'stars': setStarCount(v); break;
+                      case 'orbit': setOrbitCount(v); break;
+                      case 'fireflies': setFirefliesCount(v); break;
+                      case 'attract-repel': setAttractRepelCount(v); break;
+                    }
+                  }}
+                  className="bg-transparent w-12 text-white text-left outline-none border-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+                />
+              </span>
+              <button
+                onClick={() => setShowSettings(false)}
+                className="text-white hover:text-red-400 transition"
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+            <select
+              value={effect}
+              onChange={(e) => setEffect(e.target.value)}
+              className="mb-3 w-full text-black rounded p-1"
+            >
+              <option value="balls">Ballen</option>
+              <option value="rain">Regen</option>
+              <option value="stars">Sneeuw</option>
+              <option value="fireflies">Vuurvliegjes</option>
+              <option value="attract-repel">Aantrekkingseffect</option>
+              <option value="orbit">Orbit</option>
+            </select>
+
+            {/* Slider voor effect-snelheid/aantallen */}
+            <input
+              type="range"
+              min="0"
+              max={(() => {
+                switch (effect) {
+                  case 'balls': return 100;
+                  case 'rain': return 1000;
+                  case 'stars': return 500;
+                  case 'orbit': return 100;
+                  case 'fireflies': return 500;
+                  case 'attract-repel': return 500;
+                  default: return 100;
+                }
+              })()}
+              value={(() => {
+                switch (effect) {
+                  case 'balls': return ballCount;
+                  case 'rain': return rainCount;
+                  case 'stars': return starCount;
+                  case 'orbit': return orbitCount;
+                  case 'fireflies': return firefliesCount;
+                  case 'attract-repel': return attractRepelCount;
+                  default: return 0;
+                }
+              })()}
+              onChange={(e) => {
+                const v = parseInt(e.target.value, 10) || 0;
+                switch (effect) {
+                  case 'balls': setBallCount(v); break;
+                  case 'rain': setRainCount(v); break;
+                  case 'stars': setStarCount(v); break;
+                  case 'orbit': setOrbitCount(v); break;
+                  case 'fireflies': setFirefliesCount(v); break;
+                  case 'attract-repel': setAttractRepelCount(v); break;
+                }
+              }}
+              className="w-full accent-purple-500"
+            />
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowSettings(true)}
+            className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
+            aria-label="Open instellingen"
+          >
+            <FiSettings size={20} />
+          </button>
+        )}
       </div>
-      <select
-        value={effect}
-        onChange={(e) => setEffect(e.target.value)}
-        className="mb-2 w-full text-black rounded p-1"
-      >
-        <option value="balls">Ballen</option>
-        <option value="rain">Regen</option>
-        <option value="stars">Sterren</option>
-      </select>
-      <input
-        type="range"
-        min="0"
-        max={
-          effect === "balls" ? "100" : effect === "rain" ? "1000" : "500"
-        }
-        value={
-          effect === "balls" ? ballCount : effect === "rain" ? rainCount : starCount
-        }
-        onChange={(e) => {
-          const value = parseInt(e.target.value, 10);
-          if (effect === "balls") {
-            setBallCount(value);
-          } else if (effect === "rain") {
-            setRainCount(value);
-          } else {
-            setStarCount(value);
-          }
-          
-        }}
-        className="w-full accent-purple-500"
-      />
-    </div>
-  ) : (
-    <button
-      onClick={() => setShowSettings(true)}
-      className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
-      aria-label="Open instellingen"
-    >
-      <FiSettings size={20} />
-    </button>
-  )}
-</div>
-
-
       <Footer />
     </main>
   );
