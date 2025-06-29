@@ -40,12 +40,12 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
   const [ballCount, setBallCount] = useState(35);
-  const [rainCount, setRainCount] = useState(100);
-  const [starCount, setStarCount] = useState(150);
+  const [rainCount, setRainCount] = useState(250);
+  const [starCount, setStarCount] = useState(200);
   const [orbitCount, setOrbitCount] = useState(50);
     const [orbitRadius, setOrbitRadius] = useState(300);
-  const [firefliesCount, setFirefliesCount] = useState(50);
-  const [attractRepelCount, setAttractRepelCount] = useState(50);
+  const [firefliesCount, setFirefliesCount] = useState(250);
+  const [attractRepelCount, setAttractRepelCount] = useState(200);
     const [attractRepelRange, setAttractRepelRange] = useState(150);
   const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
