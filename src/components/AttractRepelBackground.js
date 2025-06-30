@@ -38,6 +38,7 @@ export default function AttractRepelBackground({
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(parent);
+    window.addEventListener("resize", resize);
 
     const createParticle = () => ({
       x: Math.random() * width,
@@ -69,8 +70,8 @@ export default function AttractRepelBackground({
     const handleMouseDown = () => { attractRef.current = false; };
     const handleMouseUp = () => { attractRef.current = true; };
 
-    canvas.addEventListener("mousemove", handleMouseMove);
-    canvas.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
