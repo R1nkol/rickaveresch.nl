@@ -398,7 +398,7 @@ export default function Home() {
         <option value="stars">Sneeuw</option>
         <option value="fireflies">Vuurvliegjes</option>
         <option value="attract-repel">Aantrekkingseffect</option>
-        <option value="orbit">Orbit</option>
+        <option value="orbit">Roterende objecten</option>
       </select>
 
       {/* 2) Label + nummer-input */}
@@ -406,12 +406,12 @@ export default function Home() {
         <span className="font-medium flex items-center gap-1">
           {(() => {
             switch (effect) {
-              case 'balls': return `Ballen:`;
-              case 'rain': return `Regen:`;
-              case 'stars': return `Vlokken:`;
-              case 'orbit': return `Orbit:`;
-              case 'fireflies': return `Vuurvliegjes:`;
-              case 'attract-repel': return `Ballen:`;
+              case 'balls': return `Aantal ballen:`;
+              case 'rain': return `Aantal regendruppels:`;
+              case 'stars': return `Aantal sneeuwvlokken:`;
+              case 'orbit': return `Aantal objecten:`;
+              case 'fireflies': return `Aantal vuurvliegjes:`;
+              case 'attract-repel': return `Aantal objecten:`;
               default: return '';
             }
           })()}
@@ -504,7 +504,7 @@ export default function Home() {
     {/* Label + input direct naast elkaar */}
     <div className="inline-flex items-center gap-2">
       <span className="text-sm">
-        {effect === 'orbit' ? 'Maximale radius:' : 'Muisbereik:'}
+        {effect === 'orbit' ? 'Maximale radius:' : 'Muis reach:'}
       </span>
       <input
         type="number"
