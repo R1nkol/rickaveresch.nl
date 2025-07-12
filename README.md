@@ -19,7 +19,7 @@ Deze site combineert mijn interesse in programmeren, design en animatie.
 
 ## Installatie en ontwikkeling
 ```bash
-git clone https://github.com/<jouw-account>/<repo>.git
-cd <repo>
+git clone https://github.com/R1nkol/rickaveresch.nl.git
+cd rickaveresch.nl
 npm install
 npm run dev
