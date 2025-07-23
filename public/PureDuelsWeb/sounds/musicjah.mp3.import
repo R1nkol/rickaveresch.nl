@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/musicjah.mp3-c0b2ba587527a7d9a7e9a2b2f225ddcf.mp3str"
+
+[deps]
+
+source_file="res://sounds/musicjah.mp3"
+dest_files=[ "res://.import/musicjah.mp3-c0b2ba587527a7d9a7e9a2b2f225ddcf.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

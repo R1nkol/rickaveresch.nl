@@ -378,7 +378,7 @@ export default function Home() {
   {showSettings ? (
     <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64 space-y-4 animate-fade-in-up">
       <div className="flex justify-between items-center">
-        <h3 className="font-medium">Instellingen</h3>
+        <h3 className="font-medium">Settings</h3>
         <button
           onClick={() => setShowSettings(false)}
           className="text-white hover:text-red-400 transition"

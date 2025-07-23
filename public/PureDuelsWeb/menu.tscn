@@ -1,0 +1,399 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://ChiKareGo2.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/rickbox.png" type="Texture" id=4]
+[ext_resource path="res://sprites/Square.png" type="Texture" id=5]
+[ext_resource path="res://Camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://menu.gd" type="Script" id=7]
+[ext_resource path="res://sounds/ShortDeath.wav" type="AudioStream" id=8]
+[ext_resource path="res://sounds/Shoot.wav" type="AudioStream" id=9]
+
+[sub_resource type="TileSet" id=2]
+0/name = "rickbox.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 352, 32, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="DynamicFont" id=1]
+size = 128
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+extra_spacing_bottom = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="DynamicFont" id=9]
+size = 64
+extra_spacing_top = 2
+extra_spacing_bottom = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="DynamicFont" id=15]
+size = 64
+extra_spacing_top = 2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMap" type="TileMap" parent="."]
+modulate = Color( 0.243137, 0.113725, 0.113725, 1 )
+scale = Vector2( 60, 40 )
+tile_set = SubResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -380.0
+margin_right = 380.0
+margin_bottom = 120.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+modulate = Color( 1.15, 1.15, 1.15, 1 )
+margin_right = 760.0
+margin_bottom = 120.0
+custom_fonts/font = SubResource( 1 )
+text = "Pure Duels"
+align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -94.0
+margin_bottom = 94.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer2"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 958.5, 35 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="VBoxContainer2"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 954, 100 )
+scale = Vector2( 5, 0.117 )
+texture = ExtResource( 5 )
+
+[node name="Sprite3" type="Sprite" parent="VBoxContainer2"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 955, 167 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="Button" type="Button" parent="VBoxContainer2"]
+margin_right = 1920.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Play"
+
+[node name="Button2" type="Button" parent="VBoxContainer2"]
+margin_top = 66.0
+margin_right = 1920.0
+margin_bottom = 130.0
+custom_fonts/font = SubResource( 9 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+text = "Options"
+
+[node name="Button3" type="Button" parent="VBoxContainer2"]
+margin_top = 134.0
+margin_right = 1920.0
+margin_bottom = 196.0
+custom_fonts/font = SubResource( 15 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 17 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/disabled = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+disabled = true
+text = "Quit"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -94.0
+margin_bottom = 102.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer3"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 958.5, 35 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="VBoxContainer3"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 954, 100 )
+scale = Vector2( 5, 0.117 )
+texture = ExtResource( 5 )
+
+[node name="Sprite3" type="Sprite" parent="VBoxContainer3"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 955, 167 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="2playerbtn" type="Button" parent="VBoxContainer3"]
+margin_right = 1920.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "2 Players"
+
+[node name="Button2" type="Button" parent="VBoxContainer3"]
+margin_top = 66.0
+margin_right = 1920.0
+margin_bottom = 130.0
+custom_fonts/font = SubResource( 9 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+disabled = true
+text = "3 Players"
+
+[node name="Button3" type="Button" parent="VBoxContainer3"]
+margin_top = 134.0
+margin_right = 1920.0
+margin_bottom = 196.0
+custom_fonts/font = SubResource( 15 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 17 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/disabled = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+disabled = true
+text = "4 Players"
+
+[node name="Camera" parent="." instance=ExtResource( 6 )]
+heftigheid = 0.48
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -35.0
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Square4" type="Sprite" parent="Node2D"]
+modulate = Color( 0.419608, 0.145098, 0.145098, 0.478431 )
+position = Vector2( 1360, 850.257 )
+rotation = -2.61799
+scale = Vector2( 1.55409, 0.998097 )
+texture = ExtResource( 5 )
+
+[node name="Square2" type="Sprite" parent="Node2D"]
+modulate = Color( 0.364706, 0.133333, 0.133333, 1 )
+position = Vector2( 1507.26, 1001.39 )
+rotation = 1.13446
+scale = Vector2( 0.967602, 1.59582 )
+texture = ExtResource( 5 )
+
+[node name="Square3" type="Sprite" parent="Node2D"]
+modulate = Color( 0.392157, 0.156863, 0.156863, 0.427451 )
+position = Vector2( 479.772, 797.322 )
+rotation = -0.503629
+scale = Vector2( 0.90969, 0.775907 )
+texture = ExtResource( 5 )
+
+[node name="Square5" type="Sprite" parent="Node2D"]
+modulate = Color( 0.380392, 0.14902, 0.14902, 1 )
+position = Vector2( 843.242, 1003.81 )
+rotation = 0.906597
+scale = Vector2( 1.01782, 0.779591 )
+texture = ExtResource( 5 )
+
+[node name="Square" type="Sprite" parent="Node2D"]
+modulate = Color( 0.360784, 0.156863, 0.156863, 1 )
+position = Vector2( 297.843, 1032.32 )
+rotation = 0.523599
+scale = Vector2( 1.9443, 0.853788 )
+texture = ExtResource( 5 )
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -25.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -94.0
+margin_bottom = 102.0
+
+[node name="Sprite" type="Sprite" parent="VBoxContainer4"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 958.5, 35 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="VBoxContainer4"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 954, 100 )
+scale = Vector2( 5, 0.117 )
+texture = ExtResource( 5 )
+
+[node name="Sprite3" type="Sprite" parent="VBoxContainer4"]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 955, 167 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="PhysicsFPS" type="Button" parent="VBoxContainer4"]
+margin_right = 1920.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Physics_FPS: 90"
+
+[node name="Glow" type="Button" parent="VBoxContainer4"]
+margin_top = 66.0
+margin_right = 1920.0
+margin_bottom = 130.0
+custom_fonts/font = SubResource( 9 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+text = "Glow: On"
+
+[node name="Vignette" type="Button" parent="VBoxContainer4"]
+margin_top = 134.0
+margin_right = 1920.0
+margin_bottom = 196.0
+custom_fonts/font = SubResource( 15 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 17 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/disabled = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+text = "Vignette: On"
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.433594, 0.0846863, 0.0846863, 1 )
+position = Vector2( 958.5, 1012 )
+scale = Vector2( 5, 0.109 )
+texture = ExtResource( 5 )
+
+[node name="BackBtn" type="Button" parent="."]
+visible = false
+margin_top = 980.0
+margin_right = 1920.0
+margin_bottom = 1042.0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+text = "Back to Menu"
+
+[connection signal="mouse_entered" from="VBoxContainer2/Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer2/Button" to="." method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer2/Button" to="." method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer2/Button2" to="." method="_on_Button2_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer2/Button2" to="." method="_on_Button2_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer2/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer2/Button3" to="." method="_on_Button3_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer2/Button3" to="." method="_on_Button3_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer2/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer3/2playerbtn" to="." method="_on_2playerbtn_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer3/2playerbtn" to="." method="_on_2playerbtn_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer3/2playerbtn" to="." method="_on_2playerbtn_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer3/Button2" to="." method="_on_Button2_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer3/Button2" to="." method="_on_Button2_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer3/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer3/Button3" to="." method="_on_Button3_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer3/Button3" to="." method="_on_Button3_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer3/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer4/PhysicsFPS" to="." method="_on_PhysicsFPS_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer4/PhysicsFPS" to="." method="_on_PhysicsFPS_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer4/PhysicsFPS" to="." method="_on_PhysicsFPS_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer4/Glow" to="." method="_on_Glow_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer4/Glow" to="." method="_on_Glow_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer4/Glow" to="." method="_on_Glow_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer4/Vignette" to="." method="_on_Vignette_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer4/Vignette" to="." method="_on_Vignette_mouse_exited"]
+[connection signal="pressed" from="VBoxContainer4/Vignette" to="." method="_on_Vignette_pressed"]
+[connection signal="mouse_entered" from="BackBtn" to="." method="_on_BackBtn_mouse_entered"]
+[connection signal="mouse_exited" from="BackBtn" to="." method="_on_BackBtn_mouse_exited"]
+[connection signal="pressed" from="BackBtn" to="." method="_on_BackBtn_pressed"]
