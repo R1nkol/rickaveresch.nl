@@ -119,6 +119,13 @@ export default function ProjectDetail() {
                 className="overflow-hidden rounded-lg group sm:flex sm:justify-center cursor-pointer"
                 onClick={() => setSelectedIndex(index)}
               >
+              {imgSrc.endsWith(".gif") ? (
+                <img
+                  src={imgSrc}
+                  alt={`${project.title} screenshot ${index + 1}`}
+                  className="object-cover w-full h-auto transition-transform duration-500 group-hover:scale-110"
+                />
+              ) : (
                 <Image
                   src={imgSrc}
                   alt={`${project.title} screenshot ${index + 1}`}
@@ -126,6 +133,8 @@ export default function ProjectDetail() {
                   height={300}
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+              )}
+
               </div>
             ))}
           </div>
@@ -185,6 +194,13 @@ export default function ProjectDetail() {
             >
               <ChevronRight className="w-6 h-6" />
             </button>
+          {project.gallery[selectedIndex].endsWith(".gif") ? (
+            <img
+              src={project.gallery[selectedIndex]}
+              alt="Vergrote afbeelding"
+              className="rounded-lg w-full h-auto max-h-[85vh] object-contain"
+            />
+          ) : (
             <Image
               src={project.gallery[selectedIndex]}
               alt="Vergrote afbeelding"
@@ -192,6 +208,7 @@ export default function ProjectDetail() {
               height={900}
               className="rounded-lg w-full h-auto max-h-[85vh] object-contain"
             />
+          )}
           </div>
         </div>
       )}

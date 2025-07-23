@@ -80,6 +80,34 @@ export const projects = [
     heroImage: "/Images/SongSwipe.png",
     gallery: [],
   },
+    {
+    slug: "pureduels",
+    title: "Pure Duels",
+    description: "Een eenvoudige lokale multiplayer brawler.",
+    imageSrc: "/Images/PureDuels.png",
+    link: "/projects/pureduels",
+    tags: ["Godot"],
+    badge: "Speelbare demo!",
+    details: [
+      "Pure duels heb ik als passieproject voor mezelf gemaakt om nou te kijken wat ik allemaal kon maken met Godot.",
+      "Het spel heb ik in begin 2023 gemaakt en ben er 2 weekjes mee bezig geweest. Ik heb toen die tijd veel assets van CyberBox hergebruikt, maar het hele idee achter Pure Duels is heel anders dan CyberBox.",
+      "In de lokale versie van Pure Duels was lokale multiplayer mogelijk, maar toen ik het in de browserversie uitprobeerde, merkte ik dat de code die ik daarvoor had geschreven niet werkte in de browser. Vandaar dat de tweede speler nu alleen maar stil staat.",
+      "Hoewel ik met CyberBox een webversie heb gemaakt, is Pure Duels gewoon een simpele port. Het kan dus zijn dat het niet helemaal soepel loopt in de browser. Dit komt omdat het project effecten bevat die wat zwaarder zijn voor de browser om te verwerken. Dit is te veranderen in de settings.",
+    ],
+    technologies: ["Godot"],
+    heroImage: "/Images/PureDuels.png",
+    gallery: [
+      "/Images/PureDuels_5.png",
+      "/Images/PureDuels_1.png",
+      "/Images/PureDuels_2.png",
+      "/Images/PureDuels_3.png",
+      "/Images/PureDuels_4.png",
+      "/GIFS/PureDuelsGIF.gif",
+    ],
+    extraLinks: [
+      { href: "/projects/pureduels/game", label: "Speel Pure Duels!" }
+    ]
+  },
   {
     slug: "cavegame",
     title: "Cave Game",
