@@ -5,14 +5,14 @@ export const projects = [
     description: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
     imageSrc: "/Images/SHFT.png",
     link: "/projects/shft",
-    tags: ["Godot", "Laravel", "MySQL"],
+    tags: ["Godot"],
     badge: "Nu in ontwikkeling!",
     details: [
       "SHFT is een project dat ik aan het ontwikkelen ben. Het project is nog erg vroeg in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op enemies moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van de enemies. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten.",
       "Op dit moment ben ik druk bezig om de game veel meer persoonlijkheid te geven. Omdat het vorige project een rommel was geworden, ben ik helemaal opnieuw begonnen om alles vanaf het begin goed op te bouwen. Ook de naam is gewijzigd van Versura naar SHFT, al weten we nog niet zeker of dat de definitieve naam blijft. Door deze herstart duurt het ontwikkelen iets langer dan oorspronkelijk gepland, maar het uiteindelijke doel is nog steeds om de game op Steam uit te brengen.",
       "De afbeelding van de gameplay is nog van het oude project en niet helemaal accuraat meer, maar geeft wel een idee van hoe de gameplay eruit kan zien.",
     ],
-    technologies: ["Godot", "Laravel", "MySQL"],
+    technologies: ["Godot"],
     heroImage: "/Images/SHFT.png",
     gallery: [
       "/Images/SHFT.png",
@@ -45,18 +45,47 @@ export const projects = [
     ]
   },
   {
+    slug: "pureduels",
+    title: "Pure Duels",
+    description: "Een eenvoudige lokale multiplayer brawler.",
+    imageSrc: "/Images/PureDuels.png",
+    link: "/projects/pureduels",
+    tags: ["Godot"],
+    badge: "Speelbare demo!",
+    details: [
+      "Pure duels heb ik als passieproject voor mezelf gemaakt om nou te kijken wat ik allemaal kon maken met Godot.",
+      "Het spel heb ik in begin 2023 gemaakt en ben er 2 weekjes mee bezig geweest. Ik heb toen die tijd veel assets van CyberBox hergebruikt, maar het hele idee achter Pure Duels is heel anders dan CyberBox.",
+      "In de lokale versie van Pure Duels was lokale multiplayer mogelijk, maar toen ik het in de browserversie uitprobeerde, merkte ik dat de code die ik daarvoor had geschreven niet werkte in de browser. Vandaar dat de tweede speler nu alleen maar stil staat.",
+      "Later zou ik graag nog zo'n soort spel maken, met de simpele stijl die ik in dit project heb gebruikt. Maar eerst wil ik me focussen op SHFT.",
+      "Hoewel ik met CyberBox een webversie heb gemaakt, is Pure Duels gewoon een simpele port. Het kan dus zijn dat het niet helemaal soepel loopt in de browser. Dit komt omdat het project effecten bevat die wat zwaarder zijn voor de browser om te verwerken. Dit is te veranderen in de settings.",
+    ],
+    technologies: ["Godot"],
+    heroImage: "/Images/PureDuels.png",
+    gallery: [
+      "/Images/PureDuels_5.png",
+      "/Images/PureDuels_1.png",
+      "/Images/PureDuels_2.png",
+      "/Images/PureDuels_3.png",
+      "/Images/PureDuels_4.png",
+      "/GIFS/PureDuelsGIF.gif",
+    ],
+    extraLinks: [
+      { href: "/projects/pureduels/game", label: "Speel Pure Duels!" }
+    ]
+  },
+  {
     slug: "apkapot",
     title: "APKapot",
     description: "Een school project waarbij we een APK keuring website hebben gemaakt.",
     imageSrc: "/Images/APKapot_1.png",
     link: "/projects/apkapot",
-    tags: ["Vue", "TypeScript", "MySQL", "API"],
+    tags: ["Laravel", "TypeScript", "MySQL", "API", "Vue"],
     details: [
       "APKapot is een schoolproject dat we in een team van drie hebben ontwikkeld: een complete website voor het plannen en beheren van APK-keuringen.",
       "Klanten kunnen eenvoudig online een afspraak plannen, waarna een manager deze goedkeurt en een monteur toewijst. De monteur voert de keuring uit, maakt werkorders aan en doet indien nodig reparaties met toestemming van de klant. Na afronding ontvangt de klant automatisch een e-mail via Resend en stelt de manager de factuur op.",
       "We hebben o.a. Resend gebruikt voor e-mails, de Google Search Console API voor alle images van de auto's, de ChatGPT API voor een klantenservice, de RDW API voor voertuigdata en Amazon S3 voor veilige opslag van afbeeldingen."
     ],
-    technologies: ["Vue", "TypeScript", "MySQL", "API"],
+    technologies: ["Laravel", "TypeScript", "MySQL", "API", "Vue"],
     heroImage: "/Images/APKapot_1.png",
     gallery: [
       "/Images/APKapot_2.png",
@@ -81,32 +110,26 @@ export const projects = [
     gallery: [],
   },
     {
-    slug: "pureduels",
-    title: "Pure Duels",
-    description: "Een eenvoudige lokale multiplayer brawler.",
-    imageSrc: "/Images/PureDuels.png",
-    link: "/projects/pureduels",
-    tags: ["Godot"],
-    badge: "Speelbare demo!",
+    slug: "blog-site",
+    title: "Blog site",
+    description: "Een eenvoudige blog site gemaakt met Laravel.",
+    imageSrc: "/Images/BlogSite1.png",
+    link: "/projects/blog-site",
+    tags: ["Laravel", "TypeScript", "Vue", "MySQL"],
     details: [
-      "Pure duels heb ik als passieproject voor mezelf gemaakt om nou te kijken wat ik allemaal kon maken met Godot.",
-      "Het spel heb ik in begin 2023 gemaakt en ben er 2 weekjes mee bezig geweest. Ik heb toen die tijd veel assets van CyberBox hergebruikt, maar het hele idee achter Pure Duels is heel anders dan CyberBox.",
-      "In de lokale versie van Pure Duels was lokale multiplayer mogelijk, maar toen ik het in de browserversie uitprobeerde, merkte ik dat de code die ik daarvoor had geschreven niet werkte in de browser. Vandaar dat de tweede speler nu alleen maar stil staat.",
-      "Hoewel ik met CyberBox een webversie heb gemaakt, is Pure Duels gewoon een simpele port. Het kan dus zijn dat het niet helemaal soepel loopt in de browser. Dit komt omdat het project effecten bevat die wat zwaarder zijn voor de browser om te verwerken. Dit is te veranderen in de settings.",
+      "Dit was een klein project die ik op stage bij RohaanIT moest maken om kennis te maken met hun stijl en manier van coderen.",
+      "Het is een simpele versie van een blog/social media site, waarbij je posts kan maken, liken, reageren, op die reacties kan reageren en liken en waar je kan volgen en ontvolgen.",
+      "Het was een leuk project om een weekje aan te werken en heb er veel van geleerd. Hiervoor had ik nog niet heel veel ervaring met TypeScript en Vue, dus dat was een leuke uitdaging."
     ],
-    technologies: ["Godot"],
-    heroImage: "/Images/PureDuels.png",
+    technologies: ["Laravel", "TypeScript", "Vue", "MySQL"],
+    heroImage: "/Images/BlogSite1.png",
     gallery: [
-      "/Images/PureDuels_5.png",
-      "/Images/PureDuels_1.png",
-      "/Images/PureDuels_2.png",
-      "/Images/PureDuels_3.png",
-      "/Images/PureDuels_4.png",
-      "/GIFS/PureDuelsGIF.gif",
+      "/Images/BlogSite1.png",
+      "/Images/BlogSite2.png",
+      "/Images/BlogSite3.png",
+      "/Images/BlogSite4.png",
+      "/Images/BlogSite5.png",
     ],
-    extraLinks: [
-      { href: "/projects/pureduels/game", label: "Speel Pure Duels!" }
-    ]
   },
   {
     slug: "cavegame",
