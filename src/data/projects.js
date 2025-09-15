@@ -19,6 +19,9 @@ export const projects = [
       "/Images/SHFT_1.png",
       "/Images/Versura.png",
     ],
+    extraLinks: [
+      { href: "/projects/shft/blog", label: "SHFT Blog" },
+    ],
   },
   {
     slug: "cyberbox",
