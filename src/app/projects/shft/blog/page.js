@@ -63,9 +63,9 @@ function formatPeriodNl(start, end) {
   }
   const sameYear = yearStart === yearEnd;
   if (sameYear) {
-    return `${start.getDate()} ${monthStart} – ${end.getDate()} ${monthEnd} ${yearStart}`;
+    return `${start.getDate()} ${monthStart} t/m ${end.getDate()} ${monthEnd} ${yearStart}`;
   }
-  return `${start.getDate()} ${monthStart} ${yearStart} – ${end.getDate()} ${monthEnd} ${yearEnd}`;
+  return `${start.getDate()} ${monthStart} ${yearStart} t/m ${end.getDate()} ${monthEnd} ${yearEnd}`;
 }
 
 export default async function BlogPage({ searchParams }) {
