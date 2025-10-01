@@ -1,5 +1,14 @@
 export const shftBlogPosts = [
 {
+    slug: "2025-09-20-2025-09-30-documentation",
+    title: "Documentatie en reflectie",
+    startDate: "2025-09-20",
+    endDate: "2025-09-30",
+    content: `Ik heb deze tijd goed gebruikt om na te denken over hoe het eindproduct eruit moet zien. Eerst heb ik een lijst gemaakt met alle features die ik nog wil toevoegen. Vervolgens heb ik per feature bekeken hoe ik deze het beste kan aanpakken.
+
+Op dit moment ben ik bezig met de ontwikkeling van de features die in de demo van de game komen. Zo kan ik zo snel mogelijk een demo laten zien aan anderen. Daarna ga ik verder met de rest van de features.`,
+},
+{
     slug: "2025-09-15-busy",
     title: "Update voor de toekomst",
     date: "2025-09-15",
