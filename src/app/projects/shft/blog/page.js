@@ -137,7 +137,7 @@ export default async function BlogPage({ searchParams }) {
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
 
-        <section className="mx-auto w-full max-w-7xl flex-1 px-4 pb-20 pt-32">
+        <section className="mx-auto w-full max-w-7xl flex-1 px-4 pb-20 pt-28">
           <h1 className="text-center text-4xl font-bold tracking-tight">
             SHFT{" "}
             <span className="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-indigo-300 bg-clip-text text-transparent">
@@ -234,14 +234,14 @@ export default async function BlogPage({ searchParams }) {
               </Link>
             </div>
 
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <Link
                 href="/projects/shft"
                 className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200 underline-offset-4 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
               >
                 ← Terug naar SHFT
               </Link>
-            </div>
+            </div> */}
 
             {/* Pager */}
             <nav className="flex items-center justify-center gap-2 md:justify-end">

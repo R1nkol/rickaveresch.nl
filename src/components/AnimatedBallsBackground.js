@@ -9,22 +9,29 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
   const fadeSpeed = 1 / 30; // ≈ 0.5s bij 60fps
 
   useEffect(() => {
-    targetCountRef.current = numBalls;
-  }, [numBalls]);
-
-  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const parent = canvas.parentElement;
 
     let width = 0;
     let height = 0;
+    const baseArea = 1920 * 1080;
+    const minBalls = Math.max(10, Math.round(numBalls * 0.6));
+    const maxBalls = Math.max(minBalls, Math.round(numBalls * 5));
+
+    const updateTargetCount = () => {
+      const area = Math.max(width * height, 1);
+      const density = numBalls / baseArea;
+      const desired = Math.round(area * density);
+      targetCountRef.current = Math.min(maxBalls, Math.max(minBalls, desired));
+    };
 
     const resize = () => {
       width = parent.offsetWidth;
       height = parent.offsetHeight;
       canvas.width = width;
       canvas.height = height;
+      updateTargetCount();
     };
 
     resize();
@@ -46,7 +53,7 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
     function animate() {
       const current = ballsRef.current;
 
-      const diff = targetCountRef.current - current.filter(b => b.fade.target === 1).length;
+      const diff = targetCountRef.current - current.filter((b) => b.fade.target === 1).length;
       if (diff > 0) {
         for (let i = 0; i < diff; i++) addBall();
       } else if (diff < 0) {
@@ -60,7 +67,7 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
         }
       }
 
-      ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, width, height);
 
       for (let i = current.length - 1; i >= 0; i--) {
         const ball = current[i];
@@ -104,7 +111,7 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
       resizeObserver.disconnect();
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [numBalls]);
 
   return (
     <canvas

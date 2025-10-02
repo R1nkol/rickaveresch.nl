@@ -50,6 +50,25 @@ export default function Home() {
   const [effect, setEffect] = useState("balls");
   const [showSettings, setShowSettings] = useState(false);
 
+  // Prevent small scroll jump when opening the settings menu
+  useEffect(() => {
+    if (!showSettings) return;
+    const y = window.scrollY;
+    const html = document.documentElement;
+    const prevBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+    const raf1 = requestAnimationFrame(() => {
+      window.scrollTo({ top: y });
+      requestAnimationFrame(() => {
+        html.style.scrollBehavior = prevBehavior || "";
+      });
+    });
+    return () => {
+      html.style.scrollBehavior = prevBehavior || "";
+      cancelAnimationFrame(raf1);
+    };
+  }, [showSettings]);
+
   useEffect(() => {
     const storedEffect = localStorage.getItem("homepageEffect");
     const storedBalls = localStorage.getItem("ballCount");
@@ -150,13 +169,250 @@ export default function Home() {
   ];
 
   return (
-    <main className="text-white font-sans scroll-smooth">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-white font-sans scroll-smooth">
       <Header activeSection={activeSection} />
 
       <section
         id="home"
-        className="relative flex flex-col bg-gray-950 items-center justify-center h-screen text-center px-4"
+        className={`relative flex flex-col items-center justify-center h-screen overflow-hidden px-4 text-center ${
+          effect === "balls" ? "bg-[#030712]" : ""
+        }`}
       >
+        <div className="absolute bottom-6 left-6 z-20" style={{ overflowAnchor: "none" }}>
+          {showSettings ? (
+            <div className="w-64 space-y-4 rounded-3xl border border-white/10 bg-white/[0.07] p-5 text-sm text-white backdrop-blur supports-[backdrop-filter]:bg-white/[0.09] animate-fade-in-up">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Settings</h3>
+                <button
+                  onClick={() => setShowSettings(false)}
+                  className="text-white transition hover:text-red-400"
+                >
+                  <FiX size={18} />
+                </button>
+              </div>
+
+              {/* 1) Select bovenaan */}
+              <select
+                value={effect}
+                onChange={(e) => setEffect(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+              >
+                <option value="balls">Ballen</option>
+                <option value="rain">Regen</option>
+                <option value="stars">Sneeuw</option>
+                <option value="fireflies">Vuurvliegjes</option>
+                <option value="attract-repel">Aantrekkingseffect</option>
+                <option value="orbit">Roterende objecten</option>
+              </select>
+
+              {/* 2) Label + nummer-input */}
+              <div className="flex items-center justify-between">
+                <span className="flex items-center gap-1 font-medium">
+                  {(() => {
+                    switch (effect) {
+                      case "balls":
+                        return `Aantal ballen:`;
+                      case "rain":
+                        return `Aantal regendruppels:`;
+                      case "stars":
+                        return `Aantal sneeuwvlokken:`;
+                      case "orbit":
+                        return `Aantal objecten:`;
+                      case "fireflies":
+                        return `Aantal vuurvliegjes:`;
+                      case "attract-repel":
+                        return `Aantal objecten:`;
+                      default:
+                        return "";
+                    }
+                  })()}
+                  <input
+                    type="number"
+                    min="0"
+                    max={(() => {
+                      switch (effect) {
+                        case "balls":
+                          return 100;
+                        case "rain":
+                          return 1000;
+                        case "stars":
+                          return 500;
+                        case "orbit":
+                          return 100;
+                        case "fireflies":
+                          return 500;
+                        case "attract-repel":
+                          return 500;
+                        default:
+                          return 100;
+                      }
+                    })()}
+                    value={(() => {
+                      switch (effect) {
+                        case "balls":
+                          return ballCount.toString();
+                        case "rain":
+                          return rainCount.toString();
+                        case "stars":
+                          return starCount.toString();
+                        case "orbit":
+                          return orbitCount.toString();
+                        case "fireflies":
+                          return firefliesCount.toString();
+                        case "attract-repel":
+                          return attractRepelCount.toString();
+                        default:
+                          return 0;
+                      }
+                    })()}
+                    onChange={(e) => {
+                      let v = parseInt(e.target.value, 10) || 0;
+                      const max = parseInt(e.target.max, 10);
+                      v = Math.min(v, max);
+                      switch (effect) {
+                        case "balls":
+                          setBallCount(v);
+                          break;
+                        case "rain":
+                          setRainCount(v);
+                          break;
+                        case "stars":
+                          setStarCount(v);
+                          break;
+                        case "orbit":
+                          setOrbitCount(v);
+                          break;
+                        case "fireflies":
+                          setFirefliesCount(v);
+                          break;
+                        case "attract-repel":
+                          setAttractRepelCount(v);
+                          break;
+                      }
+                    }}
+                    className="w-12 border-none bg-transparent text-left text-white outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+                  />
+                </span>
+              </div>
+
+              {/* 3) Hoofd-slider */}
+              <input
+                type="range"
+                min="0"
+                max={(() => {
+                  switch (effect) {
+                    case "balls":
+                      return 100;
+                    case "rain":
+                      return 1000;
+                    case "stars":
+                      return 500;
+                    case "orbit":
+                      return 100;
+                    case "fireflies":
+                      return 500;
+                    case "attract-repel":
+                      return 500;
+                    default:
+                      return 100;
+                  }
+                })()}
+                value={(() => {
+                  switch (effect) {
+                    case "balls":
+                      return ballCount;
+                    case "rain":
+                      return rainCount;
+                    case "stars":
+                      return starCount;
+                    case "orbit":
+                      return orbitCount;
+                    case "fireflies":
+                      return firefliesCount;
+                    case "attract-repel":
+                      return attractRepelCount;
+                    default:
+                      return 0;
+                  }
+                })()}
+                onChange={(e) => {
+                  const v = parseInt(e.target.value, 10) || 0;
+                  switch (effect) {
+                    case "balls":
+                      setBallCount(v);
+                      break;
+                    case "rain":
+                      setRainCount(v);
+                      break;
+                    case "stars":
+                      setStarCount(v);
+                      break;
+                    case "orbit":
+                      setOrbitCount(v);
+                      break;
+                    case "fireflies":
+                      setFirefliesCount(v);
+                      break;
+                    case "attract-repel":
+                      setAttractRepelCount(v);
+                      break;
+                  }
+                }}
+                className="w-full accent-purple-500"
+              />
+
+              {/* 4) Extra slider voor radius/muisbereik */}
+              {(effect === "orbit" || effect === "attract-repel") && (
+                <div className="space-y-2">
+                  {/* Label + input direct naast elkaar */}
+                  <div className="inline-flex items-center gap-2">
+                    <span className="text-sm">
+                      {effect === "orbit" ? "Maximale radius:" : "Muis reach:"}
+                    </span>
+                    <input
+                      type="number"
+                      min="20"
+                      max={effect === "orbit" ? 500 : 300}
+                      value={effect === "orbit" ? orbitRadius : attractRepelRange}
+                      onChange={(e) => {
+                        let v = parseInt(e.target.value, 10) || 0;
+                        const max = parseInt(e.target.max, 10);
+                        const min = parseInt(e.target.min, 10);
+                        v = Math.min(Math.max(v, min), max);
+                        if (effect === "orbit") setOrbitRadius(v);
+                        else setAttractRepelRange(v);
+                      }}
+                      className="w-16 border-none bg-transparent text-white outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
+                    />
+                  </div>
+
+                  {/* Slider eronder */}
+                  <input
+                    type="range"
+                    min="20"
+                    max={effect === "orbit" ? 500 : 300}
+                    value={effect === "orbit" ? orbitRadius : attractRepelRange}
+                    onChange={(e) => {
+                      const v = parseInt(e.target.value, 10) || 0;
+                      if (effect === "orbit") setOrbitRadius(v);
+                      else setAttractRepelRange(v);
+                    }}
+                    className="w-full accent-purple-500"
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowSettings(true)}
+              className="rounded-full border border-white/15 bg-white/10 p-3 text-white transition hover:border-purple-400/40 hover:bg-purple-500/25"
+              aria-label="Open instellingen"
+            >
+              <FiSettings size={20} />
+            </button>
+          )}
+        </div>
+
         {effect === "balls" ? (
           <AnimatedBallsBackground numBalls={ballCount} />
         ) : effect === "rain" ? (
@@ -170,31 +426,34 @@ export default function Home() {
         ) : effect === "attract-repel" ? (
           <AttractRepelBackground numParticles={attractRepelCount} interactionRadius={attractRepelRange} />
         ) : null}
-        <div className="relative z-10 mt-16 md:mt-0">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
-            Rick <span className="text-purple-400">Averesch</span>
-          </h1>
-          <p className="text-gray-300 max-w-xl mx-auto mb-6">
-            Software & Game Developer
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="#projects"
-              className="jun-gradient text-white px-6 py-2 rounded font-medium hover:brightness-90 transition"
-            >
-              Mijn werk
-            </Link>
-            <Link
-              href="#contact"
-              className="border border-purple-500 text-purple-400 px-6 py-2 rounded font-medium hover:bg-purple-500 hover:text-white transition"
-            >
-              Kom in contact
-            </Link>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/80 backdrop-blur-sm supports-[backdrop-filter]:backdrop-blur-2xl" />
+        <div className="relative z-10 mt-16 w-full max-w-3xl md:mt-0">
+          <div className="mx-auto rounded-3xl border border-white/10 bg-white/[0.04] px-8 py-12 backdrop-blur supports-[backdrop-filter]:bg-white/[0.06]">
+            <h1 className="text-4xl font-extrabold md:text-6xl">
+              Rick <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Averesch</span>
+            </h1>
+            <p className="mt-4 text-lg text-gray-200 md:text-xl">
+              Software & Game Developer
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="#projects"
+                className="inline-flex items-center justify-center rounded-full border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
+              >
+                Mijn werk
+              </Link>
+              <Link
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
+              >
+                Kom in contact
+              </Link>
+            </div>
           </div>
         </div>
 
         <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10"
+          className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
           onClick={() =>
             document
               .getElementById("about")
@@ -209,350 +468,183 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        id="about"
-        className="min-h-[60vh] py-20 px-4 max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8"
-      >
-        <div className="flex-1 space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            About <span className="text-purple-400">Me</span>
-          </h2>
-          <p className="text-gray-300">
-            Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan
-            ROC van Twente, Almelo de Sumpel...
-          </p>
-          <p className="text-gray-300">
-            Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript.
-            Ik vind het leuk om nieuwe dingen te leren...
-          </p>
-          <Link
-            href="#contact"
-            className="inline-block jun-gradient px-6 py-2 text-white rounded font-medium hover:brightness-90 transition"
-          >
-            Kom in contact
-          </Link>
-        </div>
-        <div className="flex-1 flex justify-center group">
-          <div className="rounded-xl shadow-md overflow-hidden">
-            <Image
-              src="/Images/MyPicture.jpg"
-              alt="Profile"
-              width={400}
-              height={400}
-              className="object-cover transition-transform duration-[10000ms] ease-out group-hover:scale-125"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="py-16 px-4 max-w-7xl mx-auto min-h-[40vh]">
-        <h2 className="text-center text-4xl font-bold mb-8">
-          Mijn <span className="text-purple-400">Specialiteiten</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-black border border-purple-500 rounded p-6 text-center hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-semibold mb-2">Backend Development</h3>
-            <p className="text-gray-300">
-              Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel,
-              MySQL en C#.
+      <section id="about" className="relative px-4 py-20">
+        <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-10 rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05] md:flex-row">
+          <div className="flex-1 space-y-6">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              About <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Me</span>
+            </h2>
+            <p className="text-gray-200">
+              Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan ROC van Twente, Almelo de Sumpel...
             </p>
-          </div>
-          <div className="bg-black border border-purple-500 rounded p-6 text-center hover:shadow-md transition-shadow">
-            <h3 className="text-xl font-semibold mb-2">Game Development</h3>
-            <p className="text-gray-300">
-              Als hobby naast mijn studie ben ik bezig met het maken van games in Godot
-              met GDScript.
+            <p className="text-gray-200">
+              Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript. Ik vind het leuk om nieuwe dingen te leren...
             </p>
+            <Link
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-full border border-purple-400/40 bg-purple-500/15 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/25"
+            >
+              Kom in contact
+            </Link>
           </div>
-        </div>
-      </section>
-
-      <section id="skills" className="py-16 px-4 max-w-7xl mx-auto min-h-[35vh]">
-        <h2 className="text-center text-4xl font-bold mb-4">
-          Development <span className="text-purple-400">skills</span>
-        </h2>
-        <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
-          Alle talen en programma's waar ik ervaring mee heb.
-        </p>
-        <div className="relative overflow-hidden w-full h-32 flex items-center">
-          <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"}`}>
-            <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between`}>
-              {SkillsItems.map((item, idx) => (
-                <div
-                  key={`set1-${idx}`}
-                  className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
-                >
-                  <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
-                  <p className="mt-2 text-sm cursor-default">{item.label}</p>
-                </div>
-              ))}
+          <div className="group flex flex-1 justify-center">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-2 supports-[backdrop-filter]:bg-white/[0.05]">
+              <Image
+                src="/Images/MyPicture.jpg"
+                alt="Profile"
+                width={400}
+                height={400}
+                className="h-full w-full max-w-sm rounded-2xl object-cover transition-transform duration-[10000ms] ease-out group-hover:scale-110"
+              />
+              <div className="absolute inset-0 rounded-2xl border border-white/10" />
             </div>
-            {!isMobile && (
-              <div className="flex w-1/2 justify-between">
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="relative px-4 py-16">
+        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
+          <h2 className="text-center text-4xl font-bold">
+            Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Specialiteiten</span>
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
+                <span className="text-xl font-semibold">&lt;/&gt;</span>
+              </div>
+              <h3 className="mt-5 text-xl font-semibold">Backend Development</h3>
+              <p className="mt-3 text-sm text-gray-200">
+                Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel, MySQL en C#.
+              </p>
+            </div>
+            <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
+                <span className="text-xl">🎮</span>
+              </div>
+              <h3 className="mt-5 text-xl font-semibold">Game Development</h3>
+              <p className="mt-3 text-sm text-gray-200">
+                Als hobby naast mijn studie ben ik bezig met het maken van games in Godot met GDScript.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" className="relative px-4 py-16">
+        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
+          <h2 className="text-center text-4xl font-bold">
+            Development <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">skills</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-gray-200">
+            Alle talen en programma's waar ik ervaring mee heb.
+          </p>
+          <div className="relative mt-10 flex h-28 w-full items-center overflow-hidden">
+            <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"}`}>
+              <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between gap-3`}>
                 {SkillsItems.map((item, idx) => (
                   <div
-                    key={`set2-${idx}`}
-                    className="bg-[#151335] hover:bg-[#1e1b4b] p-4 rounded flex flex-col items-center mx-2 w-28 shrink-0 transition-transform duration-300 transform hover:scale-105"
+                    key={`set1-${idx}`}
+                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
                   >
-                    <img src={item.src} alt={item.label} className="h-8 w-8 object-contain" />
-                    <p className="mt-2 text-sm cursor-default">{item.label}</p>
+                    <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
+                    <p className="mt-2 cursor-default">{item.label}</p>
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section id="projects" className="py-16 px-4 max-w-7xl mx-auto">
-        <h2 className="text-center text-4xl font-bold mb-4">
-          Mijn <span className="text-purple-400">Projecten</span>
-        </h2>
-        <p className="text-center text-gray-300 mb-8 max-w-xl mx-auto">
-          Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.slice(0, 4).map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link
-            href="/projects"
-            className="jun-gradient text-white px-6 py-2 rounded font-medium hover:brightness-90 transition"
-          >
-            Bekijk al mijn projecten
-          </Link>
-        </div>
-      </section>
-
-      <section
-        id="contact"
-        className="bg-black border border-purple-500 py-10 px-4 rounded mx-auto max-w-7xl mb-20"
-      >
-        <div className="flex flex-col lg:flex-row items-start gap-8">
-          <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-              Kom <span className="text-purple-400">In Contact</span>
-            </h2>
-            <p className="text-gray-300 mb-6 max-w-lg">
-              Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
-            </p>
-          </div>
-          <form className="bg-gray-900 border border-purple-500 rounded p-6 flex-1 w-full">
-            <div className="flex flex-col gap-4 mb-4">
-              <label className="text-sm font-medium text-gray-400 w-full">
-                Naam
-                <input
-                  type="text"
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
-                />
-              </label>
-              <label className="text-sm font-medium text-gray-400 w-full">
-                Email
-                <input
-                  type="email"
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
-                />
-              </label>
-              <label className="text-sm font-medium text-gray-400 w-full">
-                Bericht
-                <textarea
-                  rows={4}
-                  className="block w-full rounded border border-purple-500 bg-gray-800 text-white mt-1 px-3 py-2 md:w-full"
-                ></textarea>
-              </label>
+              {!isMobile && (
+                <div className="flex w-1/2 justify-between gap-3">
+                  {SkillsItems.map((item, idx) => (
+                    <div
+                      key={`set2-${idx}`}
+                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                    >
+                      <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
+                      <p className="mt-2 cursor-default">{item.label}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-            <button
-              type="submit"
-              className="bg-purple-600 text-white px-6 py-2 rounded font-medium hover:bg-purple-500 transition w-full md:w-auto"
-            >
-              Verzend
-            </button>
-          </form>
+          </div>
         </div>
       </section>
 
-{/* Instellingenpaneel linksonder in de hero (niet fixed) */}
-<div className="absolute bottom-4 left-4 z-10">
-  {showSettings ? (
-    <div className="bg-black/80 border border-purple-500 text-white text-sm p-4 rounded-lg shadow-lg w-64 space-y-4 animate-fade-in-up">
-      <div className="flex justify-between items-center">
-        <h3 className="font-medium">Settings</h3>
-        <button
-          onClick={() => setShowSettings(false)}
-          className="text-white hover:text-red-400 transition"
-        >
-          <FiX size={18} />
-        </button>
-      </div>
+      <section id="projects" className="relative px-4 py-16">
+        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
+          <h2 className="text-center text-4xl font-bold">
+            Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Projecten</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-gray-200">
+            Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
+          </p>
+          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+            {projects.slice(0, 4).map((project) => (
+              <ProjectCard key={project.title} {...project} />
+            ))}
+          </div>
+          <div className="mt-12 text-center">
+            <Link
+              href="/projects"
+              className="inline-flex items-center justify-center rounded-full border border-purple-200/30 bg-white/[0.08] px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-200/40 hover:bg-white/[0.12]"
+            >
+              Bekijk al mijn projecten
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      {/* 1) Select bovenaan */}
-      <select
-        value={effect}
-        onChange={(e) => setEffect(e.target.value)}
-        className="w-full bg-gray-900 border border-purple-600 text-white text-sm rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
-      >
-        <option value="balls">Ballen</option>
-        <option value="rain">Regen</option>
-        <option value="stars">Sneeuw</option>
-        <option value="fireflies">Vuurvliegjes</option>
-        <option value="attract-repel">Aantrekkingseffect</option>
-        <option value="orbit">Roterende objecten</option>
-      </select>
-
-      {/* 2) Label + nummer-input */}
-      <div className="flex justify-between items-center">
-        <span className="font-medium flex items-center gap-1">
-          {(() => {
-            switch (effect) {
-              case 'balls': return `Aantal ballen:`;
-              case 'rain': return `Aantal regendruppels:`;
-              case 'stars': return `Aantal sneeuwvlokken:`;
-              case 'orbit': return `Aantal objecten:`;
-              case 'fireflies': return `Aantal vuurvliegjes:`;
-              case 'attract-repel': return `Aantal objecten:`;
-              default: return '';
-            }
-          })()}
-          <input
-            type="number"
-            min="0"
-            max={(() => {
-              switch (effect) {
-                case 'balls': return 100;
-                case 'rain': return 1000;
-                case 'stars': return 500;
-                case 'orbit': return 100;
-                case 'fireflies': return 500;
-                case 'attract-repel': return 500;
-                default: return 100;
-              }
-            })()}
-            value={(() => {
-              switch (effect) {
-                case 'balls': return ballCount.toString();
-                case 'rain': return rainCount.toString();
-                case 'stars': return starCount.toString();
-                case 'orbit': return orbitCount.toString();
-                case 'fireflies': return firefliesCount.toString();
-                case 'attract-repel': return attractRepelCount.toString();
-                default: return 0;
-              }
-            })()}
-            onChange={(e) => {
-              let v = parseInt(e.target.value, 10) || 0;
-              const max = parseInt(e.target.max, 10);
-              v = Math.min(v, max);
-              switch (effect) {
-                case 'balls': setBallCount(v); break;
-                case 'rain': setRainCount(v); break;
-                case 'stars': setStarCount(v); break;
-                case 'orbit': setOrbitCount(v); break;
-                case 'fireflies': setFirefliesCount(v); break;
-                case 'attract-repel': setAttractRepelCount(v); break;
-              }
-            }}
-            className="bg-transparent w-12 text-white text-left outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
-          />
-        </span>
-      </div>
-
-      {/* 3) Hoofd-slider */}
-      <input
-        type="range"
-        min="0"
-        max={(() => {
-          switch (effect) {
-            case 'balls': return 100;
-            case 'rain': return 1000;
-            case 'stars': return 500;
-            case 'orbit': return 100;
-            case 'fireflies': return 500;
-            case 'attract-repel': return 500;
-            default: return 100;
-          }
-        })()}
-        value={(() => {
-          switch (effect) {
-            case 'balls': return ballCount;
-            case 'rain': return rainCount;
-            case 'stars': return starCount;
-            case 'orbit': return orbitCount;
-            case 'fireflies': return firefliesCount;
-            case 'attract-repel': return attractRepelCount;
-            default: return 0;
-          }
-        })()}
-        onChange={(e) => {
-          const v = parseInt(e.target.value, 10) || 0;
-          switch (effect) {
-            case 'balls': setBallCount(v); break;
-            case 'rain': setRainCount(v); break;
-            case 'stars': setStarCount(v); break;
-            case 'orbit': setOrbitCount(v); break;
-            case 'fireflies': setFirefliesCount(v); break;
-            case 'attract-repel': setAttractRepelCount(v); break;
-          }
-        }}
-        className="w-full accent-purple-500"
-      />
-
-      {/* 4) Extra slider voor radius/muisbereik */}
-{(effect === 'orbit' || effect === 'attract-repel') && (
-  <div className="space-y-2">
-    {/* Label + input direct naast elkaar */}
-    <div className="inline-flex items-center gap-2">
-      <span className="text-sm">
-        {effect === 'orbit' ? 'Maximale radius:' : 'Muis reach:'}
-      </span>
-      <input
-        type="number"
-        min="20"
-        max={effect === 'orbit' ? 500 : 300}
-        value={effect === 'orbit' ? orbitRadius : attractRepelRange}
-        onChange={(e) => {
-          let v = parseInt(e.target.value, 10) || 0;
-          const max = parseInt(e.target.max, 10);
-          const min = parseInt(e.target.min, 10);
-          v = Math.min(Math.max(v, min), max);
-          if (effect === 'orbit') setOrbitRadius(v);
-          else setAttractRepelRange(v);
-        }}
-        className="w-16 bg-transparent text-white outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield]"
-      />
-    </div>
-
-    {/* Slider eronder */}
-    <input
-      type="range"
-      min="20"
-      max={effect === 'orbit' ? 500 : 300}
-      value={effect === 'orbit' ? orbitRadius : attractRepelRange}
-      onChange={(e) => {
-        const v = parseInt(e.target.value, 10) || 0;
-        if (effect === 'orbit') setOrbitRadius(v);
-        else setAttractRepelRange(v);
-      }}
-      className="w-full accent-purple-500"
-    />
-  </div>
-)}
-
-
-    </div>
-  ) : (
-    <button
-      onClick={() => setShowSettings(true)}
-      className="bg-black/60 border border-purple-500 p-3 rounded-full text-white hover:bg-purple-600 transition"
-      aria-label="Open instellingen"
-    >
-      <FiSettings size={20} />
-    </button>
-  )}
-</div>
-
+      <section id="contact" className="relative px-4 pb-24">
+        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
+          <div className="flex flex-col items-start gap-10 lg:flex-row">
+            <div className="flex-1">
+              <h2 className="text-3xl font-bold text-white md:text-4xl">
+                Kom <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">In Contact</span>
+              </h2>
+              <p className="mt-4 max-w-lg text-gray-200">
+                Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
+              </p>
+              <p className="mt-3 max-w-lg text-sm text-gray-300">
+                Ik reageer meestal binnen één werkdag met een voorstel of antwoord op je vraag.
+              </p>
+            </div>
+            <form className="flex-1 w-full rounded-3xl border border-white/10 bg-white/[0.05] p-6 supports-[backdrop-filter]:bg-white/[0.07]">
+              <div className="mb-5 flex flex-col gap-4">
+                <label className="text-sm font-medium text-gray-200">
+                  Naam
+                  <input
+                    type="text"
+                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="Hoe mag ik je noemen?"
+                  />
+                </label>
+                <label className="text-sm font-medium text-gray-200">
+                  Email
+                  <input
+                    type="email"
+                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="Waar kan ik je bereiken?"
+                  />
+                </label>
+                <label className="text-sm font-medium text-gray-200">
+                  Bericht
+                  <textarea
+                    rows={4}
+                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="Vertel me waar ik je mee kan helpen"
+                  ></textarea>
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center rounded-full border border-purple-200/40 bg-white/[0.1] px-6 py-3 text-sm font-semibold text-white transition hover:border-purple-200/50 hover:bg-white/[0.15] md:w-auto"
+              >
+                Verzend
+              </button>
+            </form>
+          </div>
+        </div>
       <Footer />
+      </section>
     </main>
   );
 }
