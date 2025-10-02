@@ -16,7 +16,7 @@ export default async function Projects({ searchParams }) {
     : projects;
 
   return (
-    <main className="relative text-white font-sans min-h-screen flex flex-col">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
       <AnimatedBallsBackground />
 
       <div className="relative z-10">

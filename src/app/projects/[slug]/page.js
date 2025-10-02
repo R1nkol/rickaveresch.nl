@@ -216,18 +216,17 @@ export default function ProjectDetail() {
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                  <h3 className="text-xl font-semibold text-white">Deel dit project</h3>
+                  <h3 className="text-xl font-semibold text-white">Meer zien?</h3>
                   <p className="mt-3 text-sm text-gray-300">
-                    Laat anderen zien waar ik aan heb gewerkt. Kopieer de link of stuur een van de extra resources door.
+                    Ik heb nog genoeg andere projecten, als je die wilt zien kun je op de knop hieronder klikken om een overzicht te krijgen.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      onClick={handleCopyLink}
+                    <Link
+                      href="/projects"
                       className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
                     >
-                      {copied ? "Gekopieerd!" : "Kopieer link"}
-                    </button>
+                      Alle projecten
+                    </Link>
                     <Link
                       href="/"
                       className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
@@ -281,21 +280,6 @@ export default function ProjectDetail() {
                 </div>
               </div>
             )}
-
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-300">
-              <Link
-                href="/projects"
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-5 py-2 transition hover:border-purple-400 hover:bg-purple-500/20 hover:text-white"
-              >
-                Bekijk alle projecten
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-5 py-2 transition hover:border-purple-400 hover:bg-purple-500/20 hover:text-white"
-              >
-                Terug naar Home
-              </Link>
-            </div>
           </div>
         </section>
 

@@ -1,52 +1,57 @@
 import Image from "next/image";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import { FiArrowUpRight } from "react-icons/fi";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
-    <div className="flex flex-col md:flex-row bg-[#151335] border border-purple-600 rounded-lg overflow-hidden group relative">
-      {/* Image Section */}
-      <div className="relative w-full md:w-1/3 aspect-video md:aspect-auto overflow-hidden">
-        <Image
-          src={imageSrc}
-          alt={title}
-          fill
-          className="object-cover object-center transition-transform duration-500 hover:scale-110"
-        />
-        {badge && (
-          <div className="absolute top-3 left-3 backdrop-blur-sm bg-purple-600/80 text-white text-xs font-medium px-3 py-1 rounded-md shadow-md z-10 border border-white/10 pointer-events-none">
-            {badge}
-          </div>
-        )}
+    <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_18px_40px_rgba(5,6,25,0.35)] transition-all duration-500 hover:border-purple-300/40 hover:shadow-[0_26px_70px_rgba(89,70,255,0.35)] supports-[backdrop-filter]:bg-white/[0.05]">
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/18 via-transparent to-indigo-500/25" />
       </div>
+      <div className="grid gap-0 md:grid-cols-[1.05fr_1fr]">
+        <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]">
+          <Image
+            src={imageSrc}
+            alt={title}
+            fill
+            className="object-cover object-center transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030712]/85 via-[#030712]/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          {badge && (
+            <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-1 rounded-full border border-white/20 bg-[#030712]/80 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-purple-100 shadow-[0_8px_20px_rgba(17,12,48,0.45)]">
+              {badge}
+            </div>
+          )}
+        </div>
 
-      {/* Content Section */}
-      <div className="p-4 w-full md:w-2/3 flex flex-col justify-between">
-        <div>
-          <h3 className="text-xl font-semibold text-white">{title}</h3>
-          <p className="text-gray-300 mt-2">{description}</p>
-        </div>
-        <div className="mt-4 flex justify-between items-center">
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Link
-                href={`/projects?tag=${encodeURIComponent(tag)}`}
-                key={tag}
-                className="border border-purple-500 text-purple-400 px-2 py-1 rounded text-sm transition hover:bg-purple-500 hover:text-white cursor-pointer"
-              >
-                {tag}
-              </Link>
-            ))}
+        <div className="relative z-10 flex h-full flex-col justify-between gap-6 p-6 md:p-8">
+          <div className="space-y-3">
+            <h3 className="text-2xl font-semibold text-white">{title}</h3>
+            <p className="text-gray-200/90">{description}</p>
           </div>
-          <a
-            href={link}
-            className="text-purple-400 text-sm transition hover:underline hover:text-purple-300"
-          >
-            Meer info →
-          </a>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <Link
+                  href={`/projects?tag=${encodeURIComponent(tag)}`}
+                  key={tag}
+                  className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-medium text-gray-100 transition-colors duration-300 hover:border-purple-200/40 hover:bg-purple-500/20 hover:text-white"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+            <Link
+              href={link}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-purple-200 transition-colors duration-300 hover:text-white"
+            >
+              Meer info <FiArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
