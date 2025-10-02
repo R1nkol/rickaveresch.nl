@@ -9,7 +9,7 @@ import { projects } from "@/data/projects";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiSettings, FiX } from "react-icons/fi";
+import { FiSettings, FiX, FiArrowUpRight } from "react-icons/fi";
 
 const AnimatedBallsBackground = dynamic(
   () => import("@/components/AnimatedBallsBackground"),
@@ -464,83 +464,111 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="relative px-4 py-20">
-        <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-10 rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05] md:flex-row">
-          <div className="flex-1 space-y-6">
-            <h2 className="text-3xl font-bold md:text-4xl">
-              About <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Me</span>
+      <section id="about" className="relative px-4 py-24">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-gradient-to-r from-purple-500/40 via-fuchsia-500/20 to-transparent blur-3xl" />
+          <div className="absolute -right-10 bottom-0 h-80 w-80 rounded-full bg-gradient-to-r from-indigo-500/30 via-purple-500/10 to-transparent blur-3xl" />
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-16 md:grid-cols-[1.1fr,0.9fr]">
+          <div className="space-y-6 text-left">
+            <span className="inline-flex items-center rounded-lg bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.4em] text-purple-200/90">
+              Wie ik ben
+            </span>
+            <h2 className="text-4xl font-bold md:text-5xl">
+              Een creatieve <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">ontwikkelaar</span> met liefde voor detail
             </h2>
-            <p className="text-gray-200">
-              Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan ROC van Twente, Almelo de Sumpel.
-            </p>
-            <p className="text-gray-200">
-              Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript. Ik vind het leuk om nieuwe dingen te leren.
-            </p>
+            <div className="space-y-4 text-lg text-gray-200">
+              <p>
+                Hoi! Ik ben Rick Averesch, 19 jaar en student Software Development aan ROC van Twente, Almelo de Sumpel.
+              </p>
+              <p>
+                Buiten mijn studie verdiep ik me in game development in Godot met GDScript.
+              </p>
+            </div>
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center rounded-xl border border-purple-400/40 bg-purple-500/15 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/25"
+              className="inline-flex items-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/20 px-7 py-3 text-sm font-semibold text-white shadow-[0_0_25px_rgb(168,85,247,0.25)] transition hover:border-purple-300/60 hover:bg-purple-500/30"
             >
               Kom in contact
             </Link>
           </div>
-          <div className="group flex flex-1 justify-center">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-2 supports-[backdrop-filter]:bg-white/[0.05]">
+          <div className="relative flex justify-center">
+            <div className="absolute -top-6 -left-6 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
+            <div className="absolute -bottom-10 -right-4 h-52 w-52 rounded-full bg-indigo-500/20 blur-3xl" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.06] p-3 shadow-[0_25px_50px_-20px_rgba(109,40,217,0.45)] supports-[backdrop-filter]:bg-white/[0.08]">
               <Image
                 src="/Images/MyPicture.jpg"
                 alt="Profile"
-                width={400}
-                height={400}
-                className="h-full w-full max-w-sm rounded-xl object-cover transition-transform duration-[10000ms] ease-out group-hover:scale-110"
+                width={420}
+                height={420}
+                className="h-full w-full max-w-sm rounded-2xl object-cover transition-transform duration-[12000ms] ease-out hover:scale-105"
               />
-              <div className="absolute inset-0 rounded-xl border border-white/10" />
+              <div className="absolute inset-4 rounded-2xl border border-white/10" />
             </div>
           </div>
         </div>
       </section>
 
-      <section id="services" className="relative px-4 py-16">
-        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
-          <h2 className="text-center text-4xl font-bold">
-            Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Specialiteiten</span>
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
-                <span className="text-xl font-semibold">&lt;/&gt;</span>
+      <section id="services" className="relative overflow-hidden px-4 py-24">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(139,92,246,0.15),_rgba(3,7,18,0))]" />
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
+          <div className="text-center">
+            {/* <span className="inline-flex items-center justify-center rounded-lg border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.45em] text-purple-200/80">
+              Skills
+            </span> */}
+            <h2 className="mt-6 text-4xl font-bold md:text-5xl">
+              Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">specialiteiten</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-200">
+              Een mix van technische skills en creatieve flair waarmee ik digitale producten vormgeef van idee tot oplevering.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-transparent p-8 text-left shadow-[0_20px_45px_-30px_rgba(124,58,237,0.75)] transition duration-500 hover:-translate-y-2 hover:border-purple-300/40">
+              <div className="absolute -right-12 -top-10 h-28 w-28 rounded-full bg-purple-500/25 blur-2xl transition group-hover:scale-125" />
+              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-400/20 text-purple-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m5.25-3-5.25 5.25 5.25 5.25 5.25-5.25-5.25-5.25z" />
+                </svg>
               </div>
-              <h3 className="mt-5 text-xl font-semibold">Backend Development</h3>
-              <p className="mt-3 text-sm text-gray-200">
-                Door mijn opleiding en eigen projecten heb ik veel ervaring met Laravel, MySQL en C#.
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Web Development</h3>
+              <p className="relative z-10 mt-3 text-sm text-gray-200">
+                Moderne websites die performant, toegankelijk en verrassend interactief aanvoelen.
               </p>
             </div>
-            <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
-                <span className="text-xl">🎮</span>
+            <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-transparent to-white/[0.02] p-8 text-left shadow-[0_20px_45px_-30px_rgba(236,72,153,0.75)] transition duration-500 hover:-translate-y-2 hover:border-pink-300/40">
+              <div className="absolute -left-10 -top-12 h-28 w-28 rounded-full bg-pink-500/25 blur-2xl transition group-hover:scale-125" />
+              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-pink-400/40 bg-pink-400/20 text-pink-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m9 17.25-2.25 2.25-2.25-2.25m11.25-7.5 2.25-2.25 2.25 2.25m-16.5 9 4.5-4.5 3 3 6-6 4.5 4.5m-9-7.5 2.25-2.25L16.5 9" />
+                </svg>
               </div>
-              <h3 className="mt-5 text-xl font-semibold">Game Development</h3>
-              <p className="mt-3 text-sm text-gray-200">
-                Als hobby naast mijn studie ben ik bezig met het maken van games in Godot met GDScript.
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Software Development</h3>
+              <p className="relative z-10 mt-3 text-sm text-gray-200">
+                Stabiele applicaties en tooling met oog voor gebruiksgemak en schaalbaarheid.
+              </p>
+            </div>
+            <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_20px_45px_-30px_rgba(56,189,248,0.75)] transition duration-500 hover:-translate-y-2 hover:border-cyan-300/40">
+              <div className="absolute -bottom-12 right-0 h-32 w-32 rounded-full bg-cyan-400/25 blur-2xl transition group-hover:scale-125" />
+              <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/40 bg-cyan-400/20 text-cyan-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m16.5 10.5-4.5 4.5m0 0-4.5-4.5m4.5 4.5V3" />
+                </svg>
+              </div>
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Game Development</h3>
+              <p className="relative z-10 mt-3 text-sm text-gray-200">
+                Games en interactieve ervaringen met Godot &amp; GDScript, gevoed door storytelling.
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="skills" className="relative px-4 py-16">
-        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
-          <h2 className="text-center text-4xl font-bold">
-            Development <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">skills</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-gray-200">
-            Alle talen en programma's waar ik ervaring mee heb.
-          </p>
-          <div className="relative mt-10 flex h-28 w-full items-center overflow-hidden">
+          <div className="relative mt-16 flex h-28 w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 supports-[backdrop-filter]:bg-white/[0.06]">
             <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"} gap-4`}>
               <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-center gap-4`}>
                 {SkillsItems.map((item, idx) => (
                   <div
                     key={`set1-${idx}`}
-                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
                   >
                     <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
                     <p className="mt-2 cursor-default">{item.label}</p>
@@ -565,81 +593,101 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="relative px-4 py-16">
-        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
-          <h2 className="text-center text-4xl font-bold">
-            Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Projecten</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-gray-200">
-            Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
-          </p>
-          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+      <section id="projects" className="relative px-4 py-24">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute left-1/2 top-0 h-[28rem] w-[120%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.2),_rgba(3,7,18,0))]" />
+          <div className="absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        </div>
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-14">
+          <div className="space-y-4 text-center">
+            {/* <span className="inline-flex items-center justify-center rounded-full bg-white/5 px-5 py-1 text-xs uppercase tracking-[0.5em] text-indigo-200/80">
+              Portfolio
+            </span> */}
+            <h2 className="text-4xl font-bold md:text-5xl">
+              Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Projecten</span>
+            </h2>
+            <p className="mx-auto max-w-2xl text-base text-gray-200">
+              Een greep uit het werk waar ik trots op ben. Elk project is een experiment in storytelling, interactie en techniek.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
             {projects.slice(0, 4).map((project) => (
               <ProjectCard key={project.title} {...project} />
             ))}
           </div>
-          <div className="mt-12 text-center">
+          <div className="flex justify-center">
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center rounded-xl border border-purple-200/30 bg-white/[0.08] px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-200/40 hover:bg-white/[0.12]"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-purple-300/50 hover:bg-purple-500/20"
             >
               Bekijk al mijn projecten
+              <FiArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="relative px-4 pb-24">
-        <div className="mx-auto w-full max-w-7xl rounded-[2.5rem] border border-white/10 bg-white/[0.03] px-8 py-14 backdrop-blur supports-[backdrop-filter]:bg-white/[0.05]">
-          <div className="flex flex-col items-start gap-10 lg:flex-row">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold text-white md:text-4xl">
-                Kom <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">In Contact</span>
-              </h2>
-              <p className="mt-4 max-w-lg text-gray-200">
-                Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
-              </p>
-              {/* <p className="mt-3 max-w-lg text-sm text-gray-300">
-                Ik reageer meestal binnen één werkdag met een voorstel of antwoord op je vraag.
-              </p> */}
-            </div>
-            <form className="flex-1 w-full rounded-3xl border border-white/10 bg-white/[0.05] p-6 supports-[backdrop-filter]:bg-white/[0.07]">
-              <div className="mb-5 flex flex-col gap-4">
-                <label className="text-sm font-medium text-gray-200">
-                  Naam
-                  <input
-                    type="text"
-                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="Rick Averesch"
-                  />
-                </label>
-                <label className="text-sm font-medium text-gray-200">
-                  Email
-                  <input
-                    type="email"
-                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="rick@averesch.nl"
-                  />
-                </label>
-                <label className="text-sm font-medium text-gray-200">
-                  Bericht
-                  <textarea
-                    rows={4}
-                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="Hallo Rick, ik heb een vraag over..."
-                  ></textarea>
-                </label>
+      <section id="contact" className="relative px-4 pb-32">
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_bottom,_rgba(168,85,247,0.18),_rgba(3,7,18,0))]" />
+        <div className="absolute right-6 top-16 -z-10 h-32 w-32 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="mx-auto grid w-full max-w-6xl items-start gap-16 lg:grid-cols-[0.9fr,1.1fr]">
+          <div className="space-y-6">
+            <h2 className="text-4xl font-bold md:text-5xl text-white">
+              Kom <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">in contact</span>
+            </h2>
+            <p className="max-w-xl text-base text-gray-200">
+              Zin om samen te werken of gewoon iets te vragen? Stuur me een bericht met je ideeën en ik kom zo snel mogelijk bij je terug.
+            </p>
+            <div className="grid gap-3 text-sm text-gray-300">
+              {/* <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3">
+                <span className="h-2 w-2 rounded-full bg-green-400" />
+                Beschikbaar voor freelance projecten &amp; stages
               </div>
-              <button
-                type="submit"
-                className="inline-flex w-full items-center justify-center rounded-xl border border-purple-200/40 bg-white/[0.1] px-6 py-3 text-sm font-semibold text-white transition hover:border-purple-200/50 hover:bg-white/[0.15] md:w-auto"
-              >
-                Verzend
-              </button>
-            </form>
+              <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.03] px-4 py-3">
+                <span className="h-2 w-2 rounded-full bg-purple-400" />
+                Reactie binnen één werkdag
+              </div> */}
+            </div>
           </div>
+          <form className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.08] p-8 shadow-[0_30px_60px_-35px_rgba(79,70,229,0.6)] supports-[backdrop-filter]:bg-white/[0.12]">
+            <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-purple-500/30 blur-3xl" />
+            <div className="relative grid gap-5 md:grid-cols-2">
+              <label className="text-sm font-medium text-gray-200">
+                Naam
+                <input
+                  type="text"
+                  className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                  placeholder="Rick Averesch"
+                />
+              </label>
+              <label className="text-sm font-medium text-gray-200">
+                Email
+                <input
+                  type="email"
+                  className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                  placeholder="rick@averesch.nl"
+                />
+              </label>
+            </div>
+            <label className="relative mt-5 block text-sm font-medium text-gray-200">
+              Bericht
+              <textarea
+                rows={5}
+                className="mt-2 block w-full rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                placeholder="Hallo Rick, ik heb een vraag over..."
+              ></textarea>
+            </label>
+            <button
+              type="submit"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-purple-200/40 bg-purple-500/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-purple-200/60 hover:bg-purple-500/40 md:w-auto"
+            >
+              Verzend bericht
+              <FiArrowUpRight className="text-base" />
+            </button>
+          </form>
         </div>
       </section>
+
       <Footer />
     </main>
   );

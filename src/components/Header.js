@@ -6,11 +6,30 @@ import { usePathname } from "next/navigation";
 export default function Header({ activeSection }) {
   const pathname = usePathname();
 
+  const suffix = (() => {
+    if (!pathname || pathname === "/") return "";
+    const parts = pathname.split("/").filter(Boolean);
+    if (!parts.length) return "";
+
+    if (parts[0] === "projects") {
+      if (parts.length === 1) return "PROJECTS";
+      return parts[1].toUpperCase();
+    }
+
+    const first = parts[0];
+    return first.toUpperCase();
+  })();
+
   return (
     <header className="w-full fixed top-0 left-0 bg-black bg-opacity-80 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold uppercase hover:opacity-80">
-          RickAveresch
+        <Link href="/" className="text-2xl font-bold hover:opacity-80 flex items-baseline gap-2">
+          <span className="uppercase">RICKAVERESCH</span>
+          {suffix && (
+            <span className="text-xl font-semibold text-gray-300">
+              / <span className="align-baseline">{suffix}</span>
+            </span>
+          )}
         </Link>
 
         {pathname === "/" && (
