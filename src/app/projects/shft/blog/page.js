@@ -184,7 +184,7 @@ export default async function BlogPage({ searchParams }) {
                   </h2>
 
                   <span
-                    className="inline-flex max-w-full items-center gap-2 truncate rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs text-purple-200"
+                    className="inline-flex max-w-full items-center gap-2 truncate rounded-lg border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs text-purple-200"
                     title={formatPeriodNl(post.dateStart, post.dateEnd)}
                   >
                     <span className="h-2 w-2 rounded-xl bg-purple-300/80 shadow-[0_0_8px_rgba(216,180,254,0.8)]" />
@@ -250,7 +250,7 @@ export default async function BlogPage({ searchParams }) {
                   return (
                     <span
                       key={`ellipsis-${index}`}
-                      className="rounded-full px-3 py-1.5 text-sm text-gray-400"
+                      className="rounded-xl px-3 py-1.5 text-sm text-gray-400"
                     >
                       …
                     </span>

@@ -174,9 +174,7 @@ export default function Home() {
 
       <section
         id="home"
-        className={`relative flex flex-col items-center justify-center h-screen overflow-hidden px-4 text-center ${
-          effect === "balls" ? "bg-[#030712]" : ""
-        }`}
+        className="relative flex flex-col items-center justify-center h-screen overflow-hidden px-4 text-center bg-[#030712]"
       >
         <div className="absolute bottom-6 left-6 z-20" style={{ overflowAnchor: "none" }}>
           {showSettings ? (
@@ -195,7 +193,7 @@ export default function Home() {
               <select
                 value={effect}
                 onChange={(e) => setEffect(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                className="w-full rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
               >
                 <option value="balls">Ballen</option>
                 <option value="rain">Regen</option>
@@ -426,29 +424,27 @@ export default function Home() {
         ) : effect === "attract-repel" ? (
           <AttractRepelBackground numParticles={attractRepelCount} interactionRadius={attractRepelRange} />
         ) : null}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/80 backdrop-blur-sm supports-[backdrop-filter]:backdrop-blur-2xl" />
-        <div className="relative z-10 mt-16 w-full max-w-3xl md:mt-0">
-          <div className="mx-auto rounded-3xl border border-white/10 bg-white/[0.04] px-8 py-12 backdrop-blur supports-[backdrop-filter]:bg-white/[0.06]">
-            <h1 className="text-4xl font-extrabold md:text-6xl">
-              Rick <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Averesch</span>
-            </h1>
-            <p className="mt-4 text-lg text-gray-200 md:text-xl">
-              Software & Game Developer
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                href="#projects"
-                className="inline-flex items-center justify-center rounded-full border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
-              >
-                Mijn werk
-              </Link>
-              <Link
-                href="#contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
-              >
-                Kom in contact
-              </Link>
-            </div>
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm supports-[backdrop-filter]:backdrop-blur-2xl" />
+        <div className="relative z-10 mt-16 w-full max-w-3xl md:mt-0 text-center">
+          <h1 className="text-4xl font-extrabold md:text-6xl">
+            Rick <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Averesch</span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-200 md:text-xl">
+            Software & Game Developer
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="#projects"
+              className="inline-flex items-center justify-center rounded-xl border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
+            >
+              Mijn werk
+            </Link>
+            <Link
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
+            >
+              Kom in contact
+            </Link>
           </div>
         </div>
 
@@ -461,7 +457,7 @@ export default function Home() {
           }
         >
           <div className="relative w-7 h-12">
-            <div className="w-[2px] px-3 py-2 h-8 border-2 border-white rounded-full opacity-75 box-content">
+            <div className="w-[2px] px-3 py-2 h-8 border-2 border-white rounded-xl opacity-75 box-content">
               <div className="w-[2px] h-2 bg-white rounded-md animate-scroll"></div>
             </div>
           </div>
@@ -475,14 +471,14 @@ export default function Home() {
               About <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Me</span>
             </h2>
             <p className="text-gray-200">
-              Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan ROC van Twente, Almelo de Sumpel...
+              Hoi! Ik ben Rick Averesch, 19 jaar oud en student Software Development aan ROC van Twente, Almelo de Sumpel.
             </p>
             <p className="text-gray-200">
-              Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript. Ik vind het leuk om nieuwe dingen te leren...
+              Naast mijn studie ben ik zelf bezig met game development in Godot met GDScript. Ik vind het leuk om nieuwe dingen te leren.
             </p>
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full border border-purple-400/40 bg-purple-500/15 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/25"
+              className="inline-flex items-center justify-center rounded-xl border border-purple-400/40 bg-purple-500/15 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/25"
             >
               Kom in contact
             </Link>
@@ -494,9 +490,9 @@ export default function Home() {
                 alt="Profile"
                 width={400}
                 height={400}
-                className="h-full w-full max-w-sm rounded-2xl object-cover transition-transform duration-[10000ms] ease-out group-hover:scale-110"
+                className="h-full w-full max-w-sm rounded-xl object-cover transition-transform duration-[10000ms] ease-out group-hover:scale-110"
               />
-              <div className="absolute inset-0 rounded-2xl border border-white/10" />
+              <div className="absolute inset-0 rounded-xl border border-white/10" />
             </div>
           </div>
         </div>
@@ -509,7 +505,7 @@ export default function Home() {
           </h2>
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
                 <span className="text-xl font-semibold">&lt;/&gt;</span>
               </div>
               <h3 className="mt-5 text-xl font-semibold">Backend Development</h3>
@@ -518,7 +514,7 @@ export default function Home() {
               </p>
             </div>
             <div className="group rounded-3xl border border-white/10 bg-white/[0.05] p-8 text-center transition hover:border-purple-300/30 hover:bg-white/[0.08] supports-[backdrop-filter]:bg-white/[0.07]">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-400/10 text-purple-200">
                 <span className="text-xl">🎮</span>
               </div>
               <h3 className="mt-5 text-xl font-semibold">Game Development</h3>
@@ -544,7 +540,7 @@ export default function Home() {
                 {SkillsItems.map((item, idx) => (
                   <div
                     key={`set1-${idx}`}
-                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
                   >
                     <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
                     <p className="mt-2 cursor-default">{item.label}</p>
@@ -556,7 +552,7 @@ export default function Home() {
                   {SkillsItems.map((item, idx) => (
                     <div
                       key={`set2-${idx}`}
-                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
                     >
                       <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
                       <p className="mt-2 cursor-default">{item.label}</p>
@@ -585,7 +581,7 @@ export default function Home() {
           <div className="mt-12 text-center">
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center rounded-full border border-purple-200/30 bg-white/[0.08] px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-200/40 hover:bg-white/[0.12]"
+              className="inline-flex items-center justify-center rounded-xl border border-purple-200/30 bg-white/[0.08] px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-200/40 hover:bg-white/[0.12]"
             >
               Bekijk al mijn projecten
             </Link>
@@ -603,9 +599,9 @@ export default function Home() {
               <p className="mt-4 max-w-lg text-gray-200">
                 Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
               </p>
-              <p className="mt-3 max-w-lg text-sm text-gray-300">
+              {/* <p className="mt-3 max-w-lg text-sm text-gray-300">
                 Ik reageer meestal binnen één werkdag met een voorstel of antwoord op je vraag.
-              </p>
+              </p> */}
             </div>
             <form className="flex-1 w-full rounded-3xl border border-white/10 bg-white/[0.05] p-6 supports-[backdrop-filter]:bg-white/[0.07]">
               <div className="mb-5 flex flex-col gap-4">
@@ -613,37 +609,39 @@ export default function Home() {
                   Naam
                   <input
                     type="text"
-                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="Hoe mag ik je noemen?"
+                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="Rick Averesch"
                   />
                 </label>
                 <label className="text-sm font-medium text-gray-200">
                   Email
                   <input
                     type="email"
-                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="Waar kan ik je bereiken?"
+                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="rick@averesch.nl"
                   />
                 </label>
                 <label className="text-sm font-medium text-gray-200">
                   Bericht
                   <textarea
                     rows={4}
-                    className="mt-2 block w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                    placeholder="Vertel me waar ik je mee kan helpen"
+                    className="mt-2 block w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                    placeholder="Hallo Rick, ik heb een vraag over..."
                   ></textarea>
                 </label>
               </div>
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center rounded-full border border-purple-200/40 bg-white/[0.1] px-6 py-3 text-sm font-semibold text-white transition hover:border-purple-200/50 hover:bg-white/[0.15] md:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-xl border border-purple-200/40 bg-white/[0.1] px-6 py-3 text-sm font-semibold text-white transition hover:border-purple-200/50 hover:bg-white/[0.15] md:w-auto"
               >
                 Verzend
               </button>
             </form>
           </div>
         </div>
-      <Footer />
+      <div className="mt-12 sm:mt-16">
+        <Footer />
+      </div>
       </section>
     </main>
   );
