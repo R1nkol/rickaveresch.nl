@@ -13,7 +13,6 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [copied, setCopied] = useState(false);
   const gallery = project?.gallery ?? [];
   const galleryLength = gallery.length;
 
@@ -35,30 +34,6 @@ export default function ProjectDetail() {
     selectedIndex !== null && galleryLength > 0
       ? gallery[selectedIndex]
       : null;
-
-  const handleCopyLink = useCallback(() => {
-    if (typeof window === "undefined") return;
-
-    const url = window.location.href;
-    if (
-      typeof navigator !== "undefined" &&
-      navigator.clipboard &&
-      typeof navigator.clipboard.writeText === "function"
-    ) {
-      navigator.clipboard
-        .writeText(url)
-        .then(() => setCopied(true))
-        .catch(() => setCopied(true));
-    } else {
-      setCopied(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!copied) return;
-    const timeout = setTimeout(() => setCopied(false), 2000);
-    return () => clearTimeout(timeout);
-  }, [copied]);
 
   useEffect(() => {
     if (selectedIndex !== null) {
@@ -111,6 +86,11 @@ export default function ProjectDetail() {
   if (!project) {
     return NotFoundContent;
   }
+
+  const extraLinks = project.extraLinks ?? [];
+  const primaryExtraLink =
+    extraLinks.find(({ label }) => label.toLowerCase().includes("blog")) ?? extraLinks[0] ?? null;
+  const hasExtras = Boolean(project.badge && primaryExtraLink);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-white font-sans">
@@ -177,40 +157,27 @@ export default function ProjectDetail() {
               </div>
 
               <div className="flex flex-col gap-6">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                  <h3 className="text-xl font-semibold text-white">Project info</h3>
-                  <ul className="mt-4 space-y-3 text-gray-200">
-                    <li className="flex items-start gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-purple-400" />
-                      <span>
-                        <span className="font-semibold text-white">Categorie:&nbsp;</span>
-                        {project.tags?.join(", ")}
-                      </span>
-                    </li>
-                    {project.badge && (
-                      <li className="flex items-start gap-3">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-purple-400" />
-                        <span>
-                          <span className="font-semibold text-white">Status:&nbsp;</span>
-                          {project.badge}
-                        </span>
-                      </li>
-                    )}
-                  </ul>
-                  {project.extraLinks && project.extraLinks.length > 0 && (
-                    <div className="mt-6 space-y-3">
-                      {project.extraLinks.map(({ href, label }) => (
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                  {hasExtras ? (
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_20px_50px_-35px_rgba(124,58,237,0.6)]">
+                      <div className="flex flex-col gap-5">
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">Status</p>
+                          <p className="mt-3 text-2xl font-semibold text-white">{project.badge}</p>
+                        </div>
                         <a
-                          key={href}
-                          href={href}
+                          href={primaryExtraLink.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between rounded-2xl border border-purple-500/50 bg-purple-500/10 px-4 py-3 text-sm font-medium text-purple-200 transition hover:border-purple-400 hover:bg-purple-500/30 hover:text-white"
+                          className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
                         >
-                          <span>{label}</span>
-                          <ChevronRight className="h-4 w-4" />
+                          {primaryExtraLink.label}
                         </a>
-                      ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-gray-300">
+                      Dit project heeft geen extra content.
                     </div>
                   )}
                 </div>
@@ -234,9 +201,6 @@ export default function ProjectDetail() {
                       Terug naar Home
                     </Link>
                   </div>
-                  <span className="sr-only" aria-live="polite">
-                    {copied ? "De link is gekopieerd" : ""}
-                  </span>
                 </div>
               </div>
             </div>

@@ -639,10 +639,8 @@ export default function Home() {
             </form>
           </div>
         </div>
-      <div className="mt-12 sm:mt-16">
-        <Footer />
-      </div>
       </section>
+      <Footer />
     </main>
   );
 }
