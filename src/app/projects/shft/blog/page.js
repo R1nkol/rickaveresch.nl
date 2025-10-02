@@ -174,7 +174,7 @@ export default async function BlogPage({ searchParams }) {
             {paginated.map((post) => (
               <article
                 key={post.slug}
-                className="group relative rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur supports-[backdrop-filter]:bg-white/[0.04] transition hover:-translate-y-0.5 hover:border-purple-400/30 hover:shadow-[0_8px_40px_-10px_rgba(168,85,247,0.35)]"
+                className="group relative rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur supports-[backdrop-filter]:bg-white/[0.04] transition-all duration-300 hover:-translate-y-px hover:border-purple-400/20 hover:shadow-[0_6px_30px_-15px_rgba(168,85,247,0.3)]"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <h2 className="text-2xl font-semibold leading-tight">

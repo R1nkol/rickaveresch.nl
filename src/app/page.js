@@ -536,7 +536,7 @@ export default function Home() {
           </p>
           <div className="relative mt-10 flex h-28 w-full items-center overflow-hidden">
             <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"}`}>
-              <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-between gap-3`}>
+              <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-center gap-4`}>
                 {SkillsItems.map((item, idx) => (
                   <div
                     key={`set1-${idx}`}
@@ -548,7 +548,7 @@ export default function Home() {
                 ))}
               </div>
               {!isMobile && (
-                <div className="flex w-1/2 justify-between gap-3">
+                <div className="flex w-1/2 justify-center gap-4">
                   {SkillsItems.map((item, idx) => (
                     <div
                       key={`set2-${idx}`}
