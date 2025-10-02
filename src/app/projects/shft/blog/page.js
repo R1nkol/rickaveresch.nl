@@ -107,15 +107,7 @@ export default async function BlogPage({ searchParams }) {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#07060a] text-white antialiased">
-      {/* Aurora background */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-24 -left-24 h-[36rem] w-[36rem] rounded-full bg-purple-600/20 blur-3xl" />
-        <div className="absolute top-1/4 -right-24 h-[28rem] w-[28rem] rounded-full bg-fuchsia-500/20 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-[22rem] w-[22rem] rounded-full bg-indigo-500/20 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.06),transparent_60%)]" />
-      </div>
-
+    <main className="relative min-h-screen overflow-hidden text-white antialiased">
       <Header activeSection="" />
 
       <section className="mx-auto max-w-7xl px-4 py-20">

@@ -32,7 +32,7 @@ export default function BackgroundSettings() {
     };
 
     return (
-        <main className="relative bg-black text-white min-h-screen flex flex-col">
+        <main className="relative text-white min-h-screen flex flex-col">
             <Header activeSection="" />
             <div className="relative z-10 flex-1 py-20 px-4 max-w-5xl mx-auto">
                 <h1 className="text-center text-3xl font-bold mb-8">

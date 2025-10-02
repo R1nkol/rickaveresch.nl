@@ -16,7 +16,7 @@ export default async function Projects({ searchParams }) {
     : projects;
 
   return (
-    <main className="relative bg-black text-white font-sans min-h-screen flex flex-col">
+    <main className="relative text-white font-sans min-h-screen flex flex-col">
       <AnimatedBallsBackground />
 
       <div className="relative z-10">
