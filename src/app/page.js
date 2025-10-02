@@ -150,7 +150,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="bg-black text-white font-sans scroll-smooth">
+    <main className="text-white font-sans scroll-smooth">
       <Header activeSection={activeSection} />
 
       <section

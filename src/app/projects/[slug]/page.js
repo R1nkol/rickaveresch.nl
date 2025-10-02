@@ -50,7 +50,7 @@ export default function ProjectDetail() {
   }, [selectedIndex]);
   if (!project) {
     return (
-      <main className="bg-black text-white font-sans min-h-screen">
+      <main className="text-white font-sans min-h-screen">
         <Header activeSection="" />
         <div className="px-4 py-20 text-center">
           <h1 className="text-3xl font-bold">Project niet gevonden</h1>
@@ -67,7 +67,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <main className="bg-black text-white font-sans min-h-screen">
+    <main className="text-white font-sans min-h-screen">
       <Header activeSection="" />
       <section className="relative">
         <div className="w-full h-[60vh] relative">
