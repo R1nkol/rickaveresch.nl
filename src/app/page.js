@@ -535,7 +535,7 @@ export default function Home() {
             Alle talen en programma's waar ik ervaring mee heb.
           </p>
           <div className="relative mt-10 flex h-28 w-full items-center overflow-hidden">
-            <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"}`}>
+            <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"} gap-4`}>
               <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-center gap-4`}>
                 {SkillsItems.map((item, idx) => (
                   <div
