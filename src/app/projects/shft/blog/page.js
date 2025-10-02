@@ -97,15 +97,38 @@ export default async function BlogPage({ searchParams }) {
   const paginated = posts.slice(start, start + perPageEffective);
   const perPageParam = perPageIsAll ? PER_PAGE_ALL_VALUE : perPage;
 
-  const maxPagesToShow = 4;
-  let pagesToShow = [];
-  if (totalPages <= maxPagesToShow) {
-    pagesToShow = Array.from({ length: totalPages }, (_, i) => i + 1);
-  } else {
-    let startPage = Math.max(1, safePage - Math.floor(maxPagesToShow / 2));
-    if (startPage + maxPagesToShow - 1 > totalPages) startPage = totalPages - maxPagesToShow + 1;
-    pagesToShow = Array.from({ length: maxPagesToShow }, (_, i) => startPage + i);
-  }
+  const pagesToShow = (() => {
+    const siblingCount = 1;
+    const totalNumbers = siblingCount * 2 + 5;
+
+    const makeRange = (startAt, endAt) =>
+      Array.from({ length: endAt - startAt + 1 }, (_, idx) => startAt + idx);
+
+    if (totalPages <= totalNumbers) {
+      return makeRange(1, totalPages);
+    }
+
+    const leftSiblingIndex = Math.max(safePage - siblingCount, 1);
+    const rightSiblingIndex = Math.min(safePage + siblingCount, totalPages);
+
+    const shouldShowLeftEllipsis = leftSiblingIndex > 2;
+    const shouldShowRightEllipsis = rightSiblingIndex < totalPages - 1;
+
+    if (!shouldShowLeftEllipsis && shouldShowRightEllipsis) {
+      const leftItemCount = 3 + siblingCount * 2;
+      const leftRange = makeRange(1, leftItemCount);
+      return [...leftRange, "ellipsis", totalPages];
+    }
+
+    if (shouldShowLeftEllipsis && !shouldShowRightEllipsis) {
+      const rightItemCount = 3 + siblingCount * 2;
+      const rightRange = makeRange(totalPages - rightItemCount + 1, totalPages);
+      return [1, "ellipsis", ...rightRange];
+    }
+
+    const middleRange = makeRange(leftSiblingIndex, rightSiblingIndex);
+    return [1, "ellipsis", ...middleRange, "ellipsis", totalPages];
+  })();
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white antialiased">
@@ -126,7 +149,7 @@ export default async function BlogPage({ searchParams }) {
           <div className="mx-auto mt-8 flex w-full max-w-md items-center justify-center gap-3">
             <Link
               href={`/projects/shft/blog?sort=newest&perPage=${perPageParam}`}
-              className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
+              className={`inline-flex items-center rounded-xl border px-4 py-1.5 text-sm transition ${
                 sort === "newest"
                   ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
                   : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -136,7 +159,7 @@ export default async function BlogPage({ searchParams }) {
             </Link>
             <Link
               href={`/projects/shft/blog?sort=oldest&perPage=${perPageParam}`}
-              className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
+              className={`inline-flex items-center rounded-xl border px-4 py-1.5 text-sm transition ${
                 sort === "oldest"
                   ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
                   : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -151,7 +174,7 @@ export default async function BlogPage({ searchParams }) {
             {paginated.map((post) => (
               <article
                 key={post.slug}
-                className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur supports-[backdrop-filter]:bg-white/[0.04] transition hover:-translate-y-0.5 hover:border-purple-400/30 hover:shadow-[0_8px_40px_-10px_rgba(168,85,247,0.35)]"
+                className="group relative rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur supports-[backdrop-filter]:bg-white/[0.04] transition hover:-translate-y-0.5 hover:border-purple-400/30 hover:shadow-[0_8px_40px_-10px_rgba(168,85,247,0.35)]"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <h2 className="text-2xl font-semibold leading-tight">
@@ -164,7 +187,7 @@ export default async function BlogPage({ searchParams }) {
                     className="inline-flex max-w-full items-center gap-2 truncate rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs text-purple-200"
                     title={formatPeriodNl(post.dateStart, post.dateEnd)}
                   >
-                    <span className="h-2 w-2 rounded-full bg-purple-300/80 shadow-[0_0_8px_rgba(216,180,254,0.8)]" />
+                    <span className="h-2 w-2 rounded-xl bg-purple-300/80 shadow-[0_0_8px_rgba(216,180,254,0.8)]" />
                     {formatPeriodNl(post.dateStart, post.dateEnd)}
                   </span>
                 </div>
@@ -189,7 +212,7 @@ export default async function BlogPage({ searchParams }) {
                   <Link
                     key={opt}
                     href={`/projects/shft/blog?sort=${sort}&perPage=${opt}`}
-                    className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
+                    className={`inline-flex items-center rounded-xl border px-3 py-1 text-sm transition ${
                       active
                         ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
                         : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -201,7 +224,7 @@ export default async function BlogPage({ searchParams }) {
               })}
               <Link
                 href={`/projects/shft/blog?sort=${sort}&perPage=${PER_PAGE_ALL_VALUE}`}
-                className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
+                className={`inline-flex items-center rounded-xl border px-3 py-1 text-sm transition ${
                   perPageIsAll
                     ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
                     : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -214,7 +237,7 @@ export default async function BlogPage({ searchParams }) {
             <div className="flex justify-center">
               <Link
                 href="/projects/shft"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200 underline-offset-4 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-200 underline-offset-4 transition hover:border-white/20 hover:bg-white/10 hover:text-white"
               >
                 ← Terug naar SHFT
               </Link>
@@ -222,19 +245,30 @@ export default async function BlogPage({ searchParams }) {
 
             {/* Pager */}
             <nav className="flex items-center justify-center gap-2 md:justify-end">
-              {pagesToShow.map((n) => {
-                const active = n === safePage;
+              {pagesToShow.map((item, index) => {
+                if (item === "ellipsis") {
+                  return (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className="rounded-full px-3 py-1.5 text-sm text-gray-400"
+                    >
+                      …
+                    </span>
+                  );
+                }
+
+                const active = item === safePage;
                 return (
                   <Link
-                    key={n}
-                    href={`/projects/shft/blog?page=${n}&sort=${sort}&perPage=${perPageParam}`}
-                    className={`rounded-full px-3 py-1.5 text-sm transition ${
+                    key={item}
+                    href={`/projects/shft/blog?page=${item}&sort=${sort}&perPage=${perPageParam}`}
+                    className={`rounded-xl px-3 py-1.5 text-sm transition ${
                       active
                         ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-[0_10px_30px_-12px_rgba(168,85,247,0.6)]"
                         : "border border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    {n}
+                    {item}
                   </Link>
                 );
               })}
