@@ -13,12 +13,13 @@ export default function ContactSection() {
             Kom <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">in contact</span>
           </h2>
           <p className="max-w-xl text-base text-gray-200">
-            Heb je een vraag, wil je samenwerken of heb je gewoon zin om hallo te zeggen? Stuur me een berichtje!
+            Als je vragen hebt of een project wilt starten, stuur me dan gerust een bericht!
           </p>
           <div className="grid gap-3 text-sm text-gray-300"></div>
         </div>
-        <form className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.08] p-8 shadow-[0_30px_60px_-35px_rgba(79,70,229,0.6)] supports-[backdrop-filter]:bg-white/[0.12]">
-          <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-purple-500/30 blur-3xl" />
+        <form className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.08] p-8 shadow-[0_6px_12px_-4px_rgba(79,70,229,0.25)] supports-[backdrop-filter]:bg-white/[0.12]">
+          <div className="absolute -top-24 left-0 h-44 w-44 rounded-full bg-purple-500/30 blur-3xl" />
+          <div className="absolute -bottom-24 -right-0 h-48 w-48 rounded-full bg-indigo-500/20 blur-3xl" />
           <div className="relative grid gap-5 md:grid-cols-2">
             <label className="text-sm font-medium text-gray-200">
               Naam

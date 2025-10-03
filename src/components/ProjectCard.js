@@ -5,9 +5,10 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
-    <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_18px_40px_rgba(5,6,25,0.35)] transition-all duration-700 hover:border-purple-300/40 hover:shadow-[0_26px_70px_rgba(89,70,255,0.22)] supports-[backdrop-filter]:bg-white/[0.05] hover:backdrop-blur-sm">
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/18 via-transparent to-indigo-500/25" />
+    <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_4px_10px_rgba(5,6,25,0.15)] transition-all duration-700 hover:border-purple-300/40 hover:shadow-[0_6px_14px_rgba(89,70,255,0.15)] supports-[backdrop-filter]:bg-white/[0.05] hover:backdrop-blur-sm">
+
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-40">
+        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/6 via-transparent to-indigo-500/10" />
       </div>
       <div className="grid gap-0 md:grid-cols-[1.05fr_1fr]">
         <div className="relative min-h-[220px] overflow-hidden md:min-h-[260px]">

@@ -159,7 +159,7 @@ export default function ProjectDetail() {
               <div className="flex flex-col gap-6">
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
                   {hasExtras ? (
-                    <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_20px_50px_-35px_rgba(124,58,237,0.6)]">
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_6px_14px_-6px_rgba(124,58,237,0.25)]">
                       <div className="flex flex-col gap-5">
                         <div>
                           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">Status</p>
@@ -256,27 +256,28 @@ export default function ProjectDetail() {
           onClick={() => setSelectedIndex(null)}
         >
           <div
-            className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/10 bg-[#050816]/95 p-6 shadow-[0_40px_120px_-30px_rgba(124,58,237,0.45)]"
+            className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/10 bg-[#050816]/95 p-6 shadow-[0_16px_36px_-14px_rgba(124,58,237,0.28)]"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute right-6 top-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
+              className="absolute right-6 top-6 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
               onClick={() => setSelectedIndex(null)}
               aria-label="Sluit afbeelding"
             >
               ✕
             </button>
+
             {galleryLength > 1 && (
               <>
                 <button
-                  className="absolute left-6 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
+                  className="absolute left-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
                   onClick={prevImage}
                   aria-label="Vorige afbeelding"
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
                 <button
-                  className="absolute right-6 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
+                  className="absolute right-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
                   onClick={nextImage}
                   aria-label="Volgende afbeelding"
                 >
@@ -285,7 +286,7 @@ export default function ProjectDetail() {
               </>
             )}
 
-            <div className="relative mx-auto max-h-[75vh] w-full">
+            <div className="relative z-10 mx-auto max-h-[75vh] w-full">
               {selectedImage.endsWith(".gif") ? (
                 <img
                   src={selectedImage}
@@ -298,7 +299,7 @@ export default function ProjectDetail() {
                   alt="Vergrote afbeelding"
                   width={1600}
                   height={900}
-                  className="mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
+                  className="relative z-10 mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
                 />
               )}
             </div>
