@@ -2,6 +2,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SyncedBackground from "@/components/SyncedBackground";
+import BackgroundSettingsStandalone from "@/components/BackgroundSettingsStandalone";
 import { shftBlogPosts } from "@/data/shftBlog";
 
 export const dynamic = "force-dynamic";
@@ -133,6 +134,7 @@ export default async function BlogPage({ searchParams }) {
   return (
     <main className="relative min-h-screen overflow-hidden text-white antialiased">
       <SyncedBackground />
+      <BackgroundSettingsStandalone variant="floating" />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />

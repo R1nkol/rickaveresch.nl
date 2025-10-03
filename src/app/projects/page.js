@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
+import BackgroundSettingsStandalone from "@/components/BackgroundSettingsStandalone";
 import { projects } from "@/data/projects";
 import Link from "next/link";
 import SyncedBackground from "@/components/SyncedBackground";
@@ -18,6 +19,7 @@ export default async function Projects({ searchParams }) {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
       <SyncedBackground />
+      <BackgroundSettingsStandalone variant="floating" />
 
       <div className="relative z-10">
         <Header activeSection="" />
