@@ -47,12 +47,6 @@ export default function Header({ activeSection }) {
               About
             </div>
             <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "services" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Services
-            </div>
-            <div
               className={`cursor-pointer hover:text-purple-400 ${activeSection === "skills" ? "font-bold text-purple-400" : ""}`}
               onClick={() => document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" })}
             >
