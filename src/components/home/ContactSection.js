@@ -13,7 +13,7 @@ export default function ContactSection() {
             Kom <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">in contact</span>
           </h2>
           <p className="max-w-xl text-base text-gray-200">
-            Zin om samen te werken of gewoon iets te vragen? Stuur me een bericht met je ideeën en ik kom zo snel mogelijk bij je terug.
+            Heb je een vraag, wil je samenwerken of heb je gewoon zin om hallo te zeggen? Stuur me een berichtje!
           </p>
           <div className="grid gap-3 text-sm text-gray-300"></div>
         </div>

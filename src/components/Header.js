@@ -3,28 +3,51 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const NAV_ITEMS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
 export default function Header({ activeSection }) {
   const pathname = usePathname();
 
   const suffix = (() => {
-    if (!pathname || pathname === "/") return "";
-    const parts = pathname.split("/").filter(Boolean);
-    if (!parts.length) return "";
+    if (!pathname) return "";
 
-    if (parts[0] === "projects") {
-      if (parts.length === 1) return "PROJECTS";
-      return parts[1].toUpperCase();
+    const parts = pathname
+      .split("/")
+      .filter(Boolean)
+      .map((segment) =>
+        segment
+          .replace(/[-_]+/g, " ")
+          .trim()
+          .toUpperCase()
+      );
+
+    if (!parts.length) {
+      return "HOME";
     }
 
-    const first = parts[0];
-    return first.toUpperCase();
+    return parts.join(" / ");
   })();
 
+  const handleNavigation = (targetId) => {
+    const element = document.getElementById(targetId);
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <header className="w-full fixed top-0 left-0 bg-black bg-opacity-80 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold hover:opacity-80 flex items-baseline gap-2">
-          <span className="uppercase">RICKAVERESCH</span>
+    <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+        <Link
+          href="/"
+          className="flex items-baseline gap-2 text-2xl font-bold uppercase text-white transition-opacity hover:opacity-80"
+        >
+          <span>RICKAVERESCH</span>
           {suffix && (
             <span className="text-xl font-semibold text-gray-300">
               / <span className="align-baseline">{suffix}</span>
@@ -33,41 +56,30 @@ export default function Header({ activeSection }) {
         </Link>
 
         {pathname === "/" && (
-          <nav className="hidden md:flex gap-6 text-sm">
-            <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "home" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Home
-            </div>
-            <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "about" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              About
-            </div>
-            <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "skills" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("skills")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Skills
-            </div>
-            <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "projects" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Projects
-            </div>
-            <div
-              className={`cursor-pointer hover:text-purple-400 ${activeSection === "contact" ? "font-bold text-purple-400" : ""}`}
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              Contact
-            </div>
+          <nav className="hidden gap-6 text-sm md:flex">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+
+              return (
+                <div
+                  key={item.id}
+                  className={`group relative cursor-pointer font-medium transition-colors duration-300 ${
+                    isActive ? "text-purple-200" : "text-gray-300 hover:text-purple-100"
+                  }`}
+                  onClick={() => handleNavigation(item.id)}
+                >
+                  {item.label}
+                  <span
+                    className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-purple-400 transition-transform duration-300 ease-out"
+                    style={{ transform: `scaleX(${isActive ? 1 : 0})` }}
+                  />
+                </div>
+              );
+            })}
           </nav>
         )}
 
-        <button className="md:hidden px-3 py-2 rounded hover:bg-white/10">
+        <button className="rounded px-3 py-2 transition-colors hover:bg-white/10 md:hidden">
           {/* Mobile-menu icon */}
         </button>
       </div>
