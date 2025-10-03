@@ -6,10 +6,6 @@ import Link from "next/link";
 export default function AboutSection() {
   return (
     <section id="about" className="relative px-4 py-24">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-gradient-to-r from-purple-500/40 via-fuchsia-500/20 to-transparent blur-3xl" />
-        <div className="absolute -right-10 bottom-0 h-80 w-80 rounded-full bg-gradient-to-r from-indigo-500/30 via-purple-500/10 to-transparent blur-3xl" />
-      </div>
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 md:grid-cols-[1.1fr,0.9fr]">
         <div className="space-y-6 text-left">
           <span className="inline-flex items-center rounded-lg bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.4em] text-purple-200/90">
@@ -32,8 +28,6 @@ export default function AboutSection() {
           </Link>
         </div>
         <div className="relative flex justify-center">
-          <div className="absolute -top-6 -left-6 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
-          <div className="absolute -bottom-10 -right-4 h-52 w-52 rounded-full bg-indigo-500/20 blur-3xl" />
           <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.06] p-3 shadow-[0_25px_50px_-20px_rgba(109,40,217,0.45)] supports-[backdrop-filter]:bg-white/[0.08]">
             <Image
               src="/Images/MyPicture.jpg"
