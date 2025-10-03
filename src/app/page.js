@@ -521,7 +521,7 @@ export default function Home() {
               Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">specialiteiten</span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-gray-200">
-              Een mix van technische skills en creatieve flair waarmee ik digitale producten vormgeef van idee tot oplevering.
+              De gebieden waar ik me het meest mee bezig houd.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
