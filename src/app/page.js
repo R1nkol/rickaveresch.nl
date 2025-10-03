@@ -532,9 +532,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m5.25-3-5.25 5.25 5.25 5.25 5.25-5.25-5.25-5.25z" />
                 </svg>
               </div>
-              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Web Development</h3>
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Game Development</h3>
               <p className="relative z-10 mt-3 text-sm text-gray-200">
-                Moderne websites die performant, toegankelijk en verrassend interactief aanvoelen.
+                In mijn vrije tijd ben ik het vaakst bezig met het maken van games. Dit doe ik met Godot en GDScript.
               </p>
             </div>
             <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-transparent to-white/[0.02] p-8 text-left shadow-[0_20px_45px_-30px_rgba(236,72,153,0.75)] transition duration-500 hover:-translate-y-2 hover:border-pink-300/40">
@@ -544,9 +544,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="m9 17.25-2.25 2.25-2.25-2.25m11.25-7.5 2.25-2.25 2.25 2.25m-16.5 9 4.5-4.5 3 3 6-6 4.5 4.5m-9-7.5 2.25-2.25L16.5 9" />
                 </svg>
               </div>
-              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Software Development</h3>
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Web Development</h3>
               <p className="relative z-10 mt-3 text-sm text-gray-200">
-                Stabiele applicaties en tooling met oog voor gebruiksgemak en schaalbaarheid.
+                Op school en op stages ben ik voornaam bezig geweest met web development, voornamelijk back-end.
               </p>
             </div>
             <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_20px_45px_-30px_rgba(56,189,248,0.75)] transition duration-500 hover:-translate-y-2 hover:border-cyan-300/40">
@@ -556,9 +556,9 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="m16.5 10.5-4.5 4.5m0 0-4.5-4.5m4.5 4.5V3" />
                 </svg>
               </div>
-              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Game Development</h3>
+              <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Software Development</h3>
               <p className="relative z-10 mt-3 text-sm text-gray-200">
-                Games en interactieve ervaringen met Godot &amp; GDScript, gevoed door storytelling.
+                Op school ben ik naast web development ook bezig met algemene software ontwikkeling, voornamelijk in C#.
               </p>
             </div>
           </div>
@@ -607,7 +607,7 @@ export default function Home() {
               Mijn <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Projecten</span>
             </h2>
             <p className="mx-auto max-w-2xl text-base text-gray-200">
-              Een greep uit het werk waar ik trots op ben. Elk project is een experiment in storytelling, interactie en techniek.
+              Hieronder vind je een aantal projecten waar ik aan heb gewerkt.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2">

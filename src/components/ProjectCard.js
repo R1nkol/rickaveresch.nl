@@ -5,7 +5,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 export default function ProjectCard({ title, description, imageSrc, link, tags, badge }) {
   return (
-    <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_18px_40px_rgba(5,6,25,0.35)] transition-all duration-500 hover:border-purple-300/40 hover:shadow-[0_26px_70px_rgba(89,70,255,0.35)] supports-[backdrop-filter]:bg-white/[0.05]">
+    <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_18px_40px_rgba(5,6,25,0.35)] transition-all duration-700 hover:border-purple-300/40 hover:shadow-[0_26px_70px_rgba(89,70,255,0.22)] supports-[backdrop-filter]:bg-white/[0.05] backdrop-blur-0 group-hover:backdrop-blur-2xl">
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
         <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/18 via-transparent to-indigo-500/25" />
       </div>
