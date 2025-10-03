@@ -30,7 +30,7 @@ export default function ProjectsPreviewSection() {
         <div className="flex justify-center">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-purple-300/50 hover:bg-purple-500/20"
+            className="group inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-purple-300/50 hover:bg-purple-500/20"
           >
             Bekijk al mijn projecten
             <FiArrowUpRight className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

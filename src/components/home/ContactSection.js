@@ -48,7 +48,7 @@ export default function ContactSection() {
           </label>
           <button
             type="submit"
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-purple-200/40 bg-purple-500/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-purple-200/60 hover:bg-purple-500/40 md:w-auto"
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-purple-200/40 bg-purple-500/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-purple-200/60 hover:bg-purple-500/40 md:w-auto"
           >
             Verzend bericht
             <FiArrowUpRight className="text-base" />

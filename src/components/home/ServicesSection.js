@@ -36,7 +36,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
             </div>
             <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">Web Development</h3>
             <p className="relative z-10 mt-3 text-sm text-gray-200">
-              Op school en op stages ben ik voornaam bezig geweest met web development, voornamelijk back-end.
+              Op school en op stages ben ik voornamelijk bezig geweest met web development, vooral back-end werk.
             </p>
           </div>
           <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(56,189,248,0.35)] transition duration-500 hover:-translate-y-2 hover:border-cyan-300/40">

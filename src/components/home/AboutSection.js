@@ -14,7 +14,7 @@ export default function AboutSection() {
           <h2 className="text-4xl font-bold md:text-5xl">
             Een{" "}
             <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">
-              ontwikkelaar
+              developer
             </span>{" "}
             met oog voor{" "}
             <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">
