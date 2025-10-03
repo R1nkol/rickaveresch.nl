@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import { projects } from "@/data/projects";
 import Link from "next/link";
-import AnimatedBallsBackground from "@/components/AnimatedBallsBackground";
+import SyncedBackground from "@/components/SyncedBackground";
 
 export default async function Projects({ searchParams }) {
   const params = await searchParams;
@@ -17,7 +17,7 @@ export default async function Projects({ searchParams }) {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <AnimatedBallsBackground />
+      <SyncedBackground />
 
       <div className="relative z-10">
         <Header activeSection="" />

@@ -8,6 +8,7 @@ import StarsBackground from "@/components/StarsBackground";
 import OrbitBackground from "@/components/OrbitBackground";
 import FirefliesBackground from "@/components/FirefliesBackground";
 import AttractRepelBackground from "@/components/AttractRepelBackground";
+import { BACKGROUND_STORAGE_KEYS, saveBackgroundSetting } from "@/lib/backgroundSettings";
 
 const options = [
     { id: "balls", name: "Ballen", Component: AnimatedBallsBackground },
@@ -27,7 +28,7 @@ export default function BackgroundSettings() {
     }, []);
 
     const setDefault = (id) => {
-        localStorage.setItem("homepageEffect", id);
+        saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.effect, id);
         setSelected(id);
     };
 

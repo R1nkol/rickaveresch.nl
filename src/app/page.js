@@ -9,6 +9,12 @@ import ContactSection from "@/components/home/ContactSection";
 import HeroSection from "@/components/home/HeroSection";
 import ProjectsPreviewSection from "@/components/home/ProjectsPreviewSection";
 import ServicesSection from "@/components/home/ServicesSection";
+import {
+  BACKGROUND_DEFAULTS,
+  BACKGROUND_STORAGE_KEYS,
+  loadBackgroundSettings,
+  saveBackgroundSetting,
+} from "@/lib/backgroundSettings";
 
 const skillsItems = [
   { src: "/icons/html.webp", label: "HTML5" },
@@ -30,15 +36,23 @@ const skillsItems = [
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
-  const [ballCount, setBallCount] = useState(35);
-  const [rainCount, setRainCount] = useState(250);
-  const [starCount, setStarCount] = useState(200);
-  const [orbitCount, setOrbitCount] = useState(50);
-  const [orbitRadius, setOrbitRadius] = useState(300);
-  const [firefliesCount, setFirefliesCount] = useState(250);
-  const [attractRepelCount, setAttractRepelCount] = useState(200);
-  const [attractRepelRange, setAttractRepelRange] = useState(150);
-  const [effect, setEffect] = useState("balls");
+  const [ballCount, setBallCount] = useState(BACKGROUND_DEFAULTS.ballCount);
+  const [rainCount, setRainCount] = useState(BACKGROUND_DEFAULTS.rainCount);
+  const [starCount, setStarCount] = useState(BACKGROUND_DEFAULTS.starCount);
+  const [orbitCount, setOrbitCount] = useState(BACKGROUND_DEFAULTS.orbitCount);
+  const [orbitRadius, setOrbitRadius] = useState(
+    BACKGROUND_DEFAULTS.orbitRadius,
+  );
+  const [firefliesCount, setFirefliesCount] = useState(
+    BACKGROUND_DEFAULTS.firefliesCount,
+  );
+  const [attractRepelCount, setAttractRepelCount] = useState(
+    BACKGROUND_DEFAULTS.attractRepelCount,
+  );
+  const [attractRepelRange, setAttractRepelRange] = useState(
+    BACKGROUND_DEFAULTS.attractRepelRange,
+  );
+  const [effect, setEffect] = useState(BACKGROUND_DEFAULTS.effect);
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
@@ -60,62 +74,61 @@ export default function Home() {
   }, [showSettings]);
 
   useEffect(() => {
-    const storedEffect = localStorage.getItem("homepageEffect");
-    const storedBalls = localStorage.getItem("ballCount");
-    const storedRain = localStorage.getItem("rainCount");
-    const storedStars = localStorage.getItem("starCount");
-    const storedOrbit = localStorage.getItem("orbitCount");
-    const storedOrbitRadius = localStorage.getItem("orbitRadius");
-    const storedFireflies = localStorage.getItem("firefliesCount");
-    const storedAttractRepel = localStorage.getItem("attractRepelCount");
-    const storedAttractRepelRange = localStorage.getItem("attractRepelRange");
-
-    if (storedEffect) setEffect(storedEffect);
-    if (storedBalls) setBallCount(parseInt(storedBalls, 10));
-    if (storedRain) setRainCount(parseInt(storedRain, 10));
-    if (storedStars) setStarCount(parseInt(storedStars, 10));
-    if (storedOrbit) setOrbitCount(parseInt(storedOrbit, 10));
-    if (storedOrbitRadius) setOrbitRadius(parseInt(storedOrbitRadius, 10));
-    if (storedFireflies) setFirefliesCount(parseInt(storedFireflies, 10));
-    if (storedAttractRepel) setAttractRepelCount(parseInt(storedAttractRepel, 10));
-    if (storedAttractRepelRange)
-      setAttractRepelRange(parseInt(storedAttractRepelRange, 10));
+    const settings = loadBackgroundSettings();
+    setEffect(settings.effect);
+    setBallCount(settings.ballCount);
+    setRainCount(settings.rainCount);
+    setStarCount(settings.starCount);
+    setOrbitCount(settings.orbitCount);
+    setOrbitRadius(settings.orbitRadius);
+    setFirefliesCount(settings.firefliesCount);
+    setAttractRepelCount(settings.attractRepelCount);
+    setAttractRepelRange(settings.attractRepelRange);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("homepageEffect", effect);
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.effect, effect);
   }, [effect]);
 
   useEffect(() => {
-    localStorage.setItem("ballCount", ballCount.toString());
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.ballCount, ballCount);
   }, [ballCount]);
 
   useEffect(() => {
-    localStorage.setItem("rainCount", rainCount.toString());
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.rainCount, rainCount);
   }, [rainCount]);
 
   useEffect(() => {
-    localStorage.setItem("starCount", starCount.toString());
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.starCount, starCount);
   }, [starCount]);
 
   useEffect(() => {
-    localStorage.setItem("orbitCount", orbitCount.toString());
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.orbitCount, orbitCount);
   }, [orbitCount]);
 
   useEffect(() => {
-    localStorage.setItem("orbitRadius", orbitRadius.toString());
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.orbitRadius, orbitRadius);
   }, [orbitRadius]);
 
   useEffect(() => {
-    localStorage.setItem("firefliesCount", firefliesCount.toString());
+    saveBackgroundSetting(
+      BACKGROUND_STORAGE_KEYS.firefliesCount,
+      firefliesCount,
+    );
   }, [firefliesCount]);
 
   useEffect(() => {
-    localStorage.setItem("attractRepelCount", attractRepelCount.toString());
+    saveBackgroundSetting(
+      BACKGROUND_STORAGE_KEYS.attractRepelCount,
+      attractRepelCount,
+    );
   }, [attractRepelCount]);
 
   useEffect(() => {
-    localStorage.setItem("attractRepelRange", attractRepelRange.toString());
+    saveBackgroundSetting(
+      BACKGROUND_STORAGE_KEYS.attractRepelRange,
+      attractRepelRange,
+    );
   }, [attractRepelRange]);
 
   useEffect(() => {
