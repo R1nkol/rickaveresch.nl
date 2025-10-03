@@ -9,10 +9,6 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
   const fadeSpeed = 1 / 30; // ≈ 0.5s bij 60fps
 
   useEffect(() => {
-    targetCountRef.current = numBalls;
-  }, [numBalls]);
-
-  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const parent = canvas.parentElement;
@@ -20,24 +16,38 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
     let width = 0;
     let height = 0;
 
+    const syncCanvasSize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    };
+
     const resize = () => {
       width = parent.offsetWidth;
       height = parent.offsetHeight;
-      canvas.width = width;
-      canvas.height = height;
+      syncCanvasSize();
     };
 
     resize();
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(parent);
 
+    const randomVelocity = () => {
+      const speed = Math.random() * 0.6 + 0.2;
+      return (Math.random() < 0.5 ? -1 : 1) * speed;
+    };
+
     const addBall = () => {
       ballsRef.current.push({
         x: Math.random() * width,
         y: Math.random() * height,
         radius: Math.random() * 20 + 10,
-        dx: (Math.random() - 0.5) * 1,
-        dy: (Math.random() - 0.5) * 1,
+        dx: randomVelocity(),
+        dy: randomVelocity(),
         baseAlpha: Math.random() * 0.3 + 0.1,
         fade: { value: 0, target: 1 }, // Begin met fade-in
       });
@@ -46,7 +56,7 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
     function animate() {
       const current = ballsRef.current;
 
-      const diff = targetCountRef.current - current.filter(b => b.fade.target === 1).length;
+      const diff = targetCountRef.current - current.filter((b) => b.fade.target === 1).length;
       if (diff > 0) {
         for (let i = 0; i < diff; i++) addBall();
       } else if (diff < 0) {
@@ -82,8 +92,21 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
         ball.x += ball.dx;
         ball.y += ball.dy;
 
-        if (ball.x + ball.radius > width || ball.x - ball.radius < 0) ball.dx = -ball.dx;
-        if (ball.y + ball.radius > height || ball.y - ball.radius < 0) ball.dy = -ball.dy;
+        if (ball.x + ball.radius > width) {
+          ball.x = Math.max(width - ball.radius, ball.radius);
+          ball.dx = -Math.abs(ball.dx || randomVelocity());
+        } else if (ball.x - ball.radius < 0) {
+          ball.x = ball.radius;
+          ball.dx = Math.abs(ball.dx || randomVelocity());
+        }
+
+        if (ball.y + ball.radius > height) {
+          ball.y = Math.max(height - ball.radius, ball.radius);
+          ball.dy = -Math.abs(ball.dy || randomVelocity());
+        } else if (ball.y - ball.radius < 0) {
+          ball.y = ball.radius;
+          ball.dy = Math.abs(ball.dy || randomVelocity());
+        }
 
         // Teken met geanimeerde opacity
         ctx.beginPath();
@@ -105,6 +128,10 @@ export default function AnimatedBallsBackground({ numBalls = 35 }) {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    targetCountRef.current = Math.max(0, Math.round(numBalls));
+  }, [numBalls]);
 
   return (
     <canvas

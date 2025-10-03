@@ -8,13 +8,13 @@ html {
 
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07060a;
+  --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #07060a;
     --foreground: #ededed;
   }
 }
@@ -65,4 +65,15 @@ body {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.3s ease-out forwards;
+}
+
+select option {
+  color: #030712;
+  background-color: #ffffff;
+}
+
+select option:checked,
+select option:hover {
+  color: #ffffff;
+  background-color: #7c3aed;
 }

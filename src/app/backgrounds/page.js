@@ -8,6 +8,7 @@ import StarsBackground from "@/components/StarsBackground";
 import OrbitBackground from "@/components/OrbitBackground";
 import FirefliesBackground from "@/components/FirefliesBackground";
 import AttractRepelBackground from "@/components/AttractRepelBackground";
+import { BACKGROUND_STORAGE_KEYS, saveBackgroundSetting } from "@/lib/backgroundSettings";
 
 const options = [
     { id: "balls", name: "Ballen", Component: AnimatedBallsBackground },
@@ -27,12 +28,12 @@ export default function BackgroundSettings() {
     }, []);
 
     const setDefault = (id) => {
-        localStorage.setItem("homepageEffect", id);
+        saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.effect, id);
         setSelected(id);
     };
 
     return (
-        <main className="relative bg-black text-white min-h-screen flex flex-col">
+        <main className="relative text-white min-h-screen flex flex-col">
             <Header activeSection="" />
             <div className="relative z-10 flex-1 py-20 px-4 max-w-5xl mx-auto">
                 <h1 className="text-center text-3xl font-bold mb-8">
