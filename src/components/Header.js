@@ -14,24 +14,19 @@ const NAV_ITEMS = [
 export default function Header({ activeSection }) {
   const pathname = usePathname();
 
-  const suffix = (() => {
-    if (!pathname) return "";
+  const suffixSegments = (() => {
+    if (!pathname) return [];
 
-    const parts = pathname
-      .split("/")
-      .filter(Boolean)
-      .map((segment) =>
-        segment
-          .replace(/[-_]+/g, " ")
-          .trim()
-          .toUpperCase()
-      );
+    const rawParts = pathname.split("/").filter(Boolean);
 
-    if (!parts.length) {
-      return "HOME";
+    if (!rawParts.length) {
+      return [];
     }
 
-    return parts.join(" / ");
+    return rawParts.map((segment, index) => ({
+      label: segment.replace(/[-_]+/g, " ").trim().toUpperCase(),
+      href: `/${rawParts.slice(0, index + 1).join("/")}`,
+    }));
   })();
 
   const handleNavigation = (targetId) => {
@@ -41,19 +36,31 @@ export default function Header({ activeSection }) {
   };
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur">
+    <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur font-sans">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-        <Link
-          href="/"
-          className="flex items-baseline gap-2 text-2xl font-bold uppercase text-white transition-opacity hover:opacity-80"
-        >
-          <span>RICKAVERESCH</span>
-          {suffix && (
-            <span className="text-xl font-semibold text-gray-300">
-              / <span className="align-baseline">{suffix}</span>
-            </span>
+        <div className="flex items-baseline gap-2">
+          <Link
+            href="/"
+            className="text-2xl font-bold uppercase text-white transition-opacity hover:opacity-80"
+          >
+            RICKAVERESCH
+          </Link>
+          {suffixSegments.length > 0 && (
+            <nav className="flex items-baseline gap-2 text-lg font-semibold uppercase text-gray-300">
+              {suffixSegments.map(({ label, href }) => (
+                <span key={href} className="flex items-baseline gap-2">
+                  <span className="text-gray-500">/</span>
+                  <Link
+                    href={href}
+                    className="transition-opacity hover:text-white hover:opacity-80"
+                  >
+                    {label}
+                  </Link>
+                </span>
+              ))}
+            </nav>
           )}
-        </Link>
+        </div>
 
         {pathname === "/" && (
           <nav className="hidden gap-6 text-sm md:flex">
