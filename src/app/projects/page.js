@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -13,6 +13,14 @@ import SyncedBackground from "@/components/SyncedBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ProjectsPage() {
+  return (
+    <Suspense fallback={<ProjectsPageFallback />}>
+      <ProjectsPageContent />
+    </Suspense>
+  );
+}
+
+function ProjectsPageContent() {
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag");
   const { t } = useLanguage();
@@ -87,4 +95,8 @@ export default function ProjectsPage() {
       </div>
     </main>
   );
+}
+
+function ProjectsPageFallback() {
+  return <main className="min-h-screen bg-[var(--background)]" aria-busy="true" />;
 }

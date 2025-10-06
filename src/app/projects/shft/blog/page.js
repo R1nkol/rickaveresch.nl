@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import BlogPageClient from "./BlogPageClient";
 
 export const dynamic = "force-dynamic";
@@ -12,5 +14,13 @@ export default async function BlogPage({ searchParams }) {
     Object.entries(params).map(([key, value]) => [key, Array.isArray(value) ? value[0] : value]),
   );
 
-  return <BlogPageClient initialSearchParams={normalizedParams} />;
+  return (
+    <Suspense fallback={<BlogPageFallback />}>
+      <BlogPageClient initialSearchParams={normalizedParams} />
+    </Suspense>
+  );
+}
+
+function BlogPageFallback() {
+  return <main className="min-h-screen bg-[var(--background)]" aria-busy="true" />;
 }
