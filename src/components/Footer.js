@@ -1,10 +1,16 @@
 import { Youtube, Instagram, Github } from "lucide-react";
 
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function Footer() {
+  const { t } = useLanguage();
+  const year = new Date().getFullYear().toString();
+  const copyright = t("footer.copyright").replace("{{year}}", year);
+
   return (
     <footer className="mt-auto w-full border-t border-white/10 bg-white/[0.02] backdrop-blur-sm">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-sm text-gray-300 sm:flex-row">
-        <p>© {new Date().getFullYear()} door Rick Averesch.</p>
+        <p>{copyright}</p>
         <div className="flex items-center gap-4 text-gray-400">
           <a
             href="https://www.youtube.com/@R1nkol"

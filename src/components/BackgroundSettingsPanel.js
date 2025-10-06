@@ -7,6 +7,7 @@ import {
   BACKGROUND_EFFECT_META,
   BACKGROUND_EFFECT_ORDER,
 } from "@/lib/backgroundEffectMeta";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -39,6 +40,7 @@ export default function BackgroundSettingsPanel({
   style,
   gap = 24,
 }) {
+  const { t, translateField } = useLanguage();
   const containerRef = useRef(null);
   const [floatingBottom, setFloatingBottom] = useState(gap);
 
@@ -181,7 +183,7 @@ export default function BackgroundSettingsPanel({
       {showSettings ? (
         <div className="w-64 space-y-4 rounded-3xl border border-white/10 bg-white/[0.07] p-5 text-sm text-white backdrop-blur supports-[backdrop-filter]:bg-white/[0.09] animate-fade-in-up">
           <div className="flex items-center justify-between">
-            <h3 className="font-medium">Settings</h3>
+            <h3 className="font-medium">{t("backgroundSettings.settings")}</h3>
             <button
               onClick={() => setShowSettings?.(false)}
               className="text-white transition hover:text-red-400"
@@ -200,7 +202,7 @@ export default function BackgroundSettingsPanel({
               if (!option) return null;
               return (
                 <option key={key} value={key}>
-                  {option.selectLabel}
+                  {translateField(option.selectLabel)}
                 </option>
               );
             })}
@@ -208,7 +210,7 @@ export default function BackgroundSettingsPanel({
 
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1 font-medium">
-              {effectDetails.sliderLabel}
+              {translateField(effectDetails.sliderLabel)}
               <input
                 type="number"
                 min={0}
@@ -242,7 +244,7 @@ export default function BackgroundSettingsPanel({
           {extraControl && (
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2">
-                <span className="text-sm">{extraControl.label}</span>
+                <span className="text-sm">{translateField(extraControl.label)}</span>
                 <input
                   type="number"
                   min={extraControl.min}
@@ -278,7 +280,7 @@ export default function BackgroundSettingsPanel({
         <button
           onClick={() => setShowSettings?.(true)}
           className="rounded-full border border-white/15 bg-white/10 p-3 text-white transition hover:border-purple-400/40 hover:bg-purple-500/25"
-          aria-label="Open instellingen"
+          aria-label={t("backgroundSettings.open")}
         >
           <FiSettings size={20} />
         </button>

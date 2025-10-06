@@ -2,27 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "contact", label: "Contact" },
+  { id: "home", labelKey: "navigation.home" },
+  { id: "about", labelKey: "navigation.about" },
+  { id: "skills", labelKey: "navigation.skills" },
+  { id: "projects", labelKey: "navigation.projects" },
+  { id: "contact", labelKey: "navigation.contact" },
 ];
 
 export default function Header({ activeSection }) {
   const pathname = usePathname();
+  const { language, toggleLanguage, t } = useLanguage();
 
   const suffixSegments = (() => {
     if (!pathname) return [];
-
     const rawParts = pathname.split("/").filter(Boolean);
-
-    if (!rawParts.length) {
-      return [];
-    }
-
+    if (!rawParts.length) return [];
     return rawParts.map((segment, index) => ({
       label: segment.replace(/[-_]+/g, " ").trim().toUpperCase(),
       href: `/${rawParts.slice(0, index + 1).join("/")}`,
@@ -38,6 +35,7 @@ export default function Header({ activeSection }) {
   return (
     <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur font-sans">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+        {/* Logo + breadcrumbs */}
         <div className="flex items-baseline gap-2">
           <Link
             href="/"
@@ -62,33 +60,43 @@ export default function Header({ activeSection }) {
           )}
         </div>
 
-        {pathname === "/" && (
-          <nav className="hidden gap-6 text-sm md:flex">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.id;
+        {/* Navigation + language toggle */}
+        <div className="flex items-center gap-12">
+          {pathname === "/" && (
+            <nav className="hidden md:flex gap-6 text-sm">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <div
+                    key={item.id}
+                    className={`group relative cursor-pointer font-medium transition-colors duration-300 ${
+                      isActive
+                        ? "text-purple-200"
+                        : "text-gray-300 hover:text-purple-100"
+                    }`}
+                    onClick={() => handleNavigation(item.id)}
+                  >
+                    {t(item.labelKey)}
+                    <span
+                      className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-purple-400 transition-transform duration-300 ease-out"
+                      style={{ transform: `scaleX(${isActive ? 1 : 0})` }}
+                    />
+                  </div>
+                );
+              })}
+            </nav>
+          )}
 
-              return (
-                <div
-                  key={item.id}
-                  className={`group relative cursor-pointer font-medium transition-colors duration-300 ${
-                    isActive ? "text-purple-200" : "text-gray-300 hover:text-purple-100"
-                  }`}
-                  onClick={() => handleNavigation(item.id)}
-                >
-                  {item.label}
-                  <span
-                    className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-purple-400 transition-transform duration-300 ease-out"
-                    style={{ transform: `scaleX(${isActive ? 1 : 0})` }}
-                  />
-                </div>
-              );
-            })}
-          </nav>
-        )}
-
-        <button className="rounded px-3 py-2 transition-colors hover:bg-white/10 md:hidden">
-          {/* Mobile-menu icon */}
-        </button>
+          {/* Language toggle */}
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            aria-label={t("navigation.toggle")}
+            className="inline-flex items-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-200 transition hover:border-purple-300/40 hover:bg-purple-500/25 hover:text-white"
+          >
+            {language === "nl" ? "NL" : "EN"}
+          </button>
+        </div>
       </div>
     </header>
   );

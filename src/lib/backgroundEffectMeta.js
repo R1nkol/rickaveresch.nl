@@ -9,41 +9,41 @@ export const BACKGROUND_EFFECT_ORDER = [
 
 export const BACKGROUND_EFFECT_META = {
   balls: {
-    selectLabel: "Ballen",
-    sliderLabel: "Aantal ballen:",
+    selectLabel: { nl: "Ballen", en: "Bubbles" },
+    sliderLabel: { nl: "Aantal ballen:", en: "Number of bubbles:" },
     max: 100,
   },
   rain: {
-    selectLabel: "Regen",
-    sliderLabel: "Aantal regendruppels:",
+    selectLabel: { nl: "Regen", en: "Rain" },
+    sliderLabel: { nl: "Aantal regendruppels:", en: "Number of raindrops:" },
     max: 1000,
   },
   stars: {
-    selectLabel: "Sneeuw",
-    sliderLabel: "Aantal sneeuwvlokken:",
+    selectLabel: { nl: "Sneeuw", en: "Snow" },
+    sliderLabel: { nl: "Aantal sneeuwvlokken:", en: "Number of snowflakes:" },
     max: 1000,
   },
   fireflies: {
-    selectLabel: "Vuurvliegjes",
-    sliderLabel: "Aantal vuurvliegjes:",
+    selectLabel: { nl: "Vuurvliegjes", en: "Fireflies" },
+    sliderLabel: { nl: "Aantal vuurvliegjes:", en: "Number of fireflies:" },
     max: 750,
   },
   "attract-repel": {
-    selectLabel: "Aantrekkingseffect",
-    sliderLabel: "Aantal objecten:",
+    selectLabel: { nl: "Aantrekkingseffect", en: "Attraction effect" },
+    sliderLabel: { nl: "Aantal objecten:", en: "Number of objects:" },
     max: 500,
     extraControl: {
-      label: "Muis reach:",
+      label: { nl: "Muis reach:", en: "Mouse reach:" },
       min: 20,
       max: 500,
     },
   },
   orbit: {
-    selectLabel: "Roterende objecten",
-    sliderLabel: "Aantal objecten:",
+    selectLabel: { nl: "Roterende objecten", en: "Orbiting objects" },
+    sliderLabel: { nl: "Aantal objecten:", en: "Number of objects:" },
     max: 500,
     extraControl: {
-      label: "Maximale radius:",
+      label: { nl: "Maximale radius:", en: "Maximum radius:" },
       min: 20,
       max: 500,
     },

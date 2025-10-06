@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { projects } from "@/data/projects";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -15,6 +16,20 @@ export default function ProjectDetail() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const gallery = project?.gallery ?? [];
   const galleryLength = gallery.length;
+  const { t, translateField } = useLanguage();
+  const localizedTitle = translateField(project?.title);
+  const localizedDescription = translateField(project?.description);
+  const localizedBadge = translateField(project?.badge);
+  const localizedDetailsRaw = translateField(project?.details);
+  const localizedDetails = Array.isArray(localizedDetailsRaw)
+    ? localizedDetailsRaw
+    : localizedDetailsRaw
+      ? [localizedDetailsRaw]
+      : [];
+  const extraLinks = project?.extraLinks?.map((link) => ({
+    ...link,
+    label: translateField(link.label),
+  })) ?? [];
 
   const prevImage = useCallback(() => {
     if (!galleryLength) return;
@@ -66,15 +81,13 @@ export default function ProjectDetail() {
         <Header activeSection="" />
         <div className="flex flex-1 items-center justify-center px-4 py-20">
           <div className="max-w-md rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur">
-            <h1 className="text-3xl font-bold">Project niet gevonden</h1>
-            <p className="mt-3 text-gray-300">
-              Het project dat je probeert te openen bestaat niet of is verplaatst.
-            </p>
+            <h1 className="text-3xl font-bold">{t("projectDetail.notFoundTitle")}</h1>
+            <p className="mt-3 text-gray-300">{t("projectDetail.notFoundDescription")}</p>
             <Link
               href="/projects"
               className="mt-6 inline-flex items-center justify-center rounded-full border border-purple-500 px-6 py-2 text-sm font-medium text-purple-300 transition hover:bg-purple-500/20"
             >
-              Terug naar projecten
+              {t("projectDetail.backToProjects")}
             </Link>
           </div>
         </div>
@@ -87,10 +100,18 @@ export default function ProjectDetail() {
     return NotFoundContent;
   }
 
-  const extraLinks = project.extraLinks ?? [];
   const primaryExtraLink =
-    extraLinks.find(({ label }) => label.toLowerCase().includes("blog")) ?? extraLinks[0] ?? null;
-  const hasExtras = Boolean(project.badge && primaryExtraLink);
+    extraLinks.find(({ label }) => label?.toLowerCase?.().includes("blog")) ?? extraLinks[0] ?? null;
+  const hasExtras = Boolean(localizedBadge && primaryExtraLink);
+  const aboutHeading = t("projectDetail.aboutHeading");
+  const aboutParts = aboutHeading.split(" ");
+  const aboutHighlight = aboutParts.pop();
+  const aboutPrefix = aboutParts.join(" ");
+  const galleryHeading = t("projectDetail.galleryHeading");
+  const galleryParts = galleryHeading.split(" ");
+  const galleryHighlight = galleryParts.pop();
+  const galleryPrefix = galleryParts.join(" ");
+  const expandedAlt = localizedTitle ? `${localizedTitle} – ${galleryHeading}` : galleryHeading;
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-white font-sans">
@@ -104,11 +125,11 @@ export default function ProjectDetail() {
                 href="/projects"
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20 hover:text-white"
               >
-                <ChevronLeft className="h-4 w-4" /> Terug naar projecten
+                <ChevronLeft className="h-4 w-4" /> {t("projectDetail.backToProjectsShort")}
               </Link>
-              <h1 className="mt-10 text-4xl font-bold sm:text-5xl md:text-6xl">{project.title}</h1>
+              <h1 className="mt-10 text-4xl font-bold sm:text-5xl md:text-6xl">{localizedTitle}</h1>
               <p className="mt-6 max-w-3xl text-base text-gray-300 sm:text-lg lg:max-w-none">
-                {project.description}
+                {localizedDescription}
               </p>
               {project.technologies?.length > 0 && (
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -130,7 +151,7 @@ export default function ProjectDetail() {
                 <div className="relative w-full max-w-md overflow-hidden rounded-[32px] border border-white/10">
                   <Image
                     src={project.heroImage}
-                    alt={project.title}
+                    alt={localizedTitle}
                     width={960}
                     height={720}
                     priority
@@ -147,10 +168,11 @@ export default function ProjectDetail() {
             <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <h2 className="text-2xl font-semibold text-white">
-                  Over <span className="text-purple-300">het project</span>
+                  {aboutPrefix ? `${aboutPrefix} ` : ""}
+                  <span className="text-purple-300">{aboutHighlight}</span>
                 </h2>
                 <div className="mt-6 space-y-4 text-gray-200 leading-relaxed">
-                  {project.details.map((paragraph, index) => (
+                  {localizedDetails.map((paragraph, index) => (
                     <p key={index}>{paragraph}</p>
                   ))}
                 </div>
@@ -162,8 +184,10 @@ export default function ProjectDetail() {
                     <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_6px_14px_-6px_rgba(124,58,237,0.25)]">
                       <div className="flex flex-col gap-5">
                         <div>
-                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">Status</p>
-                          <p className="mt-3 text-2xl font-semibold text-white">{project.badge}</p>
+                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">
+                            {t("projectDetail.statusLabel")}
+                          </p>
+                          <p className="mt-3 text-2xl font-semibold text-white">{localizedBadge}</p>
                         </div>
                         <a
                           href={primaryExtraLink.href}
@@ -177,28 +201,26 @@ export default function ProjectDetail() {
                     </div>
                   ) : (
                     <div className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-gray-300">
-                      Dit project heeft geen extra content.
+                      {t("projectDetail.noExtras")}
                     </div>
                   )}
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                  <h3 className="text-xl font-semibold text-white">Meer zien?</h3>
-                  <p className="mt-3 text-sm text-gray-300">
-                    Ik heb nog genoeg andere projecten, als je die wilt zien kun je op de knop hieronder klikken om een overzicht te krijgen.
-                  </p>
+                  <h3 className="text-xl font-semibold text-white">{t("projectDetail.moreHeading")}</h3>
+                  <p className="mt-3 text-sm text-gray-300">{t("projectDetail.moreDescription")}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href="/projects"
                       className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
                     >
-                      Alle projecten
+                      {t("projectDetail.allProjects")}
                     </Link>
                     <Link
                       href="/"
                       className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
                     >
-                      Terug naar Home
+                      {t("projectDetail.backToHome")}
                     </Link>
                   </div>
                 </div>
@@ -209,9 +231,10 @@ export default function ProjectDetail() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-semibold text-white">
-                    Project <span className="text-purple-300">galerij</span>
+                    {galleryPrefix ? `${galleryPrefix} ` : ""}
+                    <span className="text-purple-300">{galleryHighlight}</span>
                   </h2>
-                  <p className="text-sm text-gray-300">Klik om te vergroten</p>
+                  <p className="text-sm text-gray-300">{t("projectDetail.galleryHint")}</p>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {gallery.map((imgSrc, index) => (
@@ -225,13 +248,13 @@ export default function ProjectDetail() {
                         {imgSrc.endsWith(".gif") ? (
                           <img
                             src={imgSrc}
-                            alt={`${project.title} screenshot ${index + 1}`}
+                            alt={`${localizedTitle} screenshot ${index + 1}`}
                             className="h-full w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         ) : (
                           <Image
                             src={imgSrc}
-                            alt={`${project.title} screenshot ${index + 1}`}
+                            alt={`${localizedTitle} screenshot ${index + 1}`}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 300px"
                             className="rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
@@ -262,7 +285,7 @@ export default function ProjectDetail() {
             <button
               className="absolute right-6 top-6 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
               onClick={() => setSelectedIndex(null)}
-              aria-label="Sluit afbeelding"
+              aria-label={t("projectDetail.modalClose")}
             >
               ✕
             </button>
@@ -272,14 +295,14 @@ export default function ProjectDetail() {
                 <button
                   className="absolute left-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
                   onClick={prevImage}
-                  aria-label="Vorige afbeelding"
+                  aria-label={t("projectDetail.modalPrev")}
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
                 <button
                   className="absolute right-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
                   onClick={nextImage}
-                  aria-label="Volgende afbeelding"
+                  aria-label={t("projectDetail.modalNext")}
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>
@@ -290,13 +313,13 @@ export default function ProjectDetail() {
               {selectedImage.endsWith(".gif") ? (
                 <img
                   src={selectedImage}
-                  alt="Vergrote afbeelding"
+                  alt={expandedAlt}
                   className="mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
                 />
               ) : (
                 <Image
                   src={selectedImage}
-                  alt="Vergrote afbeelding"
+                  alt={expandedAlt}
                   width={1600}
                   height={900}
                   className="relative z-10 mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
