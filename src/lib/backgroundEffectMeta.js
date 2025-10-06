@@ -21,7 +21,7 @@ export const BACKGROUND_EFFECT_META = {
   stars: {
     selectLabel: "Sneeuw",
     sliderLabel: "Aantal sneeuwvlokken:",
-    max: 500,
+    max: 1000,
   },
   fireflies: {
     selectLabel: "Vuurvliegjes",

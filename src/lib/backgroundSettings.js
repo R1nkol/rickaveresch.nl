@@ -83,14 +83,55 @@ export function dispatchBackgroundSettingsChange() {
   window.dispatchEvent(new Event("background-settings-change"));
 }
 
+const pendingSaves = new Map();
+let flushHandle = null;
+
+function flushPendingSaves() {
+  flushHandle = null;
+
+  if (typeof window === "undefined") {
+    pendingSaves.clear();
+    return;
+  }
+
+  const storage = window.localStorage;
+  let didChange = false;
+
+  pendingSaves.forEach((stringValue, key) => {
+    if (storage.getItem(key) === stringValue) return;
+    storage.setItem(key, stringValue);
+    didChange = true;
+  });
+
+  pendingSaves.clear();
+
+  if (didChange) {
+    dispatchBackgroundSettingsChange();
+  }
+}
+
+function scheduleFlush() {
+  if (flushHandle != null) return;
+
+  if (
+    typeof window !== "undefined" &&
+    typeof window.requestAnimationFrame === "function"
+  ) {
+    flushHandle = window.requestAnimationFrame(() => {
+      flushPendingSaves();
+    });
+  } else if (typeof window !== "undefined") {
+    flushHandle = window.setTimeout(() => {
+      flushPendingSaves();
+    }, 16);
+  }
+}
+
 export function saveBackgroundSetting(storageKey, value) {
   if (typeof window === "undefined") return;
 
-  const storage = window.localStorage;
   const stringValue = typeof value === "string" ? value : String(value);
+  pendingSaves.set(storageKey, stringValue);
 
-  if (storage.getItem(storageKey) === stringValue) return;
-
-  storage.setItem(storageKey, stringValue);
-  dispatchBackgroundSettingsChange();
+  scheduleFlush();
 }
