@@ -179,7 +179,7 @@ export default function ProjectDetail() {
               </div>
 
               <div className="flex flex-col gap-6">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                <div className="hidden lg:block rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
                   {hasExtras ? (
                     <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_6px_14px_-6px_rgba(124,58,237,0.25)]">
                       <div className="flex flex-col gap-5">
