@@ -1,5 +1,17 @@
 export const shftBlogPosts = [
   {
+    slug: "2025-10-07-focus-op-andere-game",
+    title: {
+      nl: "Focus op ander project",
+      en: "Focus on another project",
+    },
+    date: "2025-10-07",
+    content: {
+      nl: `Ik heb besloten om voorlopig mijn focus op een ander project te leggen. Deze game heeft veel potentie en is echt mijn droom project, alleen met stage heb ik er momenteel toch te weinig tijd voor. Ik ben begonnen met een kleiner project, dit project zit wat simpeler in elkaar waardoor het veel makkelijker is om eraan te werken in de beperkte tijd die ik heb. Na stage verwacht ik weer meer tijd te hebben, dus dan kan ik hopelijk weer verder met deze game.`,
+      en: `I've decided to temporarily shift my focus to another project. This game has a lot of potential and is truly my dream project, but with my internship, I currently don't have enough time for it. I've started a smaller project that's simpler in design, making it easier to work on with the limited time I have. After my internship, I expect to have more time, so hopefully, I can return to this game then.`,
+    },
+  },
+  {
     slug: "2025-09-20-2025-09-30-documentation",
     title: {
       nl: "Documentatie en reflectie",
