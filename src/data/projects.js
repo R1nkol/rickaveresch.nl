@@ -17,7 +17,7 @@ export const projects = [
         "De afbeelding van de gameplay is nog van het oude project en niet helemaal accuraat meer, maar geeft wel een idee van hoe de gameplay eruit kan zien.",
       ],
       en: [
-        "SHFT is a project I’m actively developing and it’s still in a very early stage. The core concept is switching between two genres: a top-down bullet hell where you constantly shoot enemies, and a 2D side-view platformer survival mode where dodging enemies is the focus. While playing you can buy upgrades for your character that make things easier—but some of them also come with downsides.",
+        "SHFT is a project I’m actively developing and it’s still in a very early stage. The core concept is switching between two genres: a top-down bullet hell where you constantly shoot enemies, and a 2D side-view platformer survival mode where dodging enemies is the focus. While playing you can buy upgrades for your character that make things easier, but some of them also come with downsides.",
         "Right now I’m giving the game much more personality. The previous version turned into a mess, so I restarted the entire project to rebuild everything properly from scratch. The name also changed from Versura to SHFT, although that might still change. Because of this reboot development is taking a bit longer than planned, but the end goal is still to release the game on Steam.",
         "The gameplay image is from the older project and isn’t fully accurate anymore, but it still gives an idea of what the gameplay could look like.",
       ],
@@ -117,7 +117,7 @@ export const projects = [
         "We hebben o.a. Resend gebruikt voor e-mails, de Google Search Console API voor alle images van de auto's, de ChatGPT API voor een klantenservice, de RDW API voor voertuigdata en Amazon S3 voor veilige opslag van afbeeldingen.",
       ],
       en: [
-        "APKapot is a school project we built with a team of three—a full platform for scheduling and managing Dutch MOT inspections.",
+        "APKapot is a school project we built with a team of three, a full platform for scheduling and managing Dutch MOT inspections.",
         "Customers can easily book an appointment online. A manager approves the booking, assigns a mechanic, and the mechanic performs the inspection, creates work orders, and handles any repairs with the customer’s approval. Once finished, the customer automatically receives an email via Resend and the manager prepares the invoice.",
         "We used Resend for email, the Google Search Console API to fetch car images, the ChatGPT API for customer support, the Dutch RDW API for vehicle data, and Amazon S3 for secure image storage.",
       ],
@@ -201,7 +201,7 @@ export const projects = [
       ],
       en: [
         "This is a project I spent quite some time on. The idea was a platformer where you carve your way through levels to progress while collecting resources. I eventually stopped because I struggled to find an art style I was happy with, and around that time I started working on my other project, Versura, which shifted my focus.",
-        "The project still taught me a lot about the Godot engine—how to build an inventory system, how to let the player modify levels in-game, and how to save those altered levels.",
+        "The project still taught me a lot about the Godot engine, how to build an inventory system, how to let the player modify levels in-game, and how to save those altered levels.",
       ],
     },
     technologies: ["Godot"],

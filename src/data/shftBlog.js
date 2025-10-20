@@ -333,7 +333,7 @@ Teun tried to add resolution settings today, but fullscreen didn’t work proper
     endDate: "2025-02-27",
     content: {
       nl: `Van 25 tot en met 27 februari kreeg de game meer inhoud en logica. Ik verbeterde de player-functionaliteit en loste bugs in het login-menu op. Daarna maakte ik de eerste enemy die de speler aanvalt, met coins die droppen als hij gekild wordt. Op 27 februari werd de eerste werkende upgrade-functionaliteit toegevoegd, waaronder snelheid en damage, en paste Teun de backend aan zodat upgrades ook opgeslagen konden worden in de database.`,
-      en: `Between 25 and 27 February the game gained a lot of content and logic. I improved the player functionality, fixed login menu bugs, and created the first enemy that attacks the player with coins dropping on defeat. On 27 February I added the first working upgrades—like speed and damage—and Teun updated the backend so upgrades could be stored in the database.`,
+      en: `Between 25 and 27 February the game gained a lot of content and logic. I improved the player functionality, fixed login menu bugs, and created the first enemy that attacks the player with coins dropping on defeat. On 27 February I added the first working upgrades, like speed and damage and Teun updated the backend so upgrades could be stored in the database.`,
     },
   },
   {
@@ -363,7 +363,7 @@ Teun tried to add resolution settings today, but fullscreen didn’t work proper
 Een dag later kwamen de eerste HTTP-requests erbij. Op 19 februari maakte ik de speler dash- en schietfunctionaliteit. En op 20 februari werd het eerste login-systeem gebouwd, ik deed de frontend hiervoor en Teun de backend, en ik bedacht de eerste ideeën voor een upgradesysteem, we wisten hier nog niet precies hoe we dit wilden aanpakken.`,
       en: `We spent the first few days defining the core. On 17 February we came up with the idea of a game that switches between top-down and side-scrolling perspectives, and implemented the first version of the players.
 
-The next day we added the first HTTP requests. On 19 February I implemented dash and shooting for the player. On 20 February we built the first login system—Teun handled the backend and I took care of the frontend—and we brainstormed the first upgrade system ideas, even though we weren’t sure about the final approach yet.`,
+The next day we added the first HTTP requests. On 19 February I implemented dash and shooting for the player. On 20 February we built the first login system, Teun handled the backend and I took care of the frontend and we brainstormed the first upgrade system ideas, even though we weren’t sure about the final approach yet.`,
     },
   },
   {
