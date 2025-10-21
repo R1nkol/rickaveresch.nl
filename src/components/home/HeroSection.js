@@ -127,7 +127,7 @@ export default function HeroSection({
       />
 
       {renderBackground(values)}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm supports-[backdrop-filter]:backdrop-blur-2xl" />
+      <div className="absolute inset-0 bg-black/70" />
       <div className="relative z-10 mt-16 w-full max-w-3xl md:mt-0 text-center">
         <h1 className="text-4xl font-extrabold md:text-6xl">
           Rick <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Averesch</span>

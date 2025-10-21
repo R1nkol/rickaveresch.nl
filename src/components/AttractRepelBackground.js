@@ -2,14 +2,14 @@
 import { useEffect, useRef } from "react";
 
 export default function AttractRepelBackground({
-  numParticles = 200,
-  interactionRadius = 150, // nieuw: bereik van de muis
+  numParticles = 80,
+  interactionRadius = 120,
 }) {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const particlesRef = useRef([]);
   const targetCountRef = useRef(numParticles);
-    const interactionRadiusRef = useRef(interactionRadius);
+  const interactionRadiusRef = useRef(interactionRadius);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const attractRef = useRef(true);
 
@@ -17,10 +17,9 @@ export default function AttractRepelBackground({
     targetCountRef.current = numParticles;
   }, [numParticles]);
 
-    useEffect(() => {
+  useEffect(() => {
     interactionRadiusRef.current = interactionRadius;
   }, [interactionRadius]);
-
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,16 +51,16 @@ export default function AttractRepelBackground({
     const createParticle = () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 1.5,
-      vy: (Math.random() - 0.5) * 1.5,
-      radius: Math.random() * 3 + 2,
-      baseAlpha: Math.random() * 0.5 + 0.3,
+      vx: (Math.random() - 0.5) * 1.1,
+      vy: (Math.random() - 0.5) * 1.1,
+      radius: Math.random() * 2 + 1.5,
+      baseAlpha: Math.random() * 0.4 + 0.25,
       fade: { value: 0, target: 1 },
       // voor random movement
       targetAngle: Math.random() * Math.PI * 2,
       changeInterval: Math.floor(Math.random() * 200 + 100),
       frameCount: 0,
-      baseSpeed: Math.random() * 0.5 + 0.2,
+      baseSpeed: Math.random() * 0.35 + 0.18,
     });
 
     particlesRef.current = [];
@@ -84,21 +83,31 @@ export default function AttractRepelBackground({
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
 
-    const fadeSpeed = 1 / 30;
+    const fadeSpeed = 1 / 24;
+    const MAX_ADJUST_PER_FRAME = 4;
 
     function animate() {
       const particles = particlesRef.current;
-      const visibleCount = particles.filter(p => p.fade.target === 1).length;
+      let visibleCount = 0;
+      for (let i = 0; i < particles.length; i += 1) {
+        if (particles[i].fade.target === 1) {
+          visibleCount += 1;
+        }
+      }
+
       const diff = targetCountRef.current - visibleCount;
       if (diff > 0) {
-        for (let i = 0; i < diff; i++) particles.push(createParticle());
+        const spawnCount = Math.min(diff, MAX_ADJUST_PER_FRAME);
+        for (let i = 0; i < spawnCount; i += 1) {
+          particles.push(createParticle());
+        }
       } else if (diff < 0) {
-        let toFade = -diff;
-        for (const p of particles) {
-          if (toFade <= 0) break;
-          if (p.fade.target === 1) {
-            p.fade.target = 0;
-            toFade--;
+        let toFade = Math.min(-diff, MAX_ADJUST_PER_FRAME);
+        for (let i = particles.length - 1; i >= 0 && toFade > 0; i -= 1) {
+          const particle = particles[i];
+          if (particle.fade.target === 1) {
+            particle.fade.target = 0;
+            toFade -= 1;
           }
         }
       }
@@ -111,72 +120,74 @@ export default function AttractRepelBackground({
         mouseRef.current.x <= width &&
         mouseRef.current.y <= height;
 
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
+      const radius = interactionRadiusRef.current;
+      const radiusSquared = radius * radius;
 
-        // fade update
-        if (p.fade.value < p.fade.target) {
-          p.fade.value = Math.min(p.fade.value + fadeSpeed, p.fade.target);
-        } else if (p.fade.value > p.fade.target) {
-          p.fade.value = Math.max(p.fade.value - fadeSpeed, p.fade.target);
+      for (let i = particles.length - 1; i >= 0; i -= 1) {
+        const particle = particles[i];
+
+        if (particle.fade.value < particle.fade.target) {
+          particle.fade.value = Math.min(
+            particle.fade.value + fadeSpeed,
+            particle.fade.target,
+          );
+        } else if (particle.fade.value > particle.fade.target) {
+          particle.fade.value = Math.max(
+            particle.fade.value - fadeSpeed,
+            particle.fade.target,
+          );
         }
-        if (p.fade.value === 0 && p.fade.target === 0) {
+
+        if (particle.fade.value === 0 && particle.fade.target === 0) {
           particles.splice(i, 1);
           continue;
         }
 
         let didInteract = false;
         if (mouseInside) {
-          const dx = mouseRef.current.x - p.x;
-          const dy = mouseRef.current.y - p.y;
-          const dist = Math.hypot(dx, dy) || 1;
-          if (dist <= interactionRadiusRef.current) {
-            // binnen bereik: attract/repel
-            const force = Math.min(100 / dist, 5);
+          const dx = mouseRef.current.x - particle.x;
+          const dy = mouseRef.current.y - particle.y;
+          const distSquared = dx * dx + dy * dy;
+
+          if (distSquared <= radiusSquared) {
+            const dist = Math.sqrt(distSquared) || 1;
+            const force = Math.min(60 / dist, 2.5);
             const fx = (dx / dist) * force;
             const fy = (dy / dist) * force;
-            if (attractRef.current) {
-              p.vx += fx * 0.05;
-              p.vy += fy * 0.05;
-            } else {
-              p.vx -= fx * 0.05;
-              p.vy -= fy * 0.05;
-            }
-            p.vx *= 0.95;
-            p.vy *= 0.95;
-            p.x += p.vx;
-            p.y += p.vy;
+            const direction = attractRef.current ? 1 : -1;
+
+            particle.vx = (particle.vx + fx * direction * 0.04) * 0.95;
+            particle.vy = (particle.vy + fy * direction * 0.04) * 0.95;
+            particle.x += particle.vx;
+            particle.y += particle.vy;
             didInteract = true;
           }
         }
 
         if (!didInteract) {
-          // random movement
-          p.frameCount++;
-          if (p.frameCount >= p.changeInterval) {
-            p.targetAngle = Math.random() * Math.PI * 2;
-            p.changeInterval = Math.floor(Math.random() * 200 + 100);
-            p.frameCount = 0;
+          particle.frameCount += 1;
+          if (particle.frameCount >= particle.changeInterval) {
+            particle.targetAngle = Math.random() * Math.PI * 2;
+            particle.changeInterval = Math.floor(Math.random() * 200 + 100);
+            particle.frameCount = 0;
           }
-          const desiredVx = Math.cos(p.targetAngle) * p.baseSpeed;
-          const desiredVy = Math.sin(p.targetAngle) * p.baseSpeed;
+          const desiredVx = Math.cos(particle.targetAngle) * particle.baseSpeed;
+          const desiredVy = Math.sin(particle.targetAngle) * particle.baseSpeed;
           const lerpFactor = 0.02;
-          p.vx += (desiredVx - p.vx) * lerpFactor;
-          p.vy += (desiredVy - p.vy) * lerpFactor;
-          p.x += p.vx;
-          p.y += p.vy;
+          particle.vx += (desiredVx - particle.vx) * lerpFactor;
+          particle.vy += (desiredVy - particle.vy) * lerpFactor;
+          particle.x += particle.vx;
+          particle.y += particle.vy;
         }
 
-        // wrap-around
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
+        if (particle.x < 0) particle.x = width;
+        if (particle.x > width) particle.x = 0;
+        if (particle.y < 0) particle.y = height;
+        if (particle.y > height) particle.y = 0;
 
-        // teken
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.baseAlpha * p.fade.value})`;
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${particle.baseAlpha * particle.fade.value})`;
         ctx.fill();
       }
 
@@ -186,8 +197,8 @@ export default function AttractRepelBackground({
     animate();
 
     return () => {
-      canvas.removeEventListener("mousemove", handleMouseMove);
-      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("resize", resize);
