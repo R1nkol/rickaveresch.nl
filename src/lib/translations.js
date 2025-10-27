@@ -66,6 +66,12 @@ export const translations = {
           placeholder: "Hallo Rick, ik heb een vraag over...",
         },
         submit: "Verzend bericht",
+        submitting: "Versturen...",
+        feedback: {
+          success: "Bedankt! Ik neem zo snel mogelijk contact met je op.",
+          error: "Er is iets misgegaan bij het versturen. Probeer het later opnieuw.",
+          validation: "Vul alle velden in voordat je het formulier verstuurt.",
+        },
       },
     },
     footer: {
@@ -208,6 +214,12 @@ export const translations = {
           placeholder: "Hi Rick, I have a question about...",
         },
         submit: "Send message",
+        submitting: "Sending...",
+        feedback: {
+          success: "Thanks! I'll get back to you as soon as possible.",
+          error: "Something went wrong while sending your message. Please try again later.",
+          validation: "Please fill in all fields before submitting the form.",
+        },
       },
     },
     footer: {

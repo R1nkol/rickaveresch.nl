@@ -1,11 +1,59 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState({ type: null, message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const updateField = useCallback((field) => (event) => {
+    const { value } = event.target;
+    setFormData((previous) => ({ ...previous, [field]: value }));
+  }, []);
+
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+
+      const name = formData.name.trim();
+      const email = formData.email.trim();
+      const message = formData.message.trim();
+
+      if (!name || !email || !message) {
+        setStatus({ type: "error", message: t("contact.form.feedback.validation") });
+        return;
+      }
+
+      setIsSubmitting(true);
+      setStatus({ type: null, message: "" });
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        setStatus({ type: "success", message: t("contact.form.feedback.success") });
+        setFormData({ name: "", email: "", message: "" });
+      } catch (error) {
+        console.error("Unable to submit contact form", error);
+        setStatus({ type: "error", message: t("contact.form.feedback.error") });
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData, t],
+  );
 
   const heading = t("contact.heading");
   const headingParts = heading.split(" ");
@@ -29,7 +77,10 @@ export default function ContactSection() {
           </p>
           <div className="grid gap-3 text-sm text-gray-300"></div>
         </div>
-        <form className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.08] p-8 shadow-[0_6px_12px_-4px_rgba(79,70,229,0.25)] supports-[backdrop-filter]:bg-white/[0.12]">
+        <form
+          onSubmit={handleSubmit}
+          className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.08] p-8 shadow-[0_6px_12px_-4px_rgba(79,70,229,0.25)] supports-[backdrop-filter]:bg-white/[0.12]"
+        >
           <div className="absolute -top-24 left-0 h-44 w-44 rounded-full bg-purple-500/30 blur-3xl" />
           <div className="absolute -bottom-24 -right-0 h-48 w-48 rounded-full bg-indigo-500/20 blur-3xl" />
           <div className="relative grid gap-5 md:grid-cols-2">
@@ -37,6 +88,11 @@ export default function ContactSection() {
               {t("contact.form.name.label")}
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={updateField("name")}
+                required
+                autoComplete="name"
                 className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
                 placeholder={t("contact.form.name.placeholder")}
               />
@@ -45,6 +101,11 @@ export default function ContactSection() {
               {t("contact.form.email.label")}
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={updateField("email")}
+                required
+                autoComplete="email"
                 className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
                 placeholder={t("contact.form.email.placeholder")}
               />
@@ -54,17 +115,33 @@ export default function ContactSection() {
             {t("contact.form.message.label")}
             <textarea
               rows={5}
+              name="message"
+              value={formData.message}
+              onChange={updateField("message")}
+              required
               className="mt-2 block w-full rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
               placeholder={t("contact.form.message.placeholder")}
             ></textarea>
           </label>
           <button
             type="submit"
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-purple-200/40 bg-purple-500/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-purple-200/60 hover:bg-purple-500/40 md:w-auto"
+            disabled={isSubmitting}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-purple-200/40 bg-purple-500/30 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-purple-200/60 hover:bg-purple-500/40 disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
           >
-            {t("contact.form.submit")}
+            {isSubmitting ? t("contact.form.submitting") : t("contact.form.submit")}
             <FiArrowUpRight className="text-base" />
           </button>
+          {status.message ? (
+            <p
+              className={`mt-4 text-sm ${
+                status.type === "success" ? "text-emerald-200" : "text-rose-200"
+              }`}
+              role="status"
+              aria-live="polite"
+            >
+              {status.message}
+            </p>
+          ) : null}
         </form>
       </div>
     </section>
