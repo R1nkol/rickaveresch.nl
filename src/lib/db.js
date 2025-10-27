@@ -48,3 +48,17 @@ export async function ensureContactTable() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
   `);
 }
+
+export async function ensureContactRateLimitTable() {
+  const pool = getDatabasePool();
+  await pool.execute(`
+    CREATE TABLE IF NOT EXISTS contact_rate_limits (
+      ip VARCHAR(45) NOT NULL,
+      window_start DATETIME NOT NULL,
+      request_count INT UNSIGNED NOT NULL,
+      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (ip),
+      INDEX idx_window_start (window_start)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `);
+}
