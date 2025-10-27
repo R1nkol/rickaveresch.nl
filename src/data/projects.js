@@ -101,6 +101,31 @@ export const projects = [
     ],
   },
   {
+    slug: "Project Zuna",
+    title: { nl: "Project Zuna", en: "Project Zuna" },
+    description: {
+      nl: "Eerste site waar ik Next.js met database integratie gebruikte.",
+      en: "My first site using Next.js with database integration.",
+    },
+    imageSrc: "/Images/EventPlay.png",
+    link: "/projects/eventplay",
+    tags: ["Next.js", "React", "TypeScript", "MySQL"],
+    details: {
+      nl: [
+        "Project Zuna is een site gemaakt voor Dolf en Floris Wardenaar. Zij wilden een groot feest geven in hun schuur omdat Floris 20 werd en voor zijn opleiding slaagde en Dolf werd 25.",
+        "Ik heb de site gemaakt met Next.js en een MySQL database. Op de site konden mensen zich inschrijven voor het feest en voor welke genre muziek ze het meest hyped waren. Ook konden ze een bericht achterlaten voor Dolf en Floris.",
+      ],
+      en: [
+        "EventPlay was a solo school project and my first time independently developing a full web application. The idea was to build a platform that schools could use to organize sports events, allowing students to register for different activities.",
+        "The main goal was to create a working system with an automatically generated bracket. Students could be imported from a file instead of entering them manually. On top of the standard bracket algorithm I added another competition format: a knockout round where every participant plays everyone else once, and the player with the most wins becomes the overall winner.",
+        "The project was very educational because I had to design, build, and finish everything on my own. It gave me a clear understanding of what it’s like to execute a project from start to finish without dividing tasks among multiple people.",
+      ],
+    },
+    technologies: ["Laravel", "Tailwind", "MySQL"],
+    heroImage: "/Images/EventPlay.png",
+    gallery: [],
+  },
+  {
     slug: "apkapot",
     title: { nl: "APKapot", en: "APKapot" },
     description: {
