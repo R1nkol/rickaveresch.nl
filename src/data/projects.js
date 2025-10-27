@@ -101,29 +101,35 @@ export const projects = [
     ],
   },
   {
-    slug: "Project Zuna",
+    slug: "project-zuna",
     title: { nl: "Project Zuna", en: "Project Zuna" },
     description: {
       nl: "Eerste site waar ik Next.js met database integratie gebruikte.",
       en: "My first site using Next.js with database integration.",
     },
-    imageSrc: "/Images/EventPlay.png",
-    link: "/projects/eventplay",
+    imageSrc: "/Images/ProjectZuna_1.png",
+    link: "/projects/project-zuna",
     tags: ["Next.js", "React", "TypeScript", "MySQL"],
+    badge: { nl: "Bezoekbare website", en: "Visit the website!" },
     details: {
       nl: [
         "Project Zuna is een site gemaakt voor Dolf en Floris Wardenaar. Zij wilden een groot feest geven in hun schuur omdat Floris 20 werd en voor zijn opleiding slaagde en Dolf werd 25.",
-        "Ik heb de site gemaakt met Next.js en een MySQL database. Op de site konden mensen zich inschrijven voor het feest en voor welke genre muziek ze het meest hyped waren. Ook konden ze een bericht achterlaten voor Dolf en Floris.",
+        "Ik heb de site gemaakt met Next.js en een MySQL database. Op de site konden mensen zich inschrijven voor het feest en aangeven voor welk muziekgenre ze het meest hyped waren. Ook konden ze een bericht achterlaten voor Dolf en Floris.",
+        "Ik heb veel van dit project geleerd, ik ben beter geworden in het gebruiken van Canvas voor achtergrond­effecten, en heb hierdoor ook eindelijk ervaring opgedaan met de database-kant van Next.js. Dankzij dit project heb ik nu ook een database­connectie opgezet met mijn eigen website, omdat ik nu precies weet hoe je dat met Next.js configureert en integreert."
       ],
       en: [
-        "EventPlay was a solo school project and my first time independently developing a full web application. The idea was to build a platform that schools could use to organize sports events, allowing students to register for different activities.",
-        "The main goal was to create a working system with an automatically generated bracket. Students could be imported from a file instead of entering them manually. On top of the standard bracket algorithm I added another competition format: a knockout round where every participant plays everyone else once, and the player with the most wins becomes the overall winner.",
-        "The project was very educational because I had to design, build, and finish everything on my own. It gave me a clear understanding of what it’s like to execute a project from start to finish without dividing tasks among multiple people.",
+        "Project Zuna is a site I built for Dolf and Floris Wardenaar. They wanted to throw a big party in their barn to celebrate Floris turning 20 and graduating, and Dolf turning 25.",
+        "I created the site using Next.js and a MySQL database. Visitors could sign up for the party and indicate which music genre they were most excited about. They could also leave a message for Dolf and Floris.",
+        "I learned a lot from this project, improving my skills with Canvas for background effects, and gaining experience with the database side of Next.js. Thanks to this project, I was able to set up a database connection for my own website, as I now know exactly how to configure and integrate it with Next.js."
       ],
     },
-    technologies: ["Laravel", "Tailwind", "MySQL"],
-    heroImage: "/Images/EventPlay.png",
+    technologies: ["Next.js", "React", "TypeScript", "MySQL"],
+    heroImage: "/Images/ProjectZuna_1.png",
     gallery: [],
+    extraLinks: [
+      { href: "https://www.projectzuna.nl/", label: { nl: "Ga naar de website", en: "Visit the website" } },
+    ],
+
   },
   {
     slug: "apkapot",
