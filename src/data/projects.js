@@ -115,12 +115,14 @@ export const projects = [
       nl: [
         "Project Zuna is een site gemaakt voor Dolf en Floris Wardenaar. Zij wilden een groot feest geven in hun schuur omdat Floris 20 werd en voor zijn opleiding slaagde en Dolf werd 25.",
         "Ik heb de site gemaakt met Next.js en een MySQL database. Op de site konden mensen zich inschrijven voor het feest en aangeven voor welk muziekgenre ze het meest hyped waren. Ook konden ze een bericht achterlaten voor Dolf en Floris.",
-        "Ik heb veel van dit project geleerd, ik ben beter geworden in het gebruiken van Canvas voor achtergrond­effecten, en heb hierdoor ook eindelijk ervaring opgedaan met de database-kant van Next.js. Dankzij dit project heb ik nu ook een database­connectie opgezet met mijn eigen website, omdat ik nu precies weet hoe je dat met Next.js configureert en integreert."
+        "Ik heb veel van dit project geleerd, ik ben beter geworden in het gebruiken van Canvas voor achtergrond­effecten, en heb hierdoor ook eindelijk ervaring opgedaan met de database-kant van Next.js. Dankzij dit project heb ik nu ook een database­connectie opgezet met mijn eigen website, omdat ik nu precies weet hoe je dat met Next.js configureert en integreert.",
+        "Op dit moment heb je nog een toegangscode nodig om in de website te komen, omdat het feest nog niet officieel is aangekondigd. Maar binnenkort zal de site openbaar worden gemaakt.",
       ],
       en: [
         "Project Zuna is a site I built for Dolf and Floris Wardenaar. They wanted to throw a big party in their barn to celebrate Floris turning 20 and graduating, and Dolf turning 25.",
         "I created the site using Next.js and a MySQL database. Visitors could sign up for the party and indicate which music genre they were most excited about. They could also leave a message for Dolf and Floris.",
-        "I learned a lot from this project, improving my skills with Canvas for background effects, and gaining experience with the database side of Next.js. Thanks to this project, I was able to set up a database connection for my own website, as I now know exactly how to configure and integrate it with Next.js."
+        "I learned a lot from this project, improving my skills with Canvas for background effects, and gaining experience with the database side of Next.js. Thanks to this project, I was able to set up a database connection for my own website, as I now know exactly how to configure and integrate it with Next.js.",
+        "Currently, you still need an access code to enter the website since the party hasn't been officially announced yet. But soon the site will be made public.",
       ],
     },
     technologies: ["Next.js", "React", "TypeScript", "MySQL"],

@@ -14,7 +14,7 @@ export const translations = {
       contactCta: "Kom in contact",
     },
     about: {
-      badge: "Wie ik ben",
+      badge: "Wie ben ik",
       heading: "Een developer met oog voor detail",
       intro: "Hoi! Ik ben Rick Averesch, 19 jaar en student Software Development aan ROC van Twente, Almelo de Sumpel.",
       hobby: "Buiten mijn studie verdiep ik me in game development in Godot met GDScript.",
