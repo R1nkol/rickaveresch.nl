@@ -63,17 +63,27 @@ export function LanguageProvider({ children }) {
   }, []);
 
   const t = useCallback(
-    (key, { fallback } = {}) => {
+    (key, options = {}) => {
+      const { fallback, vars } = options ?? {};
+
+      const applyVars = (str) => {
+        if (typeof str !== "string" || !vars) return str;
+        return str.replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, (match, p1) => {
+          const v = vars[p1];
+          return v != null ? String(v) : match;
+        });
+      };
+
       const localized = resolveTranslation(key, language);
       if (localized != null) {
-        return localized;
+        return applyVars(localized);
       }
       if (fallback != null) {
-        return fallback;
+        return applyVars(fallback);
       }
       const fallbackLocalized = resolveTranslation(key, DEFAULT_LANGUAGE);
       if (fallbackLocalized != null) {
-        return fallbackLocalized;
+        return applyVars(fallbackLocalized);
       }
       return key;
     },

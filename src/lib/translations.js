@@ -16,7 +16,7 @@ export const translations = {
     about: {
       badge: "Wie ben ik",
       heading: "Een developer met oog voor detail",
-      intro: "Hoi! Ik ben Rick Averesch, 19 jaar en student Software Development aan ROC van Twente, Almelo de Sumpel.",
+      intro: "Hoi! Ik ben Rick Averesch, {{age}} jaar en student Software Development aan ROC van Twente, Almelo de Sumpel.",
       hobby: "Buiten mijn studie verdiep ik me in game development in Godot met GDScript.",
       contactCta: "Kom in contact",
     },
@@ -164,7 +164,7 @@ export const translations = {
       badge: "Who I am",
       heading: "A developer with an eye for detail",
       intro:
-        "Hi! I'm Rick Averesch, 19 years old and a Software Development student at ROC van Twente, Almelo de Sumpel.",
+        "Hi! I'm Rick Averesch, {{age}} years old and a Software Development student at ROC van Twente, Almelo de Sumpel.",
       hobby: "Outside of my studies I dive into game development in Godot using GDScript.",
       contactCta: "Get in touch",
     },

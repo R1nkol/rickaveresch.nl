@@ -5,8 +5,19 @@ import Link from "next/link";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
+function calculateAge(birthDate) {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age -= 1;
+  }
+  return age;
+}
+
 export default function AboutSection() {
   const { t } = useLanguage();
+  const age = calculateAge(new Date(2005, 9, 7));
 
   const heading = t("about.badge");
   const headingParts = heading.split(" ");
@@ -24,7 +35,7 @@ export default function AboutSection() {
             </span>
           </h2>
           <div className="space-y-4 text-lg text-gray-200">
-            <p>{t("about.intro")}</p>
+            <p>{t("about.intro", { vars: { age } })}</p>
             <p>{t("about.hobby")}</p>
           </div>
           <Link
