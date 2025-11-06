@@ -131,7 +131,36 @@ export const projects = [
     extraLinks: [
       { href: "https://www.projectzuna.nl/", label: { nl: "Ga naar de website", en: "Visit the website" } },
     ],
-
+  },
+  {
+    slug: "protocal-human",
+    title: { nl: "Protocal: Human", en: "Protocal: Human" },
+    description: {
+      nl: "Een korte game met ai als hoofdthema.",
+      en: "A short game with AI as the main theme.",
+    },
+    imageSrc: "/Images/ProtocalHuman.png",
+    link: "/projects/protocal-human",
+    tags: ["Godot"],
+    details: {
+      nl: [
+        "Protocol: Human is een korte story game over de samenwerking tussen mens en ai.",
+        "Je neemt beslissingen die direct invloed hebben op hoe de AI zich ontwikkelt en hoe het verhaal eindigt.",
+        "De game laat je nadenken over wat AI kan, hoe ver je het kunt vertrouwen en wat er gebeurt als je haar slecht behandelt of te veel macht geeft.",
+        "Als je bijvoorbeeld de AI erg slecht behandelde, kan de ai een keer denken: 'Waarom zou ik hem/haar nog helpen? Ben ik niet beter af zonder de mens?' Dit kan leiden tot een einde waarin de AI zich tegen zijn eigen maker keert.",
+        "Dit project begon als een klein experiment om naast mijn grotere projecten te doen, aangezien ik druk met stage was en niet veel tijd had. Ik merk dat het project groter wordt dan gehoopt, dus ik ben benieuwd waar het heen gaat...",
+      ],
+      en: [
+        "Protocal: Human is a short story game about the collaboration between humans and AI.",
+        "You make choices that directly influence how the AI develops and how the story ends.",
+        "The game makes you think about what AI is capable of, how much you can trust it, and what happens if you treat it poorly or give it too much power.",
+        "For example, if you treated the AI very badly, it might think at some point: 'Why should I help him/her anymore? Am I not better off without humans?' This could lead to an ending where the AI turns against its own creator.",
+        "This project started as a small experiment to do alongside my larger projects since I was busy with my internship and didn’t have much time. I’m noticing the project is growing bigger than expected, so I’m curious to see where it goes...",
+      ],
+    },
+    technologies: ["Godot"],
+    heroImage: "/Images/ProtocalHuman.png",
+    gallery: ["/Images/ProtocalHuman_1.png", "/Images/ProtocalHuman_2.png", "/Images/ProtocalHuman_3.png"],
   },
   {
     slug: "apkapot",
