@@ -15,6 +15,7 @@ const skillsItems = [
   { src: "/icons/html.webp", label: "HTML5", href: "https://developer.mozilla.org/docs/Web/HTML" },
   { src: "/icons/css.webp", label: "CSS3", href: "https://developer.mozilla.org/docs/Web/CSS" },
   { src: "/icons/javascript.svg", label: "JavaScript", href: "https://developer.mozilla.org/docs/Web/JavaScript" },
+  { src: "/icons/typescript.svg", label: "TypeScript", href: "https://www.typescriptlang.org/docs/" },
   { src: "/icons/laravel.webp", label: "Laravel", href: "https://laravel.com/" },
   { src: "/icons/c_sharp.webp", label: "C#", href: "https://learn.microsoft.com/dotnet/csharp/" },
   { src: "/icons/nextdotjs.svg", label: "Next.js", href: "https://nextjs.org/" },

@@ -64,8 +64,9 @@ export default function ServicesSection({ skillsItems, isMobile }) {
           </div>
         </div>
         <div className="relative mt-8 flex h-28 w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 supports-[backdrop-filter]:bg-white/[0.06]">
-          <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"} gap-4`}>
-            <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-center gap-4`}>
+          {/* Simplified track layout to keep consistent gaps irrespective of item count */}
+          <div className={`marquee-track flex ${isMobile ? "w-full" : "w-auto"} gap-4`}>
+            <div className={`flex ${isMobile ? "w-full" : "w-auto"} justify-center gap-4`}>
               {skillsItems.map((item, index) => {
                 const Content = (
                   <>
@@ -94,7 +95,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
               })}
             </div>
             {!isMobile && (
-              <div className="flex w-1/2 justify-center gap-4">
+              <div className="flex w-auto justify-center gap-4">
                 {skillsItems.map((item, index) => {
                   const Content = (
                     <>
