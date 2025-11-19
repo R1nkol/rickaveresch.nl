@@ -66,27 +66,61 @@ export default function ServicesSection({ skillsItems, isMobile }) {
         <div className="relative mt-8 flex h-28 w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 supports-[backdrop-filter]:bg-white/[0.06]">
           <div className={`marquee-track flex ${isMobile ? "w-full" : "w-[300%]"} gap-4`}>
             <div className={`flex ${isMobile ? "w-full" : "w-1/2"} justify-center gap-4`}>
-              {skillsItems.map((item, index) => (
-                <div
-                  key={`set1-${index}`}
-                  className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                >
-                  <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
-                  <p className="mt-2 cursor-default">{item.label}</p>
-                </div>
-              ))}
+              {skillsItems.map((item, index) => {
+                const Content = (
+                  <>
+                    <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
+                    <p className="mt-2 cursor-default">{item.label}</p>
+                  </>
+                );
+                return item.href ? (
+                  <a
+                    key={`set1-${index}`}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                  >
+                    {Content}
+                  </a>
+                ) : (
+                  <div
+                    key={`set1-${index}`}
+                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                  >
+                    {Content}
+                  </div>
+                );
+              })}
             </div>
             {!isMobile && (
               <div className="flex w-1/2 justify-center gap-4">
-                {skillsItems.map((item, index) => (
-                  <div
-                    key={`set2-${index}`}
-                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                  >
-                    <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
-                    <p className="mt-2 cursor-default">{item.label}</p>
-                  </div>
-                ))}
+                {skillsItems.map((item, index) => {
+                  const Content = (
+                    <>
+                      <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
+                      <p className="mt-2 cursor-default">{item.label}</p>
+                    </>
+                  );
+                  return item.href ? (
+                    <a
+                      key={`set2-${index}`}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                    >
+                      {Content}
+                    </a>
+                  ) : (
+                    <div
+                      key={`set2-${index}`}
+                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
+                    >
+                      {Content}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

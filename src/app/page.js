@@ -12,20 +12,20 @@ import ServicesSection from "@/components/home/ServicesSection";
 import useBackgroundSettingsControls from "@/hooks/useBackgroundSettingsControls";
 
 const skillsItems = [
-  { src: "/icons/html.webp", label: "HTML5" },
-  { src: "/icons/css.webp", label: "CSS3" },
-  { src: "/icons/javascript.svg", label: "JavaScript" },
-  { src: "/icons/laravel.webp", label: "Laravel" },
-  { src: "/icons/c_sharp.webp", label: "C#" },
-  { src: "/icons/nextdotjs.svg", label: "Next.js" },
-  { src: "/icons/react.svg", label: "React" },
-  { src: "/icons/tailwind.webp", label: "Tailwind CSS" },
-  { src: "/icons/bootstrap.svg", label: "Bootstrap" },
-  { src: "/icons/php.webp", label: "PHP" },
-  { src: "/icons/mongodb.webp", label: "MongoDB" },
-  { src: "/icons/MySQL.webp", label: "MySQL" },
-  { src: "/icons/godot.webp", label: "Godot" },
-  { src: "/icons/wordpress.svg", label: "WordPress" },
+  { src: "/icons/html.webp", label: "HTML5", href: "https://developer.mozilla.org/docs/Web/HTML" },
+  { src: "/icons/css.webp", label: "CSS3", href: "https://developer.mozilla.org/docs/Web/CSS" },
+  { src: "/icons/javascript.svg", label: "JavaScript", href: "https://developer.mozilla.org/docs/Web/JavaScript" },
+  { src: "/icons/laravel.webp", label: "Laravel", href: "https://laravel.com/" },
+  { src: "/icons/c_sharp.webp", label: "C#", href: "https://learn.microsoft.com/dotnet/csharp/" },
+  { src: "/icons/nextdotjs.svg", label: "Next.js", href: "https://nextjs.org/" },
+  { src: "/icons/react.svg", label: "React", href: "https://react.dev/" },
+  { src: "/icons/tailwind.webp", label: "Tailwind CSS", href: "https://tailwindcss.com/" },
+  { src: "/icons/bootstrap.svg", label: "Bootstrap", href: "https://getbootstrap.com/" },
+  { src: "/icons/php.webp", label: "PHP", href: "https://www.php.net/" },
+  { src: "/icons/mongodb.webp", label: "MongoDB", href: "https://www.mongodb.com/docs/" },
+  { src: "/icons/MySQL.webp", label: "MySQL", href: "https://dev.mysql.com/doc/" },
+  { src: "/icons/godot.webp", label: "Godot", href: "https://godotengine.org/" },
+  { src: "/icons/wordpress.svg", label: "WordPress", href: "https://wordpress.org/" },
 ];
 
 export default function Home() {
