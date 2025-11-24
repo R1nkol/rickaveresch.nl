@@ -144,18 +144,20 @@ export const projects = [
     tags: ["Godot"],
     details: {
       nl: [
-        "Protocol: Human is een korte story game over de samenwerking tussen mens en ai.",
-        "Je neemt beslissingen die direct invloed hebben op hoe de AI zich ontwikkelt en hoe het verhaal eindigt.",
-        "De game laat je nadenken over wat AI kan, hoe ver je het kunt vertrouwen en wat er gebeurt als je haar slecht behandelt of te veel macht geeft.",
-        "Als je bijvoorbeeld de AI erg slecht behandelde, kan de ai een keer denken: 'Waarom zou ik hem/haar nog helpen? Ben ik niet beter af zonder de mens?' Dit kan leiden tot een einde waarin de AI zich tegen zijn eigen maker keert.",
-        "Dit project begon als een klein experiment om naast mijn grotere projecten te doen, aangezien ik druk met stage was en niet veel tijd had. Ik merk dat het project groter wordt dan gehoopt, dus ik ben benieuwd waar het heen gaat...",
+        "Protocol: Human is een korte story game over de samenwerking tussen mens en AI.",
+        "Je maakt keuzes die bepalen hoe de AI zich ontwikkelt en welke richting het verhaal op gaat.",
+        "De game laat je nadenken over wat AI kan, hoeveel vertrouwen je erin kunt hebben en wat er gebeurt als je het verkeerd behandelt of te veel macht geeft.",
+        "Als je de AI slecht behandelt kan het zich op een gegeven moment afvragen waarom het je nog zou helpen en of het niet beter af is zonder de mens, wat kan uitlopen op een einde waarin de AI zich tegen zijn maker keert.",
+        "Ik werk nog steeds actief aan het project, maar ik ben het volledig aan het herbouwen omdat mijn eerste visie lastig te designen en uit te werken was. Nu heb ik een aanpak die beter werkt.",
+        "De afbeeldingen die je nu ziet zijn nog van de oude versie, voordat ik met de nieuwe en betere opzet begonnen ben."
       ],
       en: [
         "Protocal: Human is a short story game about the collaboration between humans and AI.",
-        "You make choices that directly influence how the AI develops and how the story ends.",
+        "You make choices that shape how the AI develops and which direction the story takes.",
         "The game makes you think about what AI is capable of, how much you can trust it, and what happens if you treat it poorly or give it too much power.",
-        "For example, if you treated the AI very badly, it might think at some point: 'Why should I help him/her anymore? Am I not better off without humans?' This could lead to an ending where the AI turns against its own creator.",
-        "This project started as a small experiment to do alongside my larger projects since I was busy with my internship and didn’t have much time. I’m noticing the project is growing bigger than expected, so I’m curious to see where it goes...",
+        "If you mistreat the AI, it may start to question why it should help you and whether it is better off without humans, which can lead to an ending where the AI turns against its creator.",
+        "I am still actively working on the project, but I am rebuilding it completely because my first concept was difficult to design and develop. Now I have a better approach.",
+        "The images shown are from the old version, before I started working on the improved direction."
       ],
     },
     technologies: ["Godot"],
