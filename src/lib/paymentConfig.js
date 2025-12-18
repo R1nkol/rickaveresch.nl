@@ -7,7 +7,7 @@ export const PAYMENT_SCENARIOS = {
   },
   poker: {
     nl: {
-      text: "Met deze link kun je je inzet voor de pokeravond inleveren. Meedoen is niet verplicht en je mag zelf bepalen hoeveel je inlegt.",
+      text: "Je kunt hier je inzet voor vanavond inleggen. Meedoen is niet verplicht en je bepaalt zelf hoeveel je inlegt.",
       buttonText: "Lever inzet in",
     },
   },
