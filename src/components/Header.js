@@ -15,6 +15,7 @@ const NAV_ITEMS = [
 export default function Header({ activeSection }) {
   const pathname = usePathname();
   const { language, toggleLanguage, t } = useLanguage();
+  const isPaymentPage = pathname === "/betaal-mij";
 
   const suffixSegments = (() => {
     if (!pathname) return [];
@@ -87,15 +88,17 @@ export default function Header({ activeSection }) {
             </nav>
           )}
 
-          {/* Language toggle */}
-          <button
-            type="button"
-            onClick={toggleLanguage}
-            aria-label={t("navigation.toggle")}
-            className="inline-flex items-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-200 transition hover:border-purple-300/40 hover:bg-purple-500/25 hover:text-white"
-          >
-            {language === "nl" ? "NL" : "EN"}
-          </button>
+          {/* Language toggle - verberg op betaal-mij pagina */}
+          {!isPaymentPage && (
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              aria-label={t("navigation.toggle")}
+              className="inline-flex items-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-200 transition hover:border-purple-300/40 hover:bg-purple-500/25 hover:text-white"
+            >
+              {language === "nl" ? "NL" : "EN"}
+            </button>
+          )}
         </div>
       </div>
     </header>

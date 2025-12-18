@@ -74,6 +74,11 @@ export const translations = {
         },
       },
     },
+    paymentPage: {
+      description: "Open mijn betaalpagina om een bijdrage te doen.",
+      cta: "Open betaallink",
+      missingLink: "Er is op dit moment geen betaallink beschikbaar.",
+    },
     footer: {
       copyright: "© {{year}} door Rick Averesch.",
     },
