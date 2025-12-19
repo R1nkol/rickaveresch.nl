@@ -1,8 +1,7 @@
 "use client";
 
 import { FiCreditCard, FiShield } from "react-icons/fi";
-
-// TODO: Maak dat hij automatisch wordt doorgestuurd naar de link
+import { useEffect } from "react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -10,10 +9,6 @@ import SyncedBackground from "@/components/SyncedBackground";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getPaymentConfig } from "@/lib/paymentConfig";
 
-// Environment variables - alles kan direct in .env.local worden aangepast
-// Zet NEXT_PUBLIC_PAYMENT_SCENARIO op: "donation", "poker", of "default" (of leeg laten)
-// Als scenario is ingesteld (en niet "default"), gebruik die teksten
-// Als scenario NIET is ingesteld of "default", gebruik NEXT_PUBLIC_PAYMENT_TEXT_NL en NEXT_PUBLIC_PAYMENT_BUTTON_TEXT_NL
 const PAYMENT_URL = (process.env.NEXT_PUBLIC_PAYMENT_URL ?? "").trim();
 const PAYMENT_SCENARIO = (process.env.NEXT_PUBLIC_PAYMENT_SCENARIO ?? "").trim();
 const PAYMENT_TEXT_NL = (process.env.NEXT_PUBLIC_PAYMENT_TEXT ?? "").trim();
@@ -35,6 +30,21 @@ export default function PaymentPage() {
     ? (scenarioConfigNL?.buttonText || t("paymentPage.cta"))
     : (PAYMENT_BUTTON_TEXT_NL || t("paymentPage.cta"));
 
+useEffect(() => {
+  if (!hasPaymentUrl || !PAYMENT_URL) return;
+
+  try {
+    window.location.replace(PAYMENT_URL);
+  } catch {
+    try {
+      window.location.href = PAYMENT_URL;
+    } catch {
+      console.log("Redirect faalt, gebruiker kan alsnog op de knop klikken");
+    }
+  }
+}, [hasPaymentUrl]);
+
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
       <SyncedBackground />
@@ -43,7 +53,6 @@ export default function PaymentPage() {
         aria-hidden="true"
       />
       
-      {/* Background decorations similar to other sections */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute left-1/2 top-0 h-[28rem] w-[120%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.2),_rgba(3,7,18,0))]" />
         <div className="absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
