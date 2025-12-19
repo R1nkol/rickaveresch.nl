@@ -3,6 +3,7 @@
 import { Suspense, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { FiHome, FiX } from "react-icons/fi";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -65,8 +66,9 @@ function ProjectsPageContent() {
                 <span className="text-sm font-medium text-white">{tag}</span>
                 <Link
                   href="/projects"
-                  className="inline-flex items-center rounded-lg border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-gray-200 transition hover:border-purple-300/50 hover:bg-purple-500/20 hover:text-white"
+                  className="inline-flex items-center gap-1 rounded-lg border border-white/10 bg-white/10 px-3 py-1 text-xs font-medium text-gray-200 transition hover:border-purple-300/50 hover:bg-purple-500/20 hover:text-white"
                 >
+                  <FiX className="h-3 w-3" />
                   {t("projectsPage.reset")}
                 </Link>
               </div>
@@ -82,8 +84,9 @@ function ProjectsPageContent() {
           <div className="mt-12 text-center">
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-6 py-2 text-sm font-medium text-gray-200 transition hover:border-purple-300/50 hover:bg-purple-500/20 hover:text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/10 px-6 py-2 text-sm font-medium text-gray-200 transition hover:border-purple-300/50 hover:bg-purple-500/20 hover:text-white"
             >
+              <FiHome className="h-4 w-4" />
               {t("projectsPage.backHome")}
             </Link>
           </div>

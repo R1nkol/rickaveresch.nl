@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FiMail } from "react-icons/fi";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -42,6 +43,7 @@ export default function AboutSection() {
             href="#contact"
             className="inline-flex items-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/20 px-7 py-3 text-sm font-semibold text-white shadow-[0_0_12px_rgb(168,85,247,0.2)] transition hover:border-purple-300/60 hover:bg-purple-500/30"
           >
+            <FiMail className="h-4 w-4" />
             {t("about.contactCta")}
           </Link>
         </div>

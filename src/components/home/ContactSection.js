@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiUser, FiMail, FiMessageSquare } from "react-icons/fi";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -86,42 +86,51 @@ export default function ContactSection() {
           <div className="relative grid gap-5 md:grid-cols-2">
             <label className="text-sm font-medium text-gray-200">
               {t("contact.form.name.label")}
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={updateField("name")}
-                required
-                autoComplete="name"
-                className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                placeholder={t("contact.form.name.placeholder")}
-              />
+              <div className="relative mt-2">
+                <FiUser className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={updateField("name")}
+                  required
+                  autoComplete="name"
+                  className="block w-full rounded-xl border border-white/15 bg-white/10 pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                  placeholder={t("contact.form.name.placeholder")}
+                />
+              </div>
             </label>
             <label className="text-sm font-medium text-gray-200">
               {t("contact.form.email.label")}
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={updateField("email")}
-                required
-                autoComplete="email"
-                className="mt-2 block w-full rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-                placeholder={t("contact.form.email.placeholder")}
-              />
+              <div className="relative mt-2">
+                <FiMail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={updateField("email")}
+                  required
+                  autoComplete="email"
+                  className="block w-full rounded-xl border border-white/15 bg-white/10 pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                  placeholder={t("contact.form.email.placeholder")}
+                />
+              </div>
             </label>
           </div>
           <label className="relative mt-5 block text-sm font-medium text-gray-200">
             {t("contact.form.message.label")}
-            <textarea
-              rows={5}
-              name="message"
-              value={formData.message}
-              onChange={updateField("message")}
-              required
-              className="mt-2 block w-full rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
-              placeholder={t("contact.form.message.placeholder")}
-            ></textarea>
+            <div className="relative mt-2">
+              <FiMessageSquare className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <textarea
+                rows={5}
+                name="message"
+                value={formData.message}
+                onChange={updateField("message")}
+                required
+                className="block w-full rounded-2xl border border-white/15 bg-white/10 pl-10 pr-4 py-3 text-sm text-white placeholder:text-gray-400 focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                placeholder={t("contact.form.message.placeholder")}
+              ></textarea>
+            </div>
           </label>
           <button
             type="submit"
