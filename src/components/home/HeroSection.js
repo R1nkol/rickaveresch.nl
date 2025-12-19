@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { FiCode, FiMail } from "react-icons/fi";
 
 import BackgroundSettingsPanel from "@/components/BackgroundSettingsPanel";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -136,14 +137,16 @@ export default function HeroSection({
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="#projects"
-            className="inline-flex items-center justify-center rounded-xl border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
           >
+            <FiCode className="h-4 w-4" />
             {t("hero.workCta")}
           </Link>
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
           >
+            <FiMail className="h-4 w-4" />
             {t("hero.contactCta")}
           </Link>
         </div>

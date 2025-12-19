@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FiX, FiExternalLink } from "react-icons/fi";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
@@ -193,9 +194,10 @@ export default function ProjectDetail() {
                           href={primaryExtraLink.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
                         >
                           {primaryExtraLink.label}
+                          <FiExternalLink className="h-4 w-4" />
                         </a>
                       </div>
                     </div>
@@ -287,7 +289,7 @@ export default function ProjectDetail() {
               onClick={() => setSelectedIndex(null)}
               aria-label={t("projectDetail.modalClose")}
             >
-              ✕
+              <FiX className="h-5 w-5" />
             </button>
 
             {galleryLength > 1 && (

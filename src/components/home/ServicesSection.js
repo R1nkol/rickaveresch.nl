@@ -1,5 +1,7 @@
 "use client";
 
+import { FiCode, FiGlobe, FiDownload } from "react-icons/fi";
+
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ServicesSection({ skillsItems, isMobile }) {
@@ -30,9 +32,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
           <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(124,58,237,0.35)] transition duration-500 hover:-translate-y-2 hover:border-purple-300/40">
             <div className="absolute -right-10 -top-8 h-20 w-20 rounded-full bg-purple-500/15 blur-xl" />
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-400/20 text-purple-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m5.25-3-5.25 5.25 5.25 5.25 5.25-5.25-5.25-5.25z" />
-              </svg>
+              <FiCode className="h-6 w-6" />
             </div>
             <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.game.title")}</h3>
             <p className="relative z-10 mt-3 text-sm text-gray-200">
@@ -42,9 +42,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
           <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-transparent to-white/[0.02] p-8 text-left shadow-[0_10px_24px_-12px_rgba(236,72,153,0.35)] transition duration-500 hover:-translate-y-2 hover:border-pink-300/40">
             <div className="absolute -left-10 -top-12 h-24 w-24 rounded-full bg-pink-500/25 blur-xl transition group-hover:scale-125" />
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-pink-400/40 bg-pink-400/20 text-pink-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m9 17.25-2.25 2.25-2.25-2.25m11.25-7.5 2.25-2.25 2.25 2.25m-16.5 9 4.5-4.5 3 3 6-6 4.5 4.5m-9-7.5 2.25-2.25L16.5 9" />
-              </svg>
+              <FiGlobe className="h-6 w-6" />
             </div>
             <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.web.title")}</h3>
             <p className="relative z-10 mt-3 text-sm text-gray-200">
@@ -53,9 +51,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
           </div>
           <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(56,189,248,0.35)] transition duration-500 hover:-translate-y-2 hover:border-cyan-300/40">
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/40 bg-cyan-400/20 text-cyan-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m16.5 10.5-4.5 4.5m0 0-4.5-4.5m4.5 4.5V3" />
-              </svg>
+              <FiDownload className="h-6 w-6" />
             </div>
             <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.software.title")}</h3>
             <p className="relative z-10 mt-3 text-sm text-gray-200">
