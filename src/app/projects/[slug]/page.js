@@ -138,7 +138,7 @@ export default function ProjectDetail() {
                     <Link
                       key={tech}
                       href={`/projects?tag=${encodeURIComponent(tech)}`}
-                      className="inline-flex items-center justify-center rounded-full border border-purple-500/60 bg-purple-500/10 px-4 py-2 text-sm text-purple-200 transition hover:border-purple-400 hover:bg-purple-500/30"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-medium text-gray-100 transition-colors duration-300 hover:border-purple-200/40 hover:bg-purple-500/20 hover:text-white"
                     >
                       {tech}
                     </Link>

@@ -44,7 +44,7 @@ export default function ProjectCard({ title, description, imageSrc, link, tags, 
                 <Link
                   href={`/projects?tag=${encodeURIComponent(tag)}`}
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-medium text-gray-100 transition-colors duration-300 hover:border-purple-200/40 hover:bg-purple-500/20 hover:text-white"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-medium text-gray-100 transition-colors duration-300 hover:border-purple-200/40 hover:bg-purple-500/20 hover:text-white"
                 >
                   {tag}
                 </Link>
