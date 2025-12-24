@@ -38,13 +38,66 @@ const PAYOUTS = [
   { label: "Suited three of a kind", value: "1:100 (100x je sidebet in fiches)" },
 ];
 
+const RedCard = ({ children }) => (
+  <span className="text-red-400 font-semibold">{children}</span>
+);
+
 const EXAMPLES = [
-  "Jij: 2♥ + 7♥, dealer upcard: K♥ → flush (1:5).",
-  "Jij: 5♣ + 6♦, dealer upcard: 7♠ → straight (1:10).",
-  "Jij: 9♠ + 9♦, dealer upcard: 9♣ → three of a kind (1:30).",
-  "Jij: 8♥ + 10♥, dealer upcard: 9♥ → straight flush (1:40).",
-  "Jij: Q♣ + Q♣, dealer upcard: Q♣ → suited three of a kind (1:100).",
+  {
+    id: "flush",
+    content: (
+      <>
+        Jij: <RedCard>2♥</RedCard> + <RedCard>J♥</RedCard>, dealer upcard:{" "}
+        <RedCard>7♥</RedCard> &rarr; flush (winst).
+      </>
+    ),
+  },
+  {
+    id: "straight",
+    content: (
+      <>
+        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠ &rarr; straight
+        (winst).
+      </>
+    ),
+  },
+  {
+    id: "three-of-a-kind",
+    content: (
+      <>
+        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣ &rarr; three of a kind
+        (winst).
+      </>
+    ),
+  },
+  {
+    id: "straight-flush",
+    content: (
+      <>
+        Jij: <RedCard>7♥</RedCard> + <RedCard>8♥</RedCard>, dealer upcard:{" "}
+        <RedCard>9♥</RedCard> &rarr; straight flush (winst).
+      </>
+    ),
+  },
+  {
+    id: "suited-three-of-a-kind",
+    content: (
+      <>
+        Jij: 7♣ + 7♣, dealer upcard: 7♣ &rarr; suited three of a kind (winst).
+      </>
+    ),
+  },
+  {
+    id: "loss",
+    content: (
+      <>
+        Jij: <RedCard>A♦</RedCard> + 9♣, dealer upcard: 4♠ &rarr; geen pokerhand
+        (verlies).
+      </>
+    ),
+  },
 ];
+
 
 
 export default function SideBet21Plus3Page() {
@@ -145,10 +198,10 @@ export default function SideBet21Plus3Page() {
               <div className="mt-4 grid gap-4 md:grid-cols-2">
                 {EXAMPLES.map((example) => (
                   <div
-                    key={example}
+                    key={example.id}
                     className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-gray-300"
                   >
-                    {example}
+                    {example.content}
                   </div>
                 ))}
               </div>
@@ -161,3 +214,4 @@ export default function SideBet21Plus3Page() {
     </main>
   );
 }
+

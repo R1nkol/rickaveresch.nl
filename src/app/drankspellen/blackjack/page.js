@@ -52,6 +52,7 @@ const CASHIN_RULES = [
   "Max 1 vol adtje per persoon per ronde.",
   "Glas adten mag altijd verdeeld worden.",
   "Jij kiest wie drinkt.",
+  "Alleen spelers die die ronde meededen mogen drinken.",
 ];
 
 const BLACKJACK_RULES = [
@@ -64,7 +65,7 @@ const BLACKJACK_RULES = [
 
 const BUST_RULES = [
   { label: "Bust tot en met 23", value: "1 slok" },
-  { label: "Bust 24 of hoger", value: "glas adten" },
+  { label: "Bust 24 of hoger", value: "3 slokken" },
   { label: "Bust met double", value: "glas adten + 1 slok" },
 ];
 
@@ -93,9 +94,10 @@ const SIDEBET_LINKS = [
 ];
 
 const SAFETY_RULES = [
-  "Max 1 vol adtje per persoon per ronde (ook via side bets).",
+  "Max 1 vol adtje per persoon per ronde.",
   "Geen meerdere volle adtjes achter elkaar.",
   "Water mag altijd.",
+  "Niet iedereen hoeft elke ronde mee te doen.",
   "Iemand mag drankregels pauzeren, maar speelt dan wel verder.",
 ];
 
@@ -186,9 +188,6 @@ export default function BlackjackDrankspelPage() {
                     </p>
                   </div>
                 ))}
-              </div>
-              <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-200">
-                Vol adtje is zwaarder dan glas adten.
               </div>
             </section>
 
@@ -302,9 +301,6 @@ export default function BlackjackDrankspelPage() {
                     </p>
                   </div>
                 ))}
-              </div>
-              <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-200">
-                Blackjack is sterk, maar breekt het spel niet.
               </div>
             </section>
 
@@ -445,8 +441,6 @@ export default function BlackjackDrankspelPage() {
     </main>
   );
 }
-
-
 
 
 

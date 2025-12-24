@@ -30,11 +30,43 @@ const PAYOUTS = [
   { label: "Verlies", value: "Sidebet-fiches kwijt, geen extra drinkstraf." },
 ];
 
+const RedCard = ({ children }) => (
+  <span className="text-red-400 font-semibold">{children}</span>
+);
+
 const EXAMPLES = [
-  "8♥ (harten) + 8♠ (schoppen) -> mixed pair (1:6).",
-  "Q♥ (harten) + Q♦ (ruiten) -> colored pair (1:12).",
-  "7♣ (klaveren) + 7♣ (klaveren) -> perfect pair (1:25).",
-  "9♣ (klaveren) + 10♣ (klaveren) -> geen pair (verlies).",
+  {
+    id: "mixed",
+    content: (
+      <>
+        <RedCard>8♥</RedCard> + 8♠ &rarr; mixed pair (1:6).
+      </>
+    ),
+  },
+  {
+    id: "colored",
+    content: (
+      <>
+        <RedCard>Q♥</RedCard> + <RedCard>Q♦</RedCard> &rarr; colored pair (1:12).
+      </>
+    ),
+  },
+  {
+    id: "perfect",
+    content: (
+      <>
+        7♣ + 7♣ &rarr; perfect pair (1:25).
+      </>
+    ),
+  },
+  {
+    id: "loss",
+    content: (
+      <>
+        9♣ + 10♣ &rarr; geen pair (verlies).
+      </>
+    ),
+  },
 ];
 
 export default function PerfectPairSideBetPage() {
@@ -100,10 +132,10 @@ export default function PerfectPairSideBetPage() {
                 <div className="mt-4 space-y-3 text-sm text-gray-300">
                   {EXAMPLES.map((example) => (
                     <div
-                      key={example}
+                      key={example.id}
                       className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
                     >
-                      {example}
+                      {example.content}
                     </div>
                   ))}
                 </div>
@@ -139,3 +171,4 @@ export default function PerfectPairSideBetPage() {
     </main>
   );
 }
+
