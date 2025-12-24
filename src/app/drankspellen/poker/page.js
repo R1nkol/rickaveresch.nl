@@ -3,13 +3,12 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
-import Link from "next/link";
 
 const QUICK_RULES = [
-  "Kopen mag alleen voor de ronde.",
-  "Inleveren kan alleen na een gewonnen hand.",
-  "Alleen spelers die meedoen kunnen drinken.",
-  "Blackjack: iedereen zonder blackjack 3 slokken.",
+  "Kopen mag alleen aan het begin van een ronde.",
+  "Inleveren kan alleen na een gewonnen pot.",
+  "Alleen spelers die meedoen aan de hand kunnen drinken.",
+  "Bij all-in zijn de straffen en beloningen hoger.",
 ];
 
 const BUY_CHIPS = [
@@ -21,54 +20,41 @@ const BUY_CHIPS = [
 ];
 
 const BUY_NOTES = [
-  "Kopen mag alleen voor een ronde.",
+  "Kopen mag alleen voor een nieuwe ronde begint.",
   "Een vol adtje is altijd een nieuw, vol glas.",
 ];
+
 const CASHIN_CHIPS = [
   { chip: "25", reward: "1 glas adten uitdelen" },
-  { chip: "50", reward: "1 vol adtje uitdelen" },
+  { chip: "50", reward: "	1 vol adtje uitdelen" },
   { chip: "100", reward: "2 volle adtjes uitdelen" },
 ];
 
 const CASHIN_RULES = [
-  "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
+  "Je mag alleen fiches inleveren als je de pot hebt gewonnen.",
   "Jij kiest wie er drinkt.",
-  "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
+  "Alleen spelers die in die hand hebben meegespeeld mogen drinken.",
   "Adtjes mogen niet worden opgespaard voor later.",
   "1 vol adtje = 5 slokken, dus je kan ze verdelen.",
 ];
 
-const BLACKJACK_RULES = [
-  { label: "Iedereen zonder blackjack", value: "2/3 slokken" },
-  { label: "Dealer", value: "1 glas adten" },
-  { label: "Speler met blackjack", value: "Mag die ronde geen fiches inleveren" },
-];
-
-const BUST_RULES = [
-  { label: "Bust tot en met 23", value: "1 slok" },
-  { label: "Bust 24 of hoger", value: "2 slokken" },
-  { label: "Bust met double", value: "1 vol adtje" },
-];
-
-const SPLIT_RULES = [
-  { label: "Splitten kost vooraf", value: "1 slok" },
-  { label: "Win je beide handen", value: "1 glas adten uitdelen" },
-  { label: "Verlies je beide", value: "glas adten" },
-];
-
-const DOUBLE_DOWN_RULES = [
-  { label: "Win", value: "3 slokken uitdelen" },
-  { label: "Verlies", value: "3 slokken drinken" },
-  { label: "Bust", value: "1 vol adtje" },
+const ROUND_RULES = [
+  { label: "Fold voor de flop", value: "1 slok" },
+  { label: "Verlies de showdown", value: "2 slokken" },
+  { label: "Win de pot (2-3 spelers)", value: "2 slokken uitdelen" },
+  { label: "Win de pot (4+ spelers)", value: "4 slokken uitdelen" },
 ];
 
 const SPECIAL_RULES = [
-  { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
-  { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
-  { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
+  { label: "Je blufft en iedereen foldt", value: "3 slokken uitdelen" },
+  { label: "Je blufft en verliest", value: "3 slokken drinken" },
+  { label: "All-in en je wint", value: "1 vol adtje uitdelen" },
+  { label: "All-in en je verliest", value: "1 vol adtje drinken" },
+  { label: "Je hebt trips of beter maar verliest", value: "2 slokken uitdelen" },
+  { label: "Split pot", value: "beide winnaars 2 slokken uitdelen" },
 ];
 
-export default function BlackjackDrankspelPage() {
+export default function PokerDrankspelPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
       <div
@@ -89,16 +75,18 @@ export default function BlackjackDrankspelPage() {
             <section className="space-y-10">
               <div className="space-y-4">
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
-                  Blackjack Drankspel regels
+                  Poker drankspel regels
                 </h1>
                 <div className="flex flex-wrap items-center gap-3">
-                  <Link
-                    href="/drankspellen/blackjack/uitleg"
+                  <a
+                    href="https://www.youtube.com/watch?v=Id0f8mxTiWQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
                   >
-                    Blackjack basis uitleg
-                  </Link>
-                  <IntensityStars intensity={4} />
+                    Poker uitleg video
+                  </a>
+                  <IntensityStars intensity={3} />
                 </div>
               </div>
 
@@ -166,7 +154,7 @@ export default function BlackjackDrankspelPage() {
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Je krijgt de kans om fiches uit te delen nadat je een ronde hebt gewonnen.
+                  Je krijgt de kans om fiches uit te delen nadat je de pot hebt gewonnen.
                 </p>
                 <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
                   <table className="w-full text-left text-sm">
@@ -202,11 +190,14 @@ export default function BlackjackDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    Blackjack regels
+                    Ronde regels
                   </h2>
                 </div>
+                <p className="mt-3 text-sm text-gray-300">
+                  Drink momenten tijdens een hand poker.
+                </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BLACKJACK_RULES.map((rule) => (
+                  {ROUND_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -223,72 +214,14 @@ export default function BlackjackDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    Speciale regels
+                    Speciale momenten
                   </h2>
                 </div>
+                <p className="mt-3 text-sm text-gray-300">
+                  Bluffs, all-ins en andere spicy situaties.
+                </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
                   {SPECIAL_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-3">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Bust regels</h2>
-                </div>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BUST_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Split regels</h2>
-                </div>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {SPLIT_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">
-                    Double down
-                  </h2>
-                </div>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {DOUBLE_DOWN_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -310,3 +243,4 @@ export default function BlackjackDrankspelPage() {
     </main>
   );
 }
+

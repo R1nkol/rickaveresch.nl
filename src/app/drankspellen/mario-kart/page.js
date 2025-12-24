@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import IntensityStars from "@/components/IntensityStars";
 
 const QUICK_RULES = [
   "Bij elk moment krijg je één of meer open slokken.",
@@ -79,6 +80,7 @@ export default function MarioKartDrankspelPage() {
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
                   Mario Kart drankspel regels
                 </h1>
+                <IntensityStars intensity={5} />
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">

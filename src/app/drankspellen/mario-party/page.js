@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import IntensityStars from "@/components/IntensityStars";
 
 const QUICK_RULES = [
   "Alleen spelers die een minigame meedoen mogen drinken of uitdelen.",
@@ -10,6 +11,7 @@ const QUICK_RULES = [
   "Board events kunnen ook slokken geven buiten minigames om.",
   "Tussenstand wordt bekeken na elke 5 rondes.",
   "Sterren, board events en eindstand tellen niet mee voor de minigame cap.",
+  "2x achter elkaar laatste? Dan mag je uit medelijden 1 slok minder drinken.",
 ];
 
 const MINIGAME_RULES = [
@@ -76,6 +78,7 @@ export default function MarioPartyDrankspelPage() {
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
                   Mario Party drankspel regels
                 </h1>
+                <IntensityStars intensity={4} />
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
