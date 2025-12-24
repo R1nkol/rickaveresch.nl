@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { FiCheckCircle, FiDollarSign } from "react-icons/fi";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -77,9 +78,12 @@ export default function InsuranceSideBetPage() {
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                <h2 className="text-2xl font-semibold text-white">
-                  Wanneer win je
-                </h2>
+                <div className="flex items-center gap-3">
+                  <FiCheckCircle className="h-6 w-6 text-emerald-400" />
+                  <h2 className="text-2xl font-semibold text-white">
+                    Wanneer win je
+                  </h2>
+                </div>
                 <ul className="mt-4 space-y-3 text-sm text-gray-300">
                   {WHEN_WIN.map((item) => (
                     <li
@@ -93,9 +97,12 @@ export default function InsuranceSideBetPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                <h2 className="text-2xl font-semibold text-white">
-                  Uitbetaling
-                </h2>
+                <div className="flex items-center gap-3">
+                  <FiDollarSign className="h-6 w-6 text-emerald-400" />
+                  <h2 className="text-2xl font-semibold text-white">
+                    Uitbetaling
+                  </h2>
+                </div>
                 <div className="mt-4 space-y-3 text-sm text-gray-300">
                   {PAYOUTS.map((item) => (
                     <div
