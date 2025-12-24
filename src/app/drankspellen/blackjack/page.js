@@ -42,7 +42,7 @@ const CASHIN_RULES = [
 const BLACKJACK_RULES = [
   { label: "Iedereen zonder blackjack", value: "2/3 slokken" },
   { label: "Dealer", value: "1 glas adten" },
-  { label: "Speler met blackjack", value: "Mag geen fiches inleveren" },
+  { label: "Speler met blackjack", value: "Mag die ronde geen fiches inleveren" },
 ];
 
 const BUST_RULES = [
