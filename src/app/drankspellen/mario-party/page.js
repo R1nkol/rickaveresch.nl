@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 
 const QUICK_RULES = [
   "Alleen spelers die een minigame meedoen mogen drinken of uitdelen.",
+  "Jamboree actief? Dan wordt alles x2: slokken drinken, slokken uitdelen en board events.",
   "Team minigames gebruiken altijd de teamregels (geen placement).",
   "Board events kunnen ook slokken geven buiten minigames om.",
   "Tussenstand wordt bekeken na elke 5 rondes.",
