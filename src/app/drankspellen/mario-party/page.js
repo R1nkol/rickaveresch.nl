@@ -6,11 +6,12 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 const QUICK_RULES = [
-  "Speel normale Mario Party regels; onderstaande regels gelden er bovenop.",
-  "Max 3 slokken per persoon per minigame.",
-  "Uitdelen kan alleen aan spelers die die minigame meededen.",
-  "Sla je een minigame over, dan drink je die ronde niet mee.",
-  "Doel: licht buzzed en lachen, niet dronken.",
+  "Alleen spelers die een minigame meedoen mogen drinken of uitdelen.",
+  "Team minigames gebruiken altijd de teamregels (geen placement).",
+  "Board events kunnen ook slokken geven buiten minigames om.",
+  "Tussenstand wordt bekeken na elke 5 rondes.",
+  "Sterren, board events en eindstand tellen niet mee voor de minigame cap.",
+  "Water mag altijd; regels mogen gepauzeerd worden.",
 ];
 
 const MINIGAME_RULES = [
@@ -58,11 +59,10 @@ const MIDGAME_RULES = [
 ];
 
 const SAFETY_RULES = [
-  "Water mag altijd en telt als pauze.",
-  "Iedereen mag regels pauzeren, maar blijft wel doorspelen.",
-  "Geen druk: als iemand niet wil drinken, gewoon overslaan.",
-  "Speel met normale glazen, geen sterke drankshots.",
-  "Stop als iemand zich niet chill voelt.",
+  "Water mag altijd en telt niet als pauze.",
+  "Iedereen mag drankregels pauzeren zonder vragen, maar speelt wel door.",
+  "Geen druk: niemand moet drinken als ze dat niet willen.",
+  "Stop direct als iemand zich niet goed voelt.",
 ];
 
 export default function MarioPartyDrankspelPage() {
@@ -80,45 +80,28 @@ export default function MarioPartyDrankspelPage() {
 
         <div className="flex-1 px-4 pb-24 pt-28">
           <div className="mx-auto w-full max-w-6xl space-y-16">
-            <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr),minmax(0,0.8fr)]">
-              <div className="space-y-6 text-center lg:text-left">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
-                  Drankspellen
-                </p>
+            <section className="space-y-10">
+              <div className="space-y-4">
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
                   Mario Party drankspel regels
                 </h1>
-                <p className="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg lg:mx-0">
-                  Luchtig, sociaal en eerlijk. Deze regels zijn gemaakt om te lachen
-                  en licht buzzed te worden, niet om mensen kapot te drinken.
-                </p>
-                <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
-                  <Link
-                    href="/drankspellen"
-                    className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
-                  >
-                    Terug naar drankspellen
-                  </Link>
-                </div>
               </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-400">
-                  Snel overzicht
-                </p>
-                <ul className="mt-5 space-y-3 text-sm text-gray-300">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                <h2 className="text-xl font-semibold text-white">Snel overzicht</h2>
+                <div className="mt-6 space-y-4 text-sm text-gray-300">
                   {QUICK_RULES.map((rule, index) => (
-                    <li
+                    <div
                       key={rule}
-                      className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
                     >
-                      <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-white/10 text-xs font-semibold text-emerald-200">
+                      <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
                         {index + 1}
                       </span>
                       <span>{rule}</span>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </section>
 
@@ -300,7 +283,7 @@ export default function MarioPartyDrankspelPage() {
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
               <div className="flex items-center gap-4">
                 <h2 className="text-2xl font-semibold text-white">
-                  Safety & fair play
+                  Tips voor iedereen
                 </h2>
               </div>
               <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
