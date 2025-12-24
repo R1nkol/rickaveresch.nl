@@ -21,7 +21,7 @@ const BUY_CHIPS = [
 ];
 
 const BUY_NOTES = [
-  "Kopen mag alleen vóór een ronde.",
+  "Kopen mag alleen voor een ronde.",
   "Een vol adtje is altijd een nieuw, vol glas.",
 ];
 const CASHIN_CHIPS = [
@@ -32,7 +32,7 @@ const CASHIN_CHIPS = [
 
 const CASHIN_RULES = [
   "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
-  "Max 1 vol glas per persoon per ronde.",
+  "Max 1 vol adtje per persoon per ronde.",
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
   "Adtjes mogen niet worden opgespaard voor later.",
@@ -40,14 +40,14 @@ const CASHIN_RULES = [
 ];
 
 const BLACKJACK_RULES = [
-  { who: "Iedereen zonder blackjack", action: "3 slokken" },
-  { who: "Dealer", action: "1 glas adten" },
-  { who: "Speler met blackjack", action: "Mag geen fiches inleveren deze ronde" },
+  { label: "Iedereen zonder blackjack", value: "2/3 slokken" },
+  { label: "Dealer", value: "1 glas adten" },
+  { label: "Speler met blackjack", value: "Mag geen fiches inleveren" },
 ];
 
 const BUST_RULES = [
   { label: "Bust tot en met 23", value: "1 slok" },
-  { label: "Bust 24 of hoger", value: "3 slokken" },
+  { label: "Bust 24 of hoger", value: "2 slokken" },
   { label: "Bust met double", value: "1 vol adtje" },
 ];
 
@@ -60,7 +60,15 @@ const SPLIT_RULES = [
 const DOUBLE_DOWN_RULES = [
   { label: "Win", value: "3 slokken uitdelen" },
   { label: "Verlies", value: "3 slokken drinken" },
+  { label: "Bust", value: "1 vol adtje" },
 ];
+
+const SPECIAL_RULES = [
+  { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
+  { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
+  { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
+];
+
 
 const SAFETY_RULES = [
   "Max 1 vol adtje per persoon per ronde.",
@@ -131,7 +139,7 @@ export default function BlackjackDrankspelPage() {
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Alleen met slokken of glas adten.
+                  Alleen met slokken of volle adtjes, afhankelijk van de fiche.
                 </p>
                 <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
                   <table className="w-full text-left text-sm">
@@ -169,7 +177,7 @@ export default function BlackjackDrankspelPage() {
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Alleen om uit te delen na een gewonnen hand.
+                  Je krijgt de kans om fiches uit te delen nadat je een ronde hebt gewonnen.
                 </p>
                 <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
                   <table className="w-full text-left text-sm">
@@ -201,29 +209,47 @@ export default function BlackjackDrankspelPage() {
               </div>
             </section>
 
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-semibold text-white">
-                  Blackjack regels
-                </h2>
+            <section className="grid gap-6 lg:grid-cols-2">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                <div className="flex items-center gap-4">
+                  <h2 className="text-xl font-semibold text-white">
+                    Blackjack regels
+                  </h2>
+                </div>
+                <div className="mt-6 space-y-4 text-sm text-gray-300">
+                  {BLACKJACK_RULES.map((rule) => (
+                    <div
+                      key={rule.label}
+                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    >
+                      <span>{rule.label}</span>
+                      <span className="font-semibold text-white">
+                        {rule.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="mt-3 text-sm text-gray-300">
-                Het belangrijkste moment van de ronde.
-              </p>
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {BLACKJACK_RULES.map((rule) => (
-                  <div
-                    key={rule.who}
-                    className="rounded-2xl border border-white/10 bg-black/40 p-5"
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
-                      {rule.who}
-                    </p>
-                    <p className="mt-3 text-base font-semibold text-white">
-                      {rule.action}
-                    </p>
-                  </div>
-                ))}
+
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                <div className="flex items-center gap-4">
+                  <h2 className="text-xl font-semibold text-white">
+                    Speciale regels
+                  </h2>
+                </div>
+                <div className="mt-6 space-y-4 text-sm text-gray-300">
+                  {SPECIAL_RULES.map((rule) => (
+                    <div
+                      key={rule.label}
+                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    >
+                      <span>{rule.label}</span>
+                      <span className="font-semibold text-white">
+                        {rule.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
 

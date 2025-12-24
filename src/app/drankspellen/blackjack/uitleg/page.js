@@ -191,6 +191,9 @@ export default function BlackjackBasicsPage() {
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
               <h2 className="text-2xl font-semibold text-white">Spelverloop</h2>
+              <p className="mt-2 text-sm text-gray-300">
+                Dit is hoe een ronde blackjack verloopt, van inzetten tot uitslag.
+              </p>
               <ol className="mt-4 space-y-3 text-sm text-gray-300">
                 {FLOW_STEPS.map((step) => (
                   <li
@@ -208,6 +211,9 @@ export default function BlackjackBasicsPage() {
                 <h2 className="text-2xl font-semibold text-white">
                   Geavanceerde acties
                 </h2>
+                <p className="mt-2 text-sm text-gray-300">
+                  Dit zijn de extra acties die je kunt doen tijdens je beurt.
+                </p>
                 <div className="mt-4 space-y-3 text-sm text-gray-300">
                   {ADVANCED_ACTIONS.map((action) => (
                     <ExpandableItem

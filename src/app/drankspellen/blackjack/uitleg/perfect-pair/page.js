@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
@@ -93,6 +94,17 @@ export default function PerfectPairSideBetPage() {
                 (mixed, colored, perfect). Het is een losstaande inzet naast je
                 normale blackjackhand.
               </p>
+              <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <Image
+                  src="/Images/blackjack-perfect-pairs.png"
+                  alt="Voorbeeld van de Perfect Pair side bet"
+                  width={800}
+                  height={400}
+                  className="h-auto w-full"
+                  sizes="(min-width: 1024px) 800px, 100vw"
+                  priority
+                />
+              </div>
             </section>
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">

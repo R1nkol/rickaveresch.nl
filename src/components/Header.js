@@ -50,7 +50,6 @@ export default function Header({ activeSection }) {
           {suffixSegments.length > 0 && (
             <nav className="flex min-w-0 items-baseline gap-1 overflow-hidden text-xs font-semibold uppercase text-gray-300 sm:gap-2 sm:text-lg">
               {suffixSegments.map(({ label, href }, index) => {
-                // Op mobiel: verberg alles behalve het laatste segment om clipping te voorkomen
                 const isLast = index === suffixSegments.length - 1;
                 return (
                   <span

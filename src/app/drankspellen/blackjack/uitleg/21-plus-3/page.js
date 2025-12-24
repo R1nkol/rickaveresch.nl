@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
@@ -118,6 +119,17 @@ export default function SideBet21Plus3Page() {
                 inzet; verlies je het hoofdspel blackjack, dan verlies je deze
                 inzet niet automatisch.
               </p>
+              <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <Image
+                  src="/Images/blackjack-21-plus-3.png"
+                  alt="Voorbeeld van de 21+3 side bet"
+                  width={746}
+                  height={329}
+                  className="h-auto w-full"
+                  sizes="(min-width: 1024px) 800px, 100vw"
+                  priority
+                />
+              </div>
             </section>
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
