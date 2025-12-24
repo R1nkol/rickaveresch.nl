@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { FiPlay, FiUsers, FiStar, FiSettings, FiArrowUpRight, FiInfo } from "react-icons/fi";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -108,8 +107,7 @@ export default function MarioPartyDrankspelPage() {
 
             <section id="minigame-regels" className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiPlay className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Minigame regels
                   </h2>
@@ -133,8 +131,7 @@ export default function MarioPartyDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiUsers className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Team minigames
                   </h2>
@@ -185,8 +182,7 @@ export default function MarioPartyDrankspelPage() {
 
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiStar className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Stars
                   </h2>
@@ -210,8 +206,7 @@ export default function MarioPartyDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiSettings className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Board events
                   </h2>
@@ -237,8 +232,7 @@ export default function MarioPartyDrankspelPage() {
 
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiArrowUpRight className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Tussenstand
                   </h2>
@@ -262,8 +256,7 @@ export default function MarioPartyDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiStar className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Eindstand
                   </h2>
@@ -288,8 +281,7 @@ export default function MarioPartyDrankspelPage() {
             </section>
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <FiInfo className="h-6 w-6 text-emerald-400" />
+              <div className="flex items-center gap-4">
                 <h2 className="text-2xl font-semibold text-white">
                   Tips voor iedereen
                 </h2>

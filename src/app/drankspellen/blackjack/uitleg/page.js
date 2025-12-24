@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { FiCreditCard, FiPlay, FiCircle, FiZap, FiBook, FiStar } from "react-icons/fi";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -171,10 +170,7 @@ export default function BlackjackBasicsPage() {
             </section>
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <FiCreditCard className="h-6 w-6 text-emerald-400" />
-                <h2 className="text-2xl font-semibold text-white">Kaartwaardes</h2>
-              </div>
+              <h2 className="text-2xl font-semibold text-white">Kaartwaardes</h2>
               <p className="mt-2 text-sm text-gray-300">
                 Zo tel je je hand in punten voordat je keuzes maakt.
               </p>
@@ -194,10 +190,7 @@ export default function BlackjackBasicsPage() {
             </section>
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <FiPlay className="h-6 w-6 text-emerald-400" />
-                <h2 className="text-2xl font-semibold text-white">Spelverloop</h2>
-              </div>
+              <h2 className="text-2xl font-semibold text-white">Spelverloop</h2>
               <p className="mt-2 text-sm text-gray-300">
                 Dit is hoe een ronde blackjack verloopt, van inzetten tot uitslag.
               </p>
@@ -215,12 +208,9 @@ export default function BlackjackBasicsPage() {
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
               <div className="order-2 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur lg:order-1">
-                <div className="flex items-center gap-3">
-                  <FiZap className="h-6 w-6 text-emerald-400" />
-                  <h2 className="text-2xl font-semibold text-white">
-                    Geavanceerde acties
-                  </h2>
-                </div>
+                <h2 className="text-2xl font-semibold text-white">
+                  Geavanceerde acties
+                </h2>
                 <p className="mt-2 text-sm text-gray-300">
                   Dit zijn de extra acties die je kunt doen tijdens je beurt.
                 </p>
@@ -260,12 +250,9 @@ export default function BlackjackBasicsPage() {
 
               <div className="order-1 space-y-6 lg:order-2">
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                  <div className="flex items-center gap-3">
-                    <FiCircle className="h-6 w-6 text-emerald-400" />
-                    <h2 className="text-2xl font-semibold text-white">
-                      Basis acties
-                    </h2>
-                  </div>
+                  <h2 className="text-2xl font-semibold text-white">
+                    Basis acties
+                  </h2>
                   <div className="mt-4 space-y-3 text-sm text-gray-300">
                     {BASIC_ACTIONS.map((action) => (
                       <ExpandableItem
@@ -280,10 +267,7 @@ export default function BlackjackBasicsPage() {
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                  <div className="flex items-center gap-3">
-                    <FiBook className="h-6 w-6 text-emerald-400" />
-                    <h2 className="text-2xl font-semibold text-white">Begrippen</h2>
-                  </div>
+                  <h2 className="text-2xl font-semibold text-white">Begrippen</h2>
                   <div className="mt-4 space-y-3 text-sm text-gray-300">
                     {TERMS.map((term) => (
                       <ExpandableItem
@@ -300,12 +284,9 @@ export default function BlackjackBasicsPage() {
             </section>
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <FiStar className="h-6 w-6 text-emerald-400" />
-                <h2 className="text-2xl font-semibold text-white">
-                  Wie wint de ronde?
-                </h2>
-              </div>
+              <h2 className="text-2xl font-semibold text-white">
+                Wie wint de ronde?
+              </h2>
               <ul className="mt-4 space-y-3 text-sm text-gray-300">
                 {WIN_RULES.map((rule) => (
                   <li

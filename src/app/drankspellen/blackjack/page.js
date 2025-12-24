@@ -3,7 +3,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Link from "next/link";
-import { FiPackage, FiGift, FiStar, FiXCircle, FiArrowRight, FiArrowDown, FiInfo } from "react-icons/fi";
 
 const QUICK_RULES = [
   "Kopen mag alleen voor de ronde.",
@@ -130,8 +129,7 @@ export default function BlackjackDrankspelPage() {
 
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiPackage className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches kopen
                   </h2>
@@ -169,8 +167,7 @@ export default function BlackjackDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiGift className="h-6 w-6 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches inleveren
                   </h2>
@@ -210,8 +207,7 @@ export default function BlackjackDrankspelPage() {
 
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiStar className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
                     Blackjack regels
                   </h2>
@@ -232,8 +228,7 @@ export default function BlackjackDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiStar className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
                     Speciale regels
                   </h2>
@@ -256,8 +251,7 @@ export default function BlackjackDrankspelPage() {
 
             <section className="grid gap-6 lg:grid-cols-3">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiXCircle className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">Bust regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
@@ -276,8 +270,7 @@ export default function BlackjackDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiArrowRight className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">Split regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
@@ -296,8 +289,7 @@ export default function BlackjackDrankspelPage() {
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-3">
-                  <FiArrowDown className="h-5 w-5 text-emerald-400" />
+                <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
                     Double down
                   </h2>
@@ -319,8 +311,7 @@ export default function BlackjackDrankspelPage() {
             </section>
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-              <div className="flex items-center gap-3">
-                <FiInfo className="h-6 w-6 text-emerald-400" />
+              <div className="flex items-center gap-4">
                 <h2 className="text-2xl font-semibold text-white">
                   Tips voor iedereen
                 </h2>
