@@ -8,7 +8,6 @@ const QUICK_RULES = [
   "Kopen mag alleen voor de ronde.",
   "Inleveren kan alleen na een gewonnen hand.",
   "Alleen spelers die meedoen kunnen drinken.",
-  "Max 1 vol adtje per persoon per ronde.",
   "Blackjack: iedereen zonder blackjack 3 slokken.",
 ];
 
@@ -32,7 +31,6 @@ const CASHIN_CHIPS = [
 
 const CASHIN_RULES = [
   "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
-  "Max 1 vol adtje per persoon per ronde.",
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
   "Adtjes mogen niet worden opgespaard voor later.",
@@ -67,15 +65,6 @@ const SPECIAL_RULES = [
   { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
   { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
   { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
-];
-
-
-const SAFETY_RULES = [
-  "Max 1 vol adtje per persoon per ronde.",
-  "Geen meerdere volle adtjes achter elkaar.",
-  "Water mag altijd.",
-  "Niet iedereen hoeft elke ronde mee te doen.",
-  "Iemand mag drankregels pauzeren, maar speelt dan wel verder.",
 ];
 
 export default function BlackjackDrankspelPage() {
@@ -309,20 +298,6 @@ export default function BlackjackDrankspelPage() {
                 </div>
               </div>
             </section>
-
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-semibold text-white">
-                  Tips voor iedereen
-                </h2>
-              </div>
-              <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
-                {SAFETY_RULES.map((rule) => (
-                  <li key={rule}>{rule}</li>
-                ))}
-              </ul>
-            </section>
-
           </div>
         </div>
 

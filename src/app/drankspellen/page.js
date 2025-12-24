@@ -23,7 +23,15 @@ const DRINK_GAMES = [
     intensity: 3,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/mario-party" },
-      { label: "Minigame regels", href: "/drankspellen/mario-party#minigame-regels" },
+    ],
+  },
+  {
+    title: "Mario Kart",
+    label: "Racing chaos",
+    href: "/drankspellen/mario-kart",
+    intensity: 5,
+    links: [
+      { label: "Bekijk regels", href: "/drankspellen/mario-kart" },
     ],
   },
 ];
@@ -133,6 +141,22 @@ export default function DrankspellenPage() {
                   </div>
                 </article>
               ))}
+            </section>
+
+            <section className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 shadow-[0_6px_16px_rgba(3,7,18,0.35)] supports-[backdrop-filter]:bg-white/[0.05] backdrop-blur-sm">
+              <h2 className="text-2xl font-semibold text-white">
+                Algemene safety
+              </h2>
+              <p className="mt-3 text-sm text-gray-300">
+                Drink met mate, respecteer elkaars grenzen en stop als iemand zich
+                niet goed voelt. Geen alcohol (of pauze) is altijd oké.
+              </p>
+              <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
+                <li>18+.</li>
+                <li>Water en eten zijn altijd een goed idee.</li>
+                <li>Geen druk: je mag altijd overslaan of wisselen naar fris/water.</li>
+                <li>Regel vervoer: niet rijden of fietsen onder invloed.</li>
+              </ul>
             </section>
           </div>
         </div>

@@ -4,59 +4,62 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 const QUICK_RULES = [
-  "Alleen spelers die een minigame meedoen mogen drinken of uitdelen.",
-  "Jamboree actief? Dan wordt alles x2: slokken drinken, slokken uitdelen en board events.",
-  "Team minigames gebruiken altijd de teamregels (geen placement).",
-  "Board events kunnen ook slokken geven buiten minigames om.",
-  "Tussenstand wordt bekeken na elke 5 rondes.",
-  "Sterren, board events en eindstand tellen niet mee voor de minigame cap.",
+  "Bij elk moment krijg je één of meer open slokken.",
+  "Open slokken mag je tijdens de race opdrinken wanneer het kan.",
+  "Bij de finish moeten alle open slokken weg zijn.",
+  "Per open slok bij de finish drink je 2 strafslokken.",
+  "Je hebt 3 seconden om te beginnen met drinken, anders telt het als open.",
 ];
 
-const MINIGAME_RULES = [
-  { label: "1e plek", value: "1 slok uitdelen" },
-  { label: "2e plek", value: "0 slokken" },
-  { label: "3e plek", value: "2 slokken" },
-  { label: "4e plek", value: "3 slokken" },
+const CORE_RULES = [
+  { label: "Wanneer krijg je slokken?", value: "bij elk moment in de race" },
+  { label: "Wat zijn open slokken?", value: "slokken die je nog moet drinken" },
+  { label: "Wanneer moeten ze op?", value: "voor de finish" },
+  { label: "Niet op bij finish", value: "2 strafslokken per open slok" },
 ];
 
-const TEAM_2V2_RULES = [
-  { label: "Winnend team", value: "1 slok uitdelen (per speler)" },
+const RACE_FINISH_RULES = [
+  { label: "1e plek", value: "3 slokken uitdelen" },
+  { label: "2e plek", value: "1 slok uitdelen" },
+  { label: "3e plek", value: "1 slok drinken" },
+  { label: "4e en 5e plek", value: "3 slokken drinken" },
+  { label: "6e en lager", value: "1 vol adtje" },
 ];
 
-const TEAM_3V1_RULES = [
-  { label: "Solo wint", value: "3 slokken uitdelen" },
-  { label: "Solo verliest", value: "2 slokken drinken" },
+const ITEM_RULES = [
+  { label: "Geraakt door banaan", value: "1 open slok" },
+  { label: "Geraakt door green shell", value: "1 open slok" },
+  { label: "Geraakt door red shell", value: "1 open slok" },
 ];
 
-const STAR_RULES = [
-  { label: "Ster kopen", value: "Iedereen 2 slokken" },
-  { label: "Ster stelen", value: "Kost 3 slokken" },
-  { label: "Ster cadeau krijgen", value: "3 slokken uitdelen" },
-  { label: "Langs ster lopen", value: "2 slokken" },
+const BIG_ITEM_RULES = [
+  { label: "Geraakt door blue shell", value: "3 open slokken" },
+  { label: "Iemand gebruikt bliksem", value: "Iedereen 3 open slokken" },
+  { label: "Bullet Bill gebruikt", value: "3 open slokken" },
 ];
 
-const ENDGAME_RULES = [
-  { label: "1e plek", value: "5 slokken uitdelen" },
-  { label: "2e plek", value: "3 slokken uitdelen" },
-  { label: "3e plek", value: "2 slokken uitdelen" },
-  { label: "4e plek", value: "1 slok uitdelen" },
+const TRACK_EVENTS = [
+  { label: "Van de baan vallen", value: "2 open slokken" },
+  { label: "Item over de finish meenemen", value: "1 open slok per item, (3 mushrooms + 1 banaan is 4 slokken)" },
 ];
 
-const BOARD_EVENTS = [
-  { label: "Bowser event", value: "2 slokken" },
-  { label: "Item wordt tegen je gebruikt", value: "1 slok" },
-  { label: "Verliest duel minigame", value: "2 slokken" },
-  { label: "Koop een item uit de shop", value: "1 slok" },
+const MID_CUP_RULES = [
+  { label: "Staat 1e in tussenstand", value: "1 slok uitdelen" },
+  { label: "Gestegen in tussenstand", value: "1 slok drinken" },
+  { label: "Gezakt in tussenstand", value: "3 slokken drinken" },
+  { label: "Staat laatste van iedereen", value: "2 slokken drinken" },
 ];
 
-const MIDGAME_RULES = [
-  { label: "1e plek", value: "2 slokken drinken" },
-  { label: "2e plek", value: "1 slok drinken" },
-  { label: "3e plek", value: "1 slok uitdelen" },
-  { label: "4e plek", value: "2 slokken uitdelen" },
+
+const GRAND_PRIX_FINISH_RULES = [
+  { label: "1e plek overall", value: "Iedereen 2 slokken" },
+  { label: "2e plek overall", value: "Iedereen 1 slok" },
+  { label: "3e plek overall", value: "2 slokken uitdelen" },
+  { label: "Laatste plek overall", value: "1 vol adtje" },
 ];
 
-export default function MarioPartyDrankspelPage() {
+
+export default function MarioKartDrankspelPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true" />
@@ -74,7 +77,7 @@ export default function MarioPartyDrankspelPage() {
             <section className="space-y-10">
               <div className="space-y-4">
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
-                  Mario Party drankspel regels
+                  Mario Kart drankspel regels
                 </h1>
               </div>
 
@@ -96,78 +99,53 @@ export default function MarioPartyDrankspelPage() {
               </div>
             </section>
 
-            <section id="minigame-regels" className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Minigame regels
-                  </h2>
-                </div>
-                <p className="mt-3 text-sm text-gray-300">
-                  Bepaal wie drinkt op basis van de plaatsing in elke minigame.
-                </p>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {MINIGAME_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="flex items-center gap-4 mb-4">
+                <h2 className="text-2xl font-semibold text-white">
+                  Drink-of-Dubbel Regel
+                </h2>
               </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Team minigames
-                  </h2>
-                </div>
-                <p className="mt-3 text-sm text-gray-300">
-                  Deze regels vervangen de placement regels in team minigames.
+                <p className="mb-6 text-sm text-gray-300">
+                  Elke keer dat er iets gebeurt waar een slok bij hoort, krijg je een open slok.
+                  Open slokken mag je tijdens de race wegwerken wanneer het kan.
+                  Bij de finish moet alles op zijn. Wat nog open is kost je 2 strafslokken per slok.
                 </p>
-                <div className="mt-6 space-y-6 text-sm text-gray-300">
-                  <div>
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                      2v2
-                    </p>
-                    <div className="space-y-3">
-                      {TEAM_2V2_RULES.map((rule) => (
-                        <div
-                          key={rule.label}
-                          className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                        >
-                          <span>{rule.label}</span>
-                          <span className="font-semibold text-white">
-                            {rule.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+              <div className="space-y-4 text-sm text-gray-300">
+                {CORE_RULES.map((rule) => (
+                  <div
+                    key={rule.label}
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                  >
+                    <span>{rule.label}</span>
+                    <span className="font-semibold text-white">
+                      {rule.value}
+                    </span>
                   </div>
-                  <div>
-                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                      3v1
-                    </p>
-                    <div className="space-y-3">
-                      {TEAM_3V1_RULES.map((rule) => (
-                        <div
-                          key={rule.label}
-                          className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                        >
-                          <span>{rule.label}</span>
-                          <span className="font-semibold text-white">
-                            {rule.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="flex items-center gap-4">
+                <h2 className="text-2xl font-semibold text-white">
+                  Finish regels
+                </h2>
+              </div>
+              <p className="mt-3 text-sm text-gray-300">
+                Wie drinkt en wie deelt uit op basis van je finish positie.
+              </p>
+              <div className="mt-6 space-y-4 text-sm text-gray-300">
+                {RACE_FINISH_RULES.map((rule) => (
+                  <div
+                    key={rule.label}
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                  >
+                    <span>{rule.label}</span>
+                    <span className="font-semibold text-white">
+                      {rule.value}
+                    </span>
                   </div>
-                </div>
+                ))}
               </div>
             </section>
 
@@ -175,14 +153,11 @@ export default function MarioPartyDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
-                    Stars
+                    Item regels
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
-                  Regels rondom het verkrijgen en verliezen van sterren.
-                </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {STAR_RULES.map((rule) => (
+                  {ITEM_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -199,14 +174,11 @@ export default function MarioPartyDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
-                    Board events
+                    Grote Items
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
-                  Extra slokken tijdens het spelen op het bord.
-                </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BOARD_EVENTS.map((rule) => (
+                  {BIG_ITEM_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -221,18 +193,42 @@ export default function MarioPartyDrankspelPage() {
               </div>
             </section>
 
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="flex items-center gap-4">
+                <h2 className="text-2xl font-semibold text-white">
+                  Track & Gameplay Events
+                </h2>
+              </div>
+              <p className="mt-3 text-sm text-gray-300">
+                Extra triggers die tijdens de race kunnen gebeuren, los van items en finish.
+              </p>
+              <div className="mt-6 space-y-4 text-sm text-gray-300">
+                {TRACK_EVENTS.map((rule) => (
+                  <div
+                    key={rule.label}
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                  >
+                    <span>{rule.label}</span>
+                    <span className="font-semibold text-white">
+                      {rule.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
-                    Tussenstand
+                    Mid-Cup Tussenstand
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Na elke 5 rondes wordt de tussenstand bekeken.
+                  Na race 2 check je de tussenstand. Vergelijk met de stand van de vorige race.
                 </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {MIDGAME_RULES.map((rule) => (
+                  {MID_CUP_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -249,14 +245,14 @@ export default function MarioPartyDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
-                    Eindstand
+                    Grand Prix Eindstand
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Volgorde: 4e plek deelt als eerst uit, 1e plek als laatst.
+                  De finale straffen na een volledige Grand Prix van 4 races.
                 </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {ENDGAME_RULES.map((rule) => (
+                  {GRAND_PRIX_FINISH_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -278,3 +274,4 @@ export default function MarioPartyDrankspelPage() {
     </main>
   );
 }
+
