@@ -16,6 +16,9 @@ export default function Header({ activeSection }) {
   const pathname = usePathname();
   const { language, toggleLanguage, t } = useLanguage();
   const isPaymentPage = pathname === "/betaal-mij";
+  const isDrinkGamesPage = pathname?.startsWith("/drankspellen");
+  const hideLanguageToggle =
+    isPaymentPage || isDrinkGamesPage || pathname === "/blackjack-drankspel";
 
   const suffixSegments = (() => {
     if (!pathname) return [];
@@ -89,7 +92,7 @@ export default function Header({ activeSection }) {
           )}
 
           {/* Language toggle - verberg op betaal-mij pagina */}
-          {!isPaymentPage && (
+          {!hideLanguageToggle && (
             <button
               type="button"
               onClick={toggleLanguage}
