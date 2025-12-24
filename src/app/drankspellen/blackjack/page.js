@@ -21,10 +21,10 @@ const DEFINITIONS = [
 ];
 
 const QUICK_RULES = [
+  "Inleveren kan alleen na een gewonnen hand.",
   "Blackjack: iedereen zonder blackjack 2 slokken.",
-  "Dealer stopt op soft 17.",
-  "Insurance bij dealer aas als eerste kaart.",
-  "Side bets: Perfect Pair en 21+3 (uitleg via de links).",
+  "Bust 24+ = 3 slokken.",
+  "Double down: win 3 uitdelen, verlies 3 drinken.",
 ];
 
 const BUY_CHIPS = [
@@ -59,14 +59,12 @@ const BLACKJACK_RULES = [
   { who: "Iedereen zonder blackjack", action: "2 slokken" },
   { who: "Dealer", action: "1 glas adten" },
   { who: "Speler met blackjack", action: "Mag geen fiches inleveren deze ronde" },
-  { who: "Dealer regels", action: "Dealer stopt op soft 17" },
-  { who: "Insurance", action: "Aangeboden als dealer als eerste een aas trekt" },
 ];
 
 const BUST_RULES = [
   { label: "Bust tot en met 23", value: "1 slok" },
   { label: "Bust 24 of hoger", value: "3 slokken" },
-  { label: "Bust met double", value: "glas adten + 1 slok" },
+  { label: "Bust met double", value: "1 vol adtje" },
 ];
 
 const SPLIT_RULES = [
@@ -78,19 +76,6 @@ const SPLIT_RULES = [
 const DOUBLE_DOWN_RULES = [
   { label: "Win", value: "3 slokken uitdelen" },
   { label: "Verlies", value: "3 slokken drinken" },
-];
-
-const SIDEBET_LINKS = [
-  {
-    title: "21+3",
-    description: "Wat telt als pokerhand, doel, voorbeelden en uitbetaling.",
-    href: "/drankspellen/blackjack/sidebets/21-plus-3",
-  },
-  {
-    title: "Perfect Pair",
-    description: "Wanneer je wint, hoe het werkt en wat het oplevert.",
-    href: "/drankspellen/blackjack/sidebets/perfect-pair",
-  },
 ];
 
 const SAFETY_RULES = [
@@ -122,26 +107,16 @@ export default function BlackjackDrankspelPage() {
           <div className="mx-auto w-full max-w-6xl space-y-16">
             <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.2fr),minmax(0,0.8fr)]">
               <div className="space-y-6 text-center lg:text-left">
-                <span className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
-                  Blackjack Drankspel
-                </span>
                 <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
-                  Definitieve logische regels
+                  Blackjack Drankspel regels
                 </h1>
-                <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
-                  Een strak, eerlijk regelsysteem voor blackjack als drankspel.
-                  Alles is helder, impactvol en zonder loopholes.
-                </p>
-                <div className="flex flex-wrap justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-gray-200 lg:justify-start">
-                  <span className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-4 py-1">
-                    Geen loopholes
-                  </span>
-                  <span className="rounded-full border border-purple-400/30 bg-purple-500/10 px-4 py-1">
-                    Vol adtje blijft zeldzaam
-                  </span>
-                  <span className="rounded-full border border-white/15 bg-white/5 px-4 py-1">
-                    Veilig spelen
-                  </span>
+                <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
+                  <Link
+                    href="/drankspellen/blackjack/uitleg"
+                    className="inline-flex items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-200/60 hover:bg-emerald-500/20"
+                  >
+                    Blackjack basis uitleg
+                  </Link>
                 </div>
               </div>
 
@@ -167,9 +142,6 @@ export default function BlackjackDrankspelPage() {
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
               <div className="flex items-center gap-4">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-emerald-200">
-                  1
-                </span>
                 <h2 className="text-2xl font-semibold text-white">
                   Belangrijke definities
                 </h2>
@@ -194,9 +166,6 @@ export default function BlackjackDrankspelPage() {
             <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-purple-200">
-                    2
-                  </span>
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches kopen
                   </h2>
@@ -235,9 +204,6 @@ export default function BlackjackDrankspelPage() {
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-purple-200">
-                    3
-                  </span>
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches inleveren
                   </h2>
@@ -277,9 +243,6 @@ export default function BlackjackDrankspelPage() {
 
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
               <div className="flex items-center gap-4">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-emerald-200">
-                  4
-                </span>
                 <h2 className="text-2xl font-semibold text-white">
                   Blackjack regels
                 </h2>
@@ -307,9 +270,6 @@ export default function BlackjackDrankspelPage() {
             <section className="grid gap-6 lg:grid-cols-3">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-purple-200">
-                    5
-                  </span>
                   <h2 className="text-xl font-semibold text-white">Bust regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
@@ -329,9 +289,6 @@ export default function BlackjackDrankspelPage() {
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-purple-200">
-                    6
-                  </span>
                   <h2 className="text-xl font-semibold text-white">Split regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
@@ -351,9 +308,6 @@ export default function BlackjackDrankspelPage() {
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-purple-200">
-                    7
-                  </span>
                   <h2 className="text-xl font-semibold text-white">
                     Double down
                   </h2>
@@ -374,63 +328,17 @@ export default function BlackjackDrankspelPage() {
               </div>
             </section>
 
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-emerald-200">
-                    8
-                  </span>
-                  <h2 className="text-2xl font-semibold text-white">
-                    Side bet
-                  </h2>
-                </div>
-                <p className="mt-3 text-sm text-gray-300">
-                  Kies een side bet voor uitleg, doel en uitbetaling.
-                </p>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {SIDEBET_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="group rounded-2xl border border-white/10 bg-black/40 p-5 transition hover:border-emerald-300/50 hover:bg-emerald-500/10"
-                    >
-                      <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-lg font-semibold text-white">
-                          {link.title}
-                        </h3>
-                        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200/80">
-                          Uitleg
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm text-gray-300">
-                        {link.description}
-                      </p>
-                      <span className="mt-4 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                        Open pagina
-                      </span>
-                    </Link>
-                  ))}
-                </div>
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="flex items-center gap-4">
+                <h2 className="text-2xl font-semibold text-white">
+                  Tips voor iedereen
+                </h2>
               </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center gap-4">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-sm font-semibold text-emerald-200">
-                    9
-                  </span>
-                  <h2 className="text-2xl font-semibold text-white">
-                    Veiligheidsregels
-                  </h2>
-                </div>
-                <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
-                  {SAFETY_RULES.map((rule) => (
-                    <li key={rule}>{rule}</li>
-                  ))}
-                </ul>
-                <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm font-semibold text-emerald-200">
-                  Speel verantwoordelijk en hou elkaar in de gaten.
-                </div>
-              </div>
+              <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
+                {SAFETY_RULES.map((rule) => (
+                  <li key={rule}>{rule}</li>
+                ))}
+              </ul>
             </section>
 
           </div>
@@ -441,6 +349,3 @@ export default function BlackjackDrankspelPage() {
     </main>
   );
 }
-
-
-
