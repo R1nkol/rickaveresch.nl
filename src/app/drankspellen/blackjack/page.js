@@ -4,26 +4,12 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Link from "next/link";
 
-const DEFINITIONS = [
-  {
-    title: "Slok",
-    description: "Normale slok uit je huidige glas.",
-  },
-  {
-    title: "Glas adten",
-    description: "Je huidige glas leegdrinken, wat er ook nog in zit.",
-  },
-  {
-    title: "Vol adtje",
-    description: "Een nieuw, vol glas inschenken en in een keer leegdrinken.",
-  },
-];
-
 const QUICK_RULES = [
+  "Kopen mag alleen voor de ronde.",
   "Inleveren kan alleen na een gewonnen hand.",
-  "Blackjack: iedereen zonder blackjack 2 slokken.",
-  "Bust 24+ = 3 slokken.",
-  "Double down: win 3 uitdelen, verlies 3 drinken.",
+  "Alleen spelers die meedoen kunnen drinken.",
+  "Max 1 vol adtje per persoon per ronde.",
+  "Blackjack: iedereen zonder blackjack 3 slokken.",
 ];
 
 const BUY_CHIPS = [
@@ -35,10 +21,8 @@ const BUY_CHIPS = [
 ];
 
 const BUY_NOTES = [
-  "Kopen mag alleen vóór een ronde of nadat je bust bent.",
-  "Een vol adtje is altijd een nieuw, vol glas (dus niet je restje).",
-  "1 fiche blijft nuttig, maar 5 is de normale ‘inkoop’.",
-  "25+ is bewust zwaar: daarmee worden win-momenten ook echt spannend.",
+  "Kopen mag alleen vóór een ronde.",
+  "Een vol adtje is altijd een nieuw, vol glas.",
 ];
 const CASHIN_CHIPS = [
   { chip: "25", reward: "1 glas adten uitdelen" },
@@ -47,15 +31,16 @@ const CASHIN_CHIPS = [
 ];
 
 const CASHIN_RULES = [
-  "Uitsluitend mogelijk na een gewonnen hand.",
-  "Max 1 vol adtje per persoon per ronde.",
-  "Glas adten mag altijd verdeeld worden.",
-  "Jij kiest wie drinkt.",
-  "Alleen spelers die die ronde meededen mogen drinken.",
+  "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
+  "Max 1 vol glas per persoon per ronde.",
+  "Jij kiest wie er drinkt.",
+  "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
+  "Adtjes mogen niet worden opgespaard voor later.",
+  "Adtjes mogen opgesplitst worden over meerdere spelers, 1 vol adtje = 5 slokken.",
 ];
 
 const BLACKJACK_RULES = [
-  { who: "Iedereen zonder blackjack", action: "2 slokken" },
+  { who: "Iedereen zonder blackjack", action: "3 slokken" },
   { who: "Dealer", action: "1 glas adten" },
   { who: "Speler met blackjack", action: "Mag geen fiches inleveren deze ronde" },
 ];
@@ -111,7 +96,7 @@ export default function BlackjackDrankspelPage() {
                 <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                   <Link
                     href="/drankspellen/blackjack/uitleg"
-                    className="inline-flex items-center justify-center rounded-full border border-emerald-300/40 bg-emerald-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100 transition hover:border-emerald-200/60 hover:bg-emerald-500/20"
+                    className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
                   >
                     Blackjack basis uitleg
                   </Link>
@@ -135,29 +120,6 @@ export default function BlackjackDrankspelPage() {
                     </li>
                   ))}
                 </ul>
-              </div>
-            </section>
-
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-semibold text-white">
-                  Belangrijke definities
-                </h2>
-              </div>
-              <div className="mt-8 grid gap-4 md:grid-cols-3">
-                {DEFINITIONS.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl border border-white/10 bg-black/40 p-5"
-                  >
-                    <h3 className="text-lg font-semibold text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-300">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
               </div>
             </section>
 

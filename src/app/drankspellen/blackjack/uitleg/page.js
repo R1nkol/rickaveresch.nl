@@ -8,15 +8,15 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
 const CARD_VALUES = [
-  { label: "2 t/m 10", value: "Punten gelijk aan de kaartwaarde." },
-  { label: "Boer, vrouw, heer", value: "Elke plaat is 10 punten." },
+  { label: "Kaarten 2 t/m 10", value: "Punten gelijk aan de kaartwaarde." },
+  { label: "Boer, vrouw, heer", value: "Elke kaart is 10 punten." },
   { label: "Aas", value: "1 of 11, wat voor jouw hand het beste uitkomt." },
 ];
 
 const FLOW_STEPS = [
   "Iedereen legt een inzet neer.",
   "Dealer deelt 2 kaarten aan elke speler en zichzelf, 1 kaart van de dealer ligt open.",
-  "Spelers kiezen voor hit of stand.",
+  "Spelers kiezen voor hit of stand (optioneel: double down of split).",
   "Dealer hit totdat hij 17 of hoger heeft en stopt op soft 17.",
   "Vergelijk totals: hoogste onder of gelijk aan 21 wint.",
 ];
@@ -35,41 +35,37 @@ const BASIC_ACTIONS = [
 const ADVANCED_ACTIONS = [
   {
     title: "Double down",
-    description: "Verdubbel je inzet en neem precies 1 extra kaart.",
+    description: "Verdubbel je inzet en neem 1 extra kaart, je mag daarna geen extra kaarten meer nemen.",
   },
   {
     title: "Split",
     description: "Heb je twee kaarten met dezelfde waarde, dan splits je in twee handen.",
   },
   {
-    title: "Side bet",
-    description: "Extra inzet naast je hoofdhand; kies hieronder een variant.",
-  },
-  {
-    title: "Insurance",
-    description: "Aangeboden als dealer als eerste een aas trekt (open kaart).",
-  },
-  {
     title: "Opgeven",
     description: "Je stopt meteen en krijgt de helft van je inzet terug.",
+  },
+  {
+    title: "Side bet",
+    description: "Extra inzet naast je hoofd inzet, kies hieronder een variant.",
   },
 ];
 
 const SIDEBET_LINKS = [
   {
-    title: "21+3",
-    description: "Pokerhand met 3 kaarten, uitbetaling en voorbeelden.",
-    href: "/drankspellen/blackjack/uitleg/21-plus-3",
+    title: "Insurance",
+    description: "Extra inzet wanneer de dealer een aas open heeft liggen.",
+    href: "/drankspellen/blackjack/uitleg/insurance",
   },
   {
     title: "Perfect Pair",
-    description: "Pairs, soorten en uitbetaling per type pair.",
+    description: "Bonus als je eerste twee kaarten een pair vormen.",
     href: "/drankspellen/blackjack/uitleg/perfect-pair",
   },
   {
-    title: "Insurance",
-    description: "Extra inzet bij dealer aas, uitbetaling bij dealer blackjack.",
-    href: "/drankspellen/blackjack/uitleg/insurance",
+    title: "21+3",
+    description: "Bonus op een 3-kaart pokerhand met jouw kaarten en de dealerkaart.",
+    href: "/drankspellen/blackjack/uitleg/21-plus-3",
   },
 ];
 
@@ -165,19 +161,19 @@ export default function BlackjackBasicsPage() {
               </p>
             </section>
 
-            <section className="space-y-4">
+            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
               <h2 className="text-2xl font-semibold text-white">Kaartwaardes</h2>
-              <p className="text-sm text-gray-300">
+              <p className="mt-2 text-sm text-gray-300">
                 Zo tel je je hand in punten voordat je keuzes maakt.
               </p>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="mt-4 space-y-3 text-sm text-gray-300">
                 {CARD_VALUES.map((item) => (
                   <ExpandableItem
                     key={item.label}
                     title={item.label}
-                    className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
-                    titleClassName="text-lg font-semibold text-white"
-                    bodyClassName="mt-2 text-sm text-gray-300"
+                    className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    titleClassName="font-semibold text-white"
+                    bodyClassName="mt-2 text-gray-300"
                   >
                     {item.value}
                   </ExpandableItem>
@@ -200,7 +196,45 @@ export default function BlackjackBasicsPage() {
             </section>
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
-              <div className="space-y-6">
+              <div className="order-2 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur lg:order-1">
+                <h2 className="text-2xl font-semibold text-white">
+                  Geavanceerde acties
+                </h2>
+                <div className="mt-4 space-y-3 text-sm text-gray-300">
+                  {ADVANCED_ACTIONS.map((action) => (
+                    <ExpandableItem
+                      key={action.title}
+                      title={action.title}
+                      className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    >
+                      {action.description}
+                    </ExpandableItem>
+                  ))}
+                </div>
+                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
+                  Side bets
+                </p>
+                <div className="mt-3 space-y-3 text-sm text-gray-300">
+                  {SIDEBET_LINKS.map((link) => (
+                    <ExpandableItem
+                      key={link.href}
+                      title={link.title}
+                      className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      bodyClassName="mt-2"
+                    >
+                      <p className="text-gray-300">{link.description}</p>
+                      <Link
+                        href={link.href}
+                        className="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200"
+                      >
+                        Open uitleg
+                      </Link>
+                    </ExpandableItem>
+                  ))}
+                </div>
+              </div>
+
+              <div className="order-1 space-y-6 lg:order-2">
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
                   <h2 className="text-2xl font-semibold text-white">
                     Basis acties
@@ -219,56 +253,18 @@ export default function BlackjackBasicsPage() {
                 </div>
 
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Geavanceerde acties
-                  </h2>
+                  <h2 className="text-2xl font-semibold text-white">Begrippen</h2>
                   <div className="mt-4 space-y-3 text-sm text-gray-300">
-                    {ADVANCED_ACTIONS.map((action) => (
+                    {TERMS.map((term) => (
                       <ExpandableItem
-                        key={action.title}
-                        title={action.title}
+                        key={term.title}
+                        title={term.title}
                         className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
                       >
-                        {action.description}
+                        {term.description}
                       </ExpandableItem>
                     ))}
                   </div>
-                  <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                    Side bets
-                  </p>
-                  <div className="mt-3 space-y-3 text-sm text-gray-300">
-                    {SIDEBET_LINKS.map((link) => (
-                      <ExpandableItem
-                        key={link.href}
-                        title={link.title}
-                        className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                        bodyClassName="mt-2"
-                      >
-                        <p className="text-gray-300">{link.description}</p>
-                        <Link
-                          href={link.href}
-                          className="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200"
-                        >
-                          Open uitleg
-                        </Link>
-                      </ExpandableItem>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-                <h2 className="text-2xl font-semibold text-white">Begrippen</h2>
-                <div className="mt-4 space-y-3 text-sm text-gray-300">
-                  {TERMS.map((term) => (
-                    <ExpandableItem
-                      key={term.title}
-                      title={term.title}
-                      className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      {term.description}
-                    </ExpandableItem>
-                  ))}
                 </div>
               </div>
             </section>
