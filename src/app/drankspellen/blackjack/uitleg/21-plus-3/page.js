@@ -49,7 +49,7 @@ const EXAMPLES = [
   },
   {
     id: "three-of-a-kind",
-    content: (
+    left: (
       <>
         Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣
       </>
