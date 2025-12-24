@@ -54,7 +54,7 @@ export default function InsuranceSideBetPage() {
         <Header activeSection="" />
 
         <div className="flex-1 px-4 pb-24 pt-28">
-          <div className="mx-auto w-full max-w-5xl space-y-12">
+          <div className="mx-auto w-full max-w-6xl space-y-12">
             <Link
               href="/drankspellen/blackjack/uitleg"
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"

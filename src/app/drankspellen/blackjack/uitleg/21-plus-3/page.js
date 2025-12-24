@@ -30,54 +30,59 @@ const RedCard = ({ children }) => (
 const EXAMPLES = [
   {
     id: "flush",
-    content: (
+    left: (
       <>
         Jij: <RedCard>2♥</RedCard> + <RedCard>J♥</RedCard>, dealer upcard:{" "}
-        <RedCard>7♥</RedCard> &rarr; flush (1:5).
+        <RedCard>7♥</RedCard>
       </>
     ),
+    right: "flush (1:5)",
   },
   {
     id: "straight",
-    content: (
+    left: (
       <>
-        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠ &rarr; straight (1:10).
+        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠
       </>
     ),
+    right: "straight (1:10)",
   },
   {
     id: "three-of-a-kind",
     content: (
       <>
-        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣ &rarr; three of a kind (1:30).
+        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣
       </>
     ),
+    right: "three of a kind (1:30)",
   },
   {
     id: "straight-flush",
-    content: (
+    left: (
       <>
-        Jij: <RedCard>7♥</RedCard> + <RedCard>8♥</RedCard>, dealer upcard:{" "}
-        <RedCard>9♥</RedCard> &rarr; straight flush (1:40).
+        Jij: <RedCard>7♦</RedCard> + <RedCard>8♦</RedCard>, dealer upcard:{" "}
+        <RedCard>9♦</RedCard>
       </>
     ),
+    right: "straight flush (1:40)",
   },
   {
     id: "suited-three-of-a-kind",
-    content: (
+    left: (
       <>
-        Jij: 7♣ + 7♣, dealer upcard: 7♣ &rarr; suited trips (1:100).
+        Jij: 7♣ + 7♣, dealer upcard: 7♣
       </>
     ),
+    right: "suited trips (1:100)",
   },
   {
     id: "loss",
-    content: (
+    left: (
       <>
-        Jij: <RedCard>A♦</RedCard> + 9♣, dealer upcard: 4♠ &rarr; geen pokerhand
-        (verlies).
+        Jij: <RedCard>A♥</RedCard> + 9♣, dealer upcard: 4♠
       </>
     ),
+    right: "geen pokerhand (verlies)",
   },
 ];
 
@@ -99,7 +104,7 @@ export default function SideBet21Plus3Page() {
         <Header activeSection="" />
 
         <div className="flex-1 px-4 pb-24 pt-28">
-          <div className="mx-auto w-full max-w-5xl space-y-12">
+          <div className="mx-auto w-full max-w-6xl space-y-12">
             <Link
               href="/drankspellen/blackjack/uitleg"
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
@@ -175,9 +180,12 @@ export default function SideBet21Plus3Page() {
                 {EXAMPLES.map((example) => (
                   <div
                     key={example.id}
-                    className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-gray-300"
+                    className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-gray-300 sm:flex-row sm:items-center sm:justify-between"
                   >
-                    {example.content}
+                    <div className="sm:pr-4">{example.left}</div>
+                    <div className="text-sm font-semibold text-white sm:shrink-0 sm:text-right">
+                      {example.right}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -190,3 +198,4 @@ export default function SideBet21Plus3Page() {
     </main>
   );
 }
+
