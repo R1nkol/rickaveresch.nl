@@ -5,37 +5,21 @@ import { ChevronLeft } from "lucide-react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SyncedBackground from "@/components/SyncedBackground";
-
-const KEY_POINTS = [
-  {
-    title: "Wanneer",
-    description: "Plaats de side bet voor de deal, tegelijk met je normale inzet.",
-  },
-  {
-    title: "Kaarten",
-    description: "Jouw 2 kaarten + dealer upcard vormen samen een 3-kaart pokerhand.",
-  },
-  {
-    title: "Doel",
-    description: "Maak een geldige pokerhand om de bonus te pakken.",
-  },
-];
 
 const WINNING_HANDS = [
   "Flush: 3 kaarten van dezelfde soort.",
-  "Straight: 3 opeenvolgende waardes (A mag laag zijn: A-2-3).",
-  "Three of a kind: 3 gelijke waardes (bijv. 7-7-7).",
+  "Straight: 3 opeenvolgende waardes.",
+  "Three of a kind: 3 gelijke waardes.",
   "Straight flush: straight + flush.",
-  "Suited three of a kind: 3 gelijke waardes in dezelfde suit.",
+  "Suited trips: 3 gelijke waardes in dezelfde suit.",
 ];
 
 const PAYOUTS = [
-  { label: "Flush", value: "1:5 (5x je sidebet in fiches)" },
-  { label: "Straight", value: "1:10 (10x je sidebet in fiches)" },
-  { label: "Three of a kind", value: "1:30 (30x je sidebet in fiches)" },
-  { label: "Straight flush", value: "1:40 (40x je sidebet in fiches)" },
-  { label: "Suited three of a kind", value: "1:100 (100x je sidebet in fiches)" },
+  { label: "Flush", value: "1:5" },
+  { label: "Straight", value: "1:10" },
+  { label: "Three of a kind", value: "1:30" },
+  { label: "Straight flush", value: "1:40" },
+  { label: "Suited trips", value: "1:100" },
 ];
 
 const RedCard = ({ children }) => (
@@ -48,7 +32,7 @@ const EXAMPLES = [
     content: (
       <>
         Jij: <RedCard>2♥</RedCard> + <RedCard>J♥</RedCard>, dealer upcard:{" "}
-        <RedCard>7♥</RedCard> &rarr; flush (winst).
+        <RedCard>7♥</RedCard> &rarr; flush (1:5).
       </>
     ),
   },
@@ -56,8 +40,7 @@ const EXAMPLES = [
     id: "straight",
     content: (
       <>
-        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠ &rarr; straight
-        (winst).
+        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠ &rarr; straight (1:10).
       </>
     ),
   },
@@ -65,8 +48,7 @@ const EXAMPLES = [
     id: "three-of-a-kind",
     content: (
       <>
-        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣ &rarr; three of a kind
-        (winst).
+        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣ &rarr; three of a kind (1:30).
       </>
     ),
   },
@@ -75,7 +57,7 @@ const EXAMPLES = [
     content: (
       <>
         Jij: <RedCard>7♥</RedCard> + <RedCard>8♥</RedCard>, dealer upcard:{" "}
-        <RedCard>9♥</RedCard> &rarr; straight flush (winst).
+        <RedCard>9♥</RedCard> &rarr; straight flush (1:40).
       </>
     ),
   },
@@ -83,7 +65,7 @@ const EXAMPLES = [
     id: "suited-three-of-a-kind",
     content: (
       <>
-        Jij: 7♣ + 7♣, dealer upcard: 7♣ &rarr; suited three of a kind (winst).
+        Jij: 7♣ + 7♣, dealer upcard: 7♣ &rarr; suited trips (1:100).
       </>
     ),
   },
@@ -103,9 +85,8 @@ const EXAMPLES = [
 export default function SideBet21Plus3Page() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <SyncedBackground />
       <div
-        className="pointer-events-none absolute inset-0 bg-black/70"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -119,41 +100,24 @@ export default function SideBet21Plus3Page() {
         <div className="flex-1 px-4 pb-24 pt-28">
           <div className="mx-auto w-full max-w-5xl space-y-12">
             <Link
-              href="/drankspellen/blackjack"
+              href="/drankspellen/blackjack/uitleg"
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
             >
               <ChevronLeft className="h-4 w-4" />
-              Terug naar blackjack
+              Terug naar uitleg
             </Link>
 
             <section className="space-y-4">
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-200">
-                Side bet
-              </span>
               <h1 className="text-4xl font-extrabold sm:text-5xl">
-                21+3 uitgelegd
+                Side bet: 21+3 uitgelegd
               </h1>
               <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
-                21+3 is een extra side bet waarbij jouw twee kaarten samen met de
-                dealer upcard een 3-kaart pokerhand moeten vormen. Je hoofdhand
-                blijft gewoon blackjack; deze bet staat er los van.
+                21+3 is een extra side bet die je voor de deal plaatst, tegelijk
+                met je normale inzet. Je wint als jouw twee kaarten samen met de
+                dealer upcard een 3-kaart pokerhand vormen. Het is een losstaande
+                inzet; verlies je het hoofdspel blackjack, dan verlies je deze
+                inzet niet automatisch.
               </p>
-            </section>
-
-            <section className="grid gap-6 md:grid-cols-3">
-              {KEY_POINTS.map((point) => (
-                <div
-                  key={point.title}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur"
-                >
-                  <h2 className="text-lg font-semibold text-white">
-                    {point.title}
-                  </h2>
-                  <p className="mt-2 text-sm text-gray-300">
-                    {point.description}
-                  </p>
-                </div>
-              ))}
             </section>
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
@@ -214,4 +178,3 @@ export default function SideBet21Plus3Page() {
     </main>
   );
 }
-

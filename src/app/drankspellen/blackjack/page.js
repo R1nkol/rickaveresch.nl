@@ -3,7 +3,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Link from "next/link";
-import SyncedBackground from "@/components/SyncedBackground";
 
 const DEFINITIONS = [
   {
@@ -89,9 +88,8 @@ const SAFETY_RULES = [
 export default function BlackjackDrankspelPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <SyncedBackground />
       <div
-        className="pointer-events-none absolute inset-0 bg-black/70"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">

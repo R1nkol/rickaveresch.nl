@@ -6,7 +6,6 @@ import { ChevronLeft } from "lucide-react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SyncedBackground from "@/components/SyncedBackground";
 
 const CARD_VALUES = [
   { label: "2 t/m 10", value: "Punten gelijk aan de kaartwaarde." },
@@ -60,12 +59,17 @@ const SIDEBET_LINKS = [
   {
     title: "21+3",
     description: "Pokerhand met 3 kaarten, uitbetaling en voorbeelden.",
-    href: "/drankspellen/blackjack/sidebets/21-plus-3",
+    href: "/drankspellen/blackjack/uitleg/21-plus-3",
   },
   {
     title: "Perfect Pair",
     description: "Pairs, soorten en uitbetaling per type pair.",
-    href: "/drankspellen/blackjack/sidebets/perfect-pair",
+    href: "/drankspellen/blackjack/uitleg/perfect-pair",
+  },
+  {
+    title: "Insurance",
+    description: "Extra inzet bij dealer aas, uitbetaling bij dealer blackjack.",
+    href: "/drankspellen/blackjack/uitleg/insurance",
   },
 ];
 
@@ -129,9 +133,8 @@ function ExpandableItem({
 export default function BlackjackBasicsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <SyncedBackground />
       <div
-        className="pointer-events-none absolute inset-0 bg-black/70"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -149,7 +152,7 @@ export default function BlackjackBasicsPage() {
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
             >
               <ChevronLeft className="h-4 w-4" />
-              Terug naar blackjack regels
+              Terug naar drankspel blackjack
             </Link>
 
             <section className="space-y-4">
@@ -230,7 +233,10 @@ export default function BlackjackBasicsPage() {
                       </ExpandableItem>
                     ))}
                   </div>
-                  <div className="mt-6 space-y-3 text-sm text-gray-300">
+                  <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
+                    Side bets
+                  </p>
+                  <div className="mt-3 space-y-3 text-sm text-gray-300">
                     {SIDEBET_LINKS.map((link) => (
                       <ExpandableItem
                         key={link.href}
