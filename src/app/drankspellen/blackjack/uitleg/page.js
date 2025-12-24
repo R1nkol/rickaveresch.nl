@@ -39,11 +39,19 @@ const ADVANCED_ACTIONS = [
   },
   {
     title: "Split",
-    description: "Heb je twee kaarten met dezelfde waarde, dan splits je in twee handen.",
+    description: (
+      <>
+        Heb je twee kaarten met dezelfde waarde, dan mag je splitsen.
+        Je legt een extra inzet neer gelijk aan je oorspronkelijke inzet en speelt
+        daarna twee handen tegelijk.
+        <br /> <br />
+        Split je azen, dan krijgt elke hand één extra kaart en moet je direct stoppen.
+      </>
+    ),
   },
   {
     title: "Opgeven",
-    description: "Je stopt meteen en krijgt de helft van je inzet terug.",
+    description: "Je stopt meteen en krijgt de helft van je inzet terug. Dit mag alleen als je nog niet hebt gehit.",
   },
   {
     title: "Side bet",

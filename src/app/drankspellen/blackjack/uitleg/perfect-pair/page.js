@@ -86,7 +86,7 @@ export default function PerfectPairSideBetPage() {
               <h1 className="text-4xl font-extrabold sm:text-5xl">
                 Side bet: Perfect Pair uitgelegd
               </h1>
-              <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
+              <p className="text-base text-gray-300 sm:text-lg">
                 Perfect Pair is een extra side bet die je voor de deal plaatst,
                 tegelijk met je normale inzet. Je wint als je eerste twee kaarten
                 een pair vormen. De uitbetaling hangt af van kleur en suit

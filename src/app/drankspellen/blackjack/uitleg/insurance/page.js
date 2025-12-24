@@ -67,7 +67,7 @@ export default function InsuranceSideBetPage() {
               <h1 className="text-4xl font-extrabold sm:text-5xl">
                 Side bet: Insurance uitgelegd
               </h1>
-              <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
+              <p className="text-base text-gray-300 sm:text-lg">
                 Insurance is een side bet die alleen wordt aangeboden wanneer de dealer een aas open heeft liggen. Je hoeft hier niet aan mee te doen.
                 Als je wel meedoet, plaats je een extra inzet op de kans dat de dealer blackjack heeft.
                 Heeft de dealer blackjack, dan wordt je insurance uitbetaald tegen 2:1, maar verlies je je originele inzet.

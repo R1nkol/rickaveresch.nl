@@ -111,7 +111,7 @@ export default function SideBet21Plus3Page() {
               <h1 className="text-4xl font-extrabold sm:text-5xl">
                 Side bet: 21+3 uitgelegd
               </h1>
-              <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
+              <p className="text-base text-gray-300 sm:text-lg">
                 21+3 is een extra side bet die je voor de deal plaatst, tegelijk
                 met je normale inzet. Je wint als jouw twee kaarten samen met de
                 dealer upcard een 3-kaart pokerhand vormen. Het is een losstaande

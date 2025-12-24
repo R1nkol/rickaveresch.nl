@@ -40,32 +40,42 @@ export default function Header({ activeSection }) {
     <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur font-sans">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         {/* Logo + breadcrumbs */}
-        <div className="flex items-baseline gap-2">
+        <div className="flex min-w-0 flex-1 items-baseline gap-1 sm:gap-2">
           <Link
             href="/"
-            className="text-2xl font-bold uppercase text-white transition-opacity hover:opacity-80"
+            className="shrink-0 text-lg font-bold uppercase text-white transition-opacity hover:opacity-80 sm:text-2xl"
           >
             RICKAVERESCH
           </Link>
           {suffixSegments.length > 0 && (
-            <nav className="flex items-baseline gap-2 text-lg font-semibold uppercase text-gray-300">
-              {suffixSegments.map(({ label, href }) => (
-                <span key={href} className="flex items-baseline gap-2">
-                  <span className="text-gray-500">/</span>
-                  <Link
-                    href={href}
-                    className="transition-opacity hover:text-white hover:opacity-80"
+            <nav className="flex min-w-0 items-baseline gap-1 overflow-hidden text-xs font-semibold uppercase text-gray-300 sm:gap-2 sm:text-lg">
+              {suffixSegments.map(({ label, href }, index) => {
+                // Op mobiel: verberg alles behalve het laatste segment om clipping te voorkomen
+                const isLast = index === suffixSegments.length - 1;
+                return (
+                  <span
+                    key={href}
+                    className={`flex shrink-0 items-baseline gap-1 sm:gap-2 ${
+                      !isLast ? "hidden sm:flex" : ""
+                    }`}
                   >
-                    {label}
-                  </Link>
-                </span>
-              ))}
+                    <span className="shrink-0 text-gray-500">/</span>
+                    <Link
+                      href={href}
+                      className="truncate transition-opacity hover:text-white hover:opacity-80"
+                      title={label}
+                    >
+                      {label}
+                    </Link>
+                  </span>
+                );
+              })}
             </nav>
           )}
         </div>
 
         {/* Navigation + language toggle */}
-        <div className="flex items-center gap-12">
+        <div className="flex shrink-0 items-center gap-4 sm:gap-12">
           {pathname === "/" && (
             <nav className="hidden md:flex gap-6 text-sm">
               {NAV_ITEMS.map((item) => {
