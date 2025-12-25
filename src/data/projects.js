@@ -289,7 +289,7 @@ export const projects = [
     details: {
       nl: [
         "EventPlay was een solo schoolproject en mijn eerste ervaring met het zelfstandig ontwikkelen van een volledige webapplicatie. Het idee achter het project was om een platform te bouwen waarmee scholen sportevenementen konden organiseren, waarbij leerlingen zich konden inschrijven voor verschillende activiteiten.",
-        "Het hoofddoel was om een functionerend systeem te maken met een automatisch gegenereerd bracket-systeem. Leerlingen konden eenvoudig via een bestand worden toegevoegd, in plaats van handmatig invoeren. Naast het standaard bracket-algoritme heb ik ook een extra wedstrijdvorm toegevoegd: een knock-outronde waarbij iedere deelnemer één keer tegen alle anderen speelde. Degene met de meeste overwinningen werd de uiteindelijke winnaar.",
+        "Het hoofddoel was om een functionerend systeem te maken met een automatisch gegenereerd bracket-systeem. Leerlingen konden eenvoudig via een bestand worden toegevoegd, in plaats van handmatig invoeren. Naast het standaard bracket-algoritme heb ik ook een extra wedstrijdvorm toegevoegd: een knock-outronde waarbij iedere deelnemer een keer tegen alle anderen speelde. Degene met de meeste overwinningen werd de uiteindelijke winnaar.",
         "Dit project was voor mij erg leerzaam, vooral omdat ik het volledig zelfstandig moest ontwerpen, bouwen en afronden. Het gaf me een goed beeld van hoe het is om een project van begin tot eind uit te voeren, zonder dat taken onder meerdere mensen verdeeld zijn.",
       ],
       en: [
