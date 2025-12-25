@@ -5,10 +5,12 @@ import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
 
 const QUICK_RULES = [
-  "Kopen mag alleen aan het begin van een ronde.",
-  "Inleveren kan alleen na een gewonnen pot.",
-  "Alleen spelers die meedoen aan de hand kunnen drinken.",
-  "Bij all-in zijn de straffen en beloningen hoger.",
+  "Een hand = een ronde: alles gebeurt per hand.",
+  "Kopen mag alleen voordat de eerste kaart gedeeld is.",
+  "Inleveren kan alleen direct nadat je de pot hebt gewonnen.",
+  "All-in regels gaan voor showdown regels.",
+  "Je mag alleen straffen uitdelen aan spelers die die hand hebben meegespeeld.",
+  "Per hand geldt alleen de zwaarste regel (straffen/bonussen stacken niet).",
 ];
 
 const BUY_CHIPS = [
@@ -20,13 +22,14 @@ const BUY_CHIPS = [
 ];
 
 const BUY_NOTES = [
-  "Kopen mag alleen voor een nieuwe ronde begint.",
-  "Een vol adtje is altijd een nieuw, vol glas.",
+  "Kopen mag alleen voordat de eerste kaart gedeeld is (voor de hand start).",
+  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
+  "Een vol adtje doe je met een nieuw, vol glas.",
 ];
 
 const CASHIN_CHIPS = [
   { chip: "25", reward: "1 glas adten uitdelen" },
-  { chip: "50", reward: "	1 vol adtje uitdelen" },
+  { chip: "50", reward: "1 vol adtje uitdelen" },
   { chip: "100", reward: "2 volle adtjes uitdelen" },
 ];
 
@@ -35,13 +38,13 @@ const CASHIN_RULES = [
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die hand hebben meegespeeld mogen drinken.",
   "Adtjes mogen niet worden opgespaard voor later.",
-  "1 vol adtje = 5 slokken, dus je kan ze verdelen.",
+  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
 ];
 
-const ROUND_RULES = [
+const HAND_RULES = [
   { label: "Fold voor de flop", value: "1 slok" },
   { label: "Verlies de showdown", value: "2 slokken" },
-  { label: "Win de pot (2-3 spelers)", value: "2 slokken uitdelen" },
+  { label: "Win de pot (2-3 spelers)", value: "3 slokken uitdelen" },
   { label: "Win de pot (4+ spelers)", value: "4 slokken uitdelen" },
 ];
 
@@ -51,7 +54,7 @@ const SPECIAL_RULES = [
   { label: "All-in en je wint", value: "1 vol adtje uitdelen" },
   { label: "All-in en je verliest", value: "1 vol adtje drinken" },
   { label: "Je hebt trips of beter maar verliest", value: "2 slokken uitdelen" },
-  { label: "Split pot", value: "beide winnaars 2 slokken uitdelen" },
+  { label: "Split pot", value: "Beide winnaars 2 slokken uitdelen" },
 ];
 
 export default function PokerDrankspelPage() {
@@ -190,14 +193,14 @@ export default function PokerDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    Ronde regels
+                    Handregels
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Drink momenten tijdens een hand poker.
+                  Drinkmomenten tijdens een pokerhand.
                 </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {ROUND_RULES.map((rule) => (
+                  {HAND_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"

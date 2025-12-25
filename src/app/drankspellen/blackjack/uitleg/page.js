@@ -45,7 +45,7 @@ const ADVANCED_ACTIONS = [
         Je legt een extra inzet neer gelijk aan je oorspronkelijke inzet en speelt
         daarna twee handen tegelijk.
         <br /> <br />
-        Split je azen, dan krijgt elke hand één extra kaart en verder geen kaarten meer.
+        Split je azen, dan krijgt elke hand een extra kaart en verder geen kaarten meer.
       </>
     ),
   },

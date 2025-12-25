@@ -5,18 +5,17 @@ import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
 
 const QUICK_RULES = [
-  "Bij elk moment krijg je één of meer open slokken.",
-  "Open slokken mag je tijdens de race opdrinken wanneer het kan.",
-  "Bij de finish moeten alle open slokken weg zijn.",
-  "Per open slok bij de finish drink je 2 strafslokken.",
-  "Je hebt 3 seconden om te beginnen met drinken, anders telt het als open.",
+  "Open slok = 1 slok die je nog moet drinken (je mag ze opsparen tot een veilig moment).",
+  "Bij elk moment in de race krijg je een of meer open slokken.",
+  "Zodra je over de finish bent (klaar met de race), moeten je open slokken op 0 staan.",
+  "Per open slok die nog open staat bij finish: 2 strafslokken.",
 ];
 
 const CORE_RULES = [
-  { label: "Wanneer krijg je slokken?", value: "bij elk moment in de race" },
-  { label: "Wat zijn open slokken?", value: "slokken die je nog moet drinken" },
-  { label: "Wanneer moeten ze op?", value: "voor de finish" },
-  { label: "Niet op bij finish", value: "2 strafslokken per open slok" },
+  { label: "Wat is een open slok?", value: "1 slok die je nog moet drinken" },
+  { label: "Wanneer mag je drinken?", value: "Tijdens de race (je mag opsparen)" },
+  { label: "Finish check", value: "Zodra je over de finish bent (klaar met de race)" },
+  { label: "Nog open slokken bij finish?", value: "2 strafslokken per open slok" },
 ];
 
 const RACE_FINISH_RULES = [
@@ -35,7 +34,7 @@ const ITEM_RULES = [
 
 const BIG_ITEM_RULES = [
   { label: "Geraakt door blue shell", value: "3 open slokken" },
-  { label: "Iemand gebruikt bliksem", value: "Iedereen 3 open slokken" },
+  { label: "Iemand gebruikt bliksem", value: "Iedereen 2 open slokken" },
   { label: "Bullet Bill gebruikt", value: "3 open slokken" },
 ];
 
@@ -104,13 +103,14 @@ export default function MarioKartDrankspelPage() {
             <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
               <div className="flex items-center gap-4 mb-4">
                 <h2 className="text-2xl font-semibold text-white">
-                  Drink-of-Dubbel Regel
+                  Drink of Dubbel Regel
                 </h2>
               </div>
                 <p className="mb-6 text-sm text-gray-300">
-                  Elke keer dat er iets gebeurt waar een slok bij hoort, krijg je een open slok.
-                  Open slokken mag je tijdens de race wegwerken wanneer het kan.
-                  Bij de finish moet alles op zijn. Wat nog open is kost je 2 strafslokken per slok.
+                  Elke keer dat er iets gebeurt waar een slok bij hoort, krijg je een open slok
+                  (een slok die je nog moet drinken). Open slokken mag je tijdens de race wegwerken
+                  wanneer het veilig is. Zodra je over de finish bent moeten je open slokken op 0 staan,
+                  wat nog open is kost 2 strafslokken per open slok.
                 </p>
               <div className="space-y-4 text-sm text-gray-300">
                 {CORE_RULES.map((rule) => (
@@ -134,7 +134,7 @@ export default function MarioKartDrankspelPage() {
                 </h2>
               </div>
               <p className="mt-3 text-sm text-gray-300">
-                Wie drinkt en wie deelt uit op basis van je finish positie.
+                Na de race (in de lobby) drink je of deel je uit op basis van je finishpositie.
               </p>
               <div className="mt-6 space-y-4 text-sm text-gray-300">
                 {RACE_FINISH_RULES.map((rule) => (

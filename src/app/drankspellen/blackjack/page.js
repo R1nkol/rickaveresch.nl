@@ -6,10 +6,12 @@ import IntensityStars from "@/components/IntensityStars";
 import Link from "next/link";
 
 const QUICK_RULES = [
-  "Kopen mag alleen voor de ronde.",
-  "Inleveren kan alleen na een gewonnen hand.",
-  "Alleen spelers die meedoen kunnen drinken.",
-  "Blackjack: iedereen zonder blackjack 3 slokken.",
+  "Kopen mag alleen voordat de eerste kaart gedeeld is.",
+  "Inleveren kan alleen direct nadat je je hand hebt gewonnen.",
+  "Blackjack: iedereen zonder blackjack 3 slokken (op het begin van de avond of als dit vaak voorkomt 2 slokken).",
+  "Bij double down gelden altijd de double down regels (ook bij bust).",
+  "Je mag alleen straffen uitdelen aan spelers die die ronde hebben meegedaan.",
+  "Max 1× vol adtje adten (in een keer) per persoon per hand. Extra wordt 5 slokken.",
 ];
 
 const BUY_CHIPS = [
@@ -21,8 +23,9 @@ const BUY_CHIPS = [
 ];
 
 const BUY_NOTES = [
-  "Kopen mag alleen voor een ronde.",
-  "Een vol adtje is altijd een nieuw, vol glas.",
+  "Kopen mag alleen voordat de eerste kaart gedeeld is (voor de hand start).",
+  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
+  "Een vol adtje doe je met een nieuw, vol glas.",
 ];
 const CASHIN_CHIPS = [
   { chip: "25", reward: "1 glas adten uitdelen" },
@@ -35,25 +38,27 @@ const CASHIN_RULES = [
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
   "Adtjes mogen niet worden opgespaard voor later.",
-  "1 vol adtje = 5 slokken, dus je kan ze verdelen.",
+  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
 ];
 
 const BLACKJACK_RULES = [
-  { label: "Iedereen zonder blackjack", value: "2/3 slokken" },
-  { label: "Dealer", value: "1 glas adten" },
-  { label: "Speler met blackjack", value: "Mag die ronde geen fiches inleveren" },
+  { label: "Iedereen zonder blackjack", value: "3 slokken (warming-up: eerste 2 handen 2 slokken)" },
+  { label: "Dealer heeft blackjack", value: "1 glas adten" },
+  { label: "Speler heeft blackjack", value: "Mag deze hand geen fiches inleveren" },
 ];
 
 const BUST_RULES = [
-  { label: "Bust tot en met 23", value: "1 slok" },
-  { label: "Bust 24 of hoger", value: "2 slokken" },
-  { label: "Bust met double", value: "1 vol adtje" },
+  { label: "Bust met 22", value: "1 slok uitdelen" },
+  { label: "Bust met 23", value: "1 slok" },
+  { label: "Bust met 24 of hoger", value: "2 slokken" },
+  { label: "Bust met 28 of hoger", value: "1 vol adtje" },
+  { label: "Bust als dealer", value: "Dealer 1 slok" },
 ];
 
 const SPLIT_RULES = [
   { label: "Splitten kost vooraf", value: "1 slok" },
   { label: "Win je beide handen", value: "1 glas adten uitdelen" },
-  { label: "Verlies je beide", value: "glas adten" },
+  { label: "Verlies je beide", value: "1 glas adten" },
 ];
 
 const DOUBLE_DOWN_RULES = [
@@ -166,7 +171,7 @@ export default function BlackjackDrankspelPage() {
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Je krijgt de kans om fiches uit te delen nadat je een ronde hebt gewonnen.
+                  Je krijgt de kans om fiches uit te delen nadat je een hand hebt gewonnen.
                 </p>
                 <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
                   <table className="w-full text-left text-sm">
@@ -242,7 +247,7 @@ export default function BlackjackDrankspelPage() {
               </div>
             </section>
 
-            <section className="grid gap-6 lg:grid-cols-3">
+            <section className="grid gap-6">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">Bust regels</h2>
@@ -261,7 +266,9 @@ export default function BlackjackDrankspelPage() {
                   ))}
                 </div>
               </div>
+            </section>
 
+            <section className="grid gap-6 lg:grid-cols-2">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">Split regels</h2>

@@ -224,8 +224,11 @@ export default function DrankspellenPage() {
                 Drink verantwoord en ken je grenzen. Let op de volgende punten:
               </p>
               <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
+                <li>Definities: 1 slok = kleine slok. 1 vol adtje = 5 slokken (adten in een keer of verdelen).</li>
+                <li>Per moment geldt alleen de zwaarste regel (scheelt discussies en stapelen).</li>
+                <li>Als iemand het slecht heeft geef diegene dan iets van 10 minuten water.</li>
                 <li>Water en eten zijn altijd top om erbij te hebben.</li>
-                <li>Geen druk: je mag altijd overslaan of wisselen naar fris/water.</li>
+                <li>Je mag altijd overslaan of wisselen naar fris/water.</li>
                 <li>Let een beetje op elkaar. Als je merkt dat het niet goed gaat, help elkaar.</li>
               </ul>
             </section>

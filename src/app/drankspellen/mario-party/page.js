@@ -5,13 +5,11 @@ import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
 
 const QUICK_RULES = [
-  "Alleen spelers die een minigame meedoen mogen drinken of uitdelen.",
-  "Jamboree actief? Dan wordt alles x2: slokken drinken, slokken uitdelen en board events.",
+  "Minigame regels gelden alleen voor spelers die de minigame meedoen.",
+  "Stars en board events gelden altijd voor de speler die geraakt worden.",
   "Team minigames gebruiken altijd de teamregels (geen placement).",
-  "Board events kunnen ook slokken geven buiten minigames om.",
-  "Tussenstand wordt bekeken na elke 5 rondes.",
-  "Sterren, board events en eindstand tellen niet mee voor de minigame cap.",
-  "2x achter elkaar laatste? Dan mag je uit medelijden 1 slok minder drinken.",
+  "Jamboree actief? Alles is x2: drinken en uitdelen.",
+  "2x achter elkaar laatste in een minigame? Dan mag je 1 slok minder drinken.",
 ];
 
 const MINIGAME_RULES = [
@@ -232,7 +230,7 @@ export default function MarioPartyDrankspelPage() {
                   </h2>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Na elke 5 rondes wordt de tussenstand bekeken.
+                  Na elke 5 minigames wordt de tussenstand bekeken.
                 </p>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
                   {MIDGAME_RULES.map((rule) => (
