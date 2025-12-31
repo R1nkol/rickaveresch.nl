@@ -8,9 +8,11 @@ import Link from "next/link";
 const QUICK_RULES = [
   "Kopen mag alleen voordat de eerste kaart gedeeld is.",
   "Inleveren kan alleen direct nadat je je hand hebt gewonnen.",
-  "Blackjack: iedereen zonder blackjack 3 slokken (op het begin van de avond of als dit vaak voorkomt 2 slokken).",
-  "Bij double down gelden altijd de double down regels (ook bij bust).",
+  "Je mag maximaal 1× fiches inleveren per gewonnen hand.",
+  "Blackjack: iedereen zonder blackjack 3 slokken (eerste 2 handen 2 slokken).",
+  "Bij double down en split gelden altijd speciale regels.",
   "Je mag alleen straffen uitdelen aan spelers die die ronde hebben meegedaan.",
+  "Je mag nooit op de dealer uitdelen.",
   "Max 1× vol adtje adten (in een keer) per persoon per hand. Extra wordt 5 slokken.",
 ];
 
@@ -37,22 +39,23 @@ const CASHIN_RULES = [
   "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
+  "Je mag nooit op de dealer uitdelen.",
   "Adtjes mogen niet worden opgespaard voor later.",
   "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
 ];
 
 const BLACKJACK_RULES = [
-  { label: "Iedereen zonder blackjack", value: "3 slokken (warming-up: eerste 2 handen 2 slokken)" },
-  { label: "Dealer heeft blackjack", value: "1 glas adten" },
+  { label: "Iedereen zonder blackjack", value: "3 slokken (eerste 2 handen 2 slokken)" },
+  { label: "Dealer heeft blackjack", value: "iedereen 3 slokken" },
   { label: "Speler heeft blackjack", value: "Mag deze hand geen fiches inleveren" },
 ];
 
 const BUST_RULES = [
-  { label: "Bust met 22", value: "1 slok uitdelen" },
-  { label: "Bust met 23", value: "1 slok" },
+  { label: "Bust met 22 of 23", value: "1 slok" },
   { label: "Bust met 24 of hoger", value: "2 slokken" },
   { label: "Bust met 28 of hoger", value: "1 vol adtje" },
-  { label: "Bust als dealer", value: "Dealer 1 slok" },
+  { label: "Dealer bust met 22 tot 24", value: "Dealer 1 slok" },
+  { label: "Dealer bust met 25 of hoger", value: "Dealer 2 slokken" },
 ];
 
 const SPLIT_RULES = [
@@ -71,6 +74,8 @@ const SPECIAL_RULES = [
   { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
   { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
   { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
+  { label: "Dealer bust 2 handen achter elkaar", value: "Dealer 2 slokken" },
+  { label: "Dealer bust 3 handen achter elkaar", value: "Dealer 1 vol adtje" },
 ];
 
 export default function BlackjackDrankspelPage() {
@@ -207,11 +212,11 @@ export default function BlackjackDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    Blackjack regels
+                    Bust regels
                   </h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BLACKJACK_RULES.map((rule) => (
+                  {BUST_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -250,10 +255,10 @@ export default function BlackjackDrankspelPage() {
             <section className="grid gap-6">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Bust regels</h2>
+                  <h2 className="text-xl font-semibold text-white">Blackjack regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BUST_RULES.map((rule) => (
+                  {BLACKJACK_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
