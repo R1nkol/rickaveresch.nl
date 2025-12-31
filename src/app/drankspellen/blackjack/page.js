@@ -8,8 +8,9 @@ import Link from "next/link";
 const QUICK_RULES = [
   "Kopen mag alleen voordat de eerste kaart gedeeld is.",
   "Inleveren kan alleen direct nadat je je hand hebt gewonnen.",
-  "Blackjack: iedereen zonder blackjack 3 slokken (op het begin van de avond of als dit vaak voorkomt 2 slokken).",
-  "Bij double down gelden altijd de double down regels (ook bij bust).",
+  "Je mag maximaal 1× fiches inleveren per gewonnen hand.",
+  "Blackjack: iedereen zonder blackjack 3 slokken (eerste 2 handen 2 slokken).",
+  "Bij double down en split gelden altijd speciale regels.",
   "Je mag alleen straffen uitdelen aan spelers die die ronde hebben meegedaan.",
   "Max 1× vol adtje adten (in een keer) per persoon per hand. Extra wordt 5 slokken.",
 ];
@@ -42,14 +43,13 @@ const CASHIN_RULES = [
 ];
 
 const BLACKJACK_RULES = [
-  { label: "Iedereen zonder blackjack", value: "3 slokken (warming-up: eerste 2 handen 2 slokken)" },
-  { label: "Dealer heeft blackjack", value: "1 glas adten" },
+  { label: "Iedereen zonder blackjack", value: "3 slokken (eerste 2 handen 2 slokken)" },
+  { label: "Dealer heeft blackjack", value: "iedereen 3 slokken" },
   { label: "Speler heeft blackjack", value: "Mag deze hand geen fiches inleveren" },
 ];
 
 const BUST_RULES = [
-  { label: "Bust met 22", value: "1 slok uitdelen" },
-  { label: "Bust met 23", value: "1 slok" },
+  { label: "Bust met 22 of 23", value: "1 slok" },
   { label: "Bust met 24 of hoger", value: "2 slokken" },
   { label: "Bust met 28 of hoger", value: "1 vol adtje" },
   { label: "Bust als dealer", value: "Dealer 1 slok" },
