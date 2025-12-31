@@ -52,7 +52,8 @@ const BUST_RULES = [
   { label: "Bust met 22 of 23", value: "1 slok" },
   { label: "Bust met 24 of hoger", value: "2 slokken" },
   { label: "Bust met 28 of hoger", value: "1 vol adtje" },
-  { label: "Bust als dealer", value: "Dealer 1 slok" },
+  { label: "Dealer bust met 22 tot 24", value: "Dealer 1 slok" },
+  { label: "Dealer bust met 25 of hoger", value: "Dealer 2 slokken" },
 ];
 
 const SPLIT_RULES = [
@@ -71,6 +72,8 @@ const SPECIAL_RULES = [
   { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
   { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
   { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
+  { label: "Dealer bust 2 handen achter elkaar", value: "Dealer 2 slokken" },
+  { label: "Dealer bust 3 handen achter elkaar", value: "Dealer 1 vol adtje" },
 ];
 
 export default function BlackjackDrankspelPage() {
@@ -207,11 +210,11 @@ export default function BlackjackDrankspelPage() {
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
-                    Blackjack regels
+                    Bust regels
                   </h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BLACKJACK_RULES.map((rule) => (
+                  {BUST_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
@@ -250,10 +253,10 @@ export default function BlackjackDrankspelPage() {
             <section className="grid gap-6">
               <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
                 <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Bust regels</h2>
+                  <h2 className="text-xl font-semibold text-white">Blackjack regels</h2>
                 </div>
                 <div className="mt-6 space-y-4 text-sm text-gray-300">
-                  {BUST_RULES.map((rule) => (
+                  {BLACKJACK_RULES.map((rule) => (
                     <div
                       key={rule.label}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
