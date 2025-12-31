@@ -12,6 +12,7 @@ const QUICK_RULES = [
   "Blackjack: iedereen zonder blackjack 3 slokken (eerste 2 handen 2 slokken).",
   "Bij double down en split gelden altijd speciale regels.",
   "Je mag alleen straffen uitdelen aan spelers die die ronde hebben meegedaan.",
+  "Je mag nooit op de dealer uitdelen.",
   "Max 1× vol adtje adten (in een keer) per persoon per hand. Extra wordt 5 slokken.",
 ];
 
@@ -38,6 +39,7 @@ const CASHIN_RULES = [
   "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
   "Jij kiest wie er drinkt.",
   "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
+  "Je mag nooit op de dealer uitdelen.",
   "Adtjes mogen niet worden opgespaard voor later.",
   "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
 ];
