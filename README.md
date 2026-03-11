@@ -8,7 +8,7 @@ Deze site combineert mijn interesse in programmeren, design en animatie.
 ## Gebruikte technologieën
 - Next.js
 - Tailwind CSS
-- [optioneel: JavaScript/TypeScript vermelden]
+- JavaScript
 - Canvas & shaders (achtergrondanimaties)
 - Framer Motion voor animaties
 
