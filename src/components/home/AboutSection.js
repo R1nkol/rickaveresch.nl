@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FiMail } from "react-icons/fi";
 
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const PROFILE_IMAGES = ["/Images/MyPicture.jpg", "/Images/MyPicture2.jpg"];
+const IMAGE_INTERVAL_MS = 7000;
 
 function calculateAge(birthDate) {
   const today = new Date();
@@ -19,6 +23,15 @@ function calculateAge(birthDate) {
 export default function AboutSection() {
   const { t } = useLanguage();
   const age = calculateAge(new Date(2005, 9, 7));
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImage((prev) => (prev + 1) % PROFILE_IMAGES.length);
+    }, IMAGE_INTERVAL_MS);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const heading = t("about.badge");
   const headingParts = heading.split(" ");
@@ -49,18 +62,26 @@ export default function AboutSection() {
           </Link>
         </div>
 
-        <div className="relative flex justify-center">
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.06] p-3 shadow-[0_12px_24px_-10px_rgba(109,40,217,0.25)] supports-[backdrop-filter]:bg-white/[0.08]">
+        <div className="relative flex w-full justify-center">
+          <div className="relative w-full max-w-[420px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.06] p-3 shadow-[0_12px_24px_-10px_rgba(109,40,217,0.25)] supports-[backdrop-filter]:bg-white/[0.08]">
             <div className="absolute -top-6 -left-6 h-32 w-32 rounded-full bg-purple-500/20 blur-2xl" />
             <div className="absolute -bottom-0 -right-0 h-32 w-32 rounded-full bg-indigo-500/20 blur-2xl" />
 
-            <Image
-              src="/Images/MyPicture.jpg"
-              alt="Profile"
-              width={420}
-              height={420}
-              className="h-full w-full max-w-sm rounded-2xl object-cover transition-transform duration-[12000ms] ease-out hover:scale-105"
-            />
+            <div className="group relative aspect-square w-full">
+              {PROFILE_IMAGES.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt="Profile"
+                  fill
+                  priority={index === 0}
+                  sizes="420px"
+                  className={`rounded-2xl object-cover transition-[opacity,transform] duration-[3000ms] ease-in-out group-hover:scale-105 ${
+                    index === activeImage ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+            </div>
             <div className="absolute inset-4 rounded-2xl border border-white/10" />
           </div>
         </div>
