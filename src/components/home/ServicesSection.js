@@ -1,6 +1,6 @@
 "use client";
 
-import { FiCode, FiGlobe, FiDownload } from "react-icons/fi";
+import { FiCode, FiGlobe, FiDownload, FiVideo } from "react-icons/fi";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -28,7 +28,7 @@ export default function ServicesSection({ skillsItems, isMobile }) {
             {t("services.description")}
           </p>
         </div>
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2">
           <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(124,58,237,0.35)] transition duration-500 hover:-translate-y-2 hover:border-purple-300/40">
             <div className="absolute -right-10 -top-8 h-20 w-20 rounded-full bg-purple-500/15 blur-xl" />
             <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-400/20 text-purple-100">
@@ -56,6 +56,16 @@ export default function ServicesSection({ skillsItems, isMobile }) {
             <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.software.title")}</h3>
             <p className="relative z-10 mt-3 text-sm text-gray-200">
               {t("services.items.software.description")}
+            </p>
+          </div>
+          <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(251,146,60,0.35)] transition duration-500 hover:-translate-y-2 hover:border-orange-300/40">
+            <div className="absolute -right-10 -bottom-8 h-20 w-20 rounded-full bg-orange-500/15 blur-xl" />
+            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-orange-300/40 bg-orange-400/20 text-orange-100">
+              <FiVideo className="h-6 w-6" />
+            </div>
+            <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.video.title")}</h3>
+            <p className="relative z-10 mt-3 text-sm text-gray-200">
+              {t("services.items.video.description")}
             </p>
           </div>
         </div>

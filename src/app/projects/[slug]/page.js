@@ -103,7 +103,7 @@ export default function ProjectDetail() {
 
   const primaryExtraLink =
     extraLinks.find(({ label }) => label?.toLowerCase?.().includes("blog")) ?? extraLinks[0] ?? null;
-  const hasExtras = Boolean(localizedBadge && primaryExtraLink);
+  const hasExtras = Boolean(localizedBadge || primaryExtraLink);
   const aboutHeading = t("projectDetail.aboutHeading");
   const aboutParts = aboutHeading.split(" ");
   const aboutHighlight = aboutParts.pop();
@@ -184,21 +184,25 @@ export default function ProjectDetail() {
                   {hasExtras ? (
                     <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_6px_14px_-6px_rgba(124,58,237,0.25)]">
                       <div className="flex flex-col gap-5">
-                        <div>
-                          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">
-                            {t("projectDetail.statusLabel")}
-                          </p>
-                          <p className="mt-3 text-2xl font-semibold text-white">{localizedBadge}</p>
-                        </div>
-                        <a
-                          href={primaryExtraLink.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
-                        >
-                          {primaryExtraLink.label}
-                          <FiExternalLink className="h-4 w-4" />
-                        </a>
+                        {localizedBadge && (
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">
+                              {t("projectDetail.statusLabel")}
+                            </p>
+                            <p className="mt-3 text-2xl font-semibold text-white">{localizedBadge}</p>
+                          </div>
+                        )}
+                        {primaryExtraLink && (
+                          <a
+                            href={primaryExtraLink.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
+                          >
+                            {primaryExtraLink.label}
+                            <FiExternalLink className="h-4 w-4" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   ) : (

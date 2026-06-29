@@ -38,6 +38,7 @@ export default function AboutSection() {
           <div className="space-y-4 text-lg text-gray-200">
             <p>{t("about.intro", { vars: { age } })}</p>
             <p>{t("about.hobby")}</p>
+            <p>{t("about.editing")}</p>
           </div>
           <Link
             href="#contact"

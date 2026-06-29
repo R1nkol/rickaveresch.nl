@@ -16,8 +16,11 @@ export const translations = {
     about: {
       badge: "Wie ben ik",
       heading: "Een developer met oog voor detail",
-      intro: "Hoi! Ik ben Rick Averesch, {{age}} jaar en student Software Development aan ROC van Twente, Almelo de Sumpel.",
-      hobby: "Buiten mijn studie verdiep ik me in game development in Godot met GDScript.",
+      intro:
+        "Hoi! Ik ben Rick Averesch, {{age}} jaar. Ik ben afgestudeerd in Software Development aan ROC van Twente (Almelo, De Sumpel) en zit momenteel in een tussenjaar.",
+      hobby: "In mijn vrije tijd verdiep ik me in game development in Godot met GDScript.",
+      editing:
+        "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en maak af en toe YouTube-video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
       contactCta: "Kom in contact",
     },
     services: {
@@ -37,7 +40,12 @@ export const translations = {
         software: {
           title: "Software Development",
           description:
-            "Op school ben ik naast web development ook bezig met algemene software ontwikkeling, voornamelijk in C#.",
+            "Tijdens mijn opleiding ben ik naast web development ook bezig geweest met algemene software ontwikkeling, voornamelijk in C#.",
+        },
+        video: {
+          title: "Video Editing",
+          description:
+            "Ik heb mezelf video-editing aangeleerd en werk in DaVinci Resolve. Voor mijn YouTube-kanaal maak ik af en toe video's waar veel zorg en persoonlijkheid in zitten.",
         },
       },
     },
@@ -169,8 +177,10 @@ export const translations = {
       badge: "Who I am",
       heading: "A developer with an eye for detail",
       intro:
-        "Hi! I'm Rick Averesch, {{age}} years old and a Software Development student at ROC van Twente, Almelo de Sumpel.",
-      hobby: "Outside of my studies I dive into game development in Godot using GDScript.",
+        "Hi! I'm Rick Averesch, {{age}} years old. I graduated from the Software Development program at ROC van Twente (Almelo, De Sumpel) and I'm currently taking a gap year.",
+      hobby: "In my spare time I dive into game development in Godot using GDScript.",
+      editing:
+        "I also edit videos, something I taught myself. I work in DaVinci Resolve and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
       contactCta: "Get in touch",
     },
     services: {
@@ -190,7 +200,12 @@ export const translations = {
         software: {
           title: "Software Development",
           description:
-            "Besides web development I also work on general software projects at school, mostly in C#.",
+            "During my studies I also worked on general software projects, mostly in C#.",
+        },
+        video: {
+          title: "Video Editing",
+          description:
+            "I taught myself video editing and work in DaVinci Resolve. For my YouTube channel I occasionally create videos that take a lot of care and personality.",
         },
       },
     },

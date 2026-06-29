@@ -27,6 +27,7 @@ const skillsItems = [
   { src: "/icons/MySQL.webp", label: "MySQL", href: "https://dev.mysql.com/doc/" },
   { src: "/icons/godot.webp", label: "Godot", href: "https://godotengine.org/" },
   { src: "/icons/wordpress.svg", label: "WordPress", href: "https://wordpress.org/" },
+  { src: "/icons/davinci-resolve.svg", label: "DaVinci Resolve", href: "https://www.blackmagicdesign.com/products/davinciresolve" },
 ];
 
 export default function Home() {

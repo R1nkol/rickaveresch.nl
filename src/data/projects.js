@@ -1,32 +1,80 @@
 export const projects = [
   {
-    slug: "shft",
-    title: { nl: "SHFT", en: "SHFT" },
+    slug: "gamejam-project",
+    title: { nl: "ZMC GameJam", en: "ZMC GameJam" },
     description: {
-      nl: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
-      en: "My first project that I want to release professionally on Steam.",
+      nl: "Na mijn vorige video kwamen klasgenoten met het idee voor een game jam. Leek me leuk: geen video-idee bedenken en samen met mensen die nog nooit gedeveloped hadden.",
+      en: "After my previous video, classmates came up with the idea for a game jam. Sounded fun: no video idea to figure out, and doing it with people who had never touched game development.",
     },
-    imageSrc: "/Images/SHFT.png",
-    link: "/projects/shft",
-    tags: ["Godot"],
-    badge: { nl: "Nu in ontwikkeling!", en: "Currently in development!" },
+    imageSrc: "/Images/GameJamThumb.png",
+    link: "/projects/gamejam-project",
+    tags: ["Godot", "GameJam", "Video"],
+    badge: { nl: "Video beschikbaar!", en: "Video available!" },
     details: {
       nl: [
-        "SHFT is een project dat ik aan het ontwikkelen ben. Het project is nog erg vroeg in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op enemies moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van de enemies. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten.",
-        "Op dit moment ben ik druk bezig om de game veel meer persoonlijkheid te geven. Omdat het vorige project een rommel was geworden, ben ik helemaal opnieuw begonnen om alles vanaf het begin goed op te bouwen. Ook de naam is gewijzigd van Versura naar SHFT, al weten we nog niet zeker of dat de definitieve naam blijft. Door deze herstart duurt het ontwikkelen iets langer dan oorspronkelijk gepland, maar het uiteindelijke doel is nog steeds om de game op Steam uit te brengen.",
-        "De afbeelding van de gameplay is nog van het oude project en niet helemaal accuraat meer, maar geeft wel een idee van hoe de gameplay eruit kan zien.",
+        "Na mijn vorige video kwamen een paar klasgenoten bij me met het idee om een game jam te organiseren voor een nieuwe YouTube-video. Dat leek me een leuk idee, want dan hoefde ik zelf niet na te denken over een video-idee en het leek me gewoon gezellig om het met hun te doen.",
+        "Ze hadden zelf ook nog nooit game development aangeraakt, dus dat maakte het voor mij extra grappig. Iemand zou gegarandeerd een slechte game opleveren, en dat leek me perfect voor een video.",
+        "We gaven onszelf een week de tijd om een game te maken met het thema Losing Control, en hebben het hele proces vastgelegd voor de video.",
       ],
       en: [
-        "SHFT is a project I’m actively developing and it’s still in a very early stage. The core concept is switching between two genres: a top-down bullet hell where you constantly shoot enemies, and a 2D side-view platformer survival mode where dodging enemies is the focus. While playing you can buy upgrades for your character that make things easier, but some of them also come with downsides.",
-        "Right now I’m giving the game much more personality. The previous version turned into a mess, so I restarted the entire project to rebuild everything properly from scratch. The name also changed from Versura to SHFT, although that might still change. Because of this reboot development is taking a bit longer than planned, but the end goal is still to release the game on Steam.",
-        "The gameplay image is from the older project and isn’t fully accurate anymore, but it still gives an idea of what the gameplay could look like.",
+        "After my previous video, a few classmates came to me with the idea of organizing a game jam for a new YouTube video. I thought it sounded fun, because I didn't have to come up with a video idea myself and it just seemed like a good time to do it with them.",
+        "They had never touched game development either, which made it extra funny to me. Someone was guaranteed to make a bad game, and that felt perfect for a video.",
+        "We gave ourselves one week to make a game with the theme Losing Control, and captured the whole process for the video.",
       ],
     },
-    technologies: ["Godot"],
-    heroImage: "/Images/SHFT.png",
-    gallery: ["/Images/SHFT.png", "/Images/SHFT_1.png", "/Images/Versura.png"],
+    technologies: ["Godot", "GameJam", "Video"],
+    heroImage: "/Images/GameJamThumb.png",
+    gallery: [
+      "/Images/GameJam1.png",
+      "/Images/GameJam2.png",
+      "/Images/GameJam3.png",
+    ],
     extraLinks: [
-      { href: "/projects/shft/blog", label: { nl: "SHFT Blog", en: "SHFT Blog" } },
+      {
+        href: "https://www.youtube.com/watch?v=9IRLKq9VSXA&t",
+        label: { nl: "Bekijk de video", en: "Watch the video" },
+      },
+    ],
+  },
+  {
+    slug: "48-hour-game",
+    title: { nl: "48 Uur Game", en: "48 Hour Game" },
+    description: {
+      nl: "Ik maakte een game in 48 uur en maakte daar een video over.",
+      en: "I made a game in 48 hours and made a video about it.",
+    },
+    imageSrc: "/Images/48HourThumb.png",
+    link: "/projects/48-hour-game",
+    tags: ["Godot", "Video"],
+    badge: { nl: "Video beschikbaar!", en: "Video available!" },
+    details: {
+      nl: [
+        "Ik verveelde me en had zin om DaVinci Resolve te gaan proberen en leren editten. Alleen wist ik niet waarover. Dus besloot ik binnen 48 uur een game te maken en daar een video over te maken.",
+        "De video gaat kort over het proces, maar gaat totaal niet diep in op hoe development werkt. Daardoor is het voor iedereen te volgen, niet alleen developers.",
+        "Mijn klasgenoten hebben de game gespeeld en uitgetest, wat je ook in de video terugziet.",
+        "Er komt binnenkort nog een video over dit project aan, dus houd mijn kanaal in de gaten.",
+      ],
+      en: [
+        "I was bored and felt like trying DaVinci Resolve and learning to edit. The only problem: I had no idea what to make a video about. So I decided to build a game within 48 hours and make a video about that.",
+        "The video briefly covers the process, but it doesn't go deep into how development works at all. That makes it easy for anyone to watch, not just developers.",
+        "My classmates played and tested the game, which you can see in the video as well.",
+        "Another video about this project is on the way, so keep an eye on my channel.",
+      ],
+    },
+    technologies: ["Godot", "Video"],
+    heroImage: "/Images/48HourThumb.png",
+    gallery: [
+      "/Images/48Hour1.png",
+      "/Images/48Hour2.png",
+      "/Images/48Hour3.png",
+      "/Images/48Hour4.png",
+      "/Images/48Hour5.png",
+    ],
+    extraLinks: [
+      {
+        href: "https://www.youtube.com/watch?v=HFP_LXLUtWw&t",
+        label: { nl: "Bekijk de video", en: "Watch the video" },
+      },
     ],
   },
   {
@@ -98,6 +146,35 @@ export const projects = [
     ],
     extraLinks: [
       { href: "/projects/pureduels/game", label: { nl: "Speel Pure Duels!", en: "Play Pure Duels!" } },
+    ],
+  },
+  {
+    slug: "shft",
+    title: { nl: "SHFT", en: "SHFT" },
+    description: {
+      nl: "Mijn eerste project dat ik professioneel wil uitbrengen op Steam.",
+      en: "My first project that I want to release professionally on Steam.",
+    },
+    imageSrc: "/Images/SHFT.png",
+    link: "/projects/shft",
+    tags: ["Godot"],
+    details: {
+      nl: [
+        "SHFT is een project dat ik aan het ontwikkelen ben. Het project is nog erg vroeg in ontwikkeling. Het concept draait om het wisselen tussen twee genres: een topdown bullet-hell waarin je constant op enemies moet schieten, en een 2D sideview platformer survival waarin je juist moet focussen op het ontwijken van de enemies. Tijdens het spelen kun je upgrades kopen voor je personage, die het spel makkelijker kunnen maken, maar soms kunnen er ook nadelen aan zitten.",
+        "Op dit moment ben ik druk bezig om de game veel meer persoonlijkheid te geven. Omdat het vorige project een rommel was geworden, ben ik helemaal opnieuw begonnen om alles vanaf het begin goed op te bouwen. Ook de naam is gewijzigd van Versura naar SHFT, al weten we nog niet zeker of dat de definitieve naam blijft. Door deze herstart duurt het ontwikkelen iets langer dan oorspronkelijk gepland, maar het uiteindelijke doel is nog steeds om de game op Steam uit te brengen.",
+        "De afbeelding van de gameplay is nog van het oude project en niet helemaal accuraat meer, maar geeft wel een idee van hoe de gameplay eruit kan zien.",
+      ],
+      en: [
+        "SHFT is a project I’m actively developing and it’s still in a very early stage. The core concept is switching between two genres: a top-down bullet hell where you constantly shoot enemies, and a 2D side-view platformer survival mode where dodging enemies is the focus. While playing you can buy upgrades for your character that make things easier, but some of them also come with downsides.",
+        "Right now I’m giving the game much more personality. The previous version turned into a mess, so I restarted the entire project to rebuild everything properly from scratch. The name also changed from Versura to SHFT, although that might still change. Because of this reboot development is taking a bit longer than planned, but the end goal is still to release the game on Steam.",
+        "The gameplay image is from the older project and isn’t fully accurate anymore, but it still gives an idea of what the gameplay could look like.",
+      ],
+    },
+    technologies: ["Godot"],
+    heroImage: "/Images/SHFT.png",
+    gallery: ["/Images/SHFT.png", "/Images/SHFT_1.png", "/Images/Versura.png"],
+    extraLinks: [
+      { href: "/projects/shft/blog", label: { nl: "SHFT Blog", en: "SHFT Blog" } },
     ],
   },
   {
@@ -235,7 +312,7 @@ export const projects = [
       en: [
         "This was a small project I created during my internship at RohaanIT to get familiar with their coding style.",
         "It’s a simple blog / social media site where you can create posts, like them, comment, reply to comments, and follow or unfollow other users.",
-        "It was a fun week-long project and I learned a lot from it. Before this I didn’t have much experience with TypeScript and Vue, so it was a great challenge.",
+        "It was a fun week-long project and I learned a lot from it. Before this I didn’t have much experience with TypeScript and Vue, so it was a valuable learning experience.",
       ],
     },
     technologies: ["Laravel", "TypeScript", "Vue", "MySQL"],
