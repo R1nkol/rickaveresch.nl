@@ -3,8 +3,8 @@ export const projects = [
     slug: "gamejam-project",
     title: { nl: "ZMC GameJam", en: "ZMC GameJam" },
     description: {
-      nl: "Na mijn vorige video kwamen klasgenoten met het idee voor een game jam. Leek me leuk: geen video-idee bedenken en samen met mensen die nog nooit gedeveloped hadden.",
-      en: "After my previous video, classmates came up with the idea for a game jam. Sounded fun: no video idea to figure out, and doing it with people who had never touched game development.",
+      nl: "Na mijn vorige video kwamen klasgenoten met het idee voor een game jam.",
+      en: "After my previous video, classmates came up with the idea for a game jam.",
     },
     imageSrc: "/Images/GameJamThumb.png",
     link: "/projects/gamejam-project",
