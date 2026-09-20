@@ -32,7 +32,6 @@ const skillsItems = [
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
-  const [isMobile, setIsMobile] = useState(false);
   const {
     effect,
     setEffect,
@@ -93,16 +92,6 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-white font-sans scroll-smooth">
       <Header activeSection={activeSection} />
@@ -131,7 +120,7 @@ export default function Home() {
       />
 
       <AboutSection />
-      <ServicesSection skillsItems={skillsItems} isMobile={isMobile} />
+      <ServicesSection skillsItems={skillsItems} />
       <ProjectsPreviewSection />
       <ContactSection />
 

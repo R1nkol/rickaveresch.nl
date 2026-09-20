@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { FiCode, FiMail } from "react-icons/fi";
+import { FiArrowUpRight } from "react-icons/fi";
 
 import BackgroundSettingsPanel from "@/components/BackgroundSettingsPanel";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -91,17 +91,10 @@ export default function HeroSection({
   const renderBackground =
     backgroundRenderers[effect] ?? backgroundRenderers.balls;
 
-  const handleScrollToAbout = () => {
-    const section = document.getElementById("about");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       id="home"
-      className="relative flex flex-col items-center justify-center h-screen overflow-hidden px-4 text-center bg-[#030712]"
+      className="home-hero"
     >
       <BackgroundSettingsPanel
         effect={effect}
@@ -124,44 +117,31 @@ export default function HeroSection({
         setAttractRepelRange={setAttractRepelRange}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
-        className="absolute bottom-6 left-6 z-20"
+        className="hero-settings"
       />
 
       {renderBackground(values)}
-      <div className="absolute inset-0 bg-black/70" />
-      <div className="relative z-10 mt-16 w-full max-w-3xl md:mt-0 text-center">
-        <h1 className="text-4xl font-extrabold md:text-6xl">
-          Rick <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">Averesch</span>
+      <div className="hero-shade" aria-hidden="true" />
+      <div className="hero-intro">
+        <h1 className="hero-name">
+          Rick <span>Averesch</span>
         </h1>
-        <p className="mt-4 text-lg text-gray-200 md:text-xl">{t("hero.profession")}</p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="#projects"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/20 px-6 py-2 text-sm font-semibold text-white transition hover:border-purple-300/60 hover:bg-purple-500/30"
-          >
-            <FiCode className="h-4 w-4" />
+        <p className="hero-profession">{t("hero.profession")}</p>
+        <div className="hero-actions">
+          <Link href="#projects" className="button-primary">
             {t("hero.workCta")}
+            <FiArrowUpRight aria-hidden="true" className="h-4 w-4" />
           </Link>
-          <Link
-            href="#contact"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-2 text-sm font-semibold text-gray-200 transition hover:border-white/25 hover:bg-white/10 hover:text-white"
-          >
-            <FiMail className="h-4 w-4" />
+          <Link href="#contact" className="button-secondary">
             {t("hero.contactCta")}
           </Link>
         </div>
       </div>
-
-      <div
-        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
-        onClick={handleScrollToAbout}
-      >
-        <div className="relative w-7 h-12">
-          <div className="w-[2px] px-3 py-2 h-8 border-2 border-white rounded-xl opacity-75 box-content">
-            <div className="w-[2px] h-2 bg-white rounded-md animate-scroll" />
-          </div>
-        </div>
-      </div>
+      <Link href="#about" className="hero-scroll" aria-label={t("navigation.about")}>
+        <span className="scroll-mouse" aria-hidden="true">
+          <span className="scroll-wheel" />
+        </span>
+      </Link>
     </section>
   );
 }

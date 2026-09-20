@@ -35,19 +35,19 @@ export default function BackgroundSettings() {
     return (
         <main className="relative text-white min-h-screen flex flex-col">
             <Header activeSection="" />
-            <div className="relative z-10 flex-1 py-20 px-4 max-w-5xl mx-auto">
-                <h1 className="text-center text-3xl font-bold mb-8">
-                    Achtergrond <span className="text-purple-400">Instellingen</span>
+            <div className="relative z-10 flex-1 pb-20 pt-28 px-5 w-full max-w-6xl mx-auto">
+                <h1 className="page-heading mb-10">
+                    Achtergrondinstellingen
                 </h1>
                 <div className="space-y-8">
                     {options.map(({ id, name, Component }) => (
-                        <div key={id} className="relative h-64 border border-purple-500 rounded overflow-hidden">
+                        <div key={id} className="relative h-64 rounded-lg border border-line overflow-hidden">
                             <Component />
                             <div className="relative z-10 h-full flex items-end justify-between p-4 bg-black/30">
                                 <span className="text-lg font-semibold">{name}</span>
                                 <button
                                     onClick={() => setDefault(id)}
-                                    className={`jun-gradient text-white px-4 py-2 rounded font-medium hover:brightness-90 transition ${selected === id ? "opacity-60" : ""}`}
+                                    className={`button-primary ${selected === id ? "opacity-60" : ""}`}
                                     disabled={selected === id}
                                 >
                                     {selected === id ? "In gebruik" : "Gebruik"}

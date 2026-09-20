@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import PageTitle from "@/components/PageTitle";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -141,45 +141,33 @@ export default function BlackjackBasicsPage() {
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-0 h-[28rem] w-[120%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_rgba(16,185,129,0.18),_rgba(3,7,18,0))]" />
-        <div className="absolute -bottom-28 right-1/4 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
-      </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
 
         <div className="flex-1 px-4 pb-24 pt-28">
           <div className="mx-auto w-full max-w-6xl space-y-12">
-            <Link
-              href="/drankspellen/blackjack"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              Terug naar drankspel blackjack
-            </Link>
-
             <section className="space-y-4">
-              <h1 className="text-4xl font-extrabold sm:text-5xl">
+              <PageTitle backHref="/drankspellen/blackjack" backLabel="Terug naar drankspel blackjack">
                 Blackjack basis uitgelegd
-              </h1>
+              </PageTitle>
               <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
                 Deze uitleg is voor mensen die nog nooit blackjack hebben gespeeld.
                 We starten met het tellen van kaarten en lopen daarna door het spelverloop.
               </p>
             </section>
 
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <section className="surface-panel p-6">
               <h2 className="text-2xl font-semibold text-white">Kaartwaardes</h2>
-              <p className="mt-2 text-sm text-gray-300">
+              <p className="mt-2 text-base text-gray-300">
                 Zo tel je je hand in punten voordat je keuzes maakt.
               </p>
-              <div className="mt-4 space-y-3 text-sm text-gray-300">
+              <div className="mt-4 space-y-3 text-base text-gray-300">
                 {CARD_VALUES.map((item) => (
                   <ExpandableItem
                     key={item.label}
                     title={item.label}
-                    className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                     titleClassName="font-semibold text-white"
                     bodyClassName="mt-2 text-gray-300"
                   >
@@ -189,16 +177,16 @@ export default function BlackjackBasicsPage() {
               </div>
             </section>
 
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <section className="surface-panel p-6">
               <h2 className="text-2xl font-semibold text-white">Spelverloop</h2>
-              <p className="mt-2 text-sm text-gray-300">
+              <p className="mt-2 text-base text-gray-300">
                 Dit is hoe een ronde blackjack verloopt, van inzetten tot uitslag.
               </p>
-              <ol className="mt-4 space-y-3 text-sm text-gray-300">
+              <ol className="mt-4 space-y-3 text-base text-gray-300">
                 {FLOW_STEPS.map((step) => (
                   <li
                     key={step}
-                    className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                   >
                     {step}
                   </li>
@@ -207,39 +195,39 @@ export default function BlackjackBasicsPage() {
             </section>
 
             <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
-              <div className="order-2 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur lg:order-1">
+              <div className="order-2 surface-panel p-6 lg:order-1">
                 <h2 className="text-2xl font-semibold text-white">
                   Geavanceerde acties
                 </h2>
-                <p className="mt-2 text-sm text-gray-300">
+                <p className="mt-2 text-base text-gray-300">
                   Dit zijn de extra acties die je kunt doen tijdens je beurt.
                 </p>
-                <div className="mt-4 space-y-3 text-sm text-gray-300">
+                <div className="mt-4 space-y-3 text-base text-gray-300">
                   {ADVANCED_ACTIONS.map((action) => (
                     <ExpandableItem
                       key={action.title}
                       title={action.title}
-                      className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                     >
                       {action.description}
                     </ExpandableItem>
                   ))}
                 </div>
-                <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">
+                <p className="mt-6 font-medium text-accent">
                   Side bets
                 </p>
-                <div className="mt-3 space-y-3 text-sm text-gray-300">
+                <div className="mt-3 space-y-3 text-base text-gray-300">
                   {SIDEBET_LINKS.map((link) => (
                     <ExpandableItem
                       key={link.href}
                       title={link.title}
-                      className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                       bodyClassName="mt-2"
                     >
                       <p className="text-gray-300">{link.description}</p>
                       <Link
                         href={link.href}
-                        className="mt-3 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200"
+                        className="mt-3 inline-flex font-medium text-accent"
                       >
                         Open uitleg
                       </Link>
@@ -249,16 +237,16 @@ export default function BlackjackBasicsPage() {
               </div>
 
               <div className="order-1 space-y-6 lg:order-2">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                <div className="surface-panel p-6">
                   <h2 className="text-2xl font-semibold text-white">
                     Basis acties
                   </h2>
-                  <div className="mt-4 space-y-3 text-sm text-gray-300">
+                  <div className="mt-4 space-y-3 text-base text-gray-300">
                     {BASIC_ACTIONS.map((action) => (
                       <ExpandableItem
                         key={action.title}
                         title={action.title}
-                        className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                        className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                       >
                         {action.description}
                       </ExpandableItem>
@@ -266,14 +254,14 @@ export default function BlackjackBasicsPage() {
                   </div>
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                <div className="surface-panel p-6">
                   <h2 className="text-2xl font-semibold text-white">Begrippen</h2>
-                  <div className="mt-4 space-y-3 text-sm text-gray-300">
+                  <div className="mt-4 space-y-3 text-base text-gray-300">
                     {TERMS.map((term) => (
                       <ExpandableItem
                         key={term.title}
                         title={term.title}
-                        className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                        className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                       >
                         {term.description}
                       </ExpandableItem>
@@ -283,15 +271,15 @@ export default function BlackjackBasicsPage() {
               </div>
             </section>
 
-            <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <section className="surface-panel p-6">
               <h2 className="text-2xl font-semibold text-white">
                 Wie wint de ronde?
               </h2>
-              <ul className="mt-4 space-y-3 text-sm text-gray-300">
+              <ul className="mt-4 space-y-3 text-base text-gray-300">
                 {WIN_RULES.map((rule) => (
                   <li
                     key={rule}
-                    className="rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
                   >
                     {rule}
                   </li>

@@ -64,11 +64,6 @@ export default function PokerDrankspelPage() {
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-1/2 top-0 h-[30rem] w-[120%] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_rgba(16,185,129,0.18),_rgba(3,7,18,0))]" />
-        <div className="absolute -bottom-28 right-1/4 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
-        <div className="absolute bottom-10 left-1/4 h-64 w-64 rounded-full bg-emerald-500/10 blur-3xl" />
-      </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
@@ -77,7 +72,7 @@ export default function PokerDrankspelPage() {
           <div className="mx-auto w-full max-w-6xl space-y-16">
             <section className="space-y-10">
               <div className="space-y-4">
-                <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
+                <h1 className="page-heading">
                   Poker drankspel regels
                 </h1>
                 <div className="flex flex-wrap items-center gap-3">
@@ -85,7 +80,7 @@ export default function PokerDrankspelPage() {
                     href="https://www.youtube.com/watch?v=Id0f8mxTiWQ"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm text-gray-200 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 hover:text-white"
+                    className="button-secondary"
                   >
                     Poker uitleg video
                   </a>
@@ -93,15 +88,15 @@ export default function PokerDrankspelPage() {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-8">
                 <h2 className="text-xl font-semibold text-white">Snel overzicht</h2>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
+                <div className="mt-6 space-y-4 text-base text-gray-300">
                   {QUICK_RULES.map((rule, index) => (
                     <div
                       key={rule}
-                      className="flex items-center gap-4 rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center gap-4 rounded-md border border-white/10 bg-black/40 px-4 py-3"
                     >
-                      <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                      <span className="button-secondary">
                         {index + 1}
                       </span>
                       <span>{rule}</span>
@@ -112,16 +107,16 @@ export default function PokerDrankspelPage() {
             </section>
 
             <section className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-8">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches kopen
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
+                <p className="mt-3 text-base text-gray-300">
                   Alleen met slokken of volle adtjes, afhankelijk van de fiche.
                 </p>
-                <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+                <div className="mt-6 overflow-hidden rounded-md border border-white/10">
                   <table className="w-full text-left text-sm">
                     <thead className="bg-white/5 text-xs uppercase text-gray-400">
                       <tr>
@@ -143,23 +138,23 @@ export default function PokerDrankspelPage() {
                     </tbody>
                   </table>
                 </div>
-                <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
+                <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
                   {BUY_NOTES.map((note) => (
                     <li key={note}>{note}</li>
                   ))}
                 </ul>
               </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-8">
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-semibold text-white">
                     Fiches inleveren
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
+                <p className="mt-3 text-base text-gray-300">
                   Je krijgt de kans om fiches uit te delen nadat je de pot hebt gewonnen.
                 </p>
-                <div className="mt-6 overflow-hidden rounded-2xl border border-white/10">
+                <div className="mt-6 overflow-hidden rounded-md border border-white/10">
                   <table className="w-full text-left text-sm">
                     <thead className="bg-white/5 text-xs uppercase text-gray-400">
                       <tr>
@@ -181,7 +176,7 @@ export default function PokerDrankspelPage() {
                     </tbody>
                   </table>
                 </div>
-                <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-gray-300">
+                <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
                   {CASHIN_RULES.map((rule) => (
                     <li key={rule}>{rule}</li>
                   ))}
@@ -190,20 +185,20 @@ export default function PokerDrankspelPage() {
             </section>
 
             <section className="grid gap-6 lg:grid-cols-2">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-8">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
                     Handregels
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
+                <p className="mt-3 text-base text-gray-300">
                   Drinkmomenten tijdens een pokerhand.
                 </p>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
+                <div className="mt-6 space-y-4 text-base text-gray-300">
                   {HAND_RULES.map((rule) => (
                     <div
                       key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
                     >
                       <span>{rule.label}</span>
                       <span className="font-semibold text-white">
@@ -214,20 +209,20 @@ export default function PokerDrankspelPage() {
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-8">
                 <div className="flex items-center gap-4">
                   <h2 className="text-xl font-semibold text-white">
                     Speciale momenten
                   </h2>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
+                <p className="mt-3 text-base text-gray-300">
                   Bluffs, all-ins en andere spicy situaties.
                 </p>
-                <div className="mt-6 space-y-4 text-sm text-gray-300">
+                <div className="mt-6 space-y-4 text-base text-gray-300">
                   {SPECIAL_RULES.map((rule) => (
                     <div
                       key={rule.label}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
                     >
                       <span>{rule.label}</span>
                       <span className="font-semibold text-white">

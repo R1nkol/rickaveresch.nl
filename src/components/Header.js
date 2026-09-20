@@ -25,36 +25,30 @@ export default function Header({ activeSection }) {
     const rawParts = pathname.split("/").filter(Boolean);
     if (!rawParts.length) return [];
     return rawParts.map((segment, index) => ({
-      label: segment.replace(/[-_]+/g, " ").trim().toUpperCase(),
+      label: segment.replace(/[-_]+/g, " ").trim(),
       href: `/${rawParts.slice(0, index + 1).join("/")}`,
     }));
   })();
 
-  const handleNavigation = (targetId) => {
-    const element = document.getElementById(targetId);
-    if (!element) return;
-    element.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <header className="fixed top-0 left-0 z-50 w-full bg-black/80 backdrop-blur font-sans">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+    <header className="fixed left-0 top-0 z-50 w-full border-b border-line bg-background font-sans">
+      <div className="mx-auto flex max-w-[76rem] items-center justify-between gap-4 px-5 py-4 sm:px-8">
         {/* Logo + breadcrumbs */}
         <div className="flex min-w-0 flex-1 items-baseline gap-1 sm:gap-2">
           <Link
             href="/"
-            className="shrink-0 text-lg font-bold uppercase text-white transition-opacity hover:opacity-80 sm:text-2xl"
+            className="shrink-0 text-base font-medium tracking-tight text-white transition-colors hover:text-accent sm:text-xl"
           >
-            RICKAVERESCH
+            Rick Averesch
           </Link>
           {suffixSegments.length > 0 && (
-            <nav className="flex min-w-0 items-baseline gap-1 overflow-hidden text-xs font-semibold uppercase text-gray-300 sm:gap-2 sm:text-lg">
+            <nav className="flex min-w-0 items-baseline gap-1 overflow-hidden text-sm text-muted sm:gap-2">
               {suffixSegments.map(({ label, href }, index) => {
                 const isLast = index === suffixSegments.length - 1;
                 return (
                   <span
                     key={href}
-                    className={`flex shrink-0 items-baseline gap-1 sm:gap-2 ${
+                    className={`flex min-w-0 items-baseline gap-1 sm:gap-2 ${
                       !isLast ? "hidden sm:flex" : ""
                     }`}
                   >
@@ -80,21 +74,22 @@ export default function Header({ activeSection }) {
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <div
+                  <Link
+                    href={"/#" + item.id}
+                    aria-current={isActive ? "location" : undefined}
                     key={item.id}
                     className={`group relative cursor-pointer font-medium transition-colors duration-300 ${
                       isActive
-                        ? "text-purple-200"
-                        : "text-gray-300 hover:text-purple-100"
+                        ? "text-white"
+                        : "text-muted hover:text-white"
                     }`}
-                    onClick={() => handleNavigation(item.id)}
                   >
                     {t(item.labelKey)}
                     <span
-                      className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-purple-400 transition-transform duration-300 ease-out"
+                      className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-accent transition-transform duration-300 ease-out"
                       style={{ transform: `scaleX(${isActive ? 1 : 0})` }}
                     />
-                  </div>
+                  </Link>
                 );
               })}
             </nav>
@@ -106,7 +101,7 @@ export default function Header({ activeSection }) {
               type="button"
               onClick={toggleLanguage}
               aria-label={t("navigation.toggle")}
-              className="inline-flex items-center rounded-lg border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-200 transition hover:border-purple-300/40 hover:bg-purple-500/25 hover:text-white"
+              className="button-secondary min-h-9 px-3 py-1 text-sm"
             >
               {language === "nl" ? "NL" : "EN"}
             </button>

@@ -145,74 +145,65 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
   const localePeriod = (start, end) => formatPeriod(start, end, language);
 
   const heading = t("blog.heading");
-  const headingParts = heading.split(" ");
-  const headingHighlight = headingParts.pop();
-  const headingPrefix = headingParts.join(" ");
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white antialiased">
       <SyncedBackground />
+      <div className="pointer-events-none absolute inset-0 z-[2] bg-[#101013]/80" aria-hidden="true" />
       <BackgroundSettingsStandalone variant="floating" />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
 
-        <section className="mx-auto w-full max-w-7xl flex-1 px-4 pb-20 pt-28">
-          <h1 className="text-center text-4xl font-bold tracking-tight">
-            {headingPrefix ? `${headingPrefix} ` : ""}
-            <span className="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-indigo-300 bg-clip-text text-transparent">
-              {headingHighlight}
-            </span>
-          </h1>
+        <section className="mx-auto w-full max-w-6xl flex-1 px-4 pb-20 pt-28">
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+            <h1 className="page-heading">{heading}</h1>
 
-          <div className="mx-auto mt-8 flex w-full max-w-md items-center justify-center gap-3">
-            <Link
-              href={`/projects/shft/blog?sort=newest&perPage=${perPageParam}`}
-              className={`inline-flex items-center rounded-xl border px-4 py-1.5 text-sm transition ${
-                sort === "newest"
-                  ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
-                  : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              {t("blog.sort.newest")}
-            </Link>
-            <Link
-              href={`/projects/shft/blog?sort=oldest&perPage=${perPageParam}`}
-              className={`inline-flex items-center rounded-xl border px-4 py-1.5 text-sm transition ${
-                sort === "oldest"
-                  ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
-                  : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              {t("blog.sort.oldest")}
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href={`/projects/shft/blog?sort=newest&perPage=${perPageParam}`}
+                className={`inline-flex items-center rounded-md border px-4 py-1.5 text-sm transition ${
+                  sort === "newest"
+                    ? "border-accent bg-surface text-accent"
+                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {t("blog.sort.newest")}
+              </Link>
+              <Link
+                href={`/projects/shft/blog?sort=oldest&perPage=${perPageParam}`}
+                className={`inline-flex items-center rounded-md border px-4 py-1.5 text-sm transition ${
+                  sort === "oldest"
+                    ? "border-accent bg-surface text-accent"
+                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {t("blog.sort.oldest")}
+              </Link>
+            </div>
           </div>
 
           <div className="mt-10 grid gap-6">
             {paginated.map((post) => (
               <article
                 key={post.slug}
-                className="group relative rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-px hover:border-purple-400/20 hover:shadow-[0_6px_30px_-15px_rgba(168,85,247,0.3)] hover:backdrop-blur-xl hover:supports-[backdrop-filter]:bg-white/[0.04]"
+                className="border-t border-line py-8"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <h2 className="text-2xl font-semibold leading-tight">
-                    <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">
-                      {post.title}
-                    </span>
+                    {post.title}
                   </h2>
 
                   <span
-                    className="inline-flex max-w-full items-center gap-2 truncate rounded-lg border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs text-purple-200"
+                    className="max-w-full text-sm text-muted"
                     title={localePeriod(post.dateStart, post.dateEnd)}
                   >
-                    <span className="h-2 w-2 rounded-xl bg-purple-300/80 shadow-[0_0_8px_rgba(216,180,254,0.8)]" />
                     {localePeriod(post.dateStart, post.dateEnd)}
                   </span>
                 </div>
 
-                <div className="mt-3 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-                <p className="mt-4 max-w-3xl whitespace-pre-wrap text-[15px] leading-7 text-gray-200">
+                <p className="mt-4 max-w-3xl whitespace-pre-wrap text-base leading-7 text-gray-200">
                   {post.content}
                 </p>
               </article>
@@ -228,9 +219,9 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={option}
                     href={`/projects/shft/blog?sort=${sort}&perPage=${option}`}
-                    className={`inline-flex items-center rounded-xl border px-3 py-1 text-sm transition ${
+                    className={`inline-flex items-center rounded-md border px-3 py-1 text-sm transition ${
                       active
-                        ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
+                        ? "border-accent bg-surface text-accent"
                         : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
                     }`}
                   >
@@ -240,9 +231,9 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               })}
               <Link
                 href={`/projects/shft/blog?sort=${sort}&perPage=${PER_PAGE_ALL_VALUE}`}
-                className={`inline-flex items-center rounded-xl border px-3 py-1 text-sm transition ${
+                className={`inline-flex items-center rounded-md border px-3 py-1 text-sm transition ${
                   perPageIsAll
-                    ? "border-purple-500/50 bg-purple-500/15 text-white shadow-[0_0_0_3px_rgba(168,85,247,0.15)]"
+                    ? "border-accent bg-surface text-accent"
                     : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 }`}
               >
@@ -254,7 +245,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               {pagesToShow.map((item, index) => {
                 if (item === "ellipsis") {
                   return (
-                    <span key={`ellipsis-${index}`} className="rounded-xl px-3 py-1.5 text-sm text-gray-400">
+                    <span key={`ellipsis-${index}`} className="rounded-md px-3 py-1.5 text-sm text-gray-400">
                       {t("blog.pagerEllipsis")}
                     </span>
                   );
@@ -265,9 +256,9 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={item}
                     href={`/projects/shft/blog?page=${item}&sort=${sort}&perPage=${perPageParam}`}
-                    className={`rounded-xl px-3 py-1.5 text-sm transition ${
+                    className={`rounded-md px-3 py-1.5 text-sm transition ${
                       active
-                        ? "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-[0_10px_30px_-12px_rgba(168,85,247,0.6)]"
+                        ? "border border-accent bg-accent text-background"
                         : "border border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
                     }`}
                   >

@@ -1,137 +1,56 @@
 "use client";
 
-import { FiCode, FiGlobe, FiDownload, FiVideo } from "react-icons/fi";
-
+import Image from "next/image";
+import { FiCode, FiGlobe, FiTerminal, FiVideo } from "react-icons/fi";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function ServicesSection({ skillsItems, isMobile }) {
+const SPECIALITIES = [
+  { id: "game", Icon: FiCode },
+  { id: "web", Icon: FiGlobe },
+  { id: "software", Icon: FiTerminal },
+  { id: "video", Icon: FiVideo },
+];
+
+export default function ServicesSection({ skillsItems }) {
   const { t } = useLanguage();
 
-  const heading = t("services.heading");
-  const headingParts = heading.split(" ");
-  const highlight = headingParts.pop();
-  const prefix = headingParts.join(" ");
-
   return (
-    <section id="skills" className="relative overflow-hidden px-4 py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(139,92,246,0.15),_rgba(3,7,18,0))]" />
-      <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
-        <div className="text-center">
-          <h2 className="mt-6 text-4xl font-bold md:text-5xl">
-            {prefix ? `${prefix} ` : ""}
-            <span className="bg-gradient-to-r from-purple-300 via-fuchsia-200 to-indigo-200 bg-clip-text text-transparent">
-              {highlight}
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-gray-200">
-            {t("services.description")}
-          </p>
-        </div>
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-white/[0.02] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(124,58,237,0.35)] transition duration-500 hover:-translate-y-2 hover:border-purple-300/40">
-            <div className="absolute -right-10 -top-8 h-20 w-20 rounded-full bg-purple-500/15 blur-xl" />
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-400/20 text-purple-100">
-              <FiCode className="h-6 w-6" />
-            </div>
-            <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.game.title")}</h3>
-            <p className="relative z-10 mt-3 text-sm text-gray-200">
-              {t("services.items.game.description")}
-            </p>
+    <section id="skills" className="section-shell skills-section">
+      <div className="mx-auto w-full max-w-6xl">
+        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div>
+            <h2 className="section-heading max-w-[9ch]">{t("services.heading")}</h2>
+            <p className="mt-5 max-w-xs text-base text-muted">{t("services.description")}</p>
           </div>
-          <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.08] via-transparent to-white/[0.02] p-8 text-left shadow-[0_10px_24px_-12px_rgba(236,72,153,0.35)] transition duration-500 hover:-translate-y-2 hover:border-pink-300/40">
-            <div className="absolute -left-10 -top-12 h-24 w-24 rounded-full bg-pink-500/25 blur-xl transition group-hover:scale-125" />
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-pink-400/40 bg-pink-400/20 text-pink-100">
-              <FiGlobe className="h-6 w-6" />
-            </div>
-            <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.web.title")}</h3>
-            <p className="relative z-10 mt-3 text-sm text-gray-200">
-              {t("services.items.web.description")}
-            </p>
-          </div>
-          <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(56,189,248,0.35)] transition duration-500 hover:-translate-y-2 hover:border-cyan-300/40">
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/40 bg-cyan-400/20 text-cyan-100">
-              <FiDownload className="h-6 w-6" />
-            </div>
-            <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.software.title")}</h3>
-            <p className="relative z-10 mt-3 text-sm text-gray-200">
-              {t("services.items.software.description")}
-            </p>
-          </div>
-          <div className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.01] to-transparent p-8 text-left shadow-[0_10px_24px_-12px_rgba(251,146,60,0.35)] transition duration-500 hover:-translate-y-2 hover:border-orange-300/40">
-            <div className="absolute -right-10 -bottom-8 h-20 w-20 rounded-full bg-orange-500/15 blur-xl" />
-            <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-orange-300/40 bg-orange-400/20 text-orange-100">
-              <FiVideo className="h-6 w-6" />
-            </div>
-            <h3 className="relative z-10 mt-6 text-2xl font-semibold text-white">{t("services.items.video.title")}</h3>
-            <p className="relative z-10 mt-3 text-sm text-gray-200">
-              {t("services.items.video.description")}
-            </p>
-          </div>
-        </div>
-        <div className="relative mt-8 flex h-28 w-full items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-6 supports-[backdrop-filter]:bg-white/[0.06]">
-          {/* Simplified track layout to keep consistent gaps irrespective of item count */}
-          <div className={`marquee-track flex ${isMobile ? "w-full" : "w-auto"} gap-4`}>
-            <div className={`flex ${isMobile ? "w-full" : "w-auto"} justify-center gap-4`}>
-              {skillsItems.map((item, index) => {
-                const Content = (
-                  <>
-                    <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
-                    <p className="mt-2 cursor-default">{item.label}</p>
-                  </>
-                );
-                return item.href ? (
-                  <a
-                    key={`set1-${index}`}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                  >
-                    {Content}
-                  </a>
-                ) : (
-                  <div
-                    key={`set1-${index}`}
-                    className="flex w-24 shrink-0 flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                  >
-                    {Content}
-                  </div>
-                );
-              })}
-            </div>
-            {!isMobile && (
-              <div className="flex w-auto justify-center gap-4">
-                {skillsItems.map((item, index) => {
-                  const Content = (
-                    <>
-                      <img src={item.src} alt={item.label} className="h-7 w-7 object-contain" />
-                      <p className="mt-2 cursor-default">{item.label}</p>
-                    </>
-                  );
-                  return item.href ? (
-                    <a
-                      key={`set2-${index}`}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                    >
-                      {Content}
-                    </a>
-                  ) : (
-                    <div
-                      key={`set2-${index}`}
-                      className="flex w-24 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-center text-xs text-gray-100 transition hover:border-purple-200/30 hover:bg-white/[0.08] hover:text-white"
-                    >
-                      {Content}
-                    </div>
-                  );
-                })}
+          <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+            {SPECIALITIES.map(({ id, Icon }) => (
+              <div key={id} className="speciality-item">
+                <h3 className="flex items-center gap-3 text-xl font-medium text-white">
+                  <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-accent" />
+                  <span>{t("services.items." + id + ".title")}</span>
+                </h3>
+                <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
+                  {t("services.items." + id + ".description")}
+                </p>
               </div>
-            )}
+            ))}
           </div>
         </div>
+        <ul className="skills-tools">
+          {skillsItems.map((item) => (
+            <li key={item.label}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="skill-tool"
+              >
+                <Image src={item.src} alt="" width={22} height={22} className="h-[22px] w-[22px] shrink-0 object-contain" />
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

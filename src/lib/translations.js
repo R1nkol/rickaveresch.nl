@@ -17,14 +17,14 @@ export const translations = {
       badge: "Wie ben ik",
       heading: "Een developer met oog voor detail",
       intro:
-        "Hoi! Ik ben Rick Averesch, {{age}} jaar. Ik ben afgestudeerd in Software Development aan ROC van Twente (Almelo, De Sumpel) en zit momenteel in een tussenjaar.",
+        "Hoi! Ik ben Rick Averesch, {{age}} jaar. Ik ben geslaagd voor de opleiding Software Development en zit momenteel in een tussenjaar.",
       hobby: "In mijn vrije tijd verdiep ik me in game development in Godot met GDScript.",
       editing:
         "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en maak af en toe YouTube-video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
       contactCta: "Kom in contact",
     },
     services: {
-      heading: "Mijn specialiteiten",
+      heading: "Wat ik maak",
       description: "De gebieden waar ik me het meest mee bezig houd.",
       items: {
         game: {
@@ -50,7 +50,7 @@ export const translations = {
       },
     },
     projectsPreview: {
-      heading: "Mijn Projecten",
+      heading: "Mijn projecten",
       description: "Hieronder vind je een aantal projecten waar ik aan heb gewerkt.",
       cta: "Bekijk al mijn projecten",
     },
@@ -119,6 +119,8 @@ export const translations = {
     backgroundSettings: {
       settings: "Instellingen",
       open: "Open instellingen",
+      close: "Sluit instellingen",
+      effect: "Achtergrondeffect",
       effects: {
         balls: {
           option: "Ballen",
@@ -177,14 +179,14 @@ export const translations = {
       badge: "Who I am",
       heading: "A developer with an eye for detail",
       intro:
-        "Hi! I'm Rick Averesch, {{age}} years old. I graduated from the Software Development program at ROC van Twente (Almelo, De Sumpel) and I'm currently taking a gap year.",
+        "Hi! I'm Rick Averesch, {{age}} years old. I successfully completed the Software Development program and I'm currently taking a gap year.",
       hobby: "In my spare time I dive into game development in Godot using GDScript.",
       editing:
         "I also edit videos, something I taught myself. I work in DaVinci Resolve and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
       contactCta: "Get in touch",
     },
     services: {
-      heading: "My specialities",
+      heading: "What I make",
       description: "The areas I focus on the most.",
       items: {
         game: {
@@ -210,7 +212,7 @@ export const translations = {
       },
     },
     projectsPreview: {
-      heading: "My Projects",
+      heading: "My projects",
       description: "Below you'll find a selection of the projects I've worked on.",
       cta: "View all projects",
     },
@@ -274,6 +276,8 @@ export const translations = {
     backgroundSettings: {
       settings: "Settings",
       open: "Open settings",
+      close: "Close settings",
+      effect: "Background effect",
       effects: {
         balls: {
           option: "Bubbles",

@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FiX, FiExternalLink } from "react-icons/fi";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageTitle from "@/components/PageTitle";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -15,6 +16,8 @@ export default function ProjectDetail() {
   const { slug } = useParams();
   const project = projects.find((p) => p.slug === slug);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const galleryDialogRef = useRef(null);
+  const galleryTriggerRef = useRef(null);
   const gallery = project?.gallery ?? [];
   const galleryLength = gallery.length;
   const { t, translateField } = useLanguage();
@@ -51,24 +54,34 @@ export default function ProjectDetail() {
       ? gallery[selectedIndex]
       : null;
 
+  const isGalleryOpen = Boolean(selectedImage);
+
   useEffect(() => {
-    if (selectedIndex !== null) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [selectedIndex]);
+    if (!isGalleryOpen) return;
+
+    const dialog = galleryDialogRef.current;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      galleryTriggerRef.current?.focus({ preventScroll: true });
+    };
+  }, [isGalleryOpen]);
 
   useEffect(() => {
     if (selectedIndex === null) return;
 
     const handleKey = (e) => {
       if (e.key === "ArrowRight") {
+        e.preventDefault();
         nextImage();
       } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
         prevImage();
-      } else if (e.key === "Escape") {
-        setSelectedIndex(null);
+
       }
     };
 
@@ -81,12 +94,12 @@ export default function ProjectDetail() {
       <div className="relative flex min-h-screen flex-col">
         <Header activeSection="" />
         <div className="flex flex-1 items-center justify-center px-4 py-20">
-          <div className="max-w-md rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur">
+          <div className="max-w-md surface-panel p-5 sm:p-8 text-center">
             <h1 className="text-3xl font-bold">{t("projectDetail.notFoundTitle")}</h1>
             <p className="mt-3 text-gray-300">{t("projectDetail.notFoundDescription")}</p>
             <Link
               href="/projects"
-              className="mt-6 inline-flex items-center justify-center rounded-full border border-purple-500 px-6 py-2 text-sm font-medium text-purple-300 transition hover:bg-purple-500/20"
+              className="button-secondary mt-6"
             >
               {t("projectDetail.backToProjects")}
             </Link>
@@ -105,13 +118,7 @@ export default function ProjectDetail() {
     extraLinks.find(({ label }) => label?.toLowerCase?.().includes("blog")) ?? extraLinks[0] ?? null;
   const hasExtras = Boolean(localizedBadge || primaryExtraLink);
   const aboutHeading = t("projectDetail.aboutHeading");
-  const aboutParts = aboutHeading.split(" ");
-  const aboutHighlight = aboutParts.pop();
-  const aboutPrefix = aboutParts.join(" ");
   const galleryHeading = t("projectDetail.galleryHeading");
-  const galleryParts = galleryHeading.split(" ");
-  const galleryHighlight = galleryParts.pop();
-  const galleryPrefix = galleryParts.join(" ");
   const expandedAlt = localizedTitle ? `${localizedTitle} – ${galleryHeading}` : galleryHeading;
 
   return (
@@ -120,25 +127,24 @@ export default function ProjectDetail() {
         <Header activeSection="" />
 
         <section className="relative">
-          <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 py-24 lg:flex-row lg:items-center">
-            <div className="flex-1 text-center lg:text-left">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20 hover:text-white"
+          <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-12 pt-28 sm:gap-10 sm:pb-16 lg:flex-row lg:items-center">
+            <div className="min-w-0 flex-1">
+              <PageTitle
+                backHref="/projects"
+                backLabel={t("projectDetail.backToProjectsShort")}
               >
-                <ChevronLeft className="h-4 w-4" /> {t("projectDetail.backToProjectsShort")}
-              </Link>
-              <h1 className="mt-10 text-4xl font-bold sm:text-5xl md:text-6xl">{localizedTitle}</h1>
-              <p className="mt-6 max-w-3xl text-base text-gray-300 sm:text-lg lg:max-w-none">
+                {localizedTitle}
+              </PageTitle>
+              <p className="mt-4 max-w-3xl text-base text-gray-300 sm:text-lg lg:max-w-none">
                 {localizedDescription}
               </p>
               {project.technologies?.length > 0 && (
-                <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
                   {project.technologies.map((tech) => (
                     <Link
                       key={tech}
                       href={`/projects?tag=${encodeURIComponent(tech)}`}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-medium text-gray-100 transition-colors duration-300 hover:border-purple-200/40 hover:bg-purple-500/20 hover:text-white"
+                      className="project-tag"
                     >
                       {tech}
                     </Link>
@@ -149,7 +155,7 @@ export default function ProjectDetail() {
 
             {project.heroImage && (
               <div className="flex flex-1 justify-center lg:justify-end">
-                <div className="relative w-full max-w-md overflow-hidden rounded-[32px] border border-white/10">
+                <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-white/10">
                   <Image
                     src={project.heroImage}
                     alt={localizedTitle}
@@ -164,13 +170,12 @@ export default function ProjectDetail() {
           </div>
         </section>
 
-        <section className="relative -mt-16 flex-1 pb-20">
+        <section className="relative flex-1 pb-20">
           <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4">
             <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+              <div className="surface-panel p-5 sm:p-8">
                 <h2 className="text-2xl font-semibold text-white">
-                  {aboutPrefix ? `${aboutPrefix} ` : ""}
-                  <span className="text-purple-300">{aboutHighlight}</span>
+                  {aboutHeading}
                 </h2>
                 <div className="mt-6 space-y-4 text-gray-200 leading-relaxed">
                   {localizedDetails.map((paragraph, index) => (
@@ -180,16 +185,13 @@ export default function ProjectDetail() {
               </div>
 
               <div className="flex flex-col gap-6">
-                <div className="hidden lg:block rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                <div className="surface-panel p-6">
                   {hasExtras ? (
-                    <div className="rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_6px_14px_-6px_rgba(124,58,237,0.25)]">
+                    <div>
                       <div className="flex flex-col gap-5">
                         {localizedBadge && (
                           <div>
-                            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-purple-200/80">
-                              {t("projectDetail.statusLabel")}
-                            </p>
-                            <p className="mt-3 text-2xl font-semibold text-white">{localizedBadge}</p>
+                            <p className="text-base text-muted">{localizedBadge}</p>
                           </div>
                         )}
                         {primaryExtraLink && (
@@ -197,7 +199,7 @@ export default function ProjectDetail() {
                             href={primaryExtraLink.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-purple-300 hover:bg-purple-500/30"
+                            className="button-secondary w-full"
                           >
                             {primaryExtraLink.label}
                             <FiExternalLink className="h-4 w-4" />
@@ -206,25 +208,25 @@ export default function ProjectDetail() {
                       </div>
                     </div>
                   ) : (
-                    <div className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-sm text-gray-300">
+                    <div className="rounded-md border border-white/10 bg-black/40 px-5 py-4 text-base text-muted">
                       {t("projectDetail.noExtras")}
                     </div>
                   )}
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                <div className="surface-panel p-5 sm:p-8">
                   <h3 className="text-xl font-semibold text-white">{t("projectDetail.moreHeading")}</h3>
-                  <p className="mt-3 text-sm text-gray-300">{t("projectDetail.moreDescription")}</p>
+                  <p className="mt-3 text-base text-muted">{t("projectDetail.moreDescription")}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href="/projects"
-                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
+                      className="button-secondary"
                     >
                       {t("projectDetail.allProjects")}
                     </Link>
                     <Link
                       href="/"
-                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 transition hover:border-purple-400 hover:bg-purple-500/20"
+                      className="button-secondary"
                     >
                       {t("projectDetail.backToHome")}
                     </Link>
@@ -234,28 +236,30 @@ export default function ProjectDetail() {
             </div>
 
             {galleryLength > 0 && (
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-                <div className="flex items-center justify-between">
+              <div className="surface-panel p-5 sm:p-8">
+                <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h2 className="text-2xl font-semibold text-white">
-                    {galleryPrefix ? `${galleryPrefix} ` : ""}
-                    <span className="text-purple-300">{galleryHighlight}</span>
+                    {galleryHeading}
                   </h2>
-                  <p className="text-sm text-gray-300">{t("projectDetail.galleryHint")}</p>
+                  <p className="text-base text-muted">{t("projectDetail.galleryHint")}</p>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {gallery.map((imgSrc, index) => (
                     <button
                       type="button"
                       key={imgSrc}
-                      onClick={() => setSelectedIndex(index)}
-                      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/30 p-1 text-left transition hover:border-purple-400 hover:bg-purple-500/20"
+                      onClick={(event) => {
+                        galleryTriggerRef.current = event.currentTarget;
+                        setSelectedIndex(index);
+                      }}
+                      className="group relative overflow-hidden rounded-md border border-white/10 bg-black/30 p-1 text-left transition hover:border-accent hover:bg-surface"
                     >
-                      <div className="relative h-56 w-full overflow-hidden rounded-xl">
+                      <div className="relative h-56 w-full overflow-hidden rounded-md">
                         {imgSrc.endsWith(".gif") ? (
                           <img
                             src={imgSrc}
                             alt={`${localizedTitle} screenshot ${index + 1}`}
-                            className="h-full w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="h-full w-full rounded-md object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         ) : (
                           <Image
@@ -263,10 +267,9 @@ export default function ProjectDetail() {
                             alt={`${localizedTitle} screenshot ${index + 1}`}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 300px"
-                            className="rounded-xl object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="rounded-md object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         )}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent opacity-0 transition group-hover:opacity-100" />
                       </div>
                     </button>
                   ))}
@@ -279,61 +282,96 @@ export default function ProjectDetail() {
         <Footer />
       </div>
 
-      {selectedIndex !== null && selectedImage && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 py-10 backdrop-blur"
-          onClick={() => setSelectedIndex(null)}
+      {isGalleryOpen && (
+        <dialog
+          ref={galleryDialogRef}
+          aria-labelledby="gallery-dialog-title"
+          className="m-auto max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] max-w-6xl overflow-y-auto rounded-lg border border-line bg-surface p-0 text-white backdrop:bg-black/80"
+          onKeyDown={(event) => {
+            if (event.key !== "Tab") return;
+            const buttons = event.currentTarget.querySelectorAll("button");
+            const first = buttons[0];
+            const last = buttons[buttons.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          }}
+          onCancel={(event) => {
+            event.preventDefault();
+            setSelectedIndex(null);
+          }}
+          onClick={(event) => {
+            if (event.target !== event.currentTarget) return;
+            const bounds = event.currentTarget.getBoundingClientRect();
+            if (
+              event.clientX < bounds.left || event.clientX > bounds.right ||
+              event.clientY < bounds.top || event.clientY > bounds.bottom
+            ) {
+              setSelectedIndex(null);
+            }
+          }}
         >
-          <div
-            className="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-white/10 bg-[#050816]/95 p-6 shadow-[0_16px_36px_-14px_rgba(124,58,237,0.28)]"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3 sm:px-6 sm:py-4">
+            <h2 id="gallery-dialog-title" className="min-w-0 text-base font-medium sm:text-lg">
+              {localizedTitle}
+            </h2>
             <button
-              className="absolute right-6 top-6 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
+              type="button"
+              className="button-secondary h-11 w-11 shrink-0 !p-0"
               onClick={() => setSelectedIndex(null)}
               aria-label={t("projectDetail.modalClose")}
+              autoFocus
             >
-              <FiX className="h-5 w-5" />
+              <FiX aria-hidden="true" className="h-5 w-5" />
             </button>
-
-            {galleryLength > 1 && (
-              <>
-                <button
-                  className="absolute left-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
-                  onClick={prevImage}
-                  aria-label={t("projectDetail.modalPrev")}
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  className="absolute right-6 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-purple-400 hover:bg-purple-500/30"
-                  onClick={nextImage}
-                  aria-label={t("projectDetail.modalNext")}
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </>
-            )}
-
-            <div className="relative z-10 mx-auto max-h-[75vh] w-full">
-              {selectedImage.endsWith(".gif") ? (
-                <img
-                  src={selectedImage}
-                  alt={expandedAlt}
-                  className="mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
-                />
-              ) : (
-                <Image
-                  src={selectedImage}
-                  alt={expandedAlt}
-                  width={1600}
-                  height={900}
-                  className="relative z-10 mx-auto max-h-[75vh] w-full rounded-2xl object-contain"
-                />
-              )}
-            </div>
           </div>
-        </div>
+
+          <div className="p-4 sm:p-6">
+            {selectedImage.endsWith(".gif") ? (
+              <img
+                src={selectedImage}
+                alt={expandedAlt}
+                className="mx-auto max-h-[calc(100dvh_-_15rem)] w-full rounded-md bg-black object-contain"
+              />
+            ) : (
+              <Image
+                src={selectedImage}
+                alt={expandedAlt}
+                width={1600}
+                height={900}
+                className="mx-auto max-h-[calc(100dvh_-_15rem)] w-full rounded-md bg-black object-contain"
+              />
+            )}
+          </div>
+
+          {galleryLength > 1 && (
+            <div className="flex items-center justify-center gap-4 border-t border-line px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+              <button
+                type="button"
+                className="button-secondary h-11 w-11 shrink-0 !p-0"
+                onClick={prevImage}
+                aria-label={t("projectDetail.modalPrev")}
+              >
+                <ChevronLeft aria-hidden="true" className="h-5 w-5" />
+              </button>
+              <p className="min-w-12 text-center text-sm tabular-nums text-muted" aria-live="polite" aria-atomic="true">
+                {selectedIndex + 1} / {galleryLength}
+              </p>
+              <button
+                type="button"
+                className="button-secondary h-11 w-11 shrink-0 !p-0"
+                onClick={nextImage}
+                aria-label={t("projectDetail.modalNext")}
+              >
+                <ChevronRight aria-hidden="true" className="h-5 w-5" />
+              </button>
+            </div>
+          )}
+        </dialog>
       )}
     </main>
   );

@@ -181,21 +181,23 @@ export default function BackgroundSettingsPanel({
   return (
     <div ref={containerRef} className={containerClassName} style={inlineStyle}>
       {showSettings ? (
-        <div className="w-64 space-y-4 rounded-3xl border border-white/10 bg-white/[0.07] p-5 text-sm text-white backdrop-blur supports-[backdrop-filter]:bg-white/[0.09] animate-fade-in-up">
+        <div className="surface-panel w-64 max-w-[calc(100vw-2.5rem)] space-y-4 p-5 text-sm text-white">
           <div className="flex items-center justify-between">
             <h3 className="font-medium">{t("backgroundSettings.settings")}</h3>
             <button
               onClick={() => setShowSettings?.(false)}
-              className="text-white transition hover:text-red-400"
+              className="text-muted transition hover:text-white"
+              aria-label={t("backgroundSettings.close")}
             >
               <FiX size={18} />
             </button>
           </div>
 
           <select
+            aria-label={t("backgroundSettings.effect")}
             value={effect}
             onChange={(event) => setEffect?.(event.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm text-white focus:border-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+            className="form-field text-sm"
           >
             {BACKGROUND_EFFECT_ORDER.map((key) => {
               const option = BACKGROUND_EFFECT_META[key];
@@ -215,6 +217,7 @@ export default function BackgroundSettingsPanel({
                 type="number"
                 min={0}
                 max={effectDetails.max}
+                aria-label={translateField(effectDetails.sliderLabel)}
                 value={getEffectValue().toString()}
                 onChange={(event) => {
                   const numericValue = clamp(
@@ -233,12 +236,13 @@ export default function BackgroundSettingsPanel({
             type="range"
             min={0}
             max={effectDetails.max}
+            aria-label={translateField(effectDetails.sliderLabel)}
             value={getEffectValue()}
             onChange={(event) => {
               const numericValue = parseInt(event.target.value, 10) || 0;
               handleEffectValueChange(numericValue);
             }}
-            className="w-full accent-purple-500"
+            className="w-full accent-accent"
           />
 
           {extraControl && (
@@ -249,6 +253,7 @@ export default function BackgroundSettingsPanel({
                   type="number"
                   min={extraControl.min}
                   max={extraControl.max}
+                  aria-label={translateField(extraControl.label)}
                   value={extraValue}
                   onChange={(event) => {
                     const numericValue = clamp(
@@ -266,12 +271,13 @@ export default function BackgroundSettingsPanel({
                 type="range"
                 min={extraControl.min}
                 max={extraControl.max}
+                aria-label={translateField(extraControl.label)}
                 value={extraValue}
                 onChange={(event) => {
                   const numericValue = parseInt(event.target.value, 10) || 0;
                   handleExtraChange(numericValue);
                 }}
-                className="w-full accent-purple-500"
+                className="w-full accent-accent"
               />
             </div>
           )}
@@ -279,7 +285,7 @@ export default function BackgroundSettingsPanel({
       ) : (
         <button
           onClick={() => setShowSettings?.(true)}
-          className="rounded-full border border-white/15 bg-white/10 p-3 text-white transition hover:border-purple-400/40 hover:bg-purple-500/25"
+          className="button-secondary settings-toggle p-3"
           aria-label={t("backgroundSettings.open")}
         >
           <FiSettings size={20} />
