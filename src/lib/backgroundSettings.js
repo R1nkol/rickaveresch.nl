@@ -1,3 +1,5 @@
+import { BACKGROUND_EFFECT_META } from "./backgroundEffectMeta.js";
+
 export const BACKGROUND_DEFAULTS = {
   effect: "balls",
   ballCount: 18,
@@ -14,11 +16,17 @@ export const BACKGROUND_CLAMP_LIMITS = {
   ballCount: { min: 8, max: 48 },
   rainCount: { min: 50, max: 250 },
   starCount: { min: 60, max: 260 },
-  orbitCount: { min: 12, max: 120 },
-  orbitRadius: { min: 120, max: 360 },
-  firefliesCount: { min: 30, max: 160 },
-  attractRepelCount: { min: 40, max: 140 },
-  attractRepelRange: { min: 60, max: 220 },
+  orbitCount: { min: 0, max: BACKGROUND_EFFECT_META.orbit.max },
+  orbitRadius: {
+    min: BACKGROUND_EFFECT_META.orbit.extraControl.min,
+    max: BACKGROUND_EFFECT_META.orbit.extraControl.max,
+  },
+  firefliesCount: { min: 0, max: BACKGROUND_EFFECT_META.fireflies.max },
+  attractRepelCount: { min: 0, max: BACKGROUND_EFFECT_META["attract-repel"].max },
+  attractRepelRange: {
+    min: BACKGROUND_EFFECT_META["attract-repel"].extraControl.min,
+    max: BACKGROUND_EFFECT_META["attract-repel"].extraControl.max,
+  },
 };
 
 export const BACKGROUND_STORAGE_KEYS = {

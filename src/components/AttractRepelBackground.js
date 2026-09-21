@@ -1,17 +1,24 @@
 "use client";
-import { useEffect, useRef } from "react";
 
-export default function AttractRepelBackground({
-  numParticles = 80,
-  interactionRadius = 120,
-}) {
+import { useEffect, useRef } from "react";
+import {
+  smoothValue,
+  startBackgroundAnimation,
+  updateParticleCount,
+  updateParticleFade,
+} from "@/lib/backgroundAnimation";
+
+function chooseDirection(particle) {
+  const angle = Math.random() * Math.PI * 2;
+  particle.desiredVx = Math.cos(angle) * particle.baseSpeed;
+  particle.desiredVy = Math.sin(angle) * particle.baseSpeed;
+  particle.directionTime = (Math.random() * 200 + 100) / 60;
+}
+
+export default function AttractRepelBackground({ numParticles = 80, interactionRadius = 120 }) {
   const canvasRef = useRef(null);
-  const animationRef = useRef(null);
-  const particlesRef = useRef([]);
   const targetCountRef = useRef(numParticles);
   const interactionRadiusRef = useRef(interactionRadius);
-  const mouseRef = useRef({ x: -9999, y: -9999 });
-  const attractRef = useRef(true);
 
   useEffect(() => {
     targetCountRef.current = numParticles;
@@ -23,201 +30,158 @@ export default function AttractRepelBackground({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const parent = canvas.parentElement;
-    let width = 0;
-    let height = 0;
+    const particles = [];
+    const pointer = { clientX: 0, clientY: 0, x: 0, y: 0, active: false, dirty: false, repel: false };
+    let radius = interactionRadiusRef.current;
+    let direction = 1;
+    let previousWidth = 0;
+    let previousHeight = 0;
 
-    const syncCanvasSize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
+    const handlePointerMove = (event) => {
+      pointer.clientX = event.clientX;
+      pointer.clientY = event.clientY;
+      pointer.active = true;
+      pointer.dirty = true;
     };
-
-    const resize = () => {
-      width = parent.offsetWidth;
-      height = parent.offsetHeight;
-      syncCanvasSize();
+    const resetPointer = () => {
+      pointer.active = false;
+      pointer.repel = false;
     };
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(parent);
-    window.addEventListener("resize", resize);
-
-    const createParticle = () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 1.1,
-      vy: (Math.random() - 0.5) * 1.1,
-      radius: Math.random() * 2 + 1.5,
-      baseAlpha: Math.random() * 0.4 + 0.25,
-      fade: { value: 0, target: 1 },
-      // voor random movement
-      targetAngle: Math.random() * Math.PI * 2,
-      changeInterval: Math.floor(Math.random() * 200 + 100),
-      frameCount: 0,
-      baseSpeed: Math.random() * 0.35 + 0.18,
-    });
-
-    particlesRef.current = [];
-
-    const handleMouseMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
+    const handlePointerDown = (event) => {
+      if (event.button !== 0 || event.target.closest?.("a, button, input, select, textarea, [role='button']")) return;
+      handlePointerMove(event);
+      pointer.repel = true;
     };
-    const handleMouseLeave = () => {
-      mouseRef.current = { x: -9999, y: -9999 };
+    const handlePointerUp = (event) => {
+      pointer.repel = false;
+      if (event.pointerType === "touch") resetPointer();
     };
-    const handleMouseDown = () => { attractRef.current = false; };
-    const handleMouseUp = () => { attractRef.current = true; };
+    const invalidatePointer = () => { pointer.dirty = true; };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseleave", handleMouseLeave);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+    window.addEventListener("pointerup", handlePointerUp);
+    window.addEventListener("pointercancel", resetPointer);
+    window.addEventListener("blur", resetPointer);
+    document.documentElement.addEventListener("pointerleave", resetPointer);
+    window.addEventListener("scroll", invalidatePointer, { passive: true, capture: true });
+    window.addEventListener("resize", invalidatePointer);
 
-    const fadeSpeed = 1 / 24;
-    const MAX_ADJUST_PER_FRAME = 4;
-
-    function animate() {
-      const particles = particlesRef.current;
-      let visibleCount = 0;
-      for (let i = 0; i < particles.length; i += 1) {
-        if (particles[i].fade.target === 1) {
-          visibleCount += 1;
-        }
-      }
-
-      const diff = targetCountRef.current - visibleCount;
-      if (diff > 0) {
-        const spawnCount = Math.min(diff, MAX_ADJUST_PER_FRAME);
-        for (let i = 0; i < spawnCount; i += 1) {
-          particles.push(createParticle());
-        }
-      } else if (diff < 0) {
-        let toFade = Math.min(-diff, MAX_ADJUST_PER_FRAME);
-        for (let i = particles.length - 1; i >= 0 && toFade > 0; i -= 1) {
-          const particle = particles[i];
-          if (particle.fade.target === 1) {
-            particle.fade.target = 0;
-            toFade -= 1;
+    const stopAnimation = startBackgroundAnimation(canvas, ({ ctx, width, height, delta }) => {
+      if (width !== previousWidth || height !== previousHeight) {
+        if (previousWidth && previousHeight) {
+          for (const particle of particles) {
+            particle.x *= width / previousWidth;
+            particle.y *= height / previousHeight;
           }
         }
+        previousWidth = width;
+        previousHeight = height;
+        pointer.dirty = true;
       }
-
-      ctx.clearRect(0, 0, width, height);
-
-      const mouseInside =
-        mouseRef.current.x >= 0 &&
-        mouseRef.current.y >= 0 &&
-        mouseRef.current.x <= width &&
-        mouseRef.current.y <= height;
-
-      const radius = interactionRadiusRef.current;
+      // Coalesce pointer events into one layout read per frame, including after scrolling.
+      if (pointer.active && pointer.dirty) {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = pointer.clientX - rect.left;
+        pointer.y = pointer.clientY - rect.top;
+        pointer.dirty = false;
+      }
+      const mouseInside = pointer.active && pointer.x >= 0 && pointer.y >= 0 && pointer.x <= width && pointer.y <= height;
+      radius = smoothValue(radius, interactionRadiusRef.current, 10, delta);
+      direction = smoothValue(direction, pointer.repel ? -1 : 1, 20, delta);
       const radiusSquared = radius * radius;
 
-      for (let i = particles.length - 1; i >= 0; i -= 1) {
-        const particle = particles[i];
+      updateParticleCount(particles, targetCountRef.current, () => {
+        const particle = {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 1.1,
+          vy: (Math.random() - 0.5) * 1.1,
+          radius: Math.random() * 2 + 1.5,
+          baseAlpha: Math.random() * 0.4 + 0.25,
+          baseSpeed: Math.random() * 0.35 + 0.18,
+          fade: { value: 0, target: 1 },
+        };
+        chooseDirection(particle);
+        return particle;
+      }, delta);
 
-        if (particle.fade.value < particle.fade.target) {
-          particle.fade.value = Math.min(
-            particle.fade.value + fadeSpeed,
-            particle.fade.target,
-          );
-        } else if (particle.fade.value > particle.fade.target) {
-          particle.fade.value = Math.max(
-            particle.fade.value - fadeSpeed,
-            particle.fade.target,
-          );
-        }
+      // Small physics steps retain the original drifting feel across refresh rates.
+      const steps = Math.max(1, Math.ceil(delta * 60 - 1e-6));
+      const step = delta * 60 / steps;
+      const wanderBlend = -Math.expm1(Math.log(0.98) * step);
+      const fullDamping = Math.pow(0.95, step);
+      ctx.fillStyle = "#ffffff";
+      let retained = 0;
+      for (const particle of particles) {
+        if (!updateParticleFade(particle, delta, 0.4)) continue;
+        particles[retained++] = particle;
+        particle.directionTime -= delta;
+        if (particle.directionTime <= 0) chooseDirection(particle);
 
-        if (particle.fade.value === 0 && particle.fade.target === 0) {
-          particles.splice(i, 1);
-          continue;
-        }
-
-        let didInteract = false;
-        if (mouseInside) {
-          const dx = mouseRef.current.x - particle.x;
-          const dy = mouseRef.current.y - particle.y;
-          const distSquared = dx * dx + dy * dy;
-
-          if (distSquared <= radiusSquared) {
-            const dist = Math.sqrt(distSquared) || 1;
-            const force = Math.min(60 / dist, 2.5);
-            const fx = (dx / dist) * force;
-            const fy = (dy / dist) * force;
-            const direction = attractRef.current ? 1 : -1;
-
-            particle.vx = (particle.vx + fx * direction * 0.04) * 0.95;
-            particle.vy = (particle.vy + fy * direction * 0.04) * 0.95;
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            didInteract = true;
+        for (let i = 0; i < steps; i++) {
+          let influence = 0;
+          let forceX = 0;
+          let forceY = 0;
+          if (mouseInside && radius > 0) {
+            const dx = pointer.x - particle.x;
+            const dy = pointer.y - particle.y;
+            const distanceSquared = dx * dx + dy * dy;
+            if (distanceSquared < radiusSquared) {
+              const distance = Math.sqrt(distanceSquared);
+              // Fade the force at the outer edge instead of abruptly switching modes.
+              const edge = Math.min(1, (radius - distance) / (radius * 0.25));
+              influence = edge * edge * (3 - 2 * edge);
+              const force = Math.min(60 / Math.max(distance, 1), 2.5) * direction;
+              forceX = dx / Math.max(distance, 1) * force;
+              forceY = dy / Math.max(distance, 1) * force;
+            }
           }
-        }
-
-        if (!didInteract) {
-          particle.frameCount += 1;
-          if (particle.frameCount >= particle.changeInterval) {
-            particle.targetAngle = Math.random() * Math.PI * 2;
-            particle.changeInterval = Math.floor(Math.random() * 200 + 100);
-            particle.frameCount = 0;
+          const blend = wanderBlend * (1 - influence);
+          particle.vx += (particle.desiredVx - particle.vx) * blend;
+          particle.vy += (particle.desiredVy - particle.vy) * blend;
+          if (influence > 0) {
+            const damping = influence === 1 ? fullDamping : Math.pow(0.95, step * influence);
+            const forceStep = (1 - damping) / 0.05 * 0.95 * 0.04;
+            particle.vx = particle.vx * damping + forceX * forceStep;
+            particle.vy = particle.vy * damping + forceY * forceStep;
           }
-          const desiredVx = Math.cos(particle.targetAngle) * particle.baseSpeed;
-          const desiredVy = Math.sin(particle.targetAngle) * particle.baseSpeed;
-          const lerpFactor = 0.02;
-          particle.vx += (desiredVx - particle.vx) * lerpFactor;
-          particle.vy += (desiredVy - particle.vy) * lerpFactor;
-          particle.x += particle.vx;
-          particle.y += particle.vy;
+          particle.x += particle.vx * step;
+          particle.y += particle.vy * step;
         }
 
-        if (particle.x < 0) particle.x = width;
-        if (particle.x > width) particle.x = 0;
-        if (particle.y < 0) particle.y = height;
-        if (particle.y > height) particle.y = 0;
+        const margin = particle.radius;
+        if (particle.x < -margin) particle.x = width + margin;
+        if (particle.x > width + margin) particle.x = -margin;
+        if (particle.y < -margin) particle.y = height + margin;
+        if (particle.y > height + margin) particle.y = -margin;
 
+        ctx.globalAlpha = particle.baseAlpha * particle.fade.value;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${particle.baseAlpha * particle.fade.value})`;
         ctx.fill();
       }
-
-      animationRef.current = requestAnimationFrame(animate);
-    }
-
-    animate();
+      particles.length = retained;
+    });
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("resize", resize);
-      ro.disconnect();
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      stopAnimation();
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("pointerup", handlePointerUp);
+      window.removeEventListener("pointercancel", resetPointer);
+      window.removeEventListener("blur", resetPointer);
+      document.documentElement.removeEventListener("pointerleave", resetPointer);
+      window.removeEventListener("scroll", invalidatePointer, true);
+      window.removeEventListener("resize", invalidatePointer);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: 1,
-      }}
+      aria-hidden="true"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 1, pointerEvents: "none" }}
     />
   );
 }

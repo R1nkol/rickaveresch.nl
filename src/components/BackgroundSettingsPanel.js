@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { FiSettings, FiX } from "react-icons/fi";
 
 import {
@@ -41,8 +41,21 @@ export default function BackgroundSettingsPanel({
   gap = 24,
 }) {
   const { t, translateField } = useLanguage();
+  const panelId = useId();
   const containerRef = useRef(null);
+  const toggleRef = useRef(null);
+  const closeRef = useRef(null);
+  const wasOpen = useRef(false);
   const [floatingBottom, setFloatingBottom] = useState(gap);
+
+  useEffect(() => {
+    if (showSettings) {
+      closeRef.current?.focus({ preventScroll: true });
+    } else if (wasOpen.current) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
+    wasOpen.current = showSettings;
+  }, [showSettings]);
 
   useEffect(() => {
     if (variant !== "floating") return undefined;
@@ -165,7 +178,7 @@ export default function BackgroundSettingsPanel({
     BACKGROUND_EFFECT_META[effect] ?? BACKGROUND_EFFECT_META.balls;
 
   const containerClassName = [
-    "pointer-events-auto",
+    "pointer-events-none",
     variant === "floating" ? "fixed left-6 z-40" : "",
     className,
   ]
@@ -180,11 +193,23 @@ export default function BackgroundSettingsPanel({
 
   return (
     <div ref={containerRef} className={containerClassName} style={inlineStyle}>
-      {showSettings ? (
-        <div className="surface-panel w-64 max-w-[calc(100vw-2.5rem)] space-y-4 p-5 text-sm text-white">
+      <div className="background-settings" data-open={showSettings ? "true" : "false"}>
+        <div
+          id={panelId}
+          className="background-settings-panel surface-panel w-64 max-w-[calc(100vw-2.5rem)] space-y-4 p-5 text-sm text-white"
+          aria-hidden={!showSettings}
+          inert={!showSettings}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              event.stopPropagation();
+              setShowSettings?.(false);
+            }
+          }}
+        >
           <div className="flex items-center justify-between">
             <h3 className="font-medium">{t("backgroundSettings.settings")}</h3>
             <button
+              ref={closeRef}
               onClick={() => setShowSettings?.(false)}
               className="text-muted transition hover:text-white"
               aria-label={t("backgroundSettings.close")}
@@ -282,15 +307,19 @@ export default function BackgroundSettingsPanel({
             </div>
           )}
         </div>
-      ) : (
         <button
+          ref={toggleRef}
           onClick={() => setShowSettings?.(true)}
           className="button-secondary settings-toggle p-3"
           aria-label={t("backgroundSettings.open")}
+          aria-expanded={showSettings}
+          aria-controls={panelId}
+          aria-hidden={showSettings}
+          inert={showSettings}
         >
           <FiSettings size={20} />
         </button>
-      )}
+      </div>
     </div>
   );
 }

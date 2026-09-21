@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const PROFILE_IMAGES = ["/Images/MyPicture.jpg", "/Images/MyPicture2.jpg"];
+const PROFILE_IMAGES = [
+  "/Images/MyPicture3.png",
+  "/Images/MyPicture2.jpg",
+  "/Images/MyPicture.jpg",
+];
 const IMAGE_INTERVAL_MS = 7000;
 
 function calculateAge(birthDate) {
