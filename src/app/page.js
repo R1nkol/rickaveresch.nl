@@ -51,6 +51,8 @@ export default function Home() {
     setAttractRepelCount,
     attractRepelRange,
     setAttractRepelRange,
+    flowLineCount,
+    setFlowLineCount,
   } = useBackgroundSettingsControls();
   const [showSettings, setShowSettings] = useState(false);
 
@@ -115,6 +117,8 @@ export default function Home() {
         setAttractRepelCount={setAttractRepelCount}
         attractRepelRange={attractRepelRange}
         setAttractRepelRange={setAttractRepelRange}
+        flowLineCount={flowLineCount}
+        setFlowLineCount={setFlowLineCount}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />

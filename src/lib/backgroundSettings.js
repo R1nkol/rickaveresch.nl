@@ -10,6 +10,7 @@ export const BACKGROUND_DEFAULTS = {
   firefliesCount: 90,
   attractRepelCount: 80,
   attractRepelRange: 120,
+  flowLineCount: 5,
 };
 
 export const BACKGROUND_CLAMP_LIMITS = {
@@ -27,6 +28,7 @@ export const BACKGROUND_CLAMP_LIMITS = {
     min: BACKGROUND_EFFECT_META["attract-repel"].extraControl.min,
     max: BACKGROUND_EFFECT_META["attract-repel"].extraControl.max,
   },
+  flowLineCount: { min: 0, max: BACKGROUND_EFFECT_META["flow-lines"].max },
 };
 
 export const BACKGROUND_STORAGE_KEYS = {
@@ -39,6 +41,7 @@ export const BACKGROUND_STORAGE_KEYS = {
   firefliesCount: "firefliesCount",
   attractRepelCount: "attractRepelCount",
   attractRepelRange: "attractRepelRange",
+  flowLineCount: "flowLineCount",
 };
 
 const clampNumber = (value, limits) => {
@@ -114,6 +117,11 @@ export function loadBackgroundSettings() {
     BACKGROUND_STORAGE_KEYS.attractRepelRange,
     BACKGROUND_DEFAULTS.attractRepelRange,
     "attractRepelRange",
+  );
+  settings.flowLineCount = parseNumberSetting(
+    BACKGROUND_STORAGE_KEYS.flowLineCount,
+    BACKGROUND_DEFAULTS.flowLineCount,
+    "flowLineCount",
   );
 
   return settings;

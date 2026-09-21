@@ -31,6 +31,10 @@ const AttractRepelBackground = dynamic(
   () => import("@/components/AttractRepelBackground"),
   { ssr: false },
 );
+const FlowLinesBackground = dynamic(
+  () => import("@/components/FlowLinesBackground"),
+  { ssr: false },
+);
 
 const WATCHED_STORAGE_KEYS = new Set(Object.values(BACKGROUND_STORAGE_KEYS));
 
@@ -52,6 +56,9 @@ const renderers = {
       numParticles={values.attractRepelCount}
       interactionRadius={values.attractRepelRange}
     />
+  ),
+  "flow-lines": (values) => (
+    <FlowLinesBackground numLines={values.flowLineCount} />
   ),
 };
 

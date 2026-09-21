@@ -31,6 +31,10 @@ const AttractRepelBackground = dynamic(
   () => import("@/components/AttractRepelBackground"),
   { ssr: false }
 );
+const FlowLinesBackground = dynamic(
+  () => import("@/components/FlowLinesBackground"),
+  { ssr: false }
+);
 
 const backgroundRenderers = {
   balls: (values) => <AnimatedBallsBackground numBalls={values.ballCount} />,
@@ -50,6 +54,9 @@ const backgroundRenderers = {
       numParticles={values.attractRepelCount}
       interactionRadius={values.attractRepelRange}
     />
+  ),
+  "flow-lines": (values) => (
+    <FlowLinesBackground numLines={values.flowLineCount} />
   ),
 };
 
@@ -72,6 +79,8 @@ export default function HeroSection({
   setAttractRepelCount,
   attractRepelRange,
   setAttractRepelRange,
+  flowLineCount,
+  setFlowLineCount,
   showSettings,
   setShowSettings,
 }) {
@@ -86,6 +95,7 @@ export default function HeroSection({
     firefliesCount,
     attractRepelCount,
     attractRepelRange,
+    flowLineCount,
   };
 
   const renderBackground =
@@ -115,6 +125,8 @@ export default function HeroSection({
         setAttractRepelCount={setAttractRepelCount}
         attractRepelRange={attractRepelRange}
         setAttractRepelRange={setAttractRepelRange}
+        flowLineCount={flowLineCount}
+        setFlowLineCount={setFlowLineCount}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
         className="hero-settings"

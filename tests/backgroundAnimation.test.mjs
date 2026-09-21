@@ -132,14 +132,16 @@ test("edited effects retain the panel's full range and zero after storage reload
   const stored = new Map([
     ["orbitCount", "500"], ["orbitRadius", "20"], ["firefliesCount", "750"],
     ["attractRepelCount", "500"], ["attractRepelRange", "500"],
+    ["flowLineCount", "12"],
   ]);
   globalThis.window = { localStorage: { getItem: (key) => stored.get(key) ?? null } };
   t.after(() => original ? Object.defineProperty(globalThis, "window", original) : delete globalThis.window);
   const settings = loadBackgroundSettings();
   for (const [key, value] of stored) assert.equal(settings[key], Number(value));
-  for (const key of ["orbitCount", "firefliesCount", "attractRepelCount"]) stored.set(key, "0");
+  for (const key of ["orbitCount", "firefliesCount", "attractRepelCount", "flowLineCount"]) stored.set(key, "0");
   const empty = loadBackgroundSettings();
   assert.equal(empty.orbitCount, 0);
   assert.equal(empty.firefliesCount, 0);
   assert.equal(empty.attractRepelCount, 0);
+  assert.equal(empty.flowLineCount, 0);
 });

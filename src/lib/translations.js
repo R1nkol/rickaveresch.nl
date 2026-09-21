@@ -22,6 +22,8 @@ export const translations = {
       editing:
         "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en maak af en toe YouTube-video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
       contactCta: "Kom in contact",
+      photoNavigation: "Kies een profielfoto",
+      showPhoto: "Toon foto {{number}}",
     },
     services: {
       heading: "Wat ik maak",
@@ -184,6 +186,8 @@ export const translations = {
       editing:
         "I also edit videos, something I taught myself. I work in DaVinci Resolve and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
       contactCta: "Get in touch",
+      photoNavigation: "Choose a profile photo",
+      showPhoto: "Show photo {{number}}",
     },
     services: {
       heading: "What I make",

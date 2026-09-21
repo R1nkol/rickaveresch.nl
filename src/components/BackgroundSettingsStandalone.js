@@ -32,6 +32,8 @@ export default function BackgroundSettingsStandalone({
     setAttractRepelCount,
     attractRepelRange,
     setAttractRepelRange,
+    flowLineCount,
+    setFlowLineCount,
   } = useBackgroundSettingsControls();
 
   return (
@@ -54,6 +56,8 @@ export default function BackgroundSettingsStandalone({
       setAttractRepelCount={setAttractRepelCount}
       attractRepelRange={attractRepelRange}
       setAttractRepelRange={setAttractRepelRange}
+      flowLineCount={flowLineCount}
+      setFlowLineCount={setFlowLineCount}
       showSettings={showSettings}
       setShowSettings={setShowSettings}
       variant={variant}

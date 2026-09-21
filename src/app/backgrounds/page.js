@@ -8,6 +8,7 @@ import StarsBackground from "@/components/StarsBackground";
 import OrbitBackground from "@/components/OrbitBackground";
 import FirefliesBackground from "@/components/FirefliesBackground";
 import AttractRepelBackground from "@/components/AttractRepelBackground";
+import FlowLinesBackground from "@/components/FlowLinesBackground";
 import { BACKGROUND_STORAGE_KEYS, saveBackgroundSetting } from "@/lib/backgroundSettings";
 
 const options = [
@@ -17,6 +18,7 @@ const options = [
     { id: "orbit", name: "Orbit", Component: OrbitBackground },
     { id: "fireflies", name: "Fireflies", Component: FirefliesBackground },
     { id: "attract-repel", name: "Aantrekken/Stoten", Component: AttractRepelBackground },
+    { id: "flow-lines", name: "Flowlijnen", Component: FlowLinesBackground },
 ];
 
 export default function BackgroundSettings() {

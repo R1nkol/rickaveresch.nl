@@ -27,14 +27,20 @@ export default function AboutSection() {
   const { t } = useLanguage();
   const age = calculateAge(new Date(2005, 9, 7));
   const [activeImage, setActiveImage] = useState(0);
+  const [imageCycle, setImageCycle] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       setActiveImage((prev) => (prev + 1) % PROFILE_IMAGES.length);
     }, IMAGE_INTERVAL_MS);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(timeout);
+  }, [activeImage, imageCycle]);
+
+  const selectImage = (index) => {
+    setActiveImage(index);
+    setImageCycle((cycle) => cycle + 1);
+  };
 
   return (
     <section id="about" className="section-shell">
@@ -55,21 +61,51 @@ export default function AboutSection() {
         </div>
 
         <div className="relative flex w-full justify-center px-3 py-3">
-          <div className="portrait-frame">
-            <div className="portrait-photo">
-              {PROFILE_IMAGES.map((src, index) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt="Rick Averesch"
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width: 480px) calc(100vw - 40px), 420px"
-                  className={`object-cover transition-opacity duration-1000 ease-in-out ${
-                    index === activeImage ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-              ))}
+          <div className="portrait-gallery">
+            <div className="portrait-frame">
+              <div className="portrait-photo">
+                {PROFILE_IMAGES.map((src, index) => (
+                  <Image
+                    key={src}
+                    src={src}
+                    alt="Rick Averesch"
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 480px) calc(100vw - 40px), 420px"
+                    className={`object-cover transition-opacity duration-1000 ease-in-out ${
+                      index === activeImage ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="portrait-progress"
+              role="group"
+              aria-label={t("about.photoNavigation")}
+            >
+              {PROFILE_IMAGES.map((src, index) => {
+                const isActive = index === activeImage;
+
+                return (
+                  <button
+                    key={src}
+                    type="button"
+                    className={`portrait-progress-button ${isActive ? "is-active" : ""}`}
+                    aria-label={t("about.showPhoto", { vars: { number: index + 1 } })}
+                    aria-pressed={isActive}
+                    onClick={() => selectImage(index)}
+                  >
+                    <span className="portrait-progress-track" aria-hidden="true">
+                      <span
+                        key={`${index}-${imageCycle}`}
+                        className="portrait-progress-fill"
+                      />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

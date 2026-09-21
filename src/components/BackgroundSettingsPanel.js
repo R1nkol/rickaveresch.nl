@@ -32,6 +32,8 @@ export default function BackgroundSettingsPanel({
   setAttractRepelCount,
   attractRepelRange,
   setAttractRepelRange,
+  flowLineCount,
+  setFlowLineCount,
   showSettings,
   setShowSettings,
   variant = "static",
@@ -126,6 +128,8 @@ export default function BackgroundSettingsPanel({
         return firefliesCount;
       case "attract-repel":
         return attractRepelCount;
+      case "flow-lines":
+        return flowLineCount;
       case "balls":
       default:
         return ballCount;
@@ -148,6 +152,9 @@ export default function BackgroundSettingsPanel({
         break;
       case "attract-repel":
         setAttractRepelCount?.(nextValue);
+        break;
+      case "flow-lines":
+        setFlowLineCount?.(nextValue);
         break;
       case "balls":
       default:

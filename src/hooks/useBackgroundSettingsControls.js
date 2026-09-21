@@ -27,6 +27,9 @@ export default function useBackgroundSettingsControls() {
   const [attractRepelRange, setAttractRepelRange] = useState(
     BACKGROUND_DEFAULTS.attractRepelRange,
   );
+  const [flowLineCount, setFlowLineCount] = useState(
+    BACKGROUND_DEFAULTS.flowLineCount,
+  );
 
   useEffect(() => {
     const settings = loadBackgroundSettings();
@@ -39,6 +42,7 @@ export default function useBackgroundSettingsControls() {
     setFirefliesCount(settings.firefliesCount);
     setAttractRepelCount(settings.attractRepelCount);
     setAttractRepelRange(settings.attractRepelRange);
+    setFlowLineCount(settings.flowLineCount);
   }, []);
 
   useEffect(() => {
@@ -86,6 +90,10 @@ export default function useBackgroundSettingsControls() {
     );
   }, [attractRepelRange]);
 
+  useEffect(() => {
+    saveBackgroundSetting(BACKGROUND_STORAGE_KEYS.flowLineCount, flowLineCount);
+  }, [flowLineCount]);
+
   return {
     effect,
     setEffect,
@@ -105,5 +113,7 @@ export default function useBackgroundSettingsControls() {
     setAttractRepelCount,
     attractRepelRange,
     setAttractRepelRange,
+    flowLineCount,
+    setFlowLineCount,
   };
 }

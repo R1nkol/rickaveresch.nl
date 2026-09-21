@@ -5,6 +5,7 @@ export const BACKGROUND_EFFECT_ORDER = [
   "fireflies",
   "attract-repel",
   "orbit",
+  "flow-lines",
 ];
 
 export const BACKGROUND_EFFECT_META = {
@@ -47,5 +48,10 @@ export const BACKGROUND_EFFECT_META = {
       min: 20,
       max: 500,
     },
+  },
+  "flow-lines": {
+    selectLabel: { nl: "Flowlijnen", en: "Flow lines" },
+    sliderLabel: { nl: "Aantal lijnen:", en: "Number of lines:" },
+    max: 12,
   },
 };
