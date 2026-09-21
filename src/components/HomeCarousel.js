@@ -56,7 +56,7 @@ export function HomeCarousel() {
       <div className="flex justify-between mt-6">
         <button
           onClick={prevPage}
-          className={`flex items-center gap-2 py-2 px-4 bg-gray-100 transition-opacity duration-500 ${
+          className={`button-secondary transition-opacity duration-500 ${
             page === 0 ? "opacity-20 pointer-events-none" : "opacity-100"
           }`}
         >
@@ -64,7 +64,7 @@ export function HomeCarousel() {
         </button>
         <button
           onClick={nextPage}
-          className={`flex items-center gap-2 py-2 px-4 bg-gray-100 transition-opacity duration-500 ${
+          className={`button-secondary transition-opacity duration-500 ${
             page === pages.length - 1.5 ? "opacity-20 pointer-events-none" : "opacity-100"
           }`}
         >

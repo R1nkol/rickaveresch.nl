@@ -218,7 +218,7 @@ export default function BackgroundSettingsPanel({
             <button
               ref={closeRef}
               onClick={() => setShowSettings?.(false)}
-              className="text-muted transition hover:text-white"
+              className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-white/10 hover:text-white"
               aria-label={t("backgroundSettings.close")}
             >
               <FiX size={18} />

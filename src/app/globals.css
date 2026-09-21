@@ -331,7 +331,7 @@ section[id] {
 
   .button-primary,
   .button-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-medium;
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full border px-4 py-2 text-sm font-medium;
     transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
   }
 
@@ -344,7 +344,7 @@ section[id] {
   .button-primary:hover {
     background: #cbbbeb;
     border-color: #cbbbeb;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .button-secondary {
@@ -356,18 +356,19 @@ section[id] {
   .button-secondary:hover {
     background: var(--surface-hover);
     border-color: var(--muted);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .button-primary:active,
   .button-secondary:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.98);
   }
 
   .button-primary:disabled,
   .button-secondary:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+    transform: none;
   }
 
   .text-link {

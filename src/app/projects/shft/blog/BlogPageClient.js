@@ -162,7 +162,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href={`/projects/shft/blog?sort=newest&perPage=${perPageParam}`}
-                className={`inline-flex items-center rounded-md border px-4 py-1.5 text-sm transition ${
+                className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
                   sort === "newest"
                     ? "border-accent bg-surface text-accent"
                     : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -172,7 +172,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               </Link>
               <Link
                 href={`/projects/shft/blog?sort=oldest&perPage=${perPageParam}`}
-                className={`inline-flex items-center rounded-md border px-4 py-1.5 text-sm transition ${
+                className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
                   sort === "oldest"
                     ? "border-accent bg-surface text-accent"
                     : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -219,7 +219,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={option}
                     href={`/projects/shft/blog?sort=${sort}&perPage=${option}`}
-                    className={`inline-flex items-center rounded-md border px-3 py-1 text-sm transition ${
+                    className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
                       active
                         ? "border-accent bg-surface text-accent"
                         : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -231,7 +231,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               })}
               <Link
                 href={`/projects/shft/blog?sort=${sort}&perPage=${PER_PAGE_ALL_VALUE}`}
-                className={`inline-flex items-center rounded-md border px-3 py-1 text-sm transition ${
+                className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
                   perPageIsAll
                     ? "border-accent bg-surface text-accent"
                     : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -256,7 +256,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={item}
                     href={`/projects/shft/blog?page=${item}&sort=${sort}&perPage=${perPageParam}`}
-                    className={`rounded-md px-3 py-1.5 text-sm transition ${
+                    className={`rounded-full px-3 py-1.5 text-sm transition ${
                       active
                         ? "border border-accent bg-accent text-background"
                         : "border border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
