@@ -2,11 +2,9 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { FiSettings, FiX } from "react-icons/fi";
+import BackgroundEffectPicker from "@/components/BackgroundEffectPicker";
 
-import {
-  BACKGROUND_EFFECT_META,
-  BACKGROUND_EFFECT_ORDER,
-} from "@/lib/backgroundEffectMeta";
+import { BACKGROUND_EFFECT_META } from "@/lib/backgroundEffectMeta";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 function clamp(value, min, max) {
@@ -225,22 +223,11 @@ export default function BackgroundSettingsPanel({
             </button>
           </div>
 
-          <select
-            aria-label={t("backgroundSettings.effect")}
-            value={effect}
-            onChange={(event) => setEffect?.(event.target.value)}
-            className="form-field text-sm"
-          >
-            {BACKGROUND_EFFECT_ORDER.map((key) => {
-              const option = BACKGROUND_EFFECT_META[key];
-              if (!option) return null;
-              return (
-                <option key={key} value={key}>
-                  {translateField(option.selectLabel)}
-                </option>
-              );
-            })}
-          </select>
+          <BackgroundEffectPicker
+            key={String(showSettings)}
+            effect={effect}
+            setEffect={setEffect}
+          />
 
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1 font-medium">

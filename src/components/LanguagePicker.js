@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { FiCheck, FiGlobe, FiX } from "react-icons/fi";
+import { FiGlobe, FiX } from "react-icons/fi";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const LANGUAGES = [
@@ -79,19 +79,18 @@ export default function LanguagePicker() {
           </div>
           <fieldset aria-labelledby={`${panelId}-title`} className="space-y-1">
             {LANGUAGES.map((option) => (
-              <label key={option.id} className="relative block cursor-pointer">
+              <label key={option.id} className="preference-option relative block cursor-pointer">
                 <input
                   type="radio"
                   name={`${panelId}-language`}
                   value={option.id}
                   checked={language === option.id}
                   onChange={() => setLanguage(option.id)}
-                  className="peer sr-only"
+                  className="sr-only"
                 />
-                <span className="flex min-h-11 items-center gap-3 rounded-md px-3 py-2 text-sm text-muted hover:bg-white/5 peer-checked:bg-white/5 peer-checked:text-foreground peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">
+                <span className="flex min-h-11 items-center gap-3 px-3 py-2 text-sm">
                   <span className="font-mono text-xs" aria-hidden="true">{option.code}</span>
                   <span lang={option.id}>{option.label}</span>
-                  {language === option.id && <FiCheck size={16} className="ml-auto text-accent" aria-hidden="true" />}
                 </span>
               </label>
             ))}

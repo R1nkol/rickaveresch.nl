@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { FiCheck, FiDroplet, FiX } from "react-icons/fi";
+import { FiDroplet, FiX } from "react-icons/fi";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useColorTheme } from "@/contexts/ColorThemeContext";
 import { COLOR_THEMES } from "@/lib/colorThemes";
@@ -78,7 +78,7 @@ export default function ColorThemePicker() {
           <fieldset aria-labelledby={`${panelId}-title`}>
             <div className="grid grid-cols-3 gap-2">
               {COLOR_THEMES.map((option) => (
-                <label key={option.id} className="color-theme-option" data-color-theme={option.id}>
+                <label key={option.id} className="preference-option color-theme-option">
                   <input
                     type="radio"
                     name={`${panelId}-color-theme`}
@@ -87,9 +87,7 @@ export default function ColorThemePicker() {
                     onChange={() => selectTheme(option.id)}
                     className="sr-only"
                   />
-                  <span className="color-theme-swatch">
-                    {theme === option.id && <FiCheck size={16} aria-hidden="true" />}
-                  </span>
+                  <span className="color-theme-swatch" data-color-theme={option.id} aria-hidden="true" />
                   <span className="text-xs">{translateField(option.label)}</span>
                 </label>
               ))}

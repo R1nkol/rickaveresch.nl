@@ -1,0 +1,14 @@
+a.desktopOnly {
+  display: none;
+}
+
+/* Also exclude wide phones and tablets without a mouse or trackpad. */
+@media (min-width: 768px) and (any-hover: hover) and (any-pointer: fine) {
+  a.desktopOnly {
+    display: inline-flex;
+  }
+
+  .desktopNotice {
+    display: none;
+  }
+}

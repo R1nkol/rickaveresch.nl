@@ -1,3 +1,5 @@
+// Set desktopOnly on individual extraLinks that require desktop controls.
+// Website, video and blog links remain available on every device by default.
 export const projects = [
   {
     slug: "gamejam-project",
@@ -104,7 +106,7 @@ export const projects = [
     heroImage: "/Images/CyberBox.png",
     gallery: ["/Images/CyberBox_1.png", "/Images/CyberBox_2.png", "/Images/CyberBox_3.png"],
     extraLinks: [
-      { href: "/projects/cyberbox/game", label: { nl: "Speel CyberBox!", en: "Play CyberBox!" } },
+      { href: "/projects/cyberbox/game", label: { nl: "Speel CyberBox!", en: "Play CyberBox!" }, desktopOnly: true },
     ],
   },
   {
@@ -145,7 +147,7 @@ export const projects = [
       "/GIFS/PureDuelsGIF.gif",
     ],
     extraLinks: [
-      { href: "/projects/pureduels/game", label: { nl: "Speel Pure Duels!", en: "Play Pure Duels!" } },
+      { href: "/projects/pureduels/game", label: { nl: "Speel Pure Duels!", en: "Play Pure Duels!" }, desktopOnly: true },
     ],
   },
   {

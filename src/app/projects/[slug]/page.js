@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { projects } from "@/data/projects";
 import { useLanguage } from "@/contexts/LanguageContext";
+import styles from "./ProjectLinks.module.css";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -114,9 +115,8 @@ export default function ProjectDetail() {
     return NotFoundContent;
   }
 
-  const primaryExtraLink =
-    extraLinks.find(({ label }) => label?.toLowerCase?.().includes("blog")) ?? extraLinks[0] ?? null;
-  const hasExtras = Boolean(localizedBadge || primaryExtraLink);
+  const hasDesktopLinks = extraLinks.some((link) => link.desktopOnly);
+  const hasExtras = Boolean(localizedBadge || extraLinks.length);
   const aboutHeading = t("projectDetail.aboutHeading");
   const galleryHeading = t("projectDetail.galleryHeading");
   const expandedAlt = localizedTitle ? `${localizedTitle} – ${galleryHeading}` : galleryHeading;
@@ -194,16 +194,22 @@ export default function ProjectDetail() {
                             <p className="text-base text-muted">{localizedBadge}</p>
                           </div>
                         )}
-                        {primaryExtraLink && (
+                        {extraLinks.map((link) => (
                           <a
-                            href={primaryExtraLink.href}
+                            key={link.href}
+                            href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="button-secondary w-full"
+                            className={`button-secondary w-full${link.desktopOnly ? ` ${styles.desktopOnly}` : ""}`}
                           >
-                            {primaryExtraLink.label}
+                            {link.label}
                             <FiExternalLink className="h-4 w-4" />
                           </a>
+                        ))}
+                        {hasDesktopLinks && (
+                          <p className={`${styles.desktopNotice} text-base text-muted`}>
+                            {t("projectDetail.desktopGameNotice")}
+                          </p>
                         )}
                       </div>
                     </div>

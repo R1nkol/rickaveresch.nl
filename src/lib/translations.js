@@ -107,6 +107,7 @@ export const translations = {
       backToHome: "Terug naar Home",
       aboutHeading: "Over het project",
       noExtras: "Dit project heeft geen extra content.",
+      desktopGameNotice: "Deze game is alleen speelbaar op een desktop of laptop met een muis of trackpad.",
       moreHeading: "Meer zien?",
       moreDescription:
         "Ik heb nog genoeg andere projecten, als je die wilt zien kun je op de knop hieronder klikken om een overzicht te krijgen.",
@@ -276,6 +277,7 @@ export const translations = {
       backToHome: "Back to Home",
       aboutHeading: "About the project",
       noExtras: "This project doesn't have extra content.",
+      desktopGameNotice: "This game is only playable on a desktop or laptop with a mouse or trackpad.",
       moreHeading: "Want to see more?",
       moreDescription:
         "I have plenty of other projects. Click the button below to explore the full overview.",
