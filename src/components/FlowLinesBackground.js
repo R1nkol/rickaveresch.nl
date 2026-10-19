@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useColorTheme } from "@/contexts/ColorThemeContext";
 
 import {
   startBackgroundAnimation,
@@ -10,22 +9,15 @@ import {
 } from "@/lib/backgroundAnimation";
 
 export default function FlowLinesBackground({ numLines = 5 }) {
-  const { theme } = useColorTheme();
   const canvasRef = useRef(null);
   const targetCountRef = useRef(numLines);
-  const accentRef = useRef(null);
-
-  useEffect(() => {
-    accentRef.current = getComputedStyle(canvasRef.current)
-      .getPropertyValue("--accent")
-      .trim();
-  }, [theme]);
 
   useEffect(() => {
     targetCountRef.current = numLines;
   }, [numLines]);
 
   useEffect(() => {
+    const canvas = canvasRef.current;
     const lines = [];
     let time = 0;
     let edgeFade = null;
@@ -33,7 +25,7 @@ export default function FlowLinesBackground({ numLines = 5 }) {
     let gradientAccent = null;
 
     return startBackgroundAnimation(
-      canvasRef.current,
+      canvas,
       ({ ctx, width, height, delta }) => {
         time = (time + delta) % 10000;
 
@@ -53,7 +45,8 @@ export default function FlowLinesBackground({ numLines = 5 }) {
 
         const amplitude = Math.min(84, Math.max(38, height * 0.085));
         const segmentWidth = Math.max(12, Math.min(22, width / 70));
-        const accent = accentRef.current;
+        // Read the interpolated palette so canvas lines follow the CSS transition.
+        const accent = getComputedStyle(canvas).getPropertyValue("--accent").trim();
         if (!edgeFade || gradientWidth !== width || gradientAccent !== accent) {
           edgeFade = ctx.createLinearGradient(0, 0, width, 0);
           edgeFade.addColorStop(0, "transparent");

@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Typed palette values let every accent ease into the next theme together. */
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #b9a3e3;
+}
+
+@property --accent-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c3acef;
+}
+
+@property --accent-hover {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #cbbbeb;
+}
+
+@property --accent-border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #76618f;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -19,6 +44,11 @@ html {
   --accent-strong: #c3acef;
   --accent-hover: #cbbbeb;
   --accent-border: #76618f;
+  transition:
+    --accent 550ms ease-in-out,
+    --accent-strong 550ms ease-in-out,
+    --accent-hover 550ms ease-in-out,
+    --accent-border 550ms ease-in-out;
 }
 
 :root[data-color-theme="purple"], [data-color-theme="purple"] {
