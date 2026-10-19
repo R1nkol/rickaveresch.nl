@@ -18,9 +18,9 @@ export const translations = {
       heading: "Een developer met oog voor detail",
       intro:
         "Hoi! Ik ben Rick Averesch, {{age}} jaar. Ik ben geslaagd voor de opleiding Software Development en zit momenteel in een tussenjaar.",
-      hobby: "In mijn vrije tijd verdiep ik me in game development in Godot met GDScript.",
+      hobby: "In mijn vrije tijd ben ik graag bezig met mijn eigen projecten.",
       editing:
-        "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en Adobe Premiere Pro en maak af en toe YouTube video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
+        "Ik vind het leuk om video's te maken waar veel van mijn persoonlijkheid in zit.",
       contactCta: "Kom in contact",
       photoNavigation: "Kies een profielfoto",
       showPhoto: "Toon foto {{number}}",
@@ -32,7 +32,7 @@ export const translations = {
         game: {
           title: "Game Development",
           description:
-            "In mijn vrije tijd ben ik het vaakst bezig met het maken van games. Dit doe ik met Godot en GDScript.",
+            "Ik maak games met Godot en GDScript. Soms maak ik daar ook video's over voor mijn YouTube kanaal.",
         },
         web: {
           title: "Web Development",
@@ -47,7 +47,7 @@ export const translations = {
         video: {
           title: "Video Editing",
           description:
-            "Ik heb mezelf video editing aangeleerd en werk in DaVinci Resolve en Adobe Premiere Pro. Voor mijn YouTube kanaal maak ik af en toe video's waar veel zorg en persoonlijkheid in zitten.",
+            "Ik heb mezelf video editing aangeleerd in Adobe Premiere Pro en ben later overgestapt naar DaVinci Resolve, waar ik nu mee werk.",
         },
       },
     },
@@ -193,9 +193,9 @@ export const translations = {
       heading: "A developer with an eye for detail",
       intro:
         "Hi! I'm Rick Averesch, {{age}} years old. I successfully completed the Software Development program and I'm currently taking a gap year.",
-      hobby: "In my spare time I dive into game development in Godot using GDScript.",
+      hobby: "In my spare time I enjoy working on my own projects.",
       editing:
-        "I also edit videos, something I taught myself. I work in DaVinci Resolve and Adobe Premiere Pro and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
+        "I enjoy making videos with a lot of my personality in them.",
       contactCta: "Get in touch",
       photoNavigation: "Choose a profile photo",
       showPhoto: "Show photo {{number}}",
@@ -207,7 +207,7 @@ export const translations = {
         game: {
           title: "Game Development",
           description:
-            "In my spare time I'm usually building games. I work with Godot and GDScript to bring ideas to life.",
+            "I make games with Godot and GDScript. Sometimes I also make videos about them for my YouTube channel.",
         },
         web: {
           title: "Web Development",
@@ -222,7 +222,7 @@ export const translations = {
         video: {
           title: "Video Editing",
           description:
-            "I taught myself video editing and work in DaVinci Resolve and Adobe Premiere Pro. For my YouTube channel I occasionally create videos that take a lot of care and personality.",
+            "I taught myself video editing in Adobe Premiere Pro and later switched to DaVinci Resolve, which I use now.",
         },
       },
     },
