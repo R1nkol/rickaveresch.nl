@@ -50,7 +50,7 @@ export default function LanguagePicker() {
       <button
         ref={toggleRef}
         type="button"
-        className="button-secondary h-10 w-10 p-0"
+        className="button-secondary h-10 w-10 p-0 text-accent"
         aria-label={t("languagePicker.open")}
         title={t("languagePicker.open")}
         aria-expanded={open}
