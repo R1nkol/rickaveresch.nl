@@ -98,8 +98,8 @@ export default function Header({ activeSection }) {
           )}
 
           <div className="flex items-center gap-2">
-            {!hideLanguagePicker && <LanguagePicker key={pathname} />}
-            <ColorThemePicker key={pathname} />
+            {!hideLanguagePicker && <LanguagePicker key={`language-${pathname}`} />}
+            <ColorThemePicker key={`color-theme-${pathname}`} />
           </div>
         </div>
       </div>
