@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useColorTheme } from "@/contexts/ColorThemeContext";
 
 import {
   startBackgroundAnimation,
@@ -9,8 +10,16 @@ import {
 } from "@/lib/backgroundAnimation";
 
 export default function FlowLinesBackground({ numLines = 5 }) {
+  const { theme } = useColorTheme();
   const canvasRef = useRef(null);
   const targetCountRef = useRef(numLines);
+  const accentRef = useRef(null);
+
+  useEffect(() => {
+    accentRef.current = getComputedStyle(canvasRef.current)
+      .getPropertyValue("--accent")
+      .trim();
+  }, [theme]);
 
   useEffect(() => {
     targetCountRef.current = numLines;
@@ -21,6 +30,7 @@ export default function FlowLinesBackground({ numLines = 5 }) {
     let time = 0;
     let edgeFade = null;
     let gradientWidth = 0;
+    let gradientAccent = null;
 
     return startBackgroundAnimation(
       canvasRef.current,
@@ -43,13 +53,15 @@ export default function FlowLinesBackground({ numLines = 5 }) {
 
         const amplitude = Math.min(84, Math.max(38, height * 0.085));
         const segmentWidth = Math.max(12, Math.min(22, width / 70));
-        if (!edgeFade || gradientWidth !== width) {
+        const accent = accentRef.current;
+        if (!edgeFade || gradientWidth !== width || gradientAccent !== accent) {
           edgeFade = ctx.createLinearGradient(0, 0, width, 0);
-          edgeFade.addColorStop(0, "rgba(185, 163, 227, 0)");
-          edgeFade.addColorStop(0.14, "rgba(185, 163, 227, 1)");
-          edgeFade.addColorStop(0.86, "rgba(185, 163, 227, 1)");
-          edgeFade.addColorStop(1, "rgba(185, 163, 227, 0)");
+          edgeFade.addColorStop(0, "transparent");
+          edgeFade.addColorStop(0.14, accent);
+          edgeFade.addColorStop(0.86, accent);
+          edgeFade.addColorStop(1, "transparent");
           gradientWidth = width;
+          gradientAccent = accent;
         }
 
         let retained = 0;
