@@ -12,7 +12,7 @@ export const projects = [
     badge: { nl: "Video beschikbaar!", en: "Video available!" },
     details: {
       nl: [
-        "Na mijn vorige video kwamen een paar klasgenoten bij me met het idee om een game jam te organiseren voor een nieuwe YouTube-video. Dat leek me een leuk idee, want dan hoefde ik zelf niet na te denken over een video-idee en het leek me gewoon gezellig om het met hun te doen.",
+        "Na mijn vorige video kwamen een paar klasgenoten bij me met het idee om een game jam te organiseren voor een nieuwe YouTube video. Dat leek me een leuk idee, want dan hoefde ik zelf niet na te denken over een idee voor een video en het leek me gewoon gezellig om het met hun te doen.",
         "Ze hadden zelf ook nog nooit game development aangeraakt, dus dat maakte het voor mij extra grappig. Iemand zou gegarandeerd een slechte game opleveren, en dat leek me perfect voor een video.",
         "We gaven onszelf een week de tijd om een game te maken met het thema Losing Control, en hebben het hele proces vastgelegd voor de video.",
       ],

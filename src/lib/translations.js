@@ -20,7 +20,7 @@ export const translations = {
         "Hoi! Ik ben Rick Averesch, {{age}} jaar. Ik ben geslaagd voor de opleiding Software Development en zit momenteel in een tussenjaar.",
       hobby: "In mijn vrije tijd verdiep ik me in game development in Godot met GDScript.",
       editing:
-        "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en maak af en toe YouTube-video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
+        "Daarnaast kan ik ook video's editen, iets wat ik mezelf heb aangeleerd. Ik werk in DaVinci Resolve en Adobe Premiere Pro en maak af en toe YouTube video's voor mijn kanaal waarin veel werk en persoonlijkheid zit.",
       contactCta: "Kom in contact",
       photoNavigation: "Kies een profielfoto",
       showPhoto: "Toon foto {{number}}",
@@ -37,7 +37,7 @@ export const translations = {
         web: {
           title: "Web Development",
           description:
-            "Op school en op stages ben ik voornamelijk bezig geweest met web development, vooral back-end werk.",
+            "Op school en op stages ben ik voornamelijk bezig geweest met web development, vooral backend werk.",
         },
         software: {
           title: "Software Development",
@@ -47,7 +47,7 @@ export const translations = {
         video: {
           title: "Video Editing",
           description:
-            "Ik heb mezelf video-editing aangeleerd en werk in DaVinci Resolve. Voor mijn YouTube-kanaal maak ik af en toe video's waar veel zorg en persoonlijkheid in zitten.",
+            "Ik heb mezelf video editing aangeleerd en werk in DaVinci Resolve en Adobe Premiere Pro. Voor mijn YouTube kanaal maak ik af en toe video's waar veel zorg en persoonlijkheid in zitten.",
         },
       },
     },
@@ -118,10 +118,20 @@ export const translations = {
       modalNext: "Volgende afbeelding",
       statusLabel: "Status",
     },
+    languagePicker: {
+      label: "Taal",
+      open: "Kies een taal",
+      close: "Sluit taalkeuze",
+    },
+    colorTheme: {
+      label: "Accentkleur",
+      open: "Kies een accentkleur",
+      close: "Sluit kleurkeuze",
+    },
     backgroundSettings: {
-      settings: "Instellingen",
-      open: "Open instellingen",
-      close: "Sluit instellingen",
+      settings: "Effectinstellingen",
+      open: "Open effectinstellingen",
+      close: "Sluit effectinstellingen",
       effect: "Achtergrondeffect",
       effects: {
         balls: {
@@ -184,7 +194,7 @@ export const translations = {
         "Hi! I'm Rick Averesch, {{age}} years old. I successfully completed the Software Development program and I'm currently taking a gap year.",
       hobby: "In my spare time I dive into game development in Godot using GDScript.",
       editing:
-        "I also edit videos, something I taught myself. I work in DaVinci Resolve and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
+        "I also edit videos, something I taught myself. I work in DaVinci Resolve and Adobe Premiere Pro and occasionally create YouTube videos for my channel that take a lot of effort and personality.",
       contactCta: "Get in touch",
       photoNavigation: "Choose a profile photo",
       showPhoto: "Show photo {{number}}",
@@ -201,7 +211,7 @@ export const translations = {
         web: {
           title: "Web Development",
           description:
-            "At school and during internships I've mainly worked on web development, with a strong focus on back-end work.",
+            "At school and during internships I've mainly worked on web development, with a strong focus on backend work.",
         },
         software: {
           title: "Software Development",
@@ -211,7 +221,7 @@ export const translations = {
         video: {
           title: "Video Editing",
           description:
-            "I taught myself video editing and work in DaVinci Resolve. For my YouTube channel I occasionally create videos that take a lot of care and personality.",
+            "I taught myself video editing and work in DaVinci Resolve and Adobe Premiere Pro. For my YouTube channel I occasionally create videos that take a lot of care and personality.",
         },
       },
     },
@@ -277,10 +287,20 @@ export const translations = {
       modalNext: "Next image",
       statusLabel: "Status",
     },
+    languagePicker: {
+      label: "Language",
+      open: "Choose a language",
+      close: "Close language picker",
+    },
+    colorTheme: {
+      label: "Accent color",
+      open: "Choose an accent color",
+      close: "Close color picker",
+    },
     backgroundSettings: {
-      settings: "Settings",
-      open: "Open settings",
-      close: "Close settings",
+      settings: "Effect settings",
+      open: "Open effect settings",
+      close: "Close effect settings",
       effect: "Background effect",
       effects: {
         balls: {

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ColorThemePicker from "@/components/ColorThemePicker";
+import LanguagePicker from "@/components/LanguagePicker";
 
 const NAV_ITEMS = [
   { id: "home", labelKey: "navigation.home" },
@@ -14,10 +16,10 @@ const NAV_ITEMS = [
 
 export default function Header({ activeSection }) {
   const pathname = usePathname();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const isPaymentPage = pathname === "/betaal-mij";
   const isDrinkGamesPage = pathname?.startsWith("/drankspellen");
-  const hideLanguageToggle =
+  const hideLanguagePicker =
     isPaymentPage || isDrinkGamesPage || pathname === "/blackjack-drankspel";
 
   const suffixSegments = (() => {
@@ -67,10 +69,10 @@ export default function Header({ activeSection }) {
           )}
         </div>
 
-        {/* Navigation + language toggle */}
-        <div className="flex shrink-0 items-center gap-4 sm:gap-12">
+        {/* Navigation + site preferences */}
+        <div className="flex shrink-0 items-center gap-3 lg:gap-8">
           {pathname === "/" && (
-            <nav className="hidden md:flex gap-6 text-sm">
+            <nav className="hidden md:flex gap-4 lg:gap-6 text-sm">
               {NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -95,17 +97,10 @@ export default function Header({ activeSection }) {
             </nav>
           )}
 
-          {/* Language toggle - verberg op betaal-mij pagina */}
-          {!hideLanguageToggle && (
-            <button
-              type="button"
-              onClick={toggleLanguage}
-              aria-label={t("navigation.toggle")}
-              className="button-secondary min-h-9 px-3 py-1 text-sm"
-            >
-              {language === "nl" ? "NL" : "EN"}
-            </button>
-          )}
+          <div className="flex items-center gap-2">
+            {!hideLanguagePicker && <LanguagePicker key={pathname} />}
+            <ColorThemePicker key={pathname} />
+          </div>
         </div>
       </div>
     </header>
