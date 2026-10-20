@@ -206,11 +206,11 @@ export default function DrankspellenPage() {
                 Algemene regels
               </h2>
               <p className="mt-3 text-base text-gray-300">
-                Drink verantwoord en ken je grenzen. Let op de volgende punten:
+                Spreek van tevoren af hoe jullie spelen en let een beetje op elkaar.
               </p>
               <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
-                <li>Definities: 1 slok = kleine slok. 1 vol adtje = 5 slokken (adten in een keer of verdelen).</li>
-                <li>Per moment geldt alleen de zwaarste regel (scheelt discussies en stapelen).</li>
+                <li>Met een slok bedoelen we een kleine slok. Een adtje telt als 5 slokken, die je ook mag verdelen.</li>
+                <li>Tel straffen niet bij elkaar op. Neem alleen het hoogste aantal slokken.</li>
                 <li>Als iemand het slecht heeft geef diegene dan iets van 10 minuten water.</li>
                 <li>Water en eten zijn altijd top om erbij te hebben.</li>
                 <li>Je mag altijd overslaan of wisselen naar fris/water.</li>

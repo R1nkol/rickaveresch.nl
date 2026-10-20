@@ -1,276 +1,90 @@
-"use client";
+import DrinkGameRules from "@/components/DrinkGameRules";
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import IntensityStars from "@/components/IntensityStars";
-
-const QUICK_RULES = [
-  "Minigame regels gelden alleen voor spelers die de minigame meedoen.",
-  "Stars en board events gelden altijd voor de speler die geraakt worden.",
-  "Team minigames gebruiken altijd de teamregels (geen placement).",
-  "Jamboree actief? Alles is x2: drinken en uitdelen.",
-  "2x achter elkaar laatste in een minigame? Dan mag je 1 slok minder drinken.",
+const SECTIONS = [
+  {
+    title: "Minigames",
+    description: "Alleen de spelers die meedoen tellen mee.",
+    rules: [
+      { label: "1e plek", value: "1 slok uitdelen" },
+      { label: "2e plek", value: "Niets" },
+      { label: "3e plek", value: "2 slokken drinken" },
+      { label: "4e plek", value: "3 slokken drinken" },
+      { label: "2 keer of vaker op rij laatste", value: "1 slok minder bij deze minigame" },
+    ],
+    notes: [
+      "De korting blijft 1 slok. Bij 4 spelers drink je dus 3, 2, 2, 2 slokken als je steeds laatste wordt.",
+      "Eindig je een keer hoger, dan begint de telling opnieuw.",
+    ],
+  },
+  {
+    title: "Teamminigames",
+    description: "Bij 2v2 en 3v1 gebruik je deze tabel in plaats van de losse plekken.",
+    rules: [
+      { label: "2v2: winnend team", value: "Per personage 1 slok uitdelen" },
+      { label: "3v1: solo wint", value: "Solo deelt 3 slokken uit" },
+      { label: "3v1: solo verliest", value: "Solo drinkt 2 slokken" },
+    ],
+  },
+  {
+    title: "Sterren",
+    rules: [
+      { label: "Ster kopen", value: "Iedereen 2 slokken" },
+      { label: "Ster stelen", value: "De dief drinkt 3 slokken" },
+      { label: "Ster cadeau krijgen", value: "3 slokken uitdelen" },
+      { label: "Langs de ster lopen", value: "2 slokken drinken" },
+    ],
+  },
+  {
+    title: "Eindstand",
+    description: "Deel uit van de laatste naar de eerste plek.",
+    rules: [
+      { label: "1e plek", value: "5 slokken uitdelen" },
+      { label: "2e plek", value: "3 slokken uitdelen" },
+      { label: "3e plek", value: "2 slokken uitdelen" },
+      { label: "4e plek", value: "1 slok uitdelen" },
+    ],
+  },
 ];
 
-const MINIGAME_RULES = [
-  { label: "1e plek", value: "1 slok uitdelen" },
-  { label: "2e plek", value: "0 slokken" },
-  { label: "3e plek", value: "2 slokken" },
-  { label: "4e plek", value: "3 slokken" },
-];
-
-const TEAM_2V2_RULES = [
-  { label: "Winnend team", value: "1 slok uitdelen (per speler)" },
-];
-
-const TEAM_3V1_RULES = [
-  { label: "Solo wint", value: "3 slokken uitdelen" },
-  { label: "Solo verliest", value: "2 slokken drinken" },
-];
-
-const STAR_RULES = [
-  { label: "Ster kopen", value: "Iedereen 2 slokken" },
-  { label: "Ster stelen", value: "Kost 3 slokken" },
-  { label: "Ster cadeau krijgen", value: "3 slokken uitdelen" },
-  { label: "Langs ster lopen", value: "2 slokken" },
-];
-
-const ENDGAME_RULES = [
-  { label: "1e plek", value: "5 slokken uitdelen" },
-  { label: "2e plek", value: "3 slokken uitdelen" },
-  { label: "3e plek", value: "2 slokken uitdelen" },
-  { label: "4e plek", value: "1 slok uitdelen" },
-];
-
-const BOARD_EVENTS = [
-  { label: "Bowser event", value: "2 slokken" },
-  { label: "Item wordt tegen je gebruikt", value: "1 slok" },
-  { label: "Verliest duel minigame", value: "2 slokken" },
-  { label: "Koop een item uit de shop", value: "1 slok" },
-];
-
-const MIDGAME_RULES = [
-  { label: "1e plek", value: "2 slokken drinken" },
-  { label: "2e plek", value: "1 slok drinken" },
-  { label: "3e plek", value: "1 slok uitdelen" },
-  { label: "4e plek", value: "2 slokken uitdelen" },
+const EXTENDED_SECTIONS = [
+  {
+    title: "Board events",
+    description: "Alleen de speler die het overkomt drinkt.",
+    rules: [
+      { label: "Bowser event", value: "2 slokken" },
+      { label: "Item tegen je gebruikt", value: "1 slok" },
+      { label: "Duelminigame verliezen", value: "2 slokken" },
+      { label: "Item kopen", value: "1 slok" },
+    ],
+  },
+  {
+    title: "Tussenstand",
+    description: "Bekijk de stand na elke 5 minigames.",
+    rules: [
+      { label: "1e plek", value: "2 slokken drinken" },
+      { label: "2e plek", value: "1 slok drinken" },
+      { label: "3e plek", value: "1 slok uitdelen" },
+      { label: "4e plek", value: "2 slokken uitdelen" },
+    ],
+  },
+  {
+    title: "Jamboree",
+    rules: [
+      { label: "Jamboree actief", value: "Drinken en uitdelen telt dubbel" },
+    ],
+    notes: ["Reken eerst de korting voor laatste worden, daarna verdubbel je de slokken."],
+  },
 ];
 
 export default function MarioPartyDrankspelPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true" />
-
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <Header activeSection="" />
-
-        <div className="flex-1 px-4 pb-24 pt-28">
-          <div className="mx-auto w-full max-w-6xl space-y-16">
-            <section className="space-y-10">
-              <div className="space-y-4">
-                <h1 className="page-heading">
-                  Mario Party drankspel regels
-                </h1>
-                <IntensityStars intensity={4} />
-              </div>
-
-              <div className="surface-panel p-8">
-                <h2 className="text-xl font-semibold text-white">Snel overzicht</h2>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {QUICK_RULES.map((rule, index) => (
-                    <div
-                      key={rule}
-                      className="flex items-center gap-4 rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span className="button-secondary">
-                        {index + 1}
-                      </span>
-                      <span>{rule}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section id="minigame-regels" className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Minigame regels
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Bepaal wie drinkt op basis van de plaatsing in elke minigame.
-                </p>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {MINIGAME_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Team minigames
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Deze regels vervangen de placement regels in team minigames.
-                </p>
-                <div className="mt-6 space-y-6 text-base text-gray-300">
-                  <div>
-                    <p className="mb-3 font-medium text-accent">
-                      2v2
-                    </p>
-                    <div className="space-y-3">
-                      {TEAM_2V2_RULES.map((rule) => (
-                        <div
-                          key={rule.label}
-                          className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                        >
-                          <span>{rule.label}</span>
-                          <span className="font-semibold text-white">
-                            {rule.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="mb-3 font-medium text-accent">
-                      3v1
-                    </p>
-                    <div className="space-y-3">
-                      {TEAM_3V1_RULES.map((rule) => (
-                        <div
-                          key={rule.label}
-                          className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                        >
-                          <span>{rule.label}</span>
-                          <span className="font-semibold text-white">
-                            {rule.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Stars
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Regels rondom het verkrijgen en verliezen van sterren.
-                </p>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {STAR_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Board events
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Extra slokken tijdens het spelen op het bord.
-                </p>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {BOARD_EVENTS.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Tussenstand
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Na elke 5 minigames wordt de tussenstand bekeken.
-                </p>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {MIDGAME_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Eindstand
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Volgorde: 4e plek deelt als eerst uit, 1e plek als laatst.
-                </p>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {ENDGAME_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <Footer />
-      </div>
-    </main>
+    <DrinkGameRules
+      title="Mario Party"
+      intensity={4}
+      description="De drinkregels voor minigames, sterren en het bord."
+      sections={SECTIONS}
+      extendedSections={EXTENDED_SECTIONS}
+      teamPlay
+    />
   );
 }

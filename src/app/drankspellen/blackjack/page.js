@@ -1,319 +1,89 @@
-"use client";
+import DrinkGameRules from "@/components/DrinkGameRules";
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import IntensityStars from "@/components/IntensityStars";
-import Link from "next/link";
-
-const QUICK_RULES = [
-  "Kopen mag alleen voordat de eerste kaart gedeeld is.",
-  "Inleveren kan alleen direct nadat je je hand hebt gewonnen.",
-  "Je mag maximaal 1× fiches inleveren per gewonnen hand.",
-  "Blackjack: iedereen zonder blackjack 3 slokken (eerste 2 handen 2 slokken).",
-  "Bij double down en split gelden altijd speciale regels.",
-  "Je mag alleen straffen uitdelen aan spelers die die ronde hebben meegedaan.",
-  "Je mag nooit op de dealer uitdelen.",
-  "Max 1× vol adtje adten (in een keer) per persoon per hand. Extra wordt 5 slokken.",
+const SECTIONS = [
+  {
+    title: "Bust",
+    description: "Spreek af met hoeveel fiches je begint. Als je boven de 21 komt, drink je het aantal slokken hieronder.",
+    rules: [
+      { label: "22 of 23", value: "1 slok" },
+      { label: "24 tot en met 27", value: "2 slokken" },
+      { label: "28 of hoger", value: "5 slokken" },
+      { label: "Dealer: 22 tot en met 24", value: "Dealer drinkt 1 slok" },
+      { label: "Dealer: 25 of hoger", value: "Dealer drinkt 2 slokken" },
+    ],
+  },
+  {
+    title: "Blackjack",
+    rules: [
+      { label: "Speler heeft blackjack", value: "Iedereen zonder blackjack drinkt 3 slokken" },
+      { label: "Dealer heeft blackjack", value: "Alle spelers drinken 3 slokken" },
+    ],
+    notes: ["De eerste 2 handen is de straf bij een blackjack van een speler 2 slokken."],
+  },
 ];
 
-const BUY_CHIPS = [
-  { chip: "1", cost: "1 slok" },
-  { chip: "5", cost: "3 slokken" },
-  { chip: "25", cost: "1 vol adtje" },
-  { chip: "50", cost: "1 vol adtje + 3 slokken" },
-  { chip: "100", cost: "2 volle adtjes" },
-];
-
-const BUY_NOTES = [
-  "Kopen mag alleen voordat de eerste kaart gedeeld is (voor de hand start).",
-  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
-  "Een vol adtje doe je met een nieuw, vol glas.",
-];
-const CASHIN_CHIPS = [
-  { chip: "25", reward: "1 glas adten uitdelen" },
-  { chip: "50", reward: "1 vol adtje uitdelen" },
-  { chip: "100", reward: "2 volle adtjes uitdelen" },
-];
-
-const CASHIN_RULES = [
-  "Je mag alleen fiches inleveren als je je hand hebt gewonnen.",
-  "Jij kiest wie er drinkt.",
-  "Alleen spelers die in die ronde hebben meegespeeld mogen drinken.",
-  "Je mag nooit op de dealer uitdelen.",
-  "Adtjes mogen niet worden opgespaard voor later.",
-  "1 vol adtje = 5 slokken (adten in een keer of verdelen).",
-];
-
-const BLACKJACK_RULES = [
-  { label: "Iedereen zonder blackjack", value: "3 slokken (eerste 2 handen 2 slokken)" },
-  { label: "Dealer heeft blackjack", value: "iedereen 3 slokken" },
-  { label: "Speler heeft blackjack", value: "Mag deze hand geen fiches inleveren" },
-];
-
-const BUST_RULES = [
-  { label: "Bust met 22 of 23", value: "1 slok" },
-  { label: "Bust met 24 of hoger", value: "2 slokken" },
-  { label: "Bust met 28 of hoger", value: "1 vol adtje" },
-  { label: "Dealer bust met 22 tot 24", value: "Dealer 1 slok" },
-  { label: "Dealer bust met 25 of hoger", value: "Dealer 2 slokken" },
-];
-
-const SPLIT_RULES = [
-  { label: "Splitten kost vooraf", value: "1 slok" },
-  { label: "Win je beide handen", value: "1 glas adten uitdelen" },
-  { label: "Verlies je beide", value: "1 glas adten" },
-];
-
-const DOUBLE_DOWN_RULES = [
-  { label: "Win", value: "3 slokken uitdelen" },
-  { label: "Verlies", value: "3 slokken drinken" },
-  { label: "Bust", value: "1 vol adtje" },
-];
-
-const SPECIAL_RULES = [
-  { label: "Dealer heeft 5 kaarten zonder bust", value: "iedereen 1 slok" },
-  { label: "Speler heeft 5 kaarten zonder bust", value: "1 glas adten uitdelen" },
-  { label: "21 met 4+ kaarten", value: "2 slokken uitdelen" },
-  { label: "Dealer bust 2 handen achter elkaar", value: "Dealer 2 slokken" },
-  { label: "Dealer bust 3 handen achter elkaar", value: "Dealer 1 vol adtje" },
+const EXTENDED_SECTIONS = [
+  {
+    title: "Fiches kopen",
+    description: "Alleen voordat de eerste kaart van een hand gedeeld is.",
+    rules: [
+      { label: "1 fiche", value: "1 slok" },
+      { label: "5 fiches", value: "3 slokken" },
+      { label: "25 fiches", value: "5 slokken" },
+      { label: "50 fiches", value: "8 slokken" },
+      { label: "100 fiches", value: "10 slokken" },
+    ],
+  },
+  {
+    title: "Fiches inleveren",
+    description: "Maximaal één keer, direct na een gewonnen hand. Jij kiest wie drinkt.",
+    rules: [
+      { label: "25 fiches", value: "5 slokken uitdelen" },
+      { label: "50 fiches", value: "5 slokken uitdelen" },
+      { label: "100 fiches", value: "10 slokken uitdelen" },
+    ],
+    notes: ["Met blackjack mag je deze hand geen fiches inleveren.", "Deel je slokken meteen uit, je kunt ze niet bewaren voor later."],
+  },
+  {
+    title: "Splitten",
+    rules: [
+      { label: "Vooraf", value: "1 slok drinken" },
+      { label: "Win beide handen", value: "5 slokken uitdelen" },
+      { label: "Verlies beide handen", value: "5 slokken drinken" },
+    ],
+  },
+  {
+    title: "Double down",
+    rules: [
+      { label: "Win", value: "3 slokken uitdelen" },
+      { label: "Verlies zonder bust", value: "3 slokken drinken" },
+      { label: "Bust", value: "5 slokken drinken" },
+    ],
+  },
+  {
+    title: "Speciale momenten",
+    rules: [
+      { label: "Dealer: 5 kaarten zonder bust", value: "Alle spelers 1 slok" },
+      { label: "Speler: 5 kaarten zonder bust", value: "5 slokken uitdelen" },
+      { label: "21 met 4 of meer kaarten", value: "2 slokken uitdelen" },
+      { label: "Dealer bust 2 handen op rij", value: "Dealer drinkt 2 slokken" },
+      { label: "Dealer bust 3 handen op rij", value: "Dealer drinkt 5 slokken" },
+    ],
+  },
 ];
 
 export default function BlackjackDrankspelPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <Header activeSection="" />
-
-        <div className="flex-1 px-4 pb-24 pt-28">
-          <div className="mx-auto w-full max-w-6xl space-y-16">
-            <section className="space-y-10">
-              <div className="space-y-4">
-                <h1 className="page-heading">
-                  Blackjack Drankspel regels
-                </h1>
-                <div className="flex flex-wrap items-center gap-3">
-                  <Link
-                    href="/drankspellen/blackjack/uitleg"
-                    className="button-secondary"
-                  >
-                    Blackjack basis uitleg
-                  </Link>
-                  <IntensityStars intensity={4} />
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <h2 className="text-xl font-semibold text-white">Snel overzicht</h2>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {QUICK_RULES.map((rule, index) => (
-                    <div
-                      key={rule}
-                      className="flex items-center gap-4 rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span className="button-secondary">
-                        {index + 1}
-                      </span>
-                      <span>{rule}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Fiches kopen
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Alleen met slokken of volle adtjes, afhankelijk van de fiche.
-                </p>
-                <div className="mt-6 overflow-hidden rounded-md border border-white/10">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-white/5 text-xs uppercase text-gray-400">
-                      <tr>
-                        <th className="px-4 py-3">Fiche</th>
-                        <th className="px-4 py-3">Kosten</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/10">
-                      {BUY_CHIPS.map((row) => (
-                        <tr key={row.chip} className="bg-black/30">
-                          <td className="px-4 py-3 font-semibold text-white">
-                            {row.chip}
-                          </td>
-                          <td className="px-4 py-3 text-gray-300">
-                            {row.cost}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
-                  {BUY_NOTES.map((note) => (
-                    <li key={note}>{note}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-semibold text-white">
-                    Fiches inleveren
-                  </h2>
-                </div>
-                <p className="mt-3 text-base text-gray-300">
-                  Je krijgt de kans om fiches uit te delen nadat je een hand hebt gewonnen.
-                </p>
-                <div className="mt-6 overflow-hidden rounded-md border border-white/10">
-                  <table className="w-full text-left text-sm">
-                    <thead className="bg-white/5 text-xs uppercase text-gray-400">
-                      <tr>
-                        <th className="px-4 py-3">Ingeleverd</th>
-                        <th className="px-4 py-3">Uitdelen</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/10">
-                      {CASHIN_CHIPS.map((row) => (
-                        <tr key={row.chip} className="bg-black/30">
-                          <td className="px-4 py-3 font-semibold text-white">
-                            {row.chip}
-                          </td>
-                          <td className="px-4 py-3 text-gray-300">
-                            {row.reward}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
-                  {CASHIN_RULES.map((rule) => (
-                    <li key={rule}>{rule}</li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">
-                    Bust regels
-                  </h2>
-                </div>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {BUST_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">
-                    Speciale regels
-                  </h2>
-                </div>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {SPECIAL_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Blackjack regels</h2>
-                </div>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {BLACKJACK_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="grid gap-6 lg:grid-cols-2">
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">Split regels</h2>
-                </div>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {SPLIT_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="surface-panel p-8">
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-semibold text-white">
-                    Double down
-                  </h2>
-                </div>
-                <div className="mt-6 space-y-4 text-base text-gray-300">
-                  {DOUBLE_DOWN_RULES.map((rule) => (
-                    <div
-                      key={rule.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
-                    >
-                      <span>{rule.label}</span>
-                      <span className="font-semibold text-white">
-                        {rule.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <Footer />
-      </div>
-    </main>
+    <DrinkGameRules
+      title="Blackjack"
+      intensity={4}
+      description="Blackjack met slokken. De dealer doet ook mee."
+      links={[{ label: "Blackjack basisuitleg", href: "/drankspellen/blackjack/uitleg" }]}
+      notes={[
+        "Je mag alleen uitdelen aan spelers die deze ronde meedoen. De dealer sla je over.",
+      ]}
+      sections={SECTIONS}
+      extendedSections={EXTENDED_SECTIONS}
+    />
   );
 }
