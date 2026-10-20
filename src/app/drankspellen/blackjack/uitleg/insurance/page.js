@@ -71,7 +71,7 @@ export default function InsuranceSideBetPage() {
                   {WHEN_WIN.map((item) => (
                     <li
                       key={item}
-                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="surface-inset px-4 py-3"
                     >
                       {item}
                     </li>
@@ -87,7 +87,7 @@ export default function InsuranceSideBetPage() {
                   {PAYOUTS.map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center justify-between surface-inset px-4 py-3"
                     >
                       <span>{item.label}</span>
                       <span className="font-semibold text-white">
@@ -105,7 +105,7 @@ export default function InsuranceSideBetPage() {
                 {EXAMPLES.map((example) => (
                   <div
                     key={example.id}
-                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3 text-base text-gray-300"
+                    className="surface-inset px-4 py-3 text-base text-gray-300"
                   >
                     {example.content}
                   </div>

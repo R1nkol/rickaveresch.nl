@@ -7,6 +7,13 @@ export default {
   ],
   theme: {
     extend: {
+      borderRadius: {
+        DEFAULT: "var(--radius-control)",
+        sm: "var(--radius-control)",
+        md: "var(--radius-control)",
+        lg: "var(--radius-panel)",
+        full: "var(--radius-pill)",
+      },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "Arial", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],

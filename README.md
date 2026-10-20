@@ -23,3 +23,12 @@ git clone https://github.com/R1nkol/rickaveresch.nl.git
 cd rickaveresch.nl
 npm install
 npm run dev
+```
+
+De devserver gebruikt `.next-dev` voor gegenereerde bestanden. `npm run build`
+en `npm start` gebruiken `.next`, zodat een productiebuild de draaiende
+devserver niet verstoort. Start maar één devserver tegelijk per checkout.
+
+Krijg je na een configuratiewijziging nog oude chunk- of CSS-fouten? Stop de
+devserver met `Ctrl+C`, start `npm run dev` opnieuw en ververs de browser met
+`Ctrl+F5`.

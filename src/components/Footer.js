@@ -1,3 +1,5 @@
+"use client";
+
 import { Youtube, Instagram, Github } from "lucide-react";
 
 import { useLanguage } from "@/contexts/LanguageContext";

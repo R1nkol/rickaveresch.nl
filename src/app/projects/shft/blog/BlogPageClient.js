@@ -162,21 +162,13 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href={`/projects/shft/blog?sort=newest&perPage=${perPageParam}`}
-                className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
-                  sort === "newest"
-                    ? "border-accent bg-surface text-accent"
-                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                }`}
+                className={sort === "newest" ? "button-primary" : "button-secondary"}
               >
                 {t("blog.sort.newest")}
               </Link>
               <Link
                 href={`/projects/shft/blog?sort=oldest&perPage=${perPageParam}`}
-                className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition ${
-                  sort === "oldest"
-                    ? "border-accent bg-surface text-accent"
-                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                }`}
+                className={sort === "oldest" ? "button-primary" : "button-secondary"}
               >
                 {t("blog.sort.oldest")}
               </Link>
@@ -219,11 +211,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={option}
                     href={`/projects/shft/blog?sort=${sort}&perPage=${option}`}
-                    className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
-                      active
-                        ? "border-accent bg-surface text-accent"
-                        : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                    }`}
+                    className={active ? "button-primary" : "button-secondary"}
                   >
                     {option}
                   </Link>
@@ -231,11 +219,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               })}
               <Link
                 href={`/projects/shft/blog?sort=${sort}&perPage=${PER_PAGE_ALL_VALUE}`}
-                className={`inline-flex items-center rounded-full border px-3 py-1 text-sm transition ${
-                  perPageIsAll
-                    ? "border-accent bg-surface text-accent"
-                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                }`}
+                className={perPageIsAll ? "button-primary" : "button-secondary"}
               >
                 {t("blog.perPageAll")}
               </Link>
@@ -245,7 +229,7 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
               {pagesToShow.map((item, index) => {
                 if (item === "ellipsis") {
                   return (
-                    <span key={`ellipsis-${index}`} className="rounded-md px-3 py-1.5 text-sm text-gray-400">
+                    <span key={`ellipsis-${index}`} className="px-3 py-2 text-sm text-muted">
                       {t("blog.pagerEllipsis")}
                     </span>
                   );
@@ -256,11 +240,8 @@ export default function BlogPageClient({ initialSearchParams = {} }) {
                   <Link
                     key={item}
                     href={`/projects/shft/blog?page=${item}&sort=${sort}&perPage=${perPageParam}`}
-                    className={`rounded-full px-3 py-1.5 text-sm transition ${
-                      active
-                        ? "border border-accent bg-accent text-background"
-                        : "border border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                    }`}
+                    aria-current={active ? "page" : undefined}
+                    className={`${active ? "button-primary" : "button-secondary"} min-w-10`}
                   >
                     {item}
                   </Link>

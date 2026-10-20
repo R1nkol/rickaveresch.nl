@@ -1,28 +1,7 @@
 import DrinkGameRules from "@/components/DrinkGameRules";
+import { drinkGameDescriptions } from "@/data/drinkGameDescriptions";
 
 const SECTIONS = [
-  {
-    title: "Bust",
-    description: "Spreek af met hoeveel fiches je begint. Als je boven de 21 komt, drink je het aantal slokken hieronder.",
-    rules: [
-      { label: "22 of 23", value: "1 slok" },
-      { label: "24 tot en met 27", value: "2 slokken" },
-      { label: "28 of hoger", value: "5 slokken" },
-      { label: "Dealer: 22 tot en met 24", value: "Dealer drinkt 1 slok" },
-      { label: "Dealer: 25 of hoger", value: "Dealer drinkt 2 slokken" },
-    ],
-  },
-  {
-    title: "Blackjack",
-    rules: [
-      { label: "Speler heeft blackjack", value: "Iedereen zonder blackjack drinkt 3 slokken" },
-      { label: "Dealer heeft blackjack", value: "Alle spelers drinken 3 slokken" },
-    ],
-    notes: ["De eerste 2 handen is de straf bij een blackjack van een speler 2 slokken."],
-  },
-];
-
-const EXTENDED_SECTIONS = [
   {
     title: "Fiches kopen",
     description: "Alleen voordat de eerste kaart van een hand gedeeld is.",
@@ -42,7 +21,32 @@ const EXTENDED_SECTIONS = [
       { label: "50 fiches", value: "5 slokken uitdelen" },
       { label: "100 fiches", value: "10 slokken uitdelen" },
     ],
-    notes: ["Met blackjack mag je deze hand geen fiches inleveren.", "Deel je slokken meteen uit, je kunt ze niet bewaren voor later."],
+    notes: ["Deel je slokken meteen uit, je kunt ze niet bewaren voor later."],
+  },
+];
+
+const EXTENDED_SECTIONS = [
+  {
+    title: "Bust",
+    description: "Als je boven de 21 komt, drink je het aantal slokken hieronder.",
+    rules: [
+      { label: "22 of 23", value: "1 slok" },
+      { label: "24 tot en met 27", value: "2 slokken" },
+      { label: "28 of hoger", value: "5 slokken" },
+      { label: "Dealer: 22 tot en met 24", value: "Dealer drinkt 1 slok" },
+      { label: "Dealer: 25 of hoger", value: "Dealer drinkt 2 slokken" },
+    ],
+  },
+  {
+    title: "Blackjack",
+    rules: [
+      { label: "Speler heeft blackjack", value: "Iedereen zonder blackjack drinkt 3 slokken" },
+      { label: "Dealer heeft blackjack", value: "Alle spelers drinken 3 slokken" },
+    ],
+    notes: [
+      "De eerste 2 handen is de straf bij een blackjack van een speler 2 slokken.",
+      "Met blackjack mag je deze hand geen fiches inleveren.",
+    ],
   },
   {
     title: "Splitten",
@@ -77,9 +81,10 @@ export default function BlackjackDrankspelPage() {
     <DrinkGameRules
       title="Blackjack"
       intensity={4}
-      description="Blackjack met slokken. De dealer doet ook mee."
+      description={drinkGameDescriptions.blackjack}
       links={[{ label: "Blackjack basisuitleg", href: "/drankspellen/blackjack/uitleg" }]}
       notes={[
+        "Spreek af met hoeveel fiches je begint.",
         "Je mag alleen uitdelen aan spelers die deze ronde meedoen. De dealer sla je over.",
       ]}
       sections={SECTIONS}

@@ -167,7 +167,7 @@ export default function BlackjackBasicsPage() {
                   <ExpandableItem
                     key={item.label}
                     title={item.label}
-                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                    className="surface-inset px-4 py-3"
                     titleClassName="font-semibold text-white"
                     bodyClassName="mt-2 text-gray-300"
                   >
@@ -186,7 +186,7 @@ export default function BlackjackBasicsPage() {
                 {FLOW_STEPS.map((step) => (
                   <li
                     key={step}
-                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                    className="surface-inset px-4 py-3"
                   >
                     {step}
                   </li>
@@ -207,7 +207,7 @@ export default function BlackjackBasicsPage() {
                     <ExpandableItem
                       key={action.title}
                       title={action.title}
-                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="surface-inset px-4 py-3"
                     >
                       {action.description}
                     </ExpandableItem>
@@ -221,7 +221,7 @@ export default function BlackjackBasicsPage() {
                     <ExpandableItem
                       key={link.href}
                       title={link.title}
-                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="surface-inset px-4 py-3"
                       bodyClassName="mt-2"
                     >
                       <p className="text-gray-300">{link.description}</p>
@@ -246,7 +246,7 @@ export default function BlackjackBasicsPage() {
                       <ExpandableItem
                         key={action.title}
                         title={action.title}
-                        className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                        className="surface-inset px-4 py-3"
                       >
                         {action.description}
                       </ExpandableItem>
@@ -261,7 +261,7 @@ export default function BlackjackBasicsPage() {
                       <ExpandableItem
                         key={term.title}
                         title={term.title}
-                        className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                        className="surface-inset px-4 py-3"
                       >
                         {term.description}
                       </ExpandableItem>
@@ -279,7 +279,7 @@ export default function BlackjackBasicsPage() {
                 {WIN_RULES.map((rule) => (
                   <li
                     key={rule}
-                    className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                    className="surface-inset px-4 py-3"
                   >
                     {rule}
                   </li>

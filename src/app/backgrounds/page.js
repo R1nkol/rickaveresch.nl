@@ -43,7 +43,7 @@ export default function BackgroundSettings() {
                 </h1>
                 <div className="space-y-8">
                     {options.map(({ id, name, Component }) => (
-                        <div key={id} className="relative h-64 rounded-lg border border-line overflow-hidden">
+                        <div key={id} className="surface-panel relative h-64 overflow-hidden">
                             <Component />
                             <div className="relative z-10 h-full flex items-end justify-between p-4 bg-black/30">
                                 <span className="text-lg font-semibold">{name}</span>

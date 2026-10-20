@@ -133,7 +133,7 @@ export default function SideBet21Plus3Page() {
                   {WINNING_HANDS.map((hand) => (
                     <li
                       key={hand}
-                      className="rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="surface-inset px-4 py-3"
                     >
                       {hand}
                     </li>
@@ -149,7 +149,7 @@ export default function SideBet21Plus3Page() {
                   {PAYOUTS.map((item) => (
                     <div
                       key={item.label}
-                      className="flex items-center justify-between rounded-md border border-white/10 bg-black/40 px-4 py-3"
+                      className="flex items-center justify-between surface-inset px-4 py-3"
                     >
                       <span>{item.label}</span>
                       <span className="font-semibold text-white">
@@ -167,7 +167,7 @@ export default function SideBet21Plus3Page() {
                 {EXAMPLES.map((example) => (
                   <div
                     key={example.id}
-                    className="flex flex-col gap-2 rounded-md border border-white/10 bg-black/40 px-4 py-3 text-base text-gray-300 sm:flex-row sm:items-center sm:justify-between"
+                    className="flex flex-col gap-2 surface-inset px-4 py-3 text-base text-gray-300 sm:flex-row sm:items-center sm:justify-between"
                   >
                     <div className="sm:pr-4">{example.left}</div>
                     <div className="text-sm font-semibold text-white sm:shrink-0 sm:text-right">

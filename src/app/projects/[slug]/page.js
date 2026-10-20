@@ -155,7 +155,7 @@ export default function ProjectDetail() {
 
             {project.heroImage && (
               <div className="flex flex-1 justify-center lg:justify-end">
-                <div className="relative w-full max-w-md overflow-hidden rounded-lg border border-white/10">
+                <div className="relative w-full max-w-md overflow-hidden surface-panel">
                   <Image
                     src={project.heroImage}
                     alt={localizedTitle}
@@ -214,7 +214,7 @@ export default function ProjectDetail() {
                       </div>
                     </div>
                   ) : (
-                    <div className="rounded-md border border-white/10 bg-black/40 px-5 py-4 text-base text-muted">
+                    <div className="surface-inset px-5 py-4 text-base text-muted">
                       {t("projectDetail.noExtras")}
                     </div>
                   )}
@@ -258,7 +258,7 @@ export default function ProjectDetail() {
                         galleryTriggerRef.current = event.currentTarget;
                         setSelectedIndex(index);
                       }}
-                      className="group relative overflow-hidden rounded-md border border-white/10 bg-black/30 p-1 text-left transition hover:border-accent hover:bg-surface"
+                      className="group relative overflow-hidden surface-panel p-1 text-left transition hover:border-accent hover:bg-surface"
                     >
                       <div className="relative h-56 w-full overflow-hidden rounded-md">
                         {imgSrc.endsWith(".gif") ? (
@@ -292,7 +292,7 @@ export default function ProjectDetail() {
         <dialog
           ref={galleryDialogRef}
           aria-labelledby="gallery-dialog-title"
-          className="m-auto max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] max-w-6xl overflow-y-auto rounded-lg border border-line bg-surface p-0 text-white backdrop:bg-black/80"
+          className="surface-panel m-auto max-h-[calc(100dvh_-_2rem)] w-[calc(100%_-_2rem)] max-w-6xl overflow-y-auto p-0 text-white backdrop:bg-black/80"
           onKeyDown={(event) => {
             if (event.key !== "Tab") return;
             const buttons = event.currentTarget.querySelectorAll("button");

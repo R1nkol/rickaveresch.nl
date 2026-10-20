@@ -1,0 +1,1 @@
+export const shitheadHandSizeNote = "Je kunt het aantal handkaarten aanpassen aan het aantal spelers en hoelang jullie willen spelen, bijvoorbeeld 5, 7 of 10. Spreek dit vooraf af en vul tijdens het spel steeds aan tot dat aantal.";

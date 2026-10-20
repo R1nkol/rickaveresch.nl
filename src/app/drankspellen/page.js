@@ -2,17 +2,22 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { Club, Dices, Flag, Layers, Spade } from "lucide-react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import IntensityStars from "@/components/IntensityStars";
+import ChoiceGroup from "@/components/ChoiceGroup";
+import { drinkGameDescriptions } from "@/data/drinkGameDescriptions";
 
 const DRINK_GAMES = [
   {
     title: "Blackjack",
-    label: "Kaartspel",
+    Icon: Club,
+    description: drinkGameDescriptions.blackjack,
     href: "/drankspellen/blackjack",
     intensity: 4,
-    fun: 3,
+    fun: 2,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/blackjack" },
       { label: "Basis uitleg", href: "/drankspellen/blackjack/uitleg" },
@@ -20,10 +25,11 @@ const DRINK_GAMES = [
   },
   {
     title: "Poker",
-    label: "Kaartspel",
+    Icon: Spade,
+    description: drinkGameDescriptions.poker,
     href: "/drankspellen/poker",
     intensity: 3,
-    fun: 2,
+    fun: 1,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/poker" },
       { label: "Uitleg video", href: "https://www.youtube.com/watch?v=Id0f8mxTiWQ", external: true },
@@ -31,7 +37,8 @@ const DRINK_GAMES = [
   },
   {
     title: "Mario Party",
-    label: "Party game",
+    Icon: Dices,
+    description: drinkGameDescriptions["mario-party"],
     href: "/drankspellen/mario-party",
     intensity: 4,
     fun: 4,
@@ -41,54 +48,28 @@ const DRINK_GAMES = [
   },
   {
     title: "Mario Kart",
-    label: "Party game",
+    Icon: Flag,
+    description: drinkGameDescriptions["mario-kart"],
     href: "/drankspellen/mario-kart",
     intensity: 5,
-    fun: 1,
+    fun: 3,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/mario-kart" },
     ],
   },
+  {
+    title: "Shithead",
+    Icon: Layers,
+    description: drinkGameDescriptions.shithead,
+    href: "/drankspellen/shithead",
+    intensity: 3,
+    fun: 0,
+    links: [
+      { label: "Bekijk regels", href: "/drankspellen/shithead" },
+      { label: "Basis uitleg", href: "/drankspellen/shithead/uitleg" },
+    ],
+  },
 ];
-
-function IntensityStars({ intensity }) {
-  const getIntensityColor = (intensity) => {
-    switch (intensity) {
-      case 1:
-        return "text-green-400";
-      case 2:
-        return "text-green-300";
-      case 3:
-        return "text-yellow-400";
-      case 4:
-        return "text-orange-400";
-      case 5:
-        return "text-red-500";
-      default:
-        return "text-gray-400";
-    }
-  };
-
-  const starColor = getIntensityColor(intensity);
-
-  return (
-    <div className="flex items-center gap-1.5">
-      <span className="text-xs font-medium text-gray-400">Heftigheid:</span>
-      <div className="flex gap-0.5">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`text-lg ${
-              star <= intensity ? starColor : "text-gray-600"
-            }`}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function DrankspellenPage() {
   const [sortBy, setSortBy] = useState("fun_desc");
@@ -115,87 +96,66 @@ export default function DrankspellenPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true" />
-
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
 
         <div className="flex-1 px-4 pb-24 pt-28">
-          <div className="mx-auto w-full max-w-6xl space-y-12">
-            <section className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <div className="mx-auto w-full max-w-5xl space-y-8 sm:space-y-10">
+            <section className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="min-w-0 space-y-4">
                 <h1 className="page-heading">
                   Kies een spel
                 </h1>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSortBy((current) =>
-                      current === "fun_desc" ? "intensity_desc" : "fun_desc"
-                    )
-                  }
-                  className="button-secondary"
-                >
-                  Sorteren:{" "}
-                  {sortBy === "fun_desc"
-                    ? "Mijn favoriete"
-                    : "Heftigheid"}
-                </button>
+                <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
+                  Mijn favoriete drankspellen, met de regels bij de hand.
+                </p>
               </div>
-              <p className="max-w-2xl text-base text-gray-300 sm:text-lg lg:mx-0">
-                Hier vind je al mijn favoriete drankspellen om te spelen
-              </p>
+              <div className="shrink-0">
+                <ChoiceGroup
+                  label="Sorteren op"
+                  name="drink-game-sort"
+                  value={sortBy}
+                  onChange={setSortBy}
+                  controls="drink-games"
+                  options={[
+                    { value: "fun_desc", label: "Mijn favorieten" },
+                    { value: "intensity_desc", label: "Heftigheid" },
+                  ]}
+                />
+              </div>
             </section>
 
-            <section className="space-y-6">
-              {sortedGames.map((game) => (
+            <section id="drink-games" aria-label="Drankspellen" className="border-b border-line">
+              {sortedGames.map(({ Icon, ...game }) => (
                 <article
                   key={game.title}
-                  className="border-t border-line py-8"
+                  className="grid gap-4 border-t border-line py-6 md:grid-cols-[minmax(0,1fr)_10rem_17rem] md:items-center md:gap-6"
                 >
+                  <div className="min-w-0">
+                    <h2 className="text-2xl font-semibold tracking-tight text-white">
+                      <Link href={game.href} className="flex w-fit items-center gap-3 transition-colors hover:text-accent">
+                        <Icon aria-hidden="true" focusable="false" strokeWidth={1.75} className="h-5 w-5 shrink-0 text-accent" />
+                        <span>{game.title}</span>
+                      </Link>
+                    </h2>
+                    <p className="mt-1 pl-8 text-sm leading-relaxed text-muted">{game.description}</p>
+                  </div>
 
-                  <div className="relative z-10 flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                      <div className="space-y-1">
-                        <h2 className="text-3xl font-semibold text-white">
-                          {game.title}
-                        </h2>
-                        <div className="pt-1">
-                          <IntensityStars intensity={game.intensity} />
-                        </div>
-                      </div>
-                    </div>
+                  <IntensityStars intensity={game.intensity} />
 
-                    <div className="flex flex-wrap gap-3">
-                      {game.links.map((link, index) => {
-                        const className = index === 0 ? "button-primary" : "button-secondary";
-                        
-                        if (link.external) {
-                          return (
-                            <a
-                              key={link.href}
-                              href={link.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={className}
-                            >
-                              {link.label}
-                            </a>
-                          );
-                        }
-                        
-                        return (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className={className}
-                          >
-                            {link.label}
-                          </Link>
-                        );
-                      })}
-                    </div>
+                  <div className="flex flex-wrap items-center gap-4 md:flex-row-reverse">
+                    <Link href={game.href} className="button-primary" aria-label={`Bekijk de regels van ${game.title}`}>
+                      Bekijk regels
+                    </Link>
+                    {game.links.filter((link) => link.href !== game.href).map((link) => link.external ? (
+                      <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-link">
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link key={link.href} href={link.href} className="text-link">
+                        {link.label}
+                      </Link>
+                    ))}
                   </div>
                 </article>
               ))}
@@ -205,12 +165,12 @@ export default function DrankspellenPage() {
               <h2 className="text-2xl font-semibold text-white">
                 Algemene regels
               </h2>
-              <p className="mt-3 text-base text-gray-300">
+              <p className="mt-2 text-sm text-muted">
                 Spreek van tevoren af hoe jullie spelen en let een beetje op elkaar.
               </p>
-              <ul className="mt-6 list-disc space-y-2 pl-5 text-base text-gray-300">
+              <ul className="mt-5 grid list-disc gap-x-10 gap-y-3 pl-5 text-sm leading-relaxed text-gray-300 sm:grid-cols-2">
                 <li>Met een slok bedoelen we een kleine slok. Een adtje telt als 5 slokken, die je ook mag verdelen.</li>
-                <li>Tel straffen niet bij elkaar op. Neem alleen het hoogste aantal slokken.</li>
+                <li>Tel straffen niet bij elkaar op; neem het hoogste aantal. Staat er expliciet ‘extra’ bij, dan tel je die slokken erbij.</li>
                 <li>Als iemand het slecht heeft geef diegene dan iets van 10 minuten water.</li>
                 <li>Water en eten zijn altijd top om erbij te hebben.</li>
                 <li>Je mag altijd overslaan of wisselen naar fris/water.</li>

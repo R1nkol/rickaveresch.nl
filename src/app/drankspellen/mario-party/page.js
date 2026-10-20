@@ -1,4 +1,5 @@
 import DrinkGameRules from "@/components/DrinkGameRules";
+import { drinkGameDescriptions } from "@/data/drinkGameDescriptions";
 
 const SECTIONS = [
   {
@@ -81,7 +82,7 @@ export default function MarioPartyDrankspelPage() {
     <DrinkGameRules
       title="Mario Party"
       intensity={4}
-      description="De drinkregels voor minigames, sterren en het bord."
+      description={drinkGameDescriptions["mario-party"]}
       sections={SECTIONS}
       extendedSections={EXTENDED_SECTIONS}
       teamPlay
