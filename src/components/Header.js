@@ -19,9 +19,8 @@ export default function Header({ activeSection, navigationItems }) {
   const { t } = useLanguage();
   const isPaymentPage = pathname === "/betaal-mij";
   const isDrinkGamesPage = pathname?.startsWith("/drankspellen");
-  const isPadelPage = pathname === "/padel" || pathname?.startsWith("/padel/");
   const hideLanguagePicker =
-    isPaymentPage || isDrinkGamesPage || isPadelPage || pathname === "/blackjack-drankspel";
+    isPaymentPage || isDrinkGamesPage || pathname === "/blackjack-drankspel";
   const navItems = navigationItems ?? (pathname === "/" ? NAV_ITEMS : []);
 
   const suffixSegments = (() => {
