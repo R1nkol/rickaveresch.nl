@@ -14,13 +14,15 @@ const NAV_ITEMS = [
   { id: "contact", labelKey: "navigation.contact" },
 ];
 
-export default function Header({ activeSection }) {
+export default function Header({ activeSection, navigationItems }) {
   const pathname = usePathname();
   const { t } = useLanguage();
   const isPaymentPage = pathname === "/betaal-mij";
   const isDrinkGamesPage = pathname?.startsWith("/drankspellen");
+  const isPadelPage = pathname === "/padel" || pathname?.startsWith("/padel/");
   const hideLanguagePicker =
-    isPaymentPage || isDrinkGamesPage || pathname === "/blackjack-drankspel";
+    isPaymentPage || isDrinkGamesPage || isPadelPage || pathname === "/blackjack-drankspel";
+  const navItems = navigationItems ?? (pathname === "/" ? NAV_ITEMS : []);
 
   const suffixSegments = (() => {
     if (!pathname) return [];
@@ -71,13 +73,13 @@ export default function Header({ activeSection }) {
 
         {/* Navigation + site preferences */}
         <div className="flex shrink-0 items-center gap-3 lg:gap-8">
-          {pathname === "/" && (
+          {navItems.length > 0 && (
             <nav className="hidden md:flex gap-4 lg:gap-6 text-sm">
-              {NAV_ITEMS.map((item) => {
+              {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 return (
                   <Link
-                    href={"/#" + item.id}
+                    href={item.href ?? "/#" + item.id}
                     aria-current={isActive ? "location" : undefined}
                     key={item.id}
                     className={`group relative cursor-pointer font-medium transition-colors duration-300 ${
@@ -86,7 +88,7 @@ export default function Header({ activeSection }) {
                         : "text-muted hover:text-white"
                     }`}
                   >
-                    {t(item.labelKey)}
+                    {item.label ?? t(item.labelKey)}
                     <span
                       className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-accent transition-transform duration-300 ease-out"
                       style={{ transform: `scaleX(${isActive ? 1 : 0})` }}

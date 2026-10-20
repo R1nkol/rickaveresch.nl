@@ -2,6 +2,22 @@ import { SCHOPPENJAGEN_TARGETS, SCHOPPENJAGEN_PLAYER_SETUPS, SCHOPPENJAGEN_EXTRA
 
 export const SCHOPPENJAGEN_STORAGE_KEY = "rickaveresch:schoppenjagen-score:v1";
 
+export function schoppenjagenHandBudget({ target, playerCount }, points = []) {
+  const spadeCount = playerCount === 6 ? 9 : 8;
+  const maxPoints = spadeCount + SCHOPPENJAGEN_TARGETS[target].jackPoints - 1;
+  const values = points.map((value) => {
+    const number = Number(value);
+    return Number.isSafeInteger(number) && number >= 0 ? number : 0;
+  });
+  const total = values.reduce((sum, value) => sum + value, 0);
+  return {
+    maxPoints,
+    total,
+    remaining: Math.max(0, maxPoints - total),
+    maxPerPlayer: values.map((value) => Math.max(0, maxPoints - total + value)),
+  };
+}
+
 export function createSchoppenjagenGame({ target, playerCount, rules = {} }, names) {
   if (!Object.hasOwn(SCHOPPENJAGEN_TARGETS, target) || !Object.hasOwn(SCHOPPENJAGEN_PLAYER_SETUPS, playerCount)) {
     throw new Error("Kies een doelscore van 100, 50 of 25 en 4, 5 of 6 spelers.");
@@ -25,9 +41,8 @@ export function createSchoppenjagenGame({ target, playerCount, rules = {} }, nam
 
 function applyHand(players, hand, config) {
   const { target, playerCount, rules } = config;
-  const { jackPoints, doubleFrom } = SCHOPPENJAGEN_TARGETS[target];
-  const spadeCount = playerCount === 6 ? 9 : 8;
-  const maxPoints = spadeCount + jackPoints - 1;
+  const { doubleFrom } = SCHOPPENJAGEN_TARGETS[target];
+  const { maxPoints } = schoppenjagenHandBudget(config);
   const points = hand.points;
   if (!Array.isArray(points) || points.length !== playerCount || points.some((value) => !Number.isSafeInteger(value) || value < 0 || value > maxPoints)) {
     throw new Error("Vul voor iedere speler een heel aantal schoppenpunten in, vanaf 0.");

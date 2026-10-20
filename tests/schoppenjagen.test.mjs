@@ -5,8 +5,9 @@ import {
   createSchoppenjagenGame,
   restoreSchoppenjagenGame,
   schoppenjagenStandings,
+  schoppenjagenHandBudget,
 } from "../src/lib/schoppenjagen.js";
-import { schoppenjagenSettings } from "../src/data/schoppenjagen.js";
+import { SCHOPPENJAGEN_TARGETS, schoppenjagenSettings } from "../src/data/schoppenjagen.js";
 
 const create = (target = 100, rules = {}, playerCount = 4) => createSchoppenjagenGame(
   { target, playerCount, rules },
@@ -15,7 +16,7 @@ const create = (target = 100, rules = {}, playerCount = 4) => createSchoppenjage
 const hand = (game, points, extra = {}) => addSchoppenjagenHand(game, { points, ...extra });
 
 function reachScore(game, score, player = 0) {
-  const max = (game.config.playerCount === 6 ? 9 : 8) + (game.config.target === 25 ? 2 : 4);
+  const max = (game.config.playerCount === 6 ? 9 : 8) + SCHOPPENJAGEN_TARGETS[game.config.target].jackPoints - 1;
   while (schoppenjagenStandings(game).players[player].score < score) {
     const remaining = score - schoppenjagenStandings(game).players[player].score;
     game = hand(game, game.names.map((_, index) => index === player ? Math.min(remaining, max) : 0));
@@ -30,6 +31,17 @@ test("settings travel as validated query values; all optional rules start off", 
   assert.deepEqual(game.names, ["Rick", "Speler 2", "Sam", "Teun"]);
   assert.ok(Object.values(game.config.rules).every((value) => value === false));
   assert.throws(() => createSchoppenjagenGame({ target: 100, playerCount: 4 }, ["Rick", "rick", "Sam", "Teun"]));
+});
+
+test("the jack counts as five, ten or thirteen for targets 25, 50 and 100", () => {
+  assert.equal(SCHOPPENJAGEN_TARGETS[100].jackPoints, 13);
+  assert.equal(SCHOPPENJAGEN_TARGETS[25].jackPoints, 5);
+  assert.equal(SCHOPPENJAGEN_TARGETS[50].jackPoints, 10);
+  assert.equal(schoppenjagenHandBudget({ target: 100, playerCount: 4 }).maxPoints, 20);
+  assert.equal(schoppenjagenHandBudget({ target: 100, playerCount: 6 }).maxPoints, 21);
+  assert.equal(schoppenjagenHandBudget({ target: 25, playerCount: 4 }).maxPoints, 12);
+  assert.equal(schoppenjagenHandBudget({ target: 50, playerCount: 4 }).maxPoints, 17);
+  assert.equal(schoppenjagenHandBudget({ target: 50, playerCount: 6 }).maxPoints, 18);
 });
 
 test("passing the target keeps the full score without the optional bounce rule", () => {
@@ -120,7 +132,8 @@ test("undo and reload reconstruct every score and phase from the saved hands", (
 
 test("invalid hand scores and impossible sweeps are rejected without changing the game", () => {
   const game = create(25, { sweep: true });
-  for (const points of [[-1, 1, 0, 0], [0.5, 1, 0, 0], [NaN, 1, 0, 0], [11, 0, 0, 0], [6, 6, 0, 0], [0, 0, 0, 0], [1, 0]]) {
+  const { maxPoints } = schoppenjagenHandBudget(game.config);
+  for (const points of [[-1, 1, 0, 0], [0.5, 1, 0, 0], [NaN, 1, 0, 0], [maxPoints + 1, 0, 0, 0], [maxPoints, maxPoints, 0, 0], [0, 0, 0, 0], [1, 0]]) {
     assert.throws(() => hand(game, points));
   }
   assert.throws(() => hand(game, [3, 3, 0, 0], { sweepPlayer: 0 }));
@@ -128,10 +141,34 @@ test("invalid hand scores and impossible sweeps are rejected without changing th
   assert.equal(game.hands.length, 0);
 });
 
+test("hand points are shared between all players, including when editing earlier entries", () => {
+  const config = { target: 100, playerCount: 4 };
+  assert.deepEqual(schoppenjagenHandBudget(config, ["7", "3", "", ""]), {
+    maxPoints: 20, total: 10, remaining: 10, maxPerPlayer: [17, 13, 10, 10],
+  });
+  assert.deepEqual(schoppenjagenHandBudget(config, ["20", "0", "", ""]).maxPerPlayer, [20, 0, 0, 0]);
+  assert.deepEqual(schoppenjagenHandBudget(config, ["5", "3", "", ""]).maxPerPlayer, [17, 15, 12, 12]);
+  assert.throws(() => hand(create(), [20, 20, 20, 0]), /samen/);
+});
+
+test("shared hand limits match the deck and jack value, before optional double points", () => {
+  for (const target of [100, 50, 25]) for (const playerCount of [4, 5, 6]) {
+    const config = { target, playerCount, rules: { double: true } };
+    const max = (playerCount === 6 ? 9 : 8) + SCHOPPENJAGEN_TARGETS[target].jackPoints - 1;
+    const points = Array(playerCount).fill(0);
+    points[0] = max - 1;
+    const budget = schoppenjagenHandBudget(config, points);
+    assert.equal(budget.maxPoints, max);
+    assert.equal(budget.remaining, 1);
+    assert.equal(budget.maxPerPlayer[1], 1);
+    assert.equal(budget.maxPerPlayer[0], max);
+  }
+});
+
 test("whole games finish correctly for every target and player count with optional doubles and bounce", () => {
   for (const target of [100, 50, 25]) for (const playerCount of [4, 5, 6]) {
     let game = create(target, { double: true, bounce: true, ace: true }, playerCount);
-    const max = (playerCount === 6 ? 9 : 8) + (target === 25 ? 2 : 4);
+    const max = (playerCount === 6 ? 9 : 8) + SCHOPPENJAGEN_TARGETS[target].jackPoints - 1;
     for (let round = 0; round < 50 && !schoppenjagenStandings(game).winners.length; round++) {
       game = hand(game, game.names.map((_, index) => index === 0 ? max : 0));
     }

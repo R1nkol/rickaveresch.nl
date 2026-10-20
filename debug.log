@@ -1,0 +1,4 @@
+[1020/151419.167:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Toegang geweigerd. (0x5)
+[1020/151419.249:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Toegang geweigerd. (0x5)
+[1020/151419.265:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Toegang geweigerd. (0x5)
+[1020/151419.336:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Toegang geweigerd. (0x5)

@@ -1,7 +1,7 @@
 export const SCHOPPENJAGEN_TARGETS = {
-  100: { duration: "60 tot 90 minuten", jackPoints: 5, doubleFrom: 90 },
-  50: { duration: "45 tot 60 minuten", jackPoints: 5, doubleFrom: 40 },
-  25: { duration: "30 tot 45 minuten", jackPoints: 3, doubleFrom: 20 },
+  100: { duration: "60 tot 90 minuten", jackPoints: 13, doubleFrom: 90 },
+  50: { duration: "45 tot 60 minuten", jackPoints: 10, doubleFrom: 40 },
+  25: { duration: "30 tot 45 minuten", jackPoints: 5, doubleFrom: 20 },
 };
 
 export const SCHOPPENJAGEN_TARGET_OPTIONS = [

@@ -20,6 +20,7 @@ import {
   addSchoppenjagenHand,
   restoreSchoppenjagenGame,
   schoppenjagenStandings,
+  schoppenjagenHandBudget,
 } from "@/lib/schoppenjagen";
 
 export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPlayerCount = 4 }) {
@@ -71,6 +72,7 @@ export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPl
   const activeCount = game?.config.playerCount ?? playerCount;
   const { lowestCard, deckSize, handSize } = SCHOPPENJAGEN_PLAYER_SETUPS[activeCount];
   const { jackPoints, doubleFrom } = SCHOPPENJAGEN_TARGETS[activeTarget];
+  const handBudget = schoppenjagenHandBudget({ target: activeTarget, playerCount: activeCount }, points);
   const rulesHref = `/drankspellen/schoppenjagen/uitleg?doel=${activeTarget}&spelers=${activeCount}`;
   const selectedRules = SCHOPPENJAGEN_EXTRA_RULES.filter(({ key }) => game?.config.rules[key]);
   const sweepIndex = sweepPlayer === "" ? null : Number(sweepPlayer);
@@ -108,6 +110,17 @@ export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPl
     } catch (cause) {
       setError(cause.message);
     }
+  }
+
+  function changePoints(index, input) {
+    setPoints((current) => {
+      if (input === "") return current.map((value, position) => position === index ? "" : value);
+      const number = Number(input);
+      if (!Number.isSafeInteger(number) || number < 0) return current;
+      const budget = schoppenjagenHandBudget(game.config, current);
+      return current.map((value, position) => position === index ? String(Math.min(number, budget.maxPerPlayer[index])) : value);
+    });
+    setError("");
   }
 
   function undoHand() {
@@ -209,14 +222,16 @@ export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPl
                               <span className="mt-1 block text-xs font-normal text-muted">Fase {player.phase}{game.config.rules.double && player.phase === 1 && player.score >= doubleFrom ? ", punten dubbel" : ""}</span>
                             </th>
                             <td className="px-2 py-4 text-right text-lg font-semibold tabular-nums">{player.score}</td>
-                            {!winners.length && <td className="py-4 pl-3"><input id={`hand-points-${index}`} aria-label={`Schoppenpunten van ${player.name}`} type="number" inputMode="numeric" min={0} max={(activeCount === 6 ? 9 : 8) + jackPoints - 1} step={1} required value={points[index] ?? ""} onChange={(event) => setPoints((current) => current.map((value, position) => position === index ? event.target.value : value))} className="form-field text-right tabular-nums" /></td>}
+                            {!winners.length && <td className="py-4 pl-3"><input id={`hand-points-${index}`} aria-label={`Schoppenpunten van ${player.name}`} aria-describedby="hand-budget" type="number" inputMode="numeric" min={0} max={handBudget.maxPerPlayer[index]} step={1} required value={points[index] ?? ""} onChange={(event) => changePoints(index, event.target.value)} className="form-field text-right tabular-nums" /></td>}
                           </tr>
                         ))}
                       </tbody>
                     </table>
                     {!winners.length && <>
+                      <p id="hand-budget" aria-live="polite" className="mt-3 text-sm text-muted">{handBudget.total} van maximaal {handBudget.maxPoints} schoppenpunten ingevuld.</p>
                       <p className="mt-3 text-sm leading-relaxed text-muted">
-                        Vul de schoppenpunten van de hele hand in{game.config.rules.double ? ", vóór verdubbeling. Het scorebord verdubbelt automatisch." : "."}
+                        De boer telt als {jackPoints} punten, elke andere schoppenkaart als 1.
+                        {game.config.rules.double && " Vul de punten in vóór verdubbeling; het scorebord verdubbelt automatisch."}
                         {game.config.rules.ace && " Aas en boer in dezelfde slag? Tel de boer dan als 1 punt."}
                       </p>
                       {game.config.rules.sweep && <div className="mt-5 space-y-4">
