@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import PageTitle from "@/components/PageTitle";
 
 import Footer from "@/components/Footer";
@@ -114,12 +115,18 @@ function ExpandableItem({
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
-        className={`w-full cursor-pointer text-left ${titleClassName}`}
+        className={`flex w-full cursor-pointer items-center justify-between gap-3 text-left ${titleClassName}`}
       >
         {title}
+        <ChevronRight
+          aria-hidden="true"
+          size={18}
+          className={`shrink-0 text-muted transition-transform duration-300 ease-out motion-reduce:transition-none ${open ? "rotate-90" : "rotate-0"}`}
+        />
       </button>
       <div
-        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+        inert={!open}
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >

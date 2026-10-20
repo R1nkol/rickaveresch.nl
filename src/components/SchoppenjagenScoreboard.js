@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageTitle from "@/components/PageTitle";
@@ -29,6 +30,7 @@ export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPl
   const [playerCount, setPlayerCount] = useState(initial.playerCount);
   const [names, setNames] = useState(Array(6).fill(""));
   const [rules, setRules] = useState({});
+  const [extraRulesOpen, setExtraRulesOpen] = useState(false);
   const [game, setGame] = useState(null);
   const [ready, setReady] = useState(false);
   const [points, setPoints] = useState([]);
@@ -181,17 +183,38 @@ export default function SchoppenjagenScoreboard({ initialTarget = 100, initialPl
                     ))}
                   </div>
                 </fieldset>
-                <details className="border-t border-line pt-5">
-                  <summary className="cursor-pointer text-sm font-medium">Optionele extra regels</summary>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {SCHOPPENJAGEN_EXTRA_RULES.map(({ key, label }) => (
-                      <label key={key} className="flex items-start gap-3 text-sm text-gray-300">
-                        <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[var(--accent)]" checked={Boolean(rules[key])} onChange={(event) => setRules((current) => ({ ...current, [key]: event.target.checked }))} />
-                        {label}
-                      </label>
-                    ))}
+                <div className="surface-inset">
+                  <button
+                    type="button"
+                    aria-expanded={extraRulesOpen}
+                    aria-controls="extra-rules"
+                    onClick={() => setExtraRulesOpen((open) => !open)}
+                    className="flex min-h-12 w-full cursor-pointer items-center justify-between gap-3 rounded-md px-4 py-3 text-left text-base font-semibold text-white transition-colors duration-200 hover:text-[var(--accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)] motion-reduce:transition-none"
+                  >
+                    Optionele extra regels
+                    <ChevronRight
+                      aria-hidden="true"
+                      size={18}
+                      className={`shrink-0 text-muted transition-transform duration-300 ease-out motion-reduce:transition-none ${extraRulesOpen ? "rotate-90" : "rotate-0"}`}
+                    />
+                  </button>
+                  <div
+                    id="extra-rules"
+                    inert={!extraRulesOpen}
+                    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${extraRulesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                  >
+                    <div className="min-h-0 overflow-hidden">
+                      <div className="grid gap-3 px-4 pb-3 pt-2 sm:grid-cols-2">
+                        {SCHOPPENJAGEN_EXTRA_RULES.map(({ key, label }) => (
+                          <label key={key} className="flex items-start gap-3 text-sm text-gray-300">
+                            <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[var(--accent)]" checked={Boolean(rules[key])} onChange={(event) => setRules((current) => ({ ...current, [key]: event.target.checked }))} />
+                            {label}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </details>
+                </div>
                 <button type="submit" className="button-primary">Start spel</button>
                 {error && <p role="alert" className="text-sm text-red-300">{error}</p>}
               </form>
