@@ -31,7 +31,7 @@ const EXTENDED_SECTIONS = [
     rules: [
       { label: "Fold voor de flop", value: "1 slok drinken" },
       { label: "Verlies de showdown", value: "2 slokken drinken" },
-      { label: "Win de pot (2–3 spelers)", value: "3 slokken uitdelen" },
+      { label: "Win de pot (2 of 3 spelers)", value: "3 slokken uitdelen" },
       { label: "Win de pot (4+ spelers)", value: "4 slokken uitdelen" },
     ],
   },
@@ -55,7 +55,10 @@ export default function PokerDrankspelPage() {
       title="Poker"
       intensity={3}
       description={drinkGameDescriptions.poker}
-      links={[{ label: "Poker uitleg video", href: "https://www.youtube.com/watch?v=Id0f8mxTiWQ", external: true }]}
+      links={[
+        { label: "Poker basisuitleg", href: "/drankspellen/poker/uitleg" },
+        { label: "Uitlegvideo", href: "https://www.youtube.com/watch?v=Id0f8mxTiWQ", external: true },
+      ]}
       notes={[
         "Begin met een afgesproken aantal fiches per speler en speel normaal poker.",
         "Deel alleen uit aan spelers die deze hand hebben meegedaan.",

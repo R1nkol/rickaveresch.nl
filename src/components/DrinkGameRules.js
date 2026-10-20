@@ -2,38 +2,43 @@
 
 import { useId, useState } from "react";
 import Link from "next/link";
-import { FiLayers, FiUser, FiUsers, FiZap } from "react-icons/fi";
+import { FiUser, FiUsers } from "react-icons/fi";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
 import PageTitle from "@/components/PageTitle";
 import ChoiceGroup from "@/components/ChoiceGroup";
+import RuleExample from "@/components/RuleExample";
+import PlacementText from "@/components/PlacementText";
 
-function RuleSection({ title, description, rules = [], notes = [], extra }) {
+function RuleSection({ title, description, rules = [], notes = [], examples = [], extra }) {
   const headingId = useId();
 
   return (
     <section aria-labelledby={headingId} className="min-w-0 p-5 sm:p-8 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-10">
       <div className="mb-5 lg:mb-0">
         {extra && <p className="mb-2 text-xs font-medium text-muted">Uitgebreid</p>}
-        <h2 id={headingId} className="text-2xl font-semibold tracking-tight text-white">{title}</h2>
-        {description && <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>}
+        <h2 id={headingId} className="text-2xl font-semibold tracking-tight text-white"><PlacementText>{title}</PlacementText></h2>
+        {description && <p className="mt-2 text-sm leading-relaxed text-muted"><PlacementText>{description}</PlacementText></p>}
       </div>
       <div className="min-w-0">
         {rules.length > 0 && (
-          <dl className="divide-y divide-line border-y border-line lg:border-t-0">
+          <dl className="divide-y divide-line border-t border-line lg:border-t-0">
             {rules.map(({ label, value }) => (
               <div key={label} className="grid min-h-14 grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] items-baseline gap-4 py-4 text-sm sm:gap-8">
-                <dt className="text-gray-300">{label}</dt>
-                <dd className="text-right font-medium text-white">{value}</dd>
+                <dt className="text-gray-300"><PlacementText>{label}</PlacementText></dt>
+                <dd className="text-right font-medium text-white"><PlacementText>{value}</PlacementText></dd>
               </div>
             ))}
           </dl>
         )}
+        {examples.length > 0 && <div className="mt-5 space-y-6">
+          {examples.map((example) => <RuleExample key={example.title} {...example} />)}
+        </div>}
         {notes.length > 0 && (
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted">
-            {notes.map((note) => <li key={note}>{note}</li>)}
+            {notes.map((note) => <li key={note}><PlacementText>{note}</PlacementText></li>)}
           </ul>
         )}
       </div>
@@ -54,12 +59,10 @@ export default function DrinkGameRules({
   const controlsId = useId();
   const [mode, setMode] = useState("simple");
   const [playStyle, setPlayStyle] = useState("individual");
-  const [teamVariant, setTeamVariant] = useState(() => teamPlay?.variants?.[0]?.value ?? "");
   const isExtended = mode === "extended";
   const isTeamPlay = Boolean(teamPlay) && playStyle === "teams";
-  const teamVariants = teamPlay?.variants ?? [];
-  const activeTeamVariant = teamVariants.find((variant) => variant.value === teamVariant) ?? teamVariants[0];
-  const activeTeamPlay = isTeamPlay ? { ...teamPlay, ...activeTeamVariant } : null;
+  const activeTeamPlay = isTeamPlay ? teamPlay : null;
+  const visibleNotes = [...notes, ...(activeTeamPlay?.notes ?? [])];
   const activeExtendedSections = activeTeamPlay?.extendedSections ?? extendedSections;
   const hasChoices = activeExtendedSections.length > 0 || Boolean(teamPlay);
   const visibleSections = [
@@ -78,7 +81,7 @@ export default function DrinkGameRules({
                 <PageTitle backHref="/drankspellen" backLabel="Alle drankspellen">
                   {title} drankspel
                 </PageTitle>
-                <p className="mt-4 max-w-2xl text-base text-gray-300 sm:text-lg">{description}</p>
+                <p className="mt-4 max-w-2xl text-base text-gray-300 sm:text-lg"><PlacementText>{description}</PlacementText></p>
                 <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
                   <IntensityStars intensity={intensity} />
                   {links.map(({ href, label, external }) => external ? (
@@ -100,8 +103,8 @@ export default function DrinkGameRules({
                         onChange={setMode}
                         controls="game-rules"
                         options={[
-                          { value: "simple", label: "Simpel", Icon: FiZap },
-                          { value: "extended", label: "Uitgebreid", Icon: FiLayers },
+                          { value: "simple", label: "Simpel" },
+                          { value: "extended", label: "Uitgebreid" },
                         ]}
                       />
                     )}
@@ -118,36 +121,21 @@ export default function DrinkGameRules({
                         ]}
                       />
                     )}
-                    {isTeamPlay && teamVariants.length > 0 && (
-                      <ChoiceGroup
-                        label={teamPlay.variantLabel ?? "Teamvariant"}
-                        name={`${controlsId}-team-variant`}
-                        value={activeTeamVariant.value}
-                        onChange={setTeamVariant}
-                        controls="game-rules"
-                        options={teamVariants}
-                      />
-                    )}
                   </div>
                   <p className="sr-only" role="status">
                     {isExtended ? "Uitgebreid." : "Simpel."}
                     {teamPlay && (isTeamPlay ? " Teams van 2." : " Individueel.")}
-                    {isTeamPlay && activeTeamVariant && ` ${activeTeamVariant.label}.`}
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="mb-3 flex items-center justify-between gap-4 text-xs text-muted">
-              <h2 className="font-medium">Spelregels</h2>
-              <span>{visibleSections.length} {visibleSections.length === 1 ? "onderdeel" : "onderdelen"}</span>
-            </div>
             <div id="game-rules" className="surface-panel divide-y divide-line overflow-hidden">
               {visibleSections.map((section) => <RuleSection key={section.title} {...section} />)}
             </div>
-            {notes.length > 0 && (
+            {visibleNotes.length > 0 && (
               <ul className="mt-6 space-y-2 text-sm leading-relaxed text-muted">
-                {notes.map((note) => <li key={note}>{note}</li>)}
+                {visibleNotes.map((note) => <li key={note}><PlacementText>{note}</PlacementText></li>)}
               </ul>
             )}
           </div>

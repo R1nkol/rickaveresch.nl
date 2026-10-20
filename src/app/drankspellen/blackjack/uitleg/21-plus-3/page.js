@@ -5,96 +5,19 @@ import PageTitle from "@/components/PageTitle";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-
-const WINNING_HANDS = [
-  "Flush: 3 kaarten van dezelfde soort.",
-  "Straight: 3 opeenvolgende waardes.",
-  "Three of a kind: 3 gelijke waardes.",
-  "Straight flush: straight + flush.",
-  "Suited trips: 3 gelijke waardes in dezelfde suit.",
-];
-
-const PAYOUTS = [
-  { label: "Flush", value: "1:5" },
-  { label: "Straight", value: "1:10" },
-  { label: "Three of a kind", value: "1:30" },
-  { label: "Straight flush", value: "1:40" },
-  { label: "Suited trips", value: "1:100" },
-];
-
-const RedCard = ({ children }) => (
-  <span className="text-red-400 font-semibold">{children}</span>
-);
+import RuleExample from "@/components/RuleExample";
 
 const EXAMPLES = [
-  {
-    id: "flush",
-    left: (
-      <>
-        Jij: <RedCard>2♥</RedCard> + <RedCard>J♥</RedCard>, dealer upcard:{" "}
-        <RedCard>7♥</RedCard>
-      </>
-    ),
-    right: "flush (1:5)",
-  },
-  {
-    id: "straight",
-    left: (
-      <>
-        Jij: 8♣ + <RedCard>10♦</RedCard>, dealer upcard: 9♠
-      </>
-    ),
-    right: "straight (1:10)",
-  },
-  {
-    id: "three-of-a-kind",
-    left: (
-      <>
-        Jij: 9♠ + <RedCard>9♦</RedCard>, dealer upcard: 9♣
-      </>
-    ),
-    right: "three of a kind (1:30)",
-  },
-  {
-    id: "straight-flush",
-    left: (
-      <>
-        Jij: <RedCard>7♦</RedCard> + <RedCard>8♦</RedCard>, dealer upcard:{" "}
-        <RedCard>9♦</RedCard>
-      </>
-    ),
-    right: "straight flush (1:40)",
-  },
-  {
-    id: "suited-three-of-a-kind",
-    left: (
-      <>
-        Jij: 7♣ + 7♣, dealer upcard: 7♣
-      </>
-    ),
-    right: "suited trips (1:100)",
-  },
-  {
-    id: "loss",
-    left: (
-      <>
-        Jij: <RedCard>A♥</RedCard> + 9♣, dealer upcard: 4♠
-      </>
-    ),
-    right: "geen pokerhand (verlies)",
-  },
+  { title: "Flush (1:5)", cards: [{ rank: "2", suit: "hearts" }, { rank: "J", suit: "hearts" }, { rank: "7", suit: "hearts" }], description: "Drie kaarten van dezelfde kaartsoort: allemaal harten." },
+  { title: "Straight (1:10)", cards: [{ rank: "8", suit: "clubs" }, { rank: "10", suit: "diamonds" }, { rank: "9", suit: "spades" }], description: "Je kunt de waarden op volgorde leggen: 8, 9, 10." },
+  { title: "Three of a kind (1:30)", cards: [{ rank: "9", suit: "spades" }, { rank: "9", suit: "diamonds" }, { rank: "9", suit: "clubs" }], description: "Drie kaarten met dezelfde waarde: drie negens." },
+  { title: "Straight flush (1:40)", cards: [{ rank: "7", suit: "diamonds" }, { rank: "8", suit: "diamonds" }, { rank: "9", suit: "diamonds" }], description: "Een reeks van drie én allemaal ruiten." },
+  { title: "Suited trips (1:100)", cards: [{ rank: "7", suit: "clubs" }, { rank: "7", suit: "clubs" }, { rank: "7", suit: "clubs" }], description: "Drie keer precies dezelfde kaart. Dit kan alleen met minstens drie kaartspellen." },
+  { title: "Geen combinatie", cards: [{ rank: "A", suit: "hearts" }, { rank: "9", suit: "clubs" }, { rank: "4", suit: "spades" }], description: "Geen reeks, gelijke waarden of gelijke kaartsoort. Je verliest deze side bet." },
 ];
-
-
-
 export default function SideBet21Plus3Page() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] font-sans text-white">
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 flex min-h-screen flex-col">
         <Header activeSection="" />
 
@@ -105,74 +28,35 @@ export default function SideBet21Plus3Page() {
                 Side bet: 21+3 uitgelegd
               </PageTitle>
               <p className="text-base text-gray-300 sm:text-lg">
-                21+3 is een extra side bet die je voor de deal plaatst, tegelijk
-                met je normale inzet. Je wint als jouw twee kaarten samen met de
-                dealer upcard een 3-kaart pokerhand vormen. Het is een losstaande
-                inzet; verlies je het hoofdspel blackjack, dan verlies je deze
-                inzet niet automatisch.
+                Bij 21+3 zet je voor het delen extra in op een combinatie van jouw
+                twee kaarten en de open dealerkaart. De dichte dealerkaart telt niet mee.
+                Deze inzet staat los van je gewone blackjackhand.
               </p>
-              <div className="overflow-hidden surface-panel">
+              <div className="surface-panel overflow-hidden">
                 <Image
                   src="/Images/blackjack-21-plus-3.png"
-                  alt="Voorbeeld van de 21+3 side bet"
+                  alt="Overzicht van de 21+3-combinaties"
                   width={746}
                   height={329}
                   className="h-auto w-full"
-                  sizes="(min-width: 1024px) 800px, 100vw"
+                  sizes="(min-width: 1280px) 1152px, 100vw"
                   priority
                 />
               </div>
             </section>
 
-            <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
-              <div className="surface-panel p-6">
-                <h2 className="text-2xl font-semibold text-white">
-                  Wanneer win je
-                </h2>
-                <ul className="mt-4 space-y-3 text-base text-gray-300">
-                  {WINNING_HANDS.map((hand) => (
-                    <li
-                      key={hand}
-                      className="surface-inset px-4 py-3"
-                    >
-                      {hand}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="surface-panel p-6">
-                <h2 className="text-2xl font-semibold text-white">
-                  Uitbetaling
-                </h2>
-                <div className="mt-4 space-y-3 text-base text-gray-300">
-                  {PAYOUTS.map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center justify-between surface-inset px-4 py-3"
-                    >
-                      <span>{item.label}</span>
-                      <span className="font-semibold text-white">
-                        {item.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
             <section className="surface-panel p-6">
-              <h2 className="text-2xl font-semibold text-white">Voorbeelden</h2>
-              <div className="mt-4 grid gap-4 md:grid-cols-2">
-                {EXAMPLES.map((example) => (
+              <h2 className="text-2xl font-semibold text-white">Combinaties en uitbetaling</h2>
+              <div className="mt-5 divide-y divide-line">
+                {EXAMPLES.map(({ cards, ...example }) => (
                   <div
-                    key={example.id}
-                    className="flex flex-col gap-2 surface-inset px-4 py-3 text-base text-gray-300 sm:flex-row sm:items-center sm:justify-between"
+                    key={example.title}
+                    className="py-5 first:pt-0 last:pb-0"
                   >
-                    <div className="sm:pr-4">{example.left}</div>
-                    <div className="text-sm font-semibold text-white sm:shrink-0 sm:text-right">
-                      {example.right}
-                    </div>
+                    <RuleExample {...example} groupLayout="paired" groups={[
+                      { label: "Jij", cards: cards.slice(0, 2) },
+                      { label: "Dealer", cards: [cards[2], { faceDown: true }] },
+                    ]} />
                   </div>
                 ))}
               </div>

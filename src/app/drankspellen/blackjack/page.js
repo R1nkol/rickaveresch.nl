@@ -29,6 +29,11 @@ const EXTENDED_SECTIONS = [
   {
     title: "Bust",
     description: "Als je boven de 21 komt, drink je het aantal slokken hieronder.",
+    examples: [{
+      title: "Bijvoorbeeld: je neemt een kaart te veel",
+      cards: [{ rank: "10", suit: "diamonds" }, { rank: "8", suit: "clubs" }, { rank: "6", suit: "spades" }],
+      description: "10 + 8 + 6 = 24. Als speler drink je bij 24 dus 2 slokken.",
+    }],
     rules: [
       { label: "22 of 23", value: "1 slok" },
       { label: "24 tot en met 27", value: "2 slokken" },
@@ -39,6 +44,11 @@ const EXTENDED_SECTIONS = [
   },
   {
     title: "Blackjack",
+    examples: [{
+      title: "Zo ziet een blackjack eruit",
+      cards: [{ rank: "A", suit: "spades" }, { rank: "K", suit: "hearts" }],
+      description: "Een aas en een kaart van 10 punten op je eerste twee kaarten. Een heer, vrouw en boer tellen ook als 10.",
+    }],
     rules: [
       { label: "Speler heeft blackjack", value: "Iedereen zonder blackjack drinkt 3 slokken" },
       { label: "Dealer heeft blackjack", value: "Alle spelers drinken 3 slokken" },

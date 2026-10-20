@@ -56,7 +56,7 @@ export default function ShitheadBasicsPage() {
                 <h2 id="setup-heading" className="mb-5 text-2xl font-semibold tracking-tight lg:mb-0">Opzetten</h2>
                 <div className="min-w-0 text-sm leading-relaxed text-gray-300">
                   <p>Een voorbeeldopzet per speler:</p>
-                  <dl className="mt-3 divide-y divide-line border-y border-line">
+                  <dl className="mt-3 divide-y divide-line border-t border-line">
                     <div className="flex justify-between gap-4 py-3"><dt>Dicht op tafel</dt><dd className="shrink-0 font-medium text-white">3 kaarten</dd></div>
                     <div className="flex justify-between gap-4 py-3"><dt>Open bovenop de dichte kaarten</dt><dd className="shrink-0 font-medium text-white">3 kaarten</dd></div>
                     <div className="flex justify-between gap-4 py-3"><dt>In de hand</dt><dd className="shrink-0 font-medium text-white">5 kaarten</dd></div>
@@ -85,11 +85,11 @@ export default function ShitheadBasicsPage() {
 
             <section aria-labelledby="special-cards-heading">
               <h2 id="special-cards-heading" className="text-2xl font-semibold tracking-tight">Speciale kaarten</h2>
-              <div className="mt-5 divide-y divide-line border-y border-line">
+              <div className="mt-5 divide-y divide-line border-t border-line">
                 {SPECIAL_CARDS.map(({ value, title, description }) => (
                   <article key={value} className="grid min-w-0 gap-5 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-10">
                     <div>
-                      <h3 className="text-xl font-semibold tracking-tight">{value} · {title}</h3>
+                      <h3 className="text-xl font-semibold tracking-tight">{value}: {title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
                     </div>
                     <div className="grid w-full max-w-md grid-cols-4 gap-2 sm:gap-4" role="group" aria-label={`Alle kaarten met waarde ${value}`}>

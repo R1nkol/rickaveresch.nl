@@ -40,6 +40,9 @@ html {
   --surface-hover: #222228;
   --muted: #aaa8b2;
   --line: #34333c;
+  --rank-gold: #e3bf6b;
+  --rank-silver: #c4c9d4;
+  --rank-bronze: #d6a17a;
   --accent: #b9a3e3;
   --accent-strong: #c3acef;
   --accent-hover: #cbbbeb;

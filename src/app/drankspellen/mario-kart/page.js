@@ -11,37 +11,30 @@ const SECTIONS = [
   },
   {
     title: "Bij de finish",
-    description: "Check je biertje zodra je zelf over de finish rijdt.",
     rules: [
       { label: "Biertje op", value: "Geen straf" },
       { label: "Biertje nog niet op", value: "2 strafslokken per overgebleven slok" },
     ],
-    notes: ["Nog 2 slokken over? Dan zijn dat 4 strafslokken na de race."],
   },
 ];
 
-function getTeamSections(isHeavy = false) {
+function getTeamSections() {
   return [
     {
       title: "Tijdens de race",
       rules: [
-        { label: "Voor de start", value: isHeavy ? "Iedereen een eigen biertje: twee per duo" : "Eén gezamenlijk biertje per duo" },
+        { label: "Voor de start", value: "Eén gezamenlijk biertje per duo" },
         { label: "Tijdens het racen", value: "Eén rijdt, de ander drinkt" },
         { label: "Wisselen tijdens de race", value: "Sta helemaal stil voordat je de controller doorgeeft" },
       ],
     },
     {
       title: "Bij de finish",
-      description: isHeavy
-        ? "Beide biertjes moeten op zijn voordat jullie over de finish gaan."
-        : "Jullie gezamenlijke biertje moet op zijn voordat jullie over de finish gaan.",
+      description: "Jullie gezamenlijke biertje moet op zijn voordat jullie over de finish gaan.",
       rules: [
-        { label: isHeavy ? "Beide biertjes op" : "Biertje op", value: "Geen straf" },
+        { label: "Biertje op", value: "Geen straf" },
         { label: "Nog bier over", value: "2 strafslokken per overgebleven slok, samen verdelen" },
       ],
-      notes: [isHeavy
-        ? "Tel de overgebleven slokken in beide biertjes bij elkaar op. Nog 2 slokken over? Dan verdelen jullie na de race 4 strafslokken."
-        : "Nog 2 slokken over in jullie biertje? Dan verdelen jullie na de race 4 strafslokken."],
     },
   ];
 }
@@ -52,9 +45,6 @@ function getExtendedSections(isTeamPlay = false) {
   return [
     {
       title: "Finishpositie",
-      description: isTeamPlay
-        ? "Na elke race drinken jullie of delen jullie uit op basis van jullie plek in de race."
-        : "Na elke race drink je of deel je uit op basis van je plek in de race.",
       rules: [
         { label: "1e plek", value: "3 slokken uitdelen" },
         { label: "2e plek", value: "1 slok uitdelen" },
@@ -75,8 +65,8 @@ function getExtendedSections(isTeamPlay = false) {
         { label: "Laatste plek", value: "5 slokken drinken" },
       ],
       notes: [isTeamPlay
-        ? "Staan jullie derde én laatste? Dan drinken jullie 5 slokken en delen jullie niets uit."
-        : "Sta je derde én laatste? Dan drink je 5 slokken en deel je niets uit."],
+        ? "Staan jullie op de derde plek én laatste? Dan drinken jullie 5 slokken en delen jullie niets uit."
+        : "Sta je op de derde plek én laatste? Dan drink je 5 slokken en deel je niets uit."],
     },
   ];
 }
@@ -90,11 +80,10 @@ export default function MarioKartDrankspelPage() {
       sections={SECTIONS}
       extendedSections={getExtendedSections()}
       teamPlay={{
+        sections: getTeamSections(),
         extendedSections: getExtendedSections(true),
-        variantLabel: "Biertjes per duo",
-        variants: [
-          { value: "shared", label: "Samen één", sections: getTeamSections() },
-          { value: "heavy", label: "Ieder één (heavy)", sections: getTeamSections(true) },
+        notes: [
+          "Vind je het niet heftig genoeg? Dan kun je als duo ook één biertje per persoon doen.",
         ],
       }}
     />

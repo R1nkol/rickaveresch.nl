@@ -6,15 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:setup": "node --conditions=react-server scripts/database.mjs setup",
+    "db:check": "node --conditions=react-server scripts/database.mjs check"
   },
   "dependencies": {
     "lucide-react": "^0.474.0",
-    "mysql2": "^3.15.3",
     "next": "15.3.8",
+    "pg": "^8.23.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

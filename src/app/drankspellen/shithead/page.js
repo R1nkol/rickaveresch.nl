@@ -54,7 +54,6 @@ export default function ShitheadDrankspelPage() {
       sections={SECTIONS}
       extendedSections={EXTENDED_SECTIONS}
       notes={[
-        "Speel met de normale spelregels en gebruik de drinkregels hierboven erbij.",
         shitheadHandSizeNote,
         "Houd het bij kleine slokken en spreek vooraf af wat voor jullie prettig is. Alcoholvrij werkt net zo goed.",
       ]}

@@ -14,3 +14,8 @@
 .card[data-tone="red"] {
   color: #ad303c;
 }
+
+.card[data-face="back"] {
+  background: #34435f;
+  color: #e2ddcf;
+}

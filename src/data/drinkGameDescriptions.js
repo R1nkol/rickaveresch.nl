@@ -4,4 +4,5 @@ export const drinkGameDescriptions = {
   "mario-party": "De drinkregels voor minigames, sterren en het bord.",
   "mario-kart": "Zorg dat je biertje op is voor je over de finish gaat.",
   shithead: "Raak als eerste je kaarten kwijt. De laatste speler is de Shithead.",
+  schoppenjagen: "Onze eigen variant met slagen, twee fases en hooguit één kleine slok per hand.",
 };

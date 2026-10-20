@@ -6,19 +6,20 @@ import PageTitle from "@/components/PageTitle";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import RuleExample, { CardHand } from "@/components/RuleExample";
 
 const CARD_VALUES = [
-  { label: "Kaarten 2 t/m 10", value: "Punten gelijk aan de kaartwaarde." },
-  { label: "Boer, vrouw, heer", value: "Elke kaart is 10 punten." },
-  { label: "Aas", value: "1 of 11, wat voor jouw hand het beste uitkomt." },
+  { label: "Kaarten 2 t/m 10", value: "Het getal op de kaart is ook het aantal punten.", cards: [{ rank: "2", suit: "diamonds", caption: "2 punten" }, { rank: "7", suit: "clubs", caption: "7 punten" }, { rank: "10", suit: "spades", caption: "10 punten" }] },
+  { label: "Boer, vrouw, heer", value: "Deze drie kaarten zijn ieder 10 punten waard.", cards: [{ rank: "J", suit: "clubs", caption: "10 punten" }, { rank: "Q", suit: "hearts", caption: "10 punten" }, { rank: "K", suit: "spades", caption: "10 punten" }] },
+  { label: "Aas", value: "Een aas telt als 1 of 11. Gebruik de waarde waarmee je niet boven 21 komt.", cards: [{ rank: "A", suit: "hearts", caption: "1 of 11 punten" }] },
 ];
 
 const FLOW_STEPS = [
   "Iedereen legt een inzet neer.",
-  "Dealer deelt 2 kaarten aan elke speler en zichzelf, 1 kaart van de dealer ligt open.",
-  "Spelers kiezen voor hit of stand (optioneel: double down of split).",
-  "Dealer hit totdat hij 17 of hoger heeft en stopt op soft 17.",
-  "Vergelijk totals: hoogste onder of gelijk aan 21 wint.",
+  "De dealer deelt aan iedereen twee kaarten, ook aan zichzelf. Van de dealer ligt er één open en één dicht.",
+  "Kies om de beurt: een kaart erbij (hit), of stoppen (stand). Double down en split zijn extra keuzes.",
+  "De dealer neemt kaarten tot minstens 17 punten. In deze huisregels stopt de dealer ook bij een aas + 6 (soft 17).",
+  "Vergelijk de punten: de hoogste hand van maximaal 21 wint. Een blackjack op de eerste twee kaarten is sterker dan een gewone 21.",
 ];
 
 const BASIC_ACTIONS = [
@@ -53,10 +54,6 @@ const ADVANCED_ACTIONS = [
     title: "Opgeven",
     description: "Je stopt meteen en krijgt de helft van je inzet terug. Dit mag alleen als je nog niet hebt gehit.",
   },
-  {
-    title: "Side bet",
-    description: "Extra inzet naast je hoofd inzet, kies hieronder een variant.",
-  },
 ];
 
 const SIDEBET_LINKS = [
@@ -84,11 +81,11 @@ const TERMS = [
   },
   {
     title: "Bust",
-    description: "Je total komt boven de 21 uit, je verliest meteen.",
+    description: "Je totaal komt boven de 21 uit, je verliest meteen.",
   },
   {
     title: "Push",
-    description: "Gelijkspel met de dealer, je inzet blijft staan.",
+    description: "Gelijkspel met de dealer: je verliest je inzet niet.",
   },
   {
     title: "Soft hand",
@@ -152,37 +149,47 @@ export default function BlackjackBasicsPage() {
                 Blackjack basis uitgelegd
               </PageTitle>
               <p className="max-w-2xl text-base text-gray-300 sm:text-lg">
-                Deze uitleg is voor mensen die nog nooit blackjack hebben gespeeld.
-                We starten met het tellen van kaarten en lopen daarna door het spelverloop.
+                Kom dichter bij 21 dan de dealer, zonder boven de 21 uit te komen.
               </p>
             </section>
 
             <section className="surface-panel p-6">
               <h2 className="text-2xl font-semibold text-white">Kaartwaardes</h2>
-              <p className="mt-2 text-base text-gray-300">
-                Zo tel je je hand in punten voordat je keuzes maakt.
-              </p>
-              <div className="mt-4 space-y-3 text-base text-gray-300">
+              <div className="mt-5 divide-y divide-line text-gray-300">
                 {CARD_VALUES.map((item) => (
-                  <ExpandableItem
-                    key={item.label}
-                    title={item.label}
-                    className="surface-inset px-4 py-3"
-                    titleClassName="font-semibold text-white"
-                    bodyClassName="mt-2 text-gray-300"
-                  >
-                    {item.value}
-                  </ExpandableItem>
+                  <div key={item.label} className="grid gap-5 py-5 first:pt-0 last:pb-0 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-10">
+                    <div><h3 className="font-semibold text-white">{item.label}</h3><p className="mt-2 text-sm leading-relaxed text-muted">{item.value}</p></div>
+                    <CardHand cards={item.cards} label={item.label} />
+                  </div>
                 ))}
               </div>
             </section>
 
             <section className="surface-panel p-6">
+              <h2 className="text-2xl font-semibold text-white">Zo tel je een hand</h2>
+              <div className="mt-5 divide-y divide-line">
+                {[
+                  { title: "Blackjack: meteen 21", cards: [{ rank: "A", suit: "spades" }, { rank: "K", suit: "hearts" }], description: "Aas (11) + heer (10) = 21 op je eerste twee kaarten: blackjack." },
+                  {
+                    title: "De aas past zich aan",
+                    cards: [{ rank: "A", suit: "hearts" }, { rank: "6", suit: "clubs" }, { rank: "9", suit: "diamonds" }],
+                    description: <>
+                      Een aas kan 11 of 1 waard zijn.
+                      <br />
+                      Met 11: 11 + 6 + 9 = 26. Dat is bust.
+                      <br />
+                      Daarom telt de aas hier als 1: 1 + 6 + 9 = 16. Je bent dus niet bust.
+                    </>,
+                  },
+                  { title: "Boven 21 is bust", cards: [{ rank: "10", suit: "clubs" }, { rank: "8", suit: "diamonds" }, { rank: "6", suit: "spades" }], description: "10 + 8 + 6 = 24. Je bent bust en verliest deze hand meteen." },
+                ].map((example) => <div key={example.title} className="py-5 first:pt-0 last:pb-0"><RuleExample {...example} /></div>)}
+              </div>
+            </section>
+
+            <section className="surface-panel p-6">
               <h2 className="text-2xl font-semibold text-white">Spelverloop</h2>
-              <p className="mt-2 text-base text-gray-300">
-                Dit is hoe een ronde blackjack verloopt, van inzetten tot uitslag.
-              </p>
-              <ol className="mt-4 space-y-3 text-base text-gray-300">
+              <div className="mt-5"><RuleExample title="Zo zien de dealerkaarten er bij de start uit" cards={[{ rank: "A", suit: "diamonds", caption: "Open kaart" }, { faceDown: true, caption: "Dichte kaart" }]} /></div>
+              <ol className="mt-5 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-gray-300">
                 {FLOW_STEPS.map((step) => (
                   <li
                     key={step}
@@ -199,9 +206,6 @@ export default function BlackjackBasicsPage() {
                 <h2 className="text-2xl font-semibold text-white">
                   Geavanceerde acties
                 </h2>
-                <p className="mt-2 text-base text-gray-300">
-                  Dit zijn de extra acties die je kunt doen tijdens je beurt.
-                </p>
                 <div className="mt-4 space-y-3 text-base text-gray-300">
                   {ADVANCED_ACTIONS.map((action) => (
                     <ExpandableItem
@@ -286,6 +290,7 @@ export default function BlackjackBasicsPage() {
                 ))}
               </ul>
             </section>
+            <p className="text-sm text-muted">Meer over de basisregels: <a href="https://bicyclecards.com/how-to-play/blackjack/" target="_blank" rel="noopener noreferrer" className="text-link">Blackjack bij Bicycle Cards</a>. De drinkregels en de dealerregel hierboven zijn onze huisregels.</p>
           </div>
         </div>
 

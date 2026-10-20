@@ -2,12 +2,13 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Club, Dices, Flag, Layers, Spade } from "lucide-react";
+import { Club, Dices, Flag, Spade } from "lucide-react";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import IntensityStars from "@/components/IntensityStars";
 import ChoiceGroup from "@/components/ChoiceGroup";
+import PlacementText from "@/components/PlacementText";
 import { drinkGameDescriptions } from "@/data/drinkGameDescriptions";
 
 const DRINK_GAMES = [
@@ -32,7 +33,7 @@ const DRINK_GAMES = [
     fun: 1,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/poker" },
-      { label: "Uitleg video", href: "https://www.youtube.com/watch?v=Id0f8mxTiWQ", external: true },
+      { label: "Basis uitleg", href: "/drankspellen/poker/uitleg" },
     ],
   },
   {
@@ -59,7 +60,7 @@ const DRINK_GAMES = [
   },
   {
     title: "Shithead",
-    Icon: Layers,
+    Icon: Spade,
     description: drinkGameDescriptions.shithead,
     href: "/drankspellen/shithead",
     intensity: 3,
@@ -67,6 +68,18 @@ const DRINK_GAMES = [
     links: [
       { label: "Bekijk regels", href: "/drankspellen/shithead" },
       { label: "Basis uitleg", href: "/drankspellen/shithead/uitleg" },
+    ],
+  },
+  {
+    title: "Schoppenjagen",
+    Icon: Spade,
+    description: drinkGameDescriptions.schoppenjagen,
+    href: "/drankspellen/schoppenjagen",
+    intensity: 1,
+    fun: -1,
+    links: [
+      { label: "Bekijk regels", href: "/drankspellen/schoppenjagen" },
+      { label: "Basis uitleg", href: "/drankspellen/schoppenjagen/uitleg" },
     ],
   },
 ];
@@ -138,7 +151,7 @@ export default function DrankspellenPage() {
                         <span>{game.title}</span>
                       </Link>
                     </h2>
-                    <p className="mt-1 pl-8 text-sm leading-relaxed text-muted">{game.description}</p>
+                    <p className="mt-1 pl-8 text-sm leading-relaxed text-muted"><PlacementText>{game.description}</PlacementText></p>
                   </div>
 
                   <IntensityStars intensity={game.intensity} />

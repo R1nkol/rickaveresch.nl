@@ -13,15 +13,23 @@ const SECTIONS = [
       { label: "2 keer of vaker op rij laatste", value: "1 slok minder bij deze minigame" },
     ],
     notes: [
-      "De korting blijft 1 slok. Bij 4 spelers drink je dus 3, 2, 2, 2 slokken als je steeds laatste wordt.",
+      "De korting blijft 1 slok; hij wordt niet groter als je vaker laatste wordt.",
       "Eindig je een keer hoger, dan begint de telling opnieuw.",
     ],
+    examples: [{
+      title: "Drie minigames op rij laatste met 4 spelers",
+      steps: [
+        { label: "Eerste keer", value: "3 slokken" },
+        { label: "Nog een keer laatste", value: "2 slokken" },
+        { label: "Weer laatste", value: "2 slokken" },
+      ],
+    }],
   },
   {
     title: "Teamminigames",
     description: "Bij 2v2 en 3v1 gebruik je deze tabel in plaats van de losse plekken.",
     rules: [
-      { label: "2v2: winnend team", value: "Per personage 1 slok uitdelen" },
+      { label: "2v2: winnend team", value: "Per persoon 1 slok uitdelen" },
       { label: "3v1: solo wint", value: "Solo deelt 3 slokken uit" },
       { label: "3v1: solo verliest", value: "Solo drinkt 2 slokken" },
     ],
@@ -74,6 +82,14 @@ const EXTENDED_SECTIONS = [
       { label: "Jamboree actief", value: "Drinken en uitdelen telt dubbel" },
     ],
     notes: ["Reken eerst de korting voor laatste worden, daarna verdubbel je de slokken."],
+    examples: [{
+      title: "Opnieuw laatste met Jamboree",
+      steps: [
+        { label: "Normaal laatste", value: "3 slokken" },
+        { label: "Korting op rij", value: "3 − 1 = 2 slokken" },
+        { label: "Jamboree", value: "2 × 2 = 4 slokken" },
+      ],
+    }],
   },
 ];
 
@@ -85,7 +101,6 @@ export default function MarioPartyDrankspelPage() {
       description={drinkGameDescriptions["mario-party"]}
       sections={SECTIONS}
       extendedSections={EXTENDED_SECTIONS}
-      teamPlay
     />
   );
 }
