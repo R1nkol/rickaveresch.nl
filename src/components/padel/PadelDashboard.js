@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, Plus, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, Check, Plus, X } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CalendarPicker from "./CalendarPicker";
-import { DuoGrid, MatchList, PlayerDialog, PlayerGrid, Ranking } from "./PadelViews";
-import { monthLabel, todayValue } from "@/lib/padelCalendar.mjs";
-import { demoMatches, demoPlayers, getPadelStats, playerName } from "@/data/padel";
+import { DuoGrid, MatchList, PlayerGrid, Ranking, RecentActivity } from "./PadelViews";
+import { PlayerAvatar } from "./PlayerIdentity";
+import { usePadel } from "./PadelProvider";
+import { todayValue } from "@/lib/padelCalendar.mjs";
+import { demoPlayers, formatMatchDate, getPadelStats } from "@/data/padel";
+import { sortPlayers } from "@/lib/padelStats.mjs";
 import styles from "./PadelDashboard.module.css";
 
 const views = [
@@ -71,28 +75,23 @@ function MatchDialog({ dialogRef, onAdd }) {
     </form>
   </dialog>;
 }
-
-
-
-
 export default function PadelDashboard() {
   const [view, setView] = useState("ranglijst");
   const [period, setPeriod] = useState("all");
-  const [matches, setMatches] = useState(demoMatches);
+  const { matches, addMatch } = usePadel();
   const [notice, setNotice] = useState("");
   const [matchQuery, setMatchQuery] = useState("");
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
   const dialogRef = useRef(null);
   const panelRef = useRef(null);
   const tabRefs = useRef({});
   const filteredMatches = useMemo(() => matches.filter((match) => period === "all" || match.date.startsWith(period)), [matches, period]);
   const stats = useMemo(() => getPadelStats(filteredMatches), [filteredMatches]);
+  const leader = filteredMatches.length ? sortPlayers(stats.players)[0] : null;
   const monthCounts = useMemo(() => matches.reduce((counts, match) => {
     const month = match.date.slice(0, 7);
     counts[month] = (counts[month] ?? 0) + 1;
     return counts;
   }, {}), [matches]);
-  const periodLabel = period === "all" ? "Alle potjes" : monthLabel(period);
 
   useEffect(() => {
     const syncView = () => {
@@ -119,18 +118,32 @@ export default function PadelDashboard() {
     if (next !== undefined) { event.preventDefault(); chooseView(views[next].id, true); }
   }
 
-  function showPlayerMatches(id) {
-    setMatchQuery(playerName(id));
-    chooseView("wedstrijden");
-    requestAnimationFrame(() => panelRef.current?.focus({ preventScroll: true }));
-  }
-
   return <main className={styles.page}>
     <Header />
     <div className={styles.shell}>
       <div className={styles.pageHeader}>
-        <div><h1 className="page-heading">Padel</h1><p>{demoPlayers.length} spelers <span aria-hidden="true">·</span> {matches.length} potjes</p></div>
-        <button className="button-primary" onClick={() => dialogRef.current.showModal()}><Plus size={17} aria-hidden="true" />Potje toevoegen</button>
+        <div className={styles.heroCopy}>
+          <span className={styles.heroEyebrow}>Op de baan / naast elkaar</span>
+          <h1 className={styles.heroTitle}>PADEL<span className={styles.titleDot}>.</span></h1>
+          <p>Vrienden op de baan.<br />Rivalen op de ranglijst.</p>
+          <Link href="/padel#spelers" onClick={() => chooseView("spelers")} className={styles.groupLink}>
+            <span className={styles.avatarStack}>{demoPlayers.slice(0, 4).map((player) => <PlayerAvatar key={player.id} id={player.id} size="small" />)}</span>
+            <span>Onze spelers</span><ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
+        <div className={styles.heroCourt} aria-hidden="true">
+          <span className={styles.courtCaption}>DE BAAN IS VAN ONS.</span>
+          <div className={styles.courtDrawing}><span className={styles.courtNet} /><span className={styles.courtService} /><span className={styles.courtBall} /></div>
+          <span className={styles.courtFootnote}>Twee teams. Eén stand.</span>
+        </div>
+      </div>
+      <div className={styles.competitionBar}>
+        <dl className={styles.competitionFacts}>
+          <div><dt>Spelers</dt><dd>{String(demoPlayers.length).padStart(2, "0")}</dd></div>
+          <div><dt>Potjes gespeeld</dt><dd>{String(filteredMatches.length).padStart(2, "0")}</dd></div>
+          <div><dt>Koploper</dt><dd>{leader ? <Link href={`/padel/spelers/${leader.id}`}>{leader.name}<ArrowUpRight size={15} aria-hidden="true" /></Link> : "—"}</dd></div>
+        </dl>
+        <button className={styles.addMatchButton} onClick={() => dialogRef.current.showModal()}><Plus size={18} aria-hidden="true" />Potje toevoegen</button>
       </div>
       <div className={styles.toolbar}>
         <div role="tablist" aria-label="Padeloverzichten" className={styles.tabs}>{views.map(({ id, label }, index) => <button key={id} ref={(element) => { tabRefs.current[id] = element; }} id={`tab-${id}`} type="button" role="tab" aria-selected={view === id} aria-controls={`panel-${id}`} tabIndex={view === id ? 0 : -1} onClick={() => chooseView(id)} onKeyDown={(event) => handleTabKey(event, index)}>{label}</button>)}</div>
@@ -139,16 +152,15 @@ export default function PadelDashboard() {
       {notice && <div role="status" className={styles.notice}><Check size={17} aria-hidden="true" /><span>{notice}</span><button aria-label="Melding sluiten" onClick={() => setNotice("")}><X size={17} /></button></div>}
       {views.map(({ id }) => <section key={id} ref={view === id ? panelRef : null} id={`panel-${id}`} role="tabpanel" aria-labelledby={`tab-${id}`} hidden={view !== id} tabIndex={0} className={styles.content}>
         {view === id && <>
-        {view === "ranglijst" && (filteredMatches.length ? <Ranking players={stats.players} onSelectPlayer={setSelectedPlayer} /> : <div className={styles.emptyState}><h2>Geen potjes in deze periode</h2><p>Kies een andere maand of bekijk alle uitslagen.</p><button className="button-secondary" onClick={() => setPeriod("all")}>Alle potjes bekijken</button></div>)}
+        {view === "ranglijst" && (filteredMatches.length ? <div className={styles.overviewLayout}><Ranking players={stats.players} /><RecentActivity matches={filteredMatches} duos={stats.duos} onShowAll={() => chooseView("wedstrijden")} /></div> : <div className={styles.emptyState}><h2>Geen potjes in deze periode</h2><p>Kies een andere maand of bekijk alle uitslagen.</p><button className="button-secondary" onClick={() => setPeriod("all")}>Alle potjes bekijken</button></div>)}
         {view === "wedstrijden" && <MatchList matches={filteredMatches} query={matchQuery} onQueryChange={setMatchQuery} />}
-        {view === "spelers" && <PlayerGrid players={stats.players} onSelectPlayer={setSelectedPlayer} />}
-        {view === "duos" && <DuoGrid duos={stats.duos} onSelectPlayer={setSelectedPlayer} />}
+        {view === "spelers" && <PlayerGrid players={stats.players} />}
+        {view === "duos" && <DuoGrid duos={stats.duos} />}
         </>}
       </section>)}
-      <p className={styles.designNote}>Voorbeeldgegevens. Toegevoegde potjes verdwijnen na verversen.</p>
+      <div className={styles.designNote}><span>Voorbeeldcompetitie · Potjes worden tijdelijk bewaard.</span><span>{matches[0] && `Laatst gespeeld · ${formatMatchDate(matches[0].date)}`}</span></div>
     </div>
     <Footer />
-    <MatchDialog dialogRef={dialogRef} onAdd={(match) => { setMatches((current) => [match, ...current].sort((a, b) => b.date.localeCompare(a.date))); setPeriod("all"); chooseView("ranglijst"); setNotice("Potje toegevoegd. De ranglijst is bijgewerkt."); requestAnimationFrame(() => panelRef.current?.focus({ preventScroll: true })); }} />
-    <PlayerDialog player={stats.players.find((player) => player.id === selectedPlayer) ?? null} matches={filteredMatches} duos={stats.duos} periodLabel={periodLabel} onClose={() => setSelectedPlayer(null)} onShowMatches={showPlayerMatches} />
+    <MatchDialog dialogRef={dialogRef} onAdd={(match) => { addMatch(match); setPeriod("all"); chooseView("ranglijst"); setNotice("Potje toegevoegd. De ranglijst is bijgewerkt."); requestAnimationFrame(() => panelRef.current?.focus({ preventScroll: true })); }} />
   </main>;
 }
