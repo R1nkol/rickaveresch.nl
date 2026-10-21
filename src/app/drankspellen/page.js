@@ -18,7 +18,7 @@ const DRINK_GAMES = [
     description: drinkGameDescriptions.blackjack,
     href: "/drankspellen/blackjack",
     intensity: 4,
-    fun: 2,
+    fun: 1,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/blackjack" },
       { label: "Basis uitleg", href: "/drankspellen/blackjack/uitleg" },
@@ -30,7 +30,7 @@ const DRINK_GAMES = [
     description: drinkGameDescriptions.poker,
     href: "/drankspellen/poker",
     intensity: 3,
-    fun: 1,
+    fun: 2,
     links: [
       { label: "Bekijk regels", href: "/drankspellen/poker" },
       { label: "Basis uitleg", href: "/drankspellen/poker/uitleg" },
