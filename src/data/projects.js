@@ -189,7 +189,6 @@ export const projects = [
     imageSrc: "/Images/ProjectZuna_1.png",
     link: "/projects/project-zuna",
     tags: ["Next.js", "React", "TypeScript", "MySQL"],
-    badge: { nl: "Website niet meer online", en: "Website no longer online" },
     details: {
       nl: [
         "Project Zuna is een site gemaakt voor Dolf en Floris Wardenaar. Zij wilden een groot feest geven in hun schuur omdat Floris 20 werd en voor zijn opleiding slaagde en Dolf werd 25.",

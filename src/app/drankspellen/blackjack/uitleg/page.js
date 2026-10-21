@@ -37,10 +37,25 @@ const BASIC_ACTIONS = [
 const ADVANCED_ACTIONS = [
   {
     title: "Double down",
+    example: {
+      groups: [
+        { label: "Start: 11 punten", cards: [{ rank: "5", suit: "hearts" }, { rank: "6", suit: "clubs" }] },
+        { label: "Precies 1 kaart erbij", cards: [{ rank: "K", suit: "diamonds" }] },
+      ],
+      description: "Je verdubbelt je inzet. Met deze heer kom je op 21; je beurt is daarna voorbij.",
+    },
     description: "Verdubbel je inzet en neem 1 extra kaart, je mag daarna geen extra kaarten meer nemen.",
   },
   {
     title: "Split",
+    example: {
+      groups: [
+        { label: "Voor: twee achten", cards: [{ rank: "8", suit: "hearts" }, { rank: "8", suit: "clubs" }] },
+        { label: "Hand 1: 18 punten", cards: [{ rank: "8", suit: "hearts" }, { rank: "K", suit: "diamonds" }] },
+        { label: "Hand 2: 11 punten", cards: [{ rank: "8", suit: "clubs" }, { rank: "3", suit: "spades" }] },
+      ],
+      description: "Elke acht begint een eigen hand met een eigen inzet. Hier krijg je een heer en een 3 erbij; je speelt de handen apart verder.",
+    },
     description: (
       <>
         Heb je twee kaarten met dezelfde waarde, dan mag je splitsen.
@@ -78,18 +93,45 @@ const SIDEBET_LINKS = [
 const TERMS = [
   {
     title: "Blackjack",
+    example: {
+      groups: [
+        { label: "Blackjack", cards: [{ rank: "A", suit: "spades" }, { rank: "K", suit: "hearts" }] },
+        { label: "Gewone 21", cards: [{ rank: "7", suit: "clubs" }, { rank: "5", suit: "diamonds" }, { rank: "9", suit: "spades" }] },
+      ],
+      description: "Allebei 21 punten, maar alleen aas + heer op de eerste twee kaarten is blackjack. Die hand is sterker.",
+    },
     description: "Aas + een kaart met waarde 10 op je eerste twee kaarten.",
   },
   {
     title: "Bust",
+    example: {
+      groups: [
+        { label: "10 + 8 + 6 = 24 punten", cards: [{ rank: "10", suit: "clubs" }, { rank: "8", suit: "diamonds" }, { rank: "6", suit: "spades" }] },
+      ],
+      description: "Met 18 neem je nog een kaart. Deze 6 brengt je boven 21: bust.",
+    },
     description: "Je totaal komt boven de 21 uit, je verliest meteen.",
   },
   {
     title: "Push",
+    example: {
+      groups: [
+        { label: "Jij: 18 punten", cards: [{ rank: "10", suit: "hearts" }, { rank: "8", suit: "clubs" }] },
+        { label: "Dealer: 18 punten", cards: [{ rank: "K", suit: "spades" }, { rank: "8", suit: "diamonds" }] },
+      ],
+      description: "Jullie eindigen allebei op 18. Je krijgt je inzet terug.",
+    },
     description: "Gelijkspel met de dealer: je verliest je inzet niet.",
   },
   {
     title: "Soft hand",
+    example: {
+      groups: [
+        { label: "Soft 17: 11 + 6", cards: [{ rank: "A", suit: "hearts" }, { rank: "6", suit: "clubs" }] },
+        { label: "Na een 9: 1 + 6 + 9 = 16", cards: [{ rank: "A", suit: "hearts" }, { rank: "6", suit: "clubs" }, { rank: "9", suit: "diamonds" }] },
+      ],
+      description: "Eerst telt de aas als 11. Na de 9 telt hij als 1 om onder 21 te blijven. De hand is dan niet meer soft.",
+    },
     description: "Een hand met een aas dat als 11 telt.",
   },
 ];
@@ -103,6 +145,7 @@ const WIN_RULES = [
 function ExpandableItem({
   title,
   children,
+  example,
   className,
   titleClassName = "font-semibold text-white",
   bodyClassName = "mt-2 text-gray-300",
@@ -131,7 +174,14 @@ function ExpandableItem({
         }`}
       >
         <div className="overflow-hidden">
-          <div className={bodyClassName}>{children}</div>
+          <div className={bodyClassName}>
+            {children}
+            {example && (
+              <div className="mt-4 border-t border-line pt-4">
+                <RuleExample title="Kaartvoorbeeld" groupLayout="paired" {...example} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -218,6 +268,7 @@ export default function BlackjackBasicsPage() {
                     <ExpandableItem
                       key={action.title}
                       title={action.title}
+                      example={action.example}
                       className="surface-inset px-4 py-3"
                     >
                       {action.description}
@@ -272,6 +323,7 @@ export default function BlackjackBasicsPage() {
                       <ExpandableItem
                         key={term.title}
                         title={term.title}
+                        example={term.example}
                         className="surface-inset px-4 py-3"
                       >
                         {term.description}
